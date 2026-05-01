@@ -12,3 +12,5 @@ services:
         value: visaglobal2026
       - key: WA_TOKEN
         value: PENDIENTE_TOKEN_META
+      - key: PHONE_NUMBER
+        value: "593994442512"
