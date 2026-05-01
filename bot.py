@@ -3,6 +3,8 @@ from fastapi.responses import PlainTextResponse
 import anthropic
 import json
 import os
+import asyncio
+import httpx
 from system_prompt import SYSTEM_PROMPT
 
 app = FastAPI()
@@ -10,11 +12,13 @@ app = FastAPI()
 ANTHROPIC_KEY = os.getenv("ANTHROPIC_API_KEY")
 VERIFY_TOKEN = os.getenv("VERIFY_TOKEN", "visaglobal2026")
 WA_TOKEN = os.getenv("WA_TOKEN", "")
+RENDER_URL = os.getenv("RENDER_URL", "https://visa-bot-seqw.onrender.com")
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
-# Almacena conversaciones en memoria (key: numero de telefono)
+# Historial de conversaciones en memoria (por número de teléfono)
 conversations = {}
+
 
 def get_ai_response(phone: str, user_message: str) -> str:
     if phone not in conversations:
@@ -22,12 +26,12 @@ def get_ai_response(phone: str, user_message: str) -> str:
 
     conversations[phone].append({"role": "user", "content": user_message})
 
-    # Limitar historial a últimos 20 mensajes para no exceder tokens
-    history = conversations[phone][-20:]
+    # Últimos 30 mensajes para mantener contexto amplio
+    history = conversations[phone][-30:]
 
     response = client.messages.create(
         model="claude-haiku-4-5-20251001",
-        max_tokens=500,
+        max_tokens=600,
         system=SYSTEM_PROMPT,
         messages=history
     )
@@ -51,6 +55,28 @@ def send_whatsapp_message(to: str, message: str, phone_number_id: str):
         "text": {"body": message}
     }
     requests.post(url, headers=headers, json=payload)
+
+
+# Keep-alive: se auto-pingea cada 10 minutos para no dormirse en Render free
+async def keep_alive():
+    await asyncio.sleep(60)  # esperar 1 min antes del primer ping
+    while True:
+        try:
+            async with httpx.AsyncClient(timeout=10) as c:
+                await c.get(f"{RENDER_URL}/ping")
+        except Exception:
+            pass
+        await asyncio.sleep(600)  # cada 10 minutos
+
+
+@app.on_event("startup")
+async def startup_event():
+    asyncio.create_task(keep_alive())
+
+
+@app.get("/ping")
+async def ping():
+    return {"status": "ok"}
 
 
 @app.get("/webhook")
@@ -87,7 +113,7 @@ async def receive_message(request: Request):
 
 @app.get("/")
 async def root():
-    return {"status": "Asesoria Visa Global Bot activo", "version": "1.0"}
+    return {"status": "Asesoria Visa Global Bot activo", "version": "2.0"}
 
 
 @app.post("/test")
@@ -97,3 +123,10 @@ async def test_bot(request: Request):
     phone = data.get("phone", "test_user")
     reply = get_ai_response(phone, message)
     return {"reply": reply}
+
+
+@app.delete("/reset/{phone}")
+async def reset_conversation(phone: str):
+    if phone in conversations:
+        del conversations[phone]
+    return {"status": "conversacion reiniciada", "phone": phone}
