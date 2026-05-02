@@ -33,7 +33,7 @@ app = FastAPI()
 ANTHROPIC_KEY = os.getenv("ANTHROPIC_API_KEY")
 VERIFY_TOKEN = os.getenv("VERIFY_TOKEN", "visaglobal2026")
 WA_TOKEN = os.getenv("WA_TOKEN", "")
-RENDER_URL = os.getenv("RENDER_URL", "https://visa-bot-seqw.onrender.com")
+RENDER_URL = os.getenv("RENDER_URL", "https://visa-global-bot.onrender.com")
 ADMIN_PHONE = os.getenv("PHONE_NUMBER", "593994442512")
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
