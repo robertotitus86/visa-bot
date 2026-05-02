@@ -4,7 +4,7 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn bot:app --host 0.0.0.0 --port $PORT
+    startCommand: python -m uvicorn bot:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: ANTHROPIC_API_KEY
         value: CONFIGURAR_EN_RENDER_DASHBOARD
