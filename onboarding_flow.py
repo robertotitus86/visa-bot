@@ -1,0 +1,184 @@
+"""
+Secuencias automáticas post-pago y seguimiento de leads.
+Todo se activa sin intervención de Roberto.
+"""
+import os
+from followup_manager import programar_followup, cancelar_followups_pendientes
+
+PORTAL_URL  = "https://www.asesoriadevisadosglobal.com/portal.html"
+ADMIN_PHONE = os.getenv("PHONE_NUMBER", "593994442512")
+
+
+# ── MENSAJES POST-PAGO ────────────────────────────────────────────────────────
+
+def mensajes_bienvenida(nombre: str, paquete: str, precio: int) -> list[str]:
+    """Secuencia inmediata al confirmar el pago."""
+    nombre_corto = nombre.split()[0] if nombre else "Hola"
+    return [
+        f"Pago confirmado. Bienvenido/a, {nombre_corto}.\n\n"
+        f"Tu {paquete} por ${precio} está activo. Soy Roberto y voy a trabajar tu caso personalmente.\n\n"
+        f"El proceso de visa tiene altas probabilidades de éxito cuando se hace bien desde el principio — eso es exactamente lo que vamos a hacer.",
+
+        f"El siguiente paso es completar tu expediente.\n\n"
+        f"Toma unos 10 minutos. Puedes hacerlo ahora o cuando tengas un momento tranquilo:\n\n"
+        f"{PORTAL_URL}\n\n"
+        f"Selecciona tu tipo de visa y completa los datos. Al final podrás subir tus documentos.",
+
+        f"Una vez que envíes el formulario, recibirás confirmación y yo comenzaré a trabajar tu caso.\n\n"
+        f"Si tienes alguna duda en el proceso, escríbeme aquí.",
+    ]
+
+
+def mensaje_recordatorio_formulario(nombre: str, horas: int) -> str:
+    nombre_corto = nombre.split()[0] if nombre else "Hola"
+    if horas == 24:
+        return (
+            f"Hola {nombre_corto}, quería recordarte que tu expediente está pendiente.\n\n"
+            f"Sin los datos no puedo comenzar a trabajar tu caso. Solo toma 10 minutos:\n\n"
+            f"{PORTAL_URL}"
+        )
+    return (
+        f"{nombre_corto}, es el último recordatorio sobre tu expediente.\n\n"
+        f"Si tienes algún problema para completarlo o prefieres que lo hagamos juntos, dime y coordinamos.\n\n"
+        f"{PORTAL_URL}"
+    )
+
+
+def mensaje_confirmacion_expediente(nombre: str) -> str:
+    nombre_corto = nombre.split()[0] if nombre else "Hola"
+    return (
+        f"Expediente recibido. Gracias, {nombre_corto}.\n\n"
+        f"Voy a revisar toda tu documentación y me pongo en contacto contigo en las próximas 24 horas con el plan de acción para tu visa."
+    )
+
+
+def notificacion_venta_admin(nombre: str, telefono: str, paquete: str, precio: int, tipo_visa: str) -> str:
+    return (
+        f"VENTA CERRADA\n"
+        f"{'─' * 30}\n"
+        f"Cliente: {nombre}\n"
+        f"Tel: +{telefono}\n"
+        f"Servicio: {tipo_visa}\n"
+        f"Paquete: {paquete} — ${precio}\n"
+        f"Estado: Pago confirmado. Esperando expediente."
+    )
+
+
+# ── MENSAJES FOLLOW-UP DE LEADS (no han pagado) ───────────────────────────────
+
+FOLLOWUP_LEAD = {
+    "2h": (
+        "¿Pudiste ver la información sobre tu visa?\n\n"
+        "Estoy aquí para resolver cualquier duda antes de que tomes una decisión."
+    ),
+    "24h": (
+        "Entiendo que el día a día no da mucho tiempo.\n\n"
+        "Si en algún momento tienes 5 minutos, cuéntame qué tipo de visa necesitas y te doy un diagnóstico rápido y gratuito de tu caso."
+    ),
+    "72h": (
+        "Última vez que te escribo para no molestarte.\n\n"
+        "Cuando decidas tramitar tu visa, aquí estaré. Los mejores casos son los que se preparan bien desde el principio.\n\n"
+        "Éxitos."
+    ),
+}
+
+
+# ── MENSAJES POST-SERVICIO ────────────────────────────────────────────────────
+
+def mensaje_solicitud_testimonio(nombre: str) -> str:
+    nombre_corto = nombre.split()[0] if nombre else "Hola"
+    return (
+        f"Hola {nombre_corto}, espero que todo vaya bien con tu proceso.\n\n"
+        f"¿Podrías contarme cómo fue tu experiencia trabajando conmigo? Tu opinión ayuda a más personas a tomar la decisión correcta.\n\n"
+        f"Solo una o dos líneas es suficiente."
+    )
+
+
+def mensaje_referido(nombre: str) -> str:
+    nombre_corto = nombre.split()[0] if nombre else "Hola"
+    return (
+        f"Hola {nombre_corto}, ¿cómo estás?\n\n"
+        f"Si conoces a alguien que esté pensando en tramitar su visa, me encantaría ayudarle.\n\n"
+        f"Por cada persona que nos refieras y contrate el servicio, te envío un bono de $20. Sin límite de referidos."
+    )
+
+
+def mensaje_upsell_6meses(nombre: str) -> str:
+    nombre_corto = nombre.split()[0] if nombre else "Hola"
+    return (
+        f"Hola {nombre_corto}, han pasado unos meses.\n\n"
+        f"¿Estás planeando algún otro viaje? Si necesitas otra visa o quieres renovar, recuerda que como cliente anterior tienes prioridad y descuento especial."
+    )
+
+
+# ── ACTIVAR SECUENCIAS ────────────────────────────────────────────────────────
+
+def activar_onboarding_post_pago(telefono: str, nombre: str, paquete: str,
+                                  precio: int, tipo_visa: str, phone_number_id: str):
+    """
+    Programa todos los mensajes automáticos post-pago.
+    Los mensajes inmediatos se devuelven para enviar ahora.
+    Los recordatorios se programan en Google Sheets.
+    """
+    # Programar recordatorios de formulario (si no lo completan)
+    programar_followup(
+        telefono=telefono,
+        phone_number_id=phone_number_id,
+        tipo="recordatorio_formulario_24h",
+        mensaje=mensaje_recordatorio_formulario(nombre, 24),
+        delay_horas=24,
+        contexto={"nombre": nombre, "paquete": paquete},
+    )
+    programar_followup(
+        telefono=telefono,
+        phone_number_id=phone_number_id,
+        tipo="recordatorio_formulario_48h",
+        mensaje=mensaje_recordatorio_formulario(nombre, 48),
+        delay_horas=48,
+        contexto={"nombre": nombre, "paquete": paquete},
+    )
+    # Programar post-servicio (30 días después)
+    programar_followup(
+        telefono=telefono,
+        phone_number_id=phone_number_id,
+        tipo="solicitud_testimonio",
+        mensaje=mensaje_solicitud_testimonio(nombre),
+        delay_horas=720,  # 30 días
+        contexto={"nombre": nombre},
+    )
+    programar_followup(
+        telefono=telefono,
+        phone_number_id=phone_number_id,
+        tipo="referido",
+        mensaje=mensaje_referido(nombre),
+        delay_horas=744,  # 31 días
+        contexto={"nombre": nombre},
+    )
+    programar_followup(
+        telefono=telefono,
+        phone_number_id=phone_number_id,
+        tipo="upsell_6meses",
+        mensaje=mensaje_upsell_6meses(nombre),
+        delay_horas=4320,  # 6 meses
+        contexto={"nombre": nombre},
+    )
+
+    return mensajes_bienvenida(nombre, paquete, precio)
+
+
+def activar_followup_lead(telefono: str, nombre: str, phone_number_id: str):
+    """Programa la secuencia de seguimiento para leads que no responden."""
+    for delay_key, delay_horas in [("2h", 2), ("24h", 24), ("72h", 72)]:
+        programar_followup(
+            telefono=telefono,
+            phone_number_id=phone_number_id,
+            tipo=f"lead_followup_{delay_key}",
+            mensaje=FOLLOWUP_LEAD[delay_key],
+            delay_horas=delay_horas,
+            contexto={"nombre": nombre},
+        )
+
+
+def cancelar_followups_lead(telefono: str):
+    """Cancela los follow-ups de lead cuando el cliente ya pagó."""
+    cancelar_followups_pendientes(telefono, tipo_prefijo="lead_followup")
