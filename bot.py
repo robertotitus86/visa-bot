@@ -20,6 +20,13 @@ from schengen_flow import (
     cancelar_sesion_schengen,
     iniciar_sesion_schengen,
 )
+from uk_flow import (
+    esta_en_sesion_uk,
+    procesar_mensaje_uk,
+    obtener_reporte_uk,
+    cancelar_sesion_uk,
+    iniciar_sesion_uk,
+)
 
 app = FastAPI()
 
@@ -42,10 +49,18 @@ DS160_TRIGGERS = [
 SCHENGEN_TRIGGERS = [
     "schengen", "visa europa", "visa española", "visa spain",
     "visa españa", "formulario europa", "datos para europa",
-    "visa reino unido", "datos schengen", "formulario schengen",
+    "datos schengen", "formulario schengen", "visa france",
+    "visa francia", "visa italia", "visa alemania", "visa holanda",
     "datos para la visa", "llenar formulario", "recopilar datos",
     "formulario de visa", "empezar formulario", "quiero llenar",
     "ayuda con el formulario",
+]
+
+UK_TRIGGERS = [
+    "reino unido", "uk", "united kingdom", "visa uk",
+    "visa inglaterra", "visa london", "visa londres",
+    "visa british", "formulario uk", "datos reino unido",
+    "datos para reino unido", "standard visitor",
 ]
 
 
@@ -92,6 +107,11 @@ def is_ds160_trigger(text: str) -> bool:
 def is_schengen_trigger(text: str) -> bool:
     t = text.lower().strip()
     return any(trigger in t for trigger in SCHENGEN_TRIGGERS)
+
+
+def is_uk_trigger(text: str) -> bool:
+    t = text.lower().strip()
+    return any(trigger in t for trigger in UK_TRIGGERS)
 
 
 async def keep_alive():
@@ -154,6 +174,10 @@ async def receive_message(request: Request):
                     cancelar_sesion_schengen(from_number)
                     send_whatsapp_message(from_number, "Formulario cancelado. Escribe 'Schengen' o 'Europa' cuando quieras retomarlo. ¿En qué más te ayudo?", phone_number_id)
                     continue
+                if esta_en_sesion_uk(from_number):
+                    cancelar_sesion_uk(from_number)
+                    send_whatsapp_message(from_number, "Formulario cancelado. Escribe 'Reino Unido' cuando quieras retomarlo. ¿En qué más te ayudo?", phone_number_id)
+                    continue
 
             # Si está en sesión DS-160 activa
             if esta_en_sesion_ds160(from_number):
@@ -167,6 +191,27 @@ async def receive_message(request: Request):
                         from_number,
                         "✅ *¡Perfecto! Tengo todos los datos del DS-160.*\n\n"
                         "Roberto ya los recibió y coordinará contigo el llenado del formulario.\n\n"
+                        "¿Tienes alguna otra consulta?",
+                        phone_number_id
+                    )
+                else:
+                    for r in respuestas:
+                        if r:
+                            send_whatsapp_message(from_number, r, phone_number_id)
+                continue
+
+            # Si está en sesión UK activa
+            if esta_en_sesion_uk(from_number):
+                respuestas = procesar_mensaje_uk(from_number, text)
+                if respuestas is None:
+                    bloques = obtener_reporte_uk(from_number)
+                    if bloques:
+                        for bloque in bloques:
+                            send_whatsapp_message(ADMIN_PHONE, bloque, phone_number_id)
+                    send_whatsapp_message(
+                        from_number,
+                        "✅ *¡Perfecto! Tengo todos tus datos para la visa del Reino Unido.*\n\n"
+                        "Roberto ya los recibió y se pondrá en contacto para continuar con el expediente.\n\n"
                         "¿Tienes alguna otra consulta?",
                         phone_number_id
                     )
@@ -203,7 +248,13 @@ async def receive_message(request: Request):
                 send_whatsapp_message(from_number, primer_mensaje, phone_number_id)
                 continue
 
-            # Activar flujo Schengen (Europa/España/UK)
+            # Activar flujo UK (Reino Unido)
+            if is_uk_trigger(text_lower):
+                primer_mensaje = iniciar_sesion_uk(from_number)
+                send_whatsapp_message(from_number, primer_mensaje, phone_number_id)
+                continue
+
+            # Activar flujo Schengen (Europa/España/Francia/etc.)
             if is_schengen_trigger(text_lower):
                 primer_mensaje = iniciar_sesion_schengen(from_number)
                 send_whatsapp_message(from_number, primer_mensaje, phone_number_id)
@@ -220,7 +271,7 @@ async def receive_message(request: Request):
 
 @app.get("/")
 async def root():
-    return {"status": "Asesoria Visa Global Bot activo", "version": "4.0"}
+    return {"status": "Asesoria Visa Global Bot activo", "version": "5.0"}
 
 
 @app.post("/test")
