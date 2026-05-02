@@ -271,3 +271,11 @@ def obtener_todos_los_datos():
 def cancelar_sesion(phone):
     if phone in sesiones:
         del sesiones[phone]
+
+
+def obtener_datos_sesion(phone):
+    """Retorna (personas, datos) de la sesion completada."""
+    s = sesiones.get(phone)
+    if s and s.fase == "completo":
+        return s.personas, s.datos
+    return [], []

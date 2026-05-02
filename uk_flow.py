@@ -223,3 +223,10 @@ def obtener_reporte_uk(phone):
 def cancelar_sesion_uk(phone):
     if phone in sesiones_uk:
         del sesiones_uk[phone]
+
+
+def obtener_datos_sesion_uk(phone):
+    s = sesiones_uk.get(phone)
+    if s and s.fase == "completo":
+        return s.personas, s.datos
+    return [], []

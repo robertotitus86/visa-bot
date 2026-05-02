@@ -224,3 +224,10 @@ def obtener_reporte_schengen(phone):
 def cancelar_sesion_schengen(phone):
     if phone in sesiones_schengen:
         del sesiones_schengen[phone]
+
+
+def obtener_datos_sesion_schengen(phone):
+    s = sesiones_schengen.get(phone)
+    if s and s.fase == "completo":
+        return s.personas, s.datos
+    return [], []

@@ -6,26 +6,19 @@ import os
 import asyncio
 import httpx
 from system_prompt import SYSTEM_PROMPT
+from analisis_cliente import analizar_sesion_completa
+from sheets_integration import guardar_en_sheets
 from ds160_flow import (
-    esta_en_sesion_ds160,
-    procesar_mensaje_ds160,
-    obtener_reporte,
-    cancelar_sesion,
-    iniciar_sesion_ds160,
+    esta_en_sesion_ds160, procesar_mensaje_ds160, obtener_reporte,
+    cancelar_sesion, iniciar_sesion_ds160, obtener_datos_sesion,
 )
 from schengen_flow import (
-    esta_en_sesion_schengen,
-    procesar_mensaje_schengen,
-    obtener_reporte_schengen,
-    cancelar_sesion_schengen,
-    iniciar_sesion_schengen,
+    esta_en_sesion_schengen, procesar_mensaje_schengen, obtener_reporte_schengen,
+    cancelar_sesion_schengen, iniciar_sesion_schengen, obtener_datos_sesion_schengen,
 )
 from uk_flow import (
-    esta_en_sesion_uk,
-    procesar_mensaje_uk,
-    obtener_reporte_uk,
-    cancelar_sesion_uk,
-    iniciar_sesion_uk,
+    esta_en_sesion_uk, procesar_mensaje_uk, obtener_reporte_uk,
+    cancelar_sesion_uk, iniciar_sesion_uk, obtener_datos_sesion_uk,
 )
 
 app = FastAPI()
@@ -97,6 +90,40 @@ def send_whatsapp_message(to: str, message: str, phone_number_id: str):
         "text": {"body": message}
     }
     requests.post(url, headers=headers, json=payload)
+
+
+async def completar_formulario(from_number: str, phone_number_id: str,
+                               personas: list, datos: list, tipo_visa: str,
+                               bloques_reporte: list):
+    """Envía reporte, análisis IA y guarda en Sheets al completar un formulario."""
+    # 1. Reporte raw al admin
+    for bloque in bloques_reporte:
+        send_whatsapp_message(ADMIN_PHONE, bloque, phone_number_id)
+
+    # 2. Análisis IA (no bloquea el flujo si falla)
+    try:
+        analisis_list = analizar_sesion_completa(personas, datos, tipo_visa)
+        for analisis in analisis_list:
+            send_whatsapp_message(ADMIN_PHONE, analisis, phone_number_id)
+    except Exception as e:
+        print(f"Error análisis IA: {e}")
+        analisis_list = []
+
+    # 3. Guardar en Google Sheets
+    try:
+        guardar_en_sheets(personas, datos, tipo_visa, from_number, analisis_list)
+    except Exception as e:
+        print(f"Error Sheets: {e}")
+
+    # 4. Confirmación al cliente
+    send_whatsapp_message(
+        from_number,
+        f"✅ *¡Perfecto! Todos los datos de tu visa {tipo_visa} recibidos.*\n\n"
+        f"Roberto ya tiene tu expediente y el análisis de tu caso. "
+        f"Se pondrá en contacto contigo a la brevedad.\n\n"
+        f"¿Tienes alguna otra consulta?",
+        phone_number_id
+    )
 
 
 def is_ds160_trigger(text: str) -> bool:
@@ -183,17 +210,9 @@ async def receive_message(request: Request):
             if esta_en_sesion_ds160(from_number):
                 respuestas = procesar_mensaje_ds160(from_number, text)
                 if respuestas is None:
-                    bloques = obtener_reporte(from_number)
-                    if bloques:
-                        for bloque in bloques:
-                            send_whatsapp_message(ADMIN_PHONE, bloque, phone_number_id)
-                    send_whatsapp_message(
-                        from_number,
-                        "✅ *¡Perfecto! Tengo todos los datos del DS-160.*\n\n"
-                        "Roberto ya los recibió y coordinará contigo el llenado del formulario.\n\n"
-                        "¿Tienes alguna otra consulta?",
-                        phone_number_id
-                    )
+                    bloques = obtener_reporte(from_number) or []
+                    personas, datos = obtener_datos_sesion(from_number)
+                    await completar_formulario(from_number, phone_number_id, personas, datos, "USA DS-160", bloques)
                 else:
                     for r in respuestas:
                         if r:
@@ -204,17 +223,9 @@ async def receive_message(request: Request):
             if esta_en_sesion_uk(from_number):
                 respuestas = procesar_mensaje_uk(from_number, text)
                 if respuestas is None:
-                    bloques = obtener_reporte_uk(from_number)
-                    if bloques:
-                        for bloque in bloques:
-                            send_whatsapp_message(ADMIN_PHONE, bloque, phone_number_id)
-                    send_whatsapp_message(
-                        from_number,
-                        "✅ *¡Perfecto! Tengo todos tus datos para la visa del Reino Unido.*\n\n"
-                        "Roberto ya los recibió y se pondrá en contacto para continuar con el expediente.\n\n"
-                        "¿Tienes alguna otra consulta?",
-                        phone_number_id
-                    )
+                    bloques = obtener_reporte_uk(from_number) or []
+                    personas, datos = obtener_datos_sesion_uk(from_number)
+                    await completar_formulario(from_number, phone_number_id, personas, datos, "Reino Unido", bloques)
                 else:
                     for r in respuestas:
                         if r:
@@ -225,17 +236,9 @@ async def receive_message(request: Request):
             if esta_en_sesion_schengen(from_number):
                 respuestas = procesar_mensaje_schengen(from_number, text)
                 if respuestas is None:
-                    bloques = obtener_reporte_schengen(from_number)
-                    if bloques:
-                        for bloque in bloques:
-                            send_whatsapp_message(ADMIN_PHONE, bloque, phone_number_id)
-                    send_whatsapp_message(
-                        from_number,
-                        "✅ *¡Perfecto! Tengo todos tus datos para la visa Schengen.*\n\n"
-                        "Roberto ya los recibió y se pondrá en contacto para continuar con el expediente.\n\n"
-                        "¿Tienes alguna otra consulta?",
-                        phone_number_id
-                    )
+                    bloques = obtener_reporte_schengen(from_number) or []
+                    personas, datos = obtener_datos_sesion_schengen(from_number)
+                    await completar_formulario(from_number, phone_number_id, personas, datos, "Schengen", bloques)
                 else:
                     for r in respuestas:
                         if r:
