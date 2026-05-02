@@ -10,9 +10,15 @@ PAYPAL_MODE          = os.getenv("PAYPAL_MODE", "live")  # "sandbox" para prueba
 BASE_URL = "https://api.paypal.com" if PAYPAL_MODE == "live" else "https://api.sandbox.paypal.com"
 
 PAQUETES = {
-    "ESENCIAL":     {"precio": 97,  "nombre": "Paquete Esencial — Visa Global"},
-    "PROFESIONAL":  {"precio": 197, "nombre": "Paquete Profesional — Visa Global"},
-    "VIP":          {"precio": 397, "nombre": "Paquete VIP — Visa Global"},
+    "ESENCIAL":     {"precio": 97,  "nombre": "Paquete Esencial — Asesoría Visa Global"},
+    "PROFESIONAL":  {"precio": 197, "nombre": "Paquete Profesional — Asesoría Visa Global"},
+    "VIP":          {"precio": 397, "nombre": "Paquete VIP — Asesoría Visa Global"},
+    "MEXICO":       {"precio": 79,  "nombre": "Asesoría Visa México — Visa Global"},
+    "RENOVACION":   {"precio": 79,  "nombre": "Renovación Visa USA — Visa Global"},
+    "REVISION":     {"precio": 49,  "nombre": "Revisión Exprés de Documentos — Visa Global"},
+    "URGENTE_ESENCIAL":    {"precio": 147, "nombre": "Paquete Esencial Urgente — Visa Global"},
+    "URGENTE_PROFESIONAL": {"precio": 247, "nombre": "Paquete Profesional Urgente — Visa Global"},
+    "URGENTE_VIP":         {"precio": 447, "nombre": "Paquete VIP Urgente — Visa Global"},
 }
 
 
