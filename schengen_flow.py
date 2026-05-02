@@ -1,32 +1,29 @@
-from ds160_preguntas import PREGUNTAS, GRUPOS
+from schengen_preguntas import PREGUNTAS_SCHENGEN, GRUPOS_SCHENGEN
 from datetime import datetime
 
-# Sesiones activas: phone -> DS160Session
-sesiones = {}
-
-ADMIN_PHONE = "593994442512"  # Roberto recibe el reporte aquí
+sesiones_schengen = {}
 
 
 def get_grupo_info(grupo_id):
-    for g in GRUPOS:
+    for g in GRUPOS_SCHENGEN:
         if g["id"] == grupo_id:
             return g
     return None
 
 
-class DS160Session:
+class SchengenSession:
     def __init__(self, phone):
         self.phone = phone
-        self.fase = "inicio"          # inicio → nombres_personas → recopilando → completo
-        self.personas = []            # ["Juan García", "Ana García", ...]
-        self.persona_idx = 0          # persona actual
-        self.pregunta_idx = 0         # pregunta actual dentro de PREGUNTAS
-        self.datos = []               # [{"campo": "valor", ...}, ...]
+        self.fase = "inicio"
+        self.personas = []
+        self.persona_idx = 0
+        self.pregunta_idx = 0
+        self.datos = []
         self.ultimo_grupo = None
         self.num_personas_esperado = 0
 
     def total_preguntas(self):
-        return len(PREGUNTAS)
+        return len(PREGUNTAS_SCHENGEN)
 
     def persona_actual(self):
         if self.persona_idx < len(self.personas):
@@ -42,8 +39,8 @@ class DS160Session:
         return f"{barra} {pct}%  (pregunta {p}/{t})"
 
     def get_pregunta(self):
-        if self.pregunta_idx < len(PREGUNTAS):
-            return PREGUNTAS[self.pregunta_idx]
+        if self.pregunta_idx < len(PREGUNTAS_SCHENGEN):
+            return PREGUNTAS_SCHENGEN[self.pregunta_idx]
         return None
 
     def guardar_respuesta(self, respuesta):
@@ -53,43 +50,35 @@ class DS160Session:
         self.pregunta_idx += 1
 
     def siguiente_mensaje(self, respuesta_anterior=None):
-        """Devuelve el próximo mensaje a enviar al usuario."""
-
-        # ── FASE INICIO ──────────────────────────────────────────
         if self.fase == "inicio":
             self.fase = "cuantos"
             return (
-                "¡Hola! Voy a ayudarte a recopilar toda la información para el formulario *DS-160* de visa USA. "
-                "Es más fácil de lo que parece — lo hacemos en partes pequeñas. 😊\n\n"
-                "¿*Cuántas personas* van a viajar? (incluyéndote a ti)\n\n"
-                "_(Ej: 4)_"
+                "Perfecto, voy a recopilar los datos para el formulario de *Visa Schengen*. "
+                "Lo hacemos en partes, es sencillo. 😊\n\n"
+                "¿*Cuántas personas* van a solicitar la visa?\n\n_(Ej: 2)_"
             )
 
-        # ── FASE: CUÁNTAS PERSONAS ────────────────────────────────
         if self.fase == "cuantos":
             try:
                 n = int(respuesta_anterior.strip())
                 if n < 1 or n > 10:
-                    return "Por favor escribe un número entre 1 y 10. ¿Cuántas personas van a viajar?"
+                    return "Por favor escribe un número entre 1 y 10. ¿Cuántas personas?"
                 self.num_personas_esperado = n
                 self.fase = "nombres"
                 self.personas_temp = []
                 return (
-                    f"Perfecto, son *{n} persona{'s' if n > 1 else ''}*. "
-                    f"Voy a recopilar la información de cada una.\n\n"
-                    f"Dime el *nombre completo de la persona 1* (la que solicita la visa):"
+                    f"Perfecto, son *{n} persona{'s' if n > 1 else ''}*.\n\n"
+                    f"Dime el *nombre completo de la persona 1*:"
                 )
             except Exception:
-                return "Escribe solo el número de personas. ¿Cuántas van a viajar?"
+                return "Escribe solo el número. ¿Cuántas personas van a solicitar la visa?"
 
-        # ── FASE: RECOPILAR NOMBRES ───────────────────────────────
         if self.fase == "nombres":
             self.personas_temp.append(respuesta_anterior.strip())
             if len(self.personas_temp) < self.num_personas_esperado:
                 siguiente = len(self.personas_temp) + 1
                 return f"Anotado ✓\n\n¿Nombre completo de la *persona {siguiente}*?"
             else:
-                # Tenemos todos los nombres
                 self.personas = self.personas_temp
                 self.datos = [{} for _ in self.personas]
                 self.fase = "recopilando"
@@ -99,30 +88,27 @@ class DS160Session:
                 lista = "\n".join([f"  {i+1}. {p}" for i, p in enumerate(self.personas)])
                 return (
                     f"Perfecto. Voy a recopilar datos de:\n{lista}\n\n"
-                    f"Empezamos con *{self.personas[0]}*. ¡Vamos! 🚀\n\n"
+                    f"Empezamos con *{self.personas[0]}*. 🚀\n\n"
                     + self._siguiente_pregunta()
                 )
 
-        # ── FASE: RECOPILANDO ─────────────────────────────────────
         if self.fase == "recopilando":
             if respuesta_anterior is not None:
                 self.guardar_respuesta(respuesta_anterior.strip())
 
-            # ¿Terminó esta persona?
-            if self.pregunta_idx >= len(PREGUNTAS):
+            if self.pregunta_idx >= len(PREGUNTAS_SCHENGEN):
                 self.persona_idx += 1
                 self.pregunta_idx = 0
                 self.ultimo_grupo = None
 
-                # ¿Terminaron todas las personas?
                 if self.persona_idx >= len(self.personas):
                     self.fase = "completo"
-                    return None  # señal de completado
+                    return None
 
                 nombre_sig = self.personas[self.persona_idx]
                 return (
-                    f"✅ *¡Listo con {self.personas[self.persona_idx - 1]}!*\n\n"
-                    f"Ahora vamos con *{nombre_sig}*. Mismas preguntas, diferente persona.\n\n"
+                    f"✅ *Listo con {self.personas[self.persona_idx - 1]}!*\n\n"
+                    f"Ahora vamos con *{nombre_sig}*.\n\n"
                     + self._siguiente_pregunta()
                 )
 
@@ -136,8 +122,6 @@ class DS160Session:
             return None
 
         msgs = []
-
-        # ¿Cambió de grupo? Mostrar cabecera del grupo
         grupo_actual = pregunta["grupo"]
         if grupo_actual != self.ultimo_grupo:
             self.ultimo_grupo = grupo_actual
@@ -150,22 +134,15 @@ class DS160Session:
                     f"_{info['intro']}_"
                 )
 
-        # Progreso
-        progreso_txt = self.progreso()
-
-        # La pregunta
         nombre = self.persona_actual()
         pregunta_txt = pregunta["texto"]
-
-        msgs.append(f"📋 {progreso_txt}\n\n*{nombre}* — {pregunta_txt}")
-
+        msgs.append(f"📋 {self.progreso()}\n\n*{nombre}* — {pregunta_txt}")
         return "\n\n".join(msgs)
 
     def generar_reporte(self):
-        """Genera el reporte final formateado para Roberto."""
         ahora = datetime.now().strftime("%d/%m/%Y %H:%M")
         lineas = [
-            f"📋 *DS-160 — DATOS COMPLETOS*",
+            f"📋 *SCHENGEN — DATOS COMPLETOS*",
             f"📅 {ahora}",
             f"👥 {len(self.personas)} persona(s)",
             f"{'═' * 35}",
@@ -178,7 +155,7 @@ class DS160Session:
             lineas.append(f"{'━' * 35}")
 
             grupo_anterior = None
-            for pregunta in PREGUNTAS:
+            for pregunta in PREGUNTAS_SCHENGEN:
                 grupo = pregunta["grupo"]
                 if grupo != grupo_anterior:
                     info = get_grupo_info(grupo)
@@ -190,11 +167,10 @@ class DS160Session:
                 lineas.append(f"• {campo}: {valor}")
 
         lineas.append(f"\n{'═' * 35}")
-        lineas.append(f"✅ Formulario completado. Listo para ingresar al DS-160.")
+        lineas.append(f"✅ Datos Schengen completados.")
         return "\n".join(lineas)
 
     def reporte_por_bloques(self):
-        """Divide el reporte en partes de max 3000 chars para WhatsApp."""
         reporte_completo = self.generar_reporte()
         bloques = []
         while len(reporte_completo) > 3000:
@@ -208,66 +184,43 @@ class DS160Session:
         return bloques
 
 
-def procesar_mensaje_ds160(phone, mensaje):
-    """
-    Retorna lista de mensajes a enviar.
-    Si retorna None, la sesión terminó.
-    """
-    session = sesiones.get(phone)
+def esta_en_sesion_schengen(phone):
+    s = sesiones_schengen.get(phone)
+    return s is not None and s.fase != "completo"
 
-    # Iniciar nueva sesión
+
+def iniciar_sesion_schengen(phone):
+    session = SchengenSession(phone)
+    sesiones_schengen[phone] = session
+    return session.siguiente_mensaje()
+
+
+def procesar_mensaje_schengen(phone, mensaje):
+    session = sesiones_schengen.get(phone)
     if session is None:
-        session = DS160Session(phone)
-        sesiones[phone] = session
-
-    respuesta = mensaje if session.fase not in ("inicio",) else None
+        session = SchengenSession(phone)
+        sesiones_schengen[phone] = session
 
     if session.fase == "inicio":
-        msg = session.siguiente_mensaje()
-        return [msg]
+        return [session.siguiente_mensaje()]
 
     msg = session.siguiente_mensaje(mensaje)
 
     if session.fase == "completo":
-        return None  # señal de que completó
+        return None
 
     if msg:
         return [msg]
-
     return []
 
 
-def esta_en_sesion_ds160(phone):
-    s = sesiones.get(phone)
-    return s is not None and s.fase != "completo"
-
-
-def iniciar_sesion_ds160(phone):
-    session = DS160Session(phone)
-    sesiones[phone] = session
-    return session.siguiente_mensaje()
-
-
-def obtener_reporte(phone):
-    s = sesiones.get(phone)
+def obtener_reporte_schengen(phone):
+    s = sesiones_schengen.get(phone)
     if s and s.fase == "completo":
         return s.reporte_por_bloques()
     return None
 
 
-def obtener_todos_los_datos():
-    """Para el endpoint admin — devuelve todas las sesiones completas."""
-    resultado = []
-    for phone, session in sesiones.items():
-        if session.fase == "completo":
-            resultado.append({
-                "phone": phone,
-                "personas": session.personas,
-                "reporte": session.generar_reporte()
-            })
-    return resultado
-
-
-def cancelar_sesion(phone):
-    if phone in sesiones:
-        del sesiones[phone]
+def cancelar_sesion_schengen(phone):
+    if phone in sesiones_schengen:
+        del sesiones_schengen[phone]

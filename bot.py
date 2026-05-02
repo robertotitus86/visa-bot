@@ -13,6 +13,13 @@ from ds160_flow import (
     cancelar_sesion,
     iniciar_sesion_ds160,
 )
+from schengen_flow import (
+    esta_en_sesion_schengen,
+    procesar_mensaje_schengen,
+    obtener_reporte_schengen,
+    cancelar_sesion_schengen,
+    iniciar_sesion_schengen,
+)
 
 app = FastAPI()
 
@@ -27,9 +34,18 @@ client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 conversations = {}
 
 DS160_TRIGGERS = [
-    "ds160", "ds-160", "ds 160", "llenar formulario",
-    "datos para la visa", "formulario de visa", "empezar formulario",
-    "quiero llenar", "ayuda con el formulario", "recopilar datos",
+    "ds160", "ds-160", "ds 160", "formulario usa",
+    "datos para visa usa", "formulario visa americana",
+    "quiero llenar el ds", "datos para estados unidos",
+]
+
+SCHENGEN_TRIGGERS = [
+    "schengen", "visa europa", "visa española", "visa spain",
+    "visa españa", "formulario europa", "datos para europa",
+    "visa reino unido", "datos schengen", "formulario schengen",
+    "datos para la visa", "llenar formulario", "recopilar datos",
+    "formulario de visa", "empezar formulario", "quiero llenar",
+    "ayuda con el formulario",
 ]
 
 
@@ -71,6 +87,11 @@ def send_whatsapp_message(to: str, message: str, phone_number_id: str):
 def is_ds160_trigger(text: str) -> bool:
     t = text.lower().strip()
     return any(trigger in t for trigger in DS160_TRIGGERS)
+
+
+def is_schengen_trigger(text: str) -> bool:
+    t = text.lower().strip()
+    return any(trigger in t for trigger in SCHENGEN_TRIGGERS)
 
 
 async def keep_alive():
@@ -123,32 +144,30 @@ async def receive_message(request: Request):
             text = msg["text"]["body"].strip()
             text_lower = text.lower()
 
-            # Cancelar sesión DS-160
-            if text_lower in ("cancelar", "cancel", "salir", "exit") and esta_en_sesion_ds160(from_number):
-                cancelar_sesion(from_number)
-                send_whatsapp_message(
-                    from_number,
-                    "Formulario cancelado. Si necesitas retomarlo escribe DS-160 cuando quieras. ¿En qué más te puedo ayudar?",
-                    phone_number_id
-                )
-                continue
+            # Cancelar cualquier sesión activa
+            if text_lower in ("cancelar", "cancel", "salir", "exit"):
+                if esta_en_sesion_ds160(from_number):
+                    cancelar_sesion(from_number)
+                    send_whatsapp_message(from_number, "Formulario cancelado. Escribe DS-160 cuando quieras retomarlo. ¿En qué más te ayudo?", phone_number_id)
+                    continue
+                if esta_en_sesion_schengen(from_number):
+                    cancelar_sesion_schengen(from_number)
+                    send_whatsapp_message(from_number, "Formulario cancelado. Escribe 'Schengen' o 'Europa' cuando quieras retomarlo. ¿En qué más te ayudo?", phone_number_id)
+                    continue
 
             # Si está en sesión DS-160 activa
             if esta_en_sesion_ds160(from_number):
                 respuestas = procesar_mensaje_ds160(from_number, text)
-
                 if respuestas is None:
-                    # Sesión completada — enviar reporte a Roberto y confirmación al cliente
                     bloques = obtener_reporte(from_number)
                     if bloques:
                         for bloque in bloques:
                             send_whatsapp_message(ADMIN_PHONE, bloque, phone_number_id)
-
                     send_whatsapp_message(
                         from_number,
-                        "✅ *¡Perfecto! Tengo todos los datos.*\n\n"
-                        "Roberto ya los recibió y se pondrá en contacto contigo para coordinar el llenado del DS-160.\n\n"
-                        "¿Tienes alguna otra consulta sobre tu visa?",
+                        "✅ *¡Perfecto! Tengo todos los datos del DS-160.*\n\n"
+                        "Roberto ya los recibió y coordinará contigo el llenado del formulario.\n\n"
+                        "¿Tienes alguna otra consulta?",
                         phone_number_id
                     )
                 else:
@@ -157,9 +176,36 @@ async def receive_message(request: Request):
                             send_whatsapp_message(from_number, r, phone_number_id)
                 continue
 
-            # Activar flujo DS-160
+            # Si está en sesión Schengen activa
+            if esta_en_sesion_schengen(from_number):
+                respuestas = procesar_mensaje_schengen(from_number, text)
+                if respuestas is None:
+                    bloques = obtener_reporte_schengen(from_number)
+                    if bloques:
+                        for bloque in bloques:
+                            send_whatsapp_message(ADMIN_PHONE, bloque, phone_number_id)
+                    send_whatsapp_message(
+                        from_number,
+                        "✅ *¡Perfecto! Tengo todos tus datos para la visa Schengen.*\n\n"
+                        "Roberto ya los recibió y se pondrá en contacto para continuar con el expediente.\n\n"
+                        "¿Tienes alguna otra consulta?",
+                        phone_number_id
+                    )
+                else:
+                    for r in respuestas:
+                        if r:
+                            send_whatsapp_message(from_number, r, phone_number_id)
+                continue
+
+            # Activar flujo DS-160 (USA)
             if is_ds160_trigger(text_lower):
                 primer_mensaje = iniciar_sesion_ds160(from_number)
+                send_whatsapp_message(from_number, primer_mensaje, phone_number_id)
+                continue
+
+            # Activar flujo Schengen (Europa/España/UK)
+            if is_schengen_trigger(text_lower):
+                primer_mensaje = iniciar_sesion_schengen(from_number)
                 send_whatsapp_message(from_number, primer_mensaje, phone_number_id)
                 continue
 
@@ -174,7 +220,7 @@ async def receive_message(request: Request):
 
 @app.get("/")
 async def root():
-    return {"status": "Asesoria Visa Global Bot activo", "version": "3.0"}
+    return {"status": "Asesoria Visa Global Bot activo", "version": "4.0"}
 
 
 @app.post("/test")
