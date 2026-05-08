@@ -30,11 +30,14 @@ from uk_flow import (
 
 app = FastAPI()
 
-ANTHROPIC_KEY  = os.getenv("ANTHROPIC_API_KEY")
-VERIFY_TOKEN   = os.getenv("VERIFY_TOKEN", "visaglobal2026")
-WA_TOKEN       = os.getenv("WA_TOKEN", "")
-RENDER_URL     = os.getenv("RENDER_URL", "https://visa-global-bot.onrender.com")
-ADMIN_PHONE    = os.getenv("PHONE_NUMBER", "593994442512")
+ANTHROPIC_KEY       = os.getenv("ANTHROPIC_API_KEY")
+VERIFY_TOKEN        = os.getenv("VERIFY_TOKEN", "visaglobal2026")
+WA_TOKEN            = os.getenv("WA_TOKEN", "")
+RENDER_URL          = os.getenv("RENDER_URL", "https://visa-global-bot.onrender.com")
+ADMIN_PHONE         = os.getenv("PHONE_NUMBER", "593994442512")
+GREEN_API_INSTANCE  = os.getenv("GREEN_API_INSTANCE", "7107614197")
+GREEN_API_TOKEN     = os.getenv("GREEN_API_TOKEN", "e9bb0092f5e845cea9e281735d92c7ae9663e67a5a654b0c8b")
+GREEN_API_BASE      = f"https://api.green-api.com/waInstance{GREEN_API_INSTANCE}"
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
@@ -111,13 +114,12 @@ def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | None]:
 
 # ── WHATSAPP ───────────────────────────────────────────────────────────────────
 
-def send_whatsapp_message(to: str, message: str, phone_number_id: str):
+def send_whatsapp_message(to: str, message: str, phone_number_id: str = ""):
     import requests as req
-    url = f"https://graph.facebook.com/v21.0/{phone_number_id}/messages"
+    chat_id = to if "@" in to else f"{to}@c.us"
     req.post(
-        url,
-        headers={"Authorization": f"Bearer {WA_TOKEN}", "Content-Type": "application/json"},
-        json={"messaging_product": "whatsapp", "to": to, "type": "text", "text": {"body": message}},
+        f"{GREEN_API_BASE}/sendMessage/{GREEN_API_TOKEN}",
+        json={"chatId": chat_id, "message": message},
         timeout=10,
     )
 
@@ -219,9 +221,23 @@ async def keep_alive():
         await asyncio.sleep(600)
 
 
+async def configure_green_api():
+    await asyncio.sleep(5)
+    try:
+        async with httpx.AsyncClient(timeout=10) as c:
+            await c.post(
+                f"{GREEN_API_BASE}/setSettings/{GREEN_API_TOKEN}",
+                json={"webhookUrl": f"{RENDER_URL}/webhook", "incomingWebhook": "yes"},
+            )
+        print("Green API webhook configurado correctamente")
+    except Exception as e:
+        print(f"Error configurando Green API webhook: {e}")
+
+
 @app.on_event("startup")
 async def startup_event():
     asyncio.create_task(keep_alive())
+    asyncio.create_task(configure_green_api())
 
 
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────
@@ -232,115 +248,121 @@ async def ping():
 
 
 @app.get("/webhook")
-async def verify_webhook(request: Request):
-    params = dict(request.query_params)
-    if params.get("hub.mode") == "subscribe" and params.get("hub.verify_token") == VERIFY_TOKEN:
-        return PlainTextResponse(content=params.get("hub.challenge"))
-    raise HTTPException(status_code=403, detail="Token invalido")
+async def verify_webhook():
+    return {"status": "ok"}
 
 
 @app.post("/webhook")
 async def receive_message(request: Request):
     data = await request.json()
     try:
-        entry          = data["entry"][0]
-        changes        = entry["changes"][0]
-        value          = changes["value"]
-        phone_number_id = value["metadata"]["phone_number_id"]
-        messages       = value.get("messages", [])
+        # Solo mensajes entrantes de texto (formato Green API)
+        if data.get("typeWebhook") != "incomingMessageReceived":
+            return {"status": "ok"}
 
-        for msg in messages:
-            if msg["type"] != "text":
-                continue
+        msg_data    = data.get("messageData", {})
+        sender_data = data.get("senderData", {})
+        type_msg    = msg_data.get("typeMessage", "")
 
-            from_number = msg["from"]
-            text        = msg["text"]["body"].strip()
-            text_lower  = text.lower()
+        if type_msg == "textMessage":
+            text = msg_data.get("textMessageData", {}).get("textMessage", "").strip()
+        elif type_msg == "extendedTextMessage":
+            text = msg_data.get("extendedTextMessageData", {}).get("text", "").strip()
+        else:
+            return {"status": "ok"}
 
-            # ── Activar follow-up en primer contacto de lead nuevo ──────
-            if from_number not in clientes_activos and from_number not in lead_tracking:
-                lead_tracking[from_number] = {
-                    "phone_number_id": phone_number_id,
-                    "followup_activado": False,
-                }
+        if not text:
+            return {"status": "ok"}
 
-            # ── Cancelar sesiones activas ───────────────────────────────
-            if text_lower in ("cancelar", "cancel", "salir", "exit"):
-                for cancelar_fn, esta_fn, msg_cancelar in [
-                    (cancelar_sesion, esta_en_sesion_ds160, "Formulario cancelado. Escribe DS-160 cuando quieras retomarlo."),
-                    (cancelar_sesion_schengen, esta_en_sesion_schengen, "Formulario cancelado. Escribe 'Europa' cuando quieras retomarlo."),
-                    (cancelar_sesion_uk, esta_en_sesion_uk, "Formulario cancelado. Escribe 'Reino Unido' cuando quieras retomarlo."),
-                ]:
-                    if esta_fn(from_number):
-                        cancelar_fn(from_number)
-                        send_whatsapp_message(from_number, msg_cancelar, phone_number_id)
-                        break
-                continue
+        chat_id         = sender_data.get("chatId", "")
+        from_number     = chat_id.replace("@c.us", "").replace("@g.us", "")
+        phone_number_id = GREEN_API_INSTANCE
+        text_lower      = text.lower()
 
-            # ── Flujos de formulario activos ────────────────────────────
-            if esta_en_sesion_ds160(from_number):
-                respuestas = procesar_mensaje_ds160(from_number, text)
-                if respuestas is None:
-                    bloques = obtener_reporte(from_number) or []
-                    personas, datos = obtener_datos_sesion(from_number)
-                    await completar_formulario(from_number, phone_number_id, personas, datos, "USA DS-160", bloques)
-                else:
-                    for r in respuestas:
-                        if r: send_whatsapp_message(from_number, r, phone_number_id)
-                continue
+        # ── Activar follow-up en primer contacto de lead nuevo ──────
+        if from_number not in clientes_activos and from_number not in lead_tracking:
+            lead_tracking[from_number] = {
+                "phone_number_id": phone_number_id,
+                "followup_activado": False,
+            }
 
-            if esta_en_sesion_uk(from_number):
-                respuestas = procesar_mensaje_uk(from_number, text)
-                if respuestas is None:
-                    bloques = obtener_reporte_uk(from_number) or []
-                    personas, datos = obtener_datos_sesion_uk(from_number)
-                    await completar_formulario(from_number, phone_number_id, personas, datos, "Reino Unido", bloques)
-                else:
-                    for r in respuestas:
-                        if r: send_whatsapp_message(from_number, r, phone_number_id)
-                continue
+        # ── Cancelar sesiones activas ───────────────────────────────
+        if text_lower in ("cancelar", "cancel", "salir", "exit"):
+            for cancelar_fn, esta_fn, msg_cancelar in [
+                (cancelar_sesion, esta_en_sesion_ds160, "Formulario cancelado. Escribe DS-160 cuando quieras retomarlo."),
+                (cancelar_sesion_schengen, esta_en_sesion_schengen, "Formulario cancelado. Escribe 'Europa' cuando quieras retomarlo."),
+                (cancelar_sesion_uk, esta_en_sesion_uk, "Formulario cancelado. Escribe 'Reino Unido' cuando quieras retomarlo."),
+            ]:
+                if esta_fn(from_number):
+                    cancelar_fn(from_number)
+                    send_whatsapp_message(from_number, msg_cancelar, phone_number_id)
+                    break
+            return {"status": "ok"}
 
-            if esta_en_sesion_schengen(from_number):
-                respuestas = procesar_mensaje_schengen(from_number, text)
-                if respuestas is None:
-                    bloques = obtener_reporte_schengen(from_number) or []
-                    personas, datos = obtener_datos_sesion_schengen(from_number)
-                    await completar_formulario(from_number, phone_number_id, personas, datos, "Schengen", bloques)
-                else:
-                    for r in respuestas:
-                        if r: send_whatsapp_message(from_number, r, phone_number_id)
-                continue
+        # ── Flujos de formulario activos ────────────────────────────
+        if esta_en_sesion_ds160(from_number):
+            respuestas = procesar_mensaje_ds160(from_number, text)
+            if respuestas is None:
+                bloques = obtener_reporte(from_number) or []
+                personas, datos = obtener_datos_sesion(from_number)
+                await completar_formulario(from_number, phone_number_id, personas, datos, "USA DS-160", bloques)
+            else:
+                for r in respuestas:
+                    if r: send_whatsapp_message(from_number, r, phone_number_id)
+            return {"status": "ok"}
 
-            # ── Triggers de formularios ─────────────────────────────────
-            if is_ds160_trigger(text_lower):
-                send_whatsapp_message(from_number, iniciar_sesion_ds160(from_number), phone_number_id)
-                continue
-            if is_uk_trigger(text_lower):
-                send_whatsapp_message(from_number, iniciar_sesion_uk(from_number), phone_number_id)
-                continue
-            if is_schengen_trigger(text_lower):
-                send_whatsapp_message(from_number, iniciar_sesion_schengen(from_number), phone_number_id)
-                continue
+        if esta_en_sesion_uk(from_number):
+            respuestas = procesar_mensaje_uk(from_number, text)
+            if respuestas is None:
+                bloques = obtener_reporte_uk(from_number) or []
+                personas, datos = obtener_datos_sesion_uk(from_number)
+                await completar_formulario(from_number, phone_number_id, personas, datos, "Reino Unido", bloques)
+            else:
+                for r in respuestas:
+                    if r: send_whatsapp_message(from_number, r, phone_number_id)
+            return {"status": "ok"}
 
-            # ── Conversación con IA (venta SPIN) ────────────────────────
-            reply, cierre_info = get_ai_response(from_number, text)
-            send_whatsapp_message(from_number, reply, phone_number_id)
+        if esta_en_sesion_schengen(from_number):
+            respuestas = procesar_mensaje_schengen(from_number, text)
+            if respuestas is None:
+                bloques = obtener_reporte_schengen(from_number) or []
+                personas, datos = obtener_datos_sesion_schengen(from_number)
+                await completar_formulario(from_number, phone_number_id, personas, datos, "Schengen", bloques)
+            else:
+                for r in respuestas:
+                    if r: send_whatsapp_message(from_number, r, phone_number_id)
+            return {"status": "ok"}
 
-            # Activar follow-up de lead tras primera respuesta del bot
-            lead = lead_tracking.get(from_number, {})
-            if not lead.get("followup_activado") and from_number not in clientes_activos:
-                nombre_lead = lead.get("nombre", "")
-                activar_followup_lead(from_number, nombre_lead, phone_number_id)
-                lead_tracking[from_number]["followup_activado"] = True
+        # ── Triggers de formularios ─────────────────────────────────
+        if is_ds160_trigger(text_lower):
+            send_whatsapp_message(from_number, iniciar_sesion_ds160(from_number), phone_number_id)
+            return {"status": "ok"}
+        if is_uk_trigger(text_lower):
+            send_whatsapp_message(from_number, iniciar_sesion_uk(from_number), phone_number_id)
+            return {"status": "ok"}
+        if is_schengen_trigger(text_lower):
+            send_whatsapp_message(from_number, iniciar_sesion_schengen(from_number), phone_number_id)
+            return {"status": "ok"}
 
-            # Si el bot decidió cerrar la venta → generar link de pago
-            if cierre_info:
-                await cerrar_venta(
-                    from_number, phone_number_id,
-                    cierre_info["paquete"],
-                    cierre_info["tipo_visa"],
-                    cierre_info["nombre"],
-                )
+        # ── Conversación con IA (venta SPIN) ────────────────────────
+        reply, cierre_info = get_ai_response(from_number, text)
+        send_whatsapp_message(from_number, reply, phone_number_id)
+
+        # Activar follow-up de lead tras primera respuesta del bot
+        lead = lead_tracking.get(from_number, {})
+        if not lead.get("followup_activado") and from_number not in clientes_activos:
+            nombre_lead = lead.get("nombre", "")
+            activar_followup_lead(from_number, nombre_lead, phone_number_id)
+            lead_tracking[from_number]["followup_activado"] = True
+
+        # Si el bot decidió cerrar la venta → generar link de pago
+        if cierre_info:
+            await cerrar_venta(
+                from_number, phone_number_id,
+                cierre_info["paquete"],
+                cierre_info["tipo_visa"],
+                cierre_info["nombre"],
+            )
 
     except Exception as e:
         print(f"Error webhook: {e}")
