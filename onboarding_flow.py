@@ -86,17 +86,39 @@ def notificacion_venta_admin(nombre: str, telefono: str, paquete: str, precio: i
 
 FOLLOWUP_LEAD = {
     "2h": (
-        "¿Pudiste ver la información sobre tu visa?\n\n"
-        "Estoy aquí para resolver cualquier duda antes de que tomes una decisión."
+        "Hola, ¿pudiste revisar la información sobre tu visa?\n\n"
+        "Estoy aquí si tienes alguna duda. Un diagnóstico de tu caso es gratis y sin compromiso."
     ),
     "24h": (
         "Entiendo que el día a día no da mucho tiempo.\n\n"
-        "Si en algún momento tienes 5 minutos, cuéntame qué tipo de visa necesitas y te doy un diagnóstico rápido y gratuito de tu caso."
+        "Cuando tengas 5 minutos, cuéntame qué visa necesitas y te digo exactamente qué tienes que hacer según tu situación."
     ),
     "72h": (
-        "Última vez que te escribo para no molestarte.\n\n"
-        "Cuando decidas tramitar tu visa, aquí estaré. Los mejores casos son los que se preparan bien desde el principio.\n\n"
+        "No te molesto más después de este mensaje.\n\n"
+        "Si en algún momento decides tramitar tu visa, aquí estaré. Los casos que se preparan bien desde el principio tienen el doble de probabilidades de aprobación.\n\n"
         "Éxitos."
+    ),
+}
+
+# Secuencia para leads CALIENTES: preguntaron precio, mostraron interés real
+FOLLOWUP_CALIENTE = {
+    "3h": (
+        "Oye, me quedé pensando en tu caso.\n\n"
+        "Para el perfil que me describiste hay cosas concretas que se pueden hacer para maximizar las probabilidades. ¿Quieres que te cuente cuáles son?"
+    ),
+    "24h": (
+        "Todavía tengo cupo disponible esta semana.\n\n"
+        "Si decides avanzar hoy, arrancamos el mismo día. No hay pasos complicados, en 15 minutos ya tendríamos todo lo que necesito de ti.\n\n"
+        "¿Qué te frenó?"
+    ),
+    "72h": (
+        "Las citas consulares para este mes se están llenando rápido.\n\n"
+        "Si tu viaje es antes de fin de año, el tiempo está justo. ¿Quieres que revisemos juntos si llegas cómodo con los plazos?"
+    ),
+    "7d": (
+        "Hola, última vez que te escribo.\n\n"
+        "Si sigues pensando en tramitar tu visa, el proceso mínimo toma entre 4 y 8 semanas. Si arrancas esta semana, todavía llegas bien para la mayoría de destinos.\n\n"
+        "Una evaluación de tu caso es gratis. Sin compromiso."
     ),
 }
 
@@ -185,13 +207,33 @@ def activar_onboarding_post_pago(telefono: str, nombre: str, paquete: str,
 
 
 def activar_followup_lead(telefono: str, nombre: str, phone_number_id: str):
-    """Programa la secuencia de seguimiento para leads que no responden."""
+    """Secuencia de seguimiento para leads fríos (primer contacto, sin mostrar interés claro)."""
     for delay_key, delay_horas in [("2h", 2), ("24h", 24), ("72h", 72)]:
         programar_followup(
             telefono=telefono,
             phone_number_id=phone_number_id,
             tipo=f"lead_followup_{delay_key}",
             mensaje=FOLLOWUP_LEAD[delay_key],
+            delay_horas=delay_horas,
+            contexto={"nombre": nombre},
+        )
+
+
+def activar_followup_caliente(telefono: str, nombre: str, phone_number_id: str):
+    """
+    Secuencia de seguimiento para leads calientes: preguntaron precio,
+    mostraron interés real o estuvieron a punto de comprar.
+    Cancela la secuencia fría anterior y programa mensajes más directos.
+    """
+    # Cancelar follow-ups fríos que pudieran estar pendientes
+    cancelar_followups_pendientes(telefono, tipo_prefijo="lead_followup")
+
+    for delay_key, delay_horas in [("3h", 3), ("24h", 24), ("72h", 72), ("7d", 168)]:
+        programar_followup(
+            telefono=telefono,
+            phone_number_id=phone_number_id,
+            tipo=f"lead_caliente_{delay_key}",
+            mensaje=FOLLOWUP_CALIENTE[delay_key],
             delay_horas=delay_horas,
             contexto={"nombre": nombre},
         )

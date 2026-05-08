@@ -10,7 +10,7 @@ from analisis_cliente import analizar_sesion_completa
 from sheets_integration import guardar_en_sheets
 from paypal_integration import crear_orden, verificar_webhook_signature
 from onboarding_flow import (
-    activar_onboarding_post_pago, activar_followup_lead,
+    activar_onboarding_post_pago, activar_followup_lead, activar_followup_caliente,
     cancelar_followups_lead, notificacion_venta_admin,
     mensaje_confirmacion_expediente,
 )
@@ -46,6 +46,15 @@ conversations    = {}   # phone → historial de mensajes
 pending_payments = {}   # order_id → {phone, phone_number_id, nombre, tipo_visa, paquete, precio}
 lead_tracking    = {}   # phone → {nombre, phone_number_id, followup_activado}
 clientes_activos = set()  # phones que ya pagaron
+
+SENALES_CALIENTE = [
+    "precio", "cuánto", "cuanto", "costo", "vale", "cobran",
+    "paquete", "esencial", "profesional", "vip",
+    "quiero", "me interesa", "interesado", "interesada",
+    "cómo empiezo", "como empiezo", "cuándo empezamos", "cuando empezamos",
+    "reservar", "contratar", "pagar", "me anoto",
+    "urgente", "necesito pronto", "viaje es en",
+]
 
 DS160_TRIGGERS = [
     "ds160", "ds-160", "ds 160", "formulario usa",
@@ -348,12 +357,23 @@ async def receive_message(request: Request):
         reply, cierre_info = get_ai_response(from_number, text)
         send_whatsapp_message(from_number, reply, phone_number_id)
 
-        # Activar follow-up de lead tras primera respuesta del bot
         lead = lead_tracking.get(from_number, {})
-        if not lead.get("followup_activado") and from_number not in clientes_activos:
-            nombre_lead = lead.get("nombre", "")
-            activar_followup_lead(from_number, nombre_lead, phone_number_id)
-            lead_tracking[from_number]["followup_activado"] = True
+
+        # Detectar si el lead es caliente (mostró interés real)
+        es_caliente = any(s in text_lower for s in SENALES_CALIENTE) or bool(cierre_info)
+
+        if from_number not in clientes_activos:
+            if es_caliente and not lead.get("caliente_activado"):
+                # Escalar a secuencia caliente (cancela la fría si estaba activa)
+                nombre_lead = lead.get("nombre", "")
+                activar_followup_caliente(from_number, nombre_lead, phone_number_id)
+                lead_tracking[from_number]["followup_activado"] = True
+                lead_tracking[from_number]["caliente_activado"] = True
+            elif not lead.get("followup_activado"):
+                # Primera respuesta: activar secuencia fría básica
+                nombre_lead = lead.get("nombre", "")
+                activar_followup_lead(from_number, nombre_lead, phone_number_id)
+                lead_tracking[from_number]["followup_activado"] = True
 
         # Si el bot decidió cerrar la venta → generar link de pago
         if cierre_info:
