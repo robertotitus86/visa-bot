@@ -5,15 +5,32 @@ Todo se activa sin intervención de Roberto.
 import os
 from followup_manager import programar_followup, cancelar_followups_pendientes
 
-PORTAL_URL  = "https://www.asesoriadevisadosglobal.com/portal.html"
+PORTAL_BASE = "https://www.asesoriadevisadosglobal.com/portal.html"
 ADMIN_PHONE = os.getenv("PHONE_NUMBER", "593994442512")
+
+VISA_URL_MAP = {
+    "schengen":    f"{PORTAL_BASE}?visa=schengen",
+    "europa":      f"{PORTAL_BASE}?visa=schengen",
+    "reino unido": f"{PORTAL_BASE}?visa=uk",
+    "uk":          f"{PORTAL_BASE}?visa=uk",
+    "rechazo":     f"{PORTAL_BASE}?visa=rechazo",
+    "caso rechazo":f"{PORTAL_BASE}?visa=rechazo",
+}
+
+def get_portal_url(tipo_visa: str) -> str:
+    key = tipo_visa.lower().strip()
+    for k, url in VISA_URL_MAP.items():
+        if k in key:
+            return url
+    return PORTAL_BASE  # USA DS-160 es el tab por defecto
 
 
 # ── MENSAJES POST-PAGO ────────────────────────────────────────────────────────
 
-def mensajes_bienvenida(nombre: str, paquete: str, precio: int) -> list[str]:
+def mensajes_bienvenida(nombre: str, paquete: str, precio: int, tipo_visa: str = "") -> list[str]:
     """Secuencia inmediata al confirmar el pago."""
     nombre_corto = nombre.split()[0] if nombre else "Hola"
+    portal_url   = get_portal_url(tipo_visa)
     return [
         f"Pago confirmado. Bienvenido/a, {nombre_corto}.\n\n"
         f"Tu {paquete} por ${precio} está activo. Soy Roberto y voy a trabajar tu caso personalmente.\n\n"
@@ -21,26 +38,27 @@ def mensajes_bienvenida(nombre: str, paquete: str, precio: int) -> list[str]:
 
         f"El siguiente paso es completar tu expediente.\n\n"
         f"Toma unos 10 minutos. Puedes hacerlo ahora o cuando tengas un momento tranquilo:\n\n"
-        f"{PORTAL_URL}\n\n"
-        f"Selecciona tu tipo de visa y completa los datos. Al final podrás subir tus documentos.",
+        f"{portal_url}\n\n"
+        f"Completa el formulario con tus datos. Al final podrás subir tus documentos.",
 
         f"Una vez que envíes el formulario, recibirás confirmación y yo comenzaré a trabajar tu caso.\n\n"
         f"Si tienes alguna duda en el proceso, escríbeme aquí.",
     ]
 
 
-def mensaje_recordatorio_formulario(nombre: str, horas: int) -> str:
+def mensaje_recordatorio_formulario(nombre: str, horas: int, tipo_visa: str = "") -> str:
     nombre_corto = nombre.split()[0] if nombre else "Hola"
+    portal_url   = get_portal_url(tipo_visa)
     if horas == 24:
         return (
             f"Hola {nombre_corto}, quería recordarte que tu expediente está pendiente.\n\n"
             f"Sin los datos no puedo comenzar a trabajar tu caso. Solo toma 10 minutos:\n\n"
-            f"{PORTAL_URL}"
+            f"{portal_url}"
         )
     return (
         f"{nombre_corto}, es el último recordatorio sobre tu expediente.\n\n"
         f"Si tienes algún problema para completarlo o prefieres que lo hagamos juntos, dime y coordinamos.\n\n"
-        f"{PORTAL_URL}"
+        f"{portal_url}"
     )
 
 
@@ -125,7 +143,7 @@ def activar_onboarding_post_pago(telefono: str, nombre: str, paquete: str,
         telefono=telefono,
         phone_number_id=phone_number_id,
         tipo="recordatorio_formulario_24h",
-        mensaje=mensaje_recordatorio_formulario(nombre, 24),
+        mensaje=mensaje_recordatorio_formulario(nombre, 24, tipo_visa),
         delay_horas=24,
         contexto={"nombre": nombre, "paquete": paquete},
     )
@@ -133,7 +151,7 @@ def activar_onboarding_post_pago(telefono: str, nombre: str, paquete: str,
         telefono=telefono,
         phone_number_id=phone_number_id,
         tipo="recordatorio_formulario_48h",
-        mensaje=mensaje_recordatorio_formulario(nombre, 48),
+        mensaje=mensaje_recordatorio_formulario(nombre, 48, tipo_visa),
         delay_horas=48,
         contexto={"nombre": nombre, "paquete": paquete},
     )
@@ -163,7 +181,7 @@ def activar_onboarding_post_pago(telefono: str, nombre: str, paquete: str,
         contexto={"nombre": nombre},
     )
 
-    return mensajes_bienvenida(nombre, paquete, precio)
+    return mensajes_bienvenida(nombre, paquete, precio, tipo_visa)
 
 
 def activar_followup_lead(telefono: str, nombre: str, phone_number_id: str):
