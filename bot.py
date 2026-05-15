@@ -6,6 +6,7 @@ import os
 import asyncio
 import httpx
 from system_prompt import SYSTEM_PROMPT
+from crm_lookup import buscar_caso_por_telefono, construir_contexto_crm
 from analisis_cliente import analizar_sesion_completa
 from sheets_integration import guardar_en_sheets
 from paypal_integration import crear_orden, verificar_webhook_signature
@@ -80,40 +81,69 @@ UK_TRIGGERS = [
 
 # ── IA RESPONSE ────────────────────────────────────────────────────────────────
 
-def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | None]:
+# Cache de contexto CRM para no consultar Sheets en cada mensaje
+_crm_cache: dict = {}  # phone -> {"contexto": str, "ref": str}
+
+TRACKING_TRIGGERS = ["mi caso", "mi numero", "seguimiento", "estado de mi visa",
+                     "como va mi caso", "como va mi visa", "vg-", "crm-", "ink-"]
+
+async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | None]:
     """
     Devuelve (texto_respuesta, cierre_info | None).
-    cierre_info se llena cuando el bot detecta que debe cerrar la venta.
-    El bot incluye [CERRAR:PAQUETE:TIPO_VISA:NOMBRE] en su respuesta para señalizar cierre.
+    Busca el caso del cliente en el CRM antes de responder.
     """
     if phone not in conversations:
         conversations[phone] = []
 
+    # ── Lookup CRM ──────────────────────────────────────────────
+    contexto_crm = ""
+    msg_lower = user_message.lower()
+
+    # Buscar por telefono si no tenemos cache o si pregunta por su caso
+    es_consulta_seguimiento = any(t in msg_lower for t in TRACKING_TRIGGERS)
+    tiene_cache = phone in _crm_cache
+
+    if not tiene_cache or es_consulta_seguimiento:
+        resultado = await buscar_caso_por_telefono(phone)
+        if resultado:
+            contexto_crm = construir_contexto_crm(resultado)
+            _crm_cache[phone] = {
+                "contexto": contexto_crm,
+                "ref": resultado["caso"].get("Ref ID", "")
+            }
+    elif tiene_cache and _crm_cache[phone]["contexto"]:
+        contexto_crm = _crm_cache[phone]["contexto"]
+
+    # ── System prompt dinamico ───────────────────────────────────
+    system = SYSTEM_PROMPT
+    if contexto_crm:
+        system = contexto_crm + "\n\n" + SYSTEM_PROMPT
+
+    # ── Llamada a Claude ─────────────────────────────────────────
     conversations[phone].append({"role": "user", "content": user_message})
     history = conversations[phone][-30:]
 
     response = client.messages.create(
         model="claude-haiku-4-5-20251001",
         max_tokens=700,
-        system=SYSTEM_PROMPT,
+        system=system,
         messages=history,
     )
 
     bot_reply = response.content[0].text
     conversations[phone].append({"role": "assistant", "content": bot_reply})
 
-    # Detectar si el bot quiere cerrar la venta
+    # Detectar cierre de venta
     cierre_info = None
     if "[CERRAR:" in bot_reply:
         try:
             tag_start = bot_reply.index("[CERRAR:") + 8
             tag_end   = bot_reply.index("]", tag_start)
             parts     = bot_reply[tag_start:tag_end].split(":")
-            paquete   = parts[0].strip()   # ESENCIAL / PROFESIONAL / VIP
+            paquete   = parts[0].strip()
             tipo_visa = parts[1].strip() if len(parts) > 1 else "Visa"
             nombre    = parts[2].strip() if len(parts) > 2 else "Cliente"
             cierre_info = {"paquete": paquete, "tipo_visa": tipo_visa, "nombre": nombre}
-            # Limpiar el tag del texto visible
             bot_reply = bot_reply.replace(f"[CERRAR:{bot_reply[tag_start:tag_end]}]", "").strip()
         except Exception:
             pass
