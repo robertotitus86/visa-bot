@@ -1,4 +1,7 @@
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request, HTTPException, UploadFile, File
+from typing import List
+import pdfplumber
+import io
 from fastapi.responses import PlainTextResponse
 import anthropic
 import json
@@ -522,3 +525,36 @@ async def reset_conversation(phone: str):
     clientes_activos.discard(phone)
     cancelar_sesion(phone)
     return {"status": "reiniciado", "phone": phone}
+
+
+# ── Endpoint: extracción de texto desde PDFs (DS-160 anteriores) ──
+@app.post("/extract-pdfs")
+async def extract_pdfs(files: List[UploadFile] = File(...)):
+    """
+    Recibe hasta 5 archivos PDF, extrae el texto de cada uno con pdfplumber
+    y lo devuelve como JSON. Usado desde admin.html para analizar DS-160 anteriores.
+    """
+    if len(files) > 5:
+        raise HTTPException(status_code=400, detail="Maximo 5 archivos por solicitud")
+
+    resultados = []
+    for f in files:
+        contenido = await f.read()
+        texto = ""
+        try:
+            with pdfplumber.open(io.BytesIO(contenido)) as pdf:
+                texto = "\n".join(p.extract_text() or "" for p in pdf.pages).strip()
+        except Exception as e:
+            texto = f"(error al extraer: {str(e)})"
+
+        resultados.append({
+            "nombre": f.filename,
+            "caracteres": len(texto),
+            "texto": texto[:8000]  # max 8000 chars por PDF para no saturar la IA
+        })
+
+    return {
+        "ok": True,
+        "total_archivos": len(resultados),
+        "archivos": resultados
+    }
