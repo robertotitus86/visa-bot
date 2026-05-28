@@ -398,7 +398,7 @@ async def receive_message(request: Request):
             return {"status": "ok"}
 
         # ── Conversación con IA (venta SPIN) ────────────────────────
-        reply, cierre_info = get_ai_response(from_number, text)
+        reply, cierre_info = await get_ai_response(from_number, text)
         send_whatsapp_message(from_number, reply, phone_number_id)
 
         lead = lead_tracking.get(from_number, {})
@@ -553,7 +553,7 @@ async def test_bot(request: Request):
     data    = await request.json()
     message = data.get("message", "Hola")
     phone   = data.get("phone", "test_user")
-    reply, cierre = get_ai_response(phone, message)
+    reply, cierre = await get_ai_response(phone, message)
     return {"reply": reply, "cierre_detectado": cierre}
 
 
