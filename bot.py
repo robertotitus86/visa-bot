@@ -50,6 +50,9 @@ ADMIN_PHONE         = os.getenv("PHONE_NUMBER", "593994442512")
 GREEN_API_INSTANCE  = os.getenv("GREEN_API_INSTANCE", "7107614197")
 GREEN_API_TOKEN     = os.getenv("GREEN_API_TOKEN", "e9bb0092f5e845cea9e281735d92c7ae9663e67a5a654b0c8b")
 GREEN_API_BASE      = f"https://api.green-api.com/waInstance{GREEN_API_INSTANCE}"
+TG_TOKEN            = os.getenv("TELEGRAM_TOKEN", "")
+TG_API              = f"https://api.telegram.org/bot{TG_TOKEN}"
+SITE_URL            = "https://www.asesoriadevisadosglobal.com"
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
@@ -594,3 +597,178 @@ async def extract_pdfs(files: List[UploadFile] = File(...)):
         "total_archivos": len(resultados),
         "archivos": resultados
     }
+
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TELEGRAM BOT
+# ══════════════════════════════════════════════════════════════════════════════
+
+async def tg_send(chat_id: int, text: str, buttons: list = None):
+    """Envía mensaje de Telegram con botones opcionales."""
+    if not TG_TOKEN:
+        return
+    # Telegram max 4096 chars
+    text = text[:4096]
+    payload = {"chat_id": chat_id, "text": text, "parse_mode": "HTML"}
+    if buttons:
+        payload["reply_markup"] = {"inline_keyboard": buttons}
+    try:
+        async with httpx.AsyncClient(timeout=10) as c:
+            await c.post(f"{TG_API}/sendMessage", json=payload)
+    except Exception:
+        pass
+
+
+async def tg_notify_admin(text: str):
+    """Notifica al admin (Roberto) en Telegram."""
+    if not TG_TOKEN or not os.getenv("TELEGRAM_ADMIN_CHAT_ID"):
+        return
+    admin_id = int(os.getenv("TELEGRAM_ADMIN_CHAT_ID"))
+    await tg_send(admin_id, text)
+
+
+def tg_quick_buttons(quick_replies: list) -> list:
+    """Convierte quick_replies en filas de botones Telegram."""
+    rows = []
+    for i in range(0, len(quick_replies), 2):
+        row = [{"text": qr, "callback_data": qr[:64]} for qr in quick_replies[i:i+2]]
+        rows.append(row)
+    return rows
+
+
+@app.post("/telegram-webhook")
+async def telegram_webhook(request: Request):
+    """Webhook principal de Telegram."""
+    if not TG_TOKEN:
+        return {"ok": True}
+
+    data = await request.json()
+
+    # ── Callback de botón inline ──────────────────────────────────────────
+    if "callback_query" in data:
+        cb       = data["callback_query"]
+        chat_id  = cb["message"]["chat"]["id"]
+        cb_text  = cb.get("data", "")
+        cb_id    = cb["id"]
+        # Acusar recibo del callback
+        try:
+            async with httpx.AsyncClient(timeout=5) as c:
+                await c.post(f"{TG_API}/answerCallbackQuery", json={"callback_query_id": cb_id})
+        except Exception:
+            pass
+        # Tratar el texto del botón como mensaje
+        reply, quick = await get_ai_response(f"tg-{chat_id}", cb_text)
+        btns = tg_quick_buttons(quick) if quick else None
+        if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50"]):
+            btns = [[{"text": "⚡ Hacer mi diagnóstico $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+        await tg_send(chat_id, reply, btns)
+        return {"ok": True}
+
+    # ── Mensaje normal ────────────────────────────────────────────────────
+    if "message" not in data:
+        return {"ok": True}
+
+    msg        = data["message"]
+    chat_id    = msg["chat"]["id"]
+    text       = msg.get("text", "").strip()
+    first_name = msg.get("from", {}).get("first_name", "")
+
+    if not text:
+        return {"ok": True}
+
+    # ── /start ────────────────────────────────────────────────────────────
+    if text == "/start":
+        saludo = (
+            f"Hola{' <b>' + first_name + '</b>' if first_name else ''}. "
+            "Soy el asistente de <b>Asesoría Visa Global</b>.\n\n"
+            "Tu primera consulta es completamente <b>gratis</b>. "
+            "Cuéntame tu situación o elige tu destino:"
+        )
+        btns = [
+            [{"text": "🇺🇸 Visa USA",          "callback_data": "Quiero tramitar la visa para Estados Unidos"},
+             {"text": "🇪🇺 Visa Schengen",       "callback_data": "Quiero tramitar la visa Schengen para Europa"}],
+            [{"text": "🇬🇧 Visa Reino Unido",   "callback_data": "Quiero tramitar la visa para Reino Unido"},
+             {"text": "🌍 Otro destino",          "callback_data": "Quiero tramitar una visa para otro destino"}],
+            [{"text": "⚡ Diagnóstico IA — $50", "url": f"{SITE_URL}/diagnostico.html"}],
+        ]
+        await tg_send(chat_id, saludo, btns)
+        return {"ok": True}
+
+    # ── /diagnostico ──────────────────────────────────────────────────────
+    if text in ("/diagnostico", "/diagnostico@VisaGlobalEC_bot"):
+        msg_diag = (
+            "⚡ <b>Diagnóstico IA de Visa — $50</b>\n\n"
+            "Analiza tu perfil exactamente como lo haría un cónsul, "
+            "antes de gastar $185 en la cita consular.\n\n"
+            "✔ 15 preguntas sobre tu perfil\n"
+            "✔ Fortalezas y riesgos detectados\n"
+            "✔ Lista exacta de documentos\n"
+            "✔ Resultado en 5 minutos · 100% online"
+        )
+        btns = [[{"text": "Hacer mi diagnóstico ahora →", "url": f"{SITE_URL}/diagnostico.html"}]]
+        await tg_send(chat_id, msg_diag, btns)
+        return {"ok": True}
+
+    # ── /precios ──────────────────────────────────────────────────────────
+    if text in ("/precios", "/paquetes"):
+        msg_p = (
+            "💼 <b>Paquetes de Asesoría</b>\n\n"
+            "🔹 <b>Esencial — $197</b>\nPerfil sólido, primera solicitud. Revisión completa + guía de entrevista.\n\n"
+            "🔹 <b>Profesional — $250</b> ⭐ El más elegido\nTodo lo anterior + expediente completo + simulacro de entrevista.\n\n"
+            "🔹 <b>VIP — $320</b>\nPara rechazos previos y casos complejos. Estrategia completa de reconversión.\n\n"
+            "La primera consulta es <b>gratis</b>. Escríbeme y evaluamos tu caso."
+        )
+        btns = [
+            [{"text": "Consulta gratuita", "callback_data": "Quiero una evaluación gratuita de mi caso"}],
+            [{"text": "⚡ Diagnóstico IA $50", "url": f"{SITE_URL}/diagnostico.html"}],
+        ]
+        await tg_send(chat_id, msg_p, btns)
+        return {"ok": True}
+
+    # ── Mensaje regular → IA ──────────────────────────────────────────────
+    session_id = f"tg-{chat_id}"
+    reply, quick = await get_ai_response(session_id, text)
+
+    btns = tg_quick_buttons(quick) if quick else None
+
+    # Si la IA menciona diagnóstico y no hay botones ya, agregar botón
+    if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50", "50 dólares"]):
+        btns = [[{"text": "⚡ Hacer mi diagnóstico $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+
+    await tg_send(chat_id, reply, btns)
+
+    # Notificar al admin si es lead caliente
+    msg_lower = text.lower()
+    if any(s in msg_lower for s in ["quiero", "me interesa", "pagar", "contratar", "cuándo empezamos"]):
+        await tg_notify_admin(
+            f"🔥 Lead caliente en Telegram\n"
+            f"Nombre: {first_name} | Chat ID: {chat_id}\n"
+            f"Mensaje: {text[:200]}"
+        )
+
+    return {"ok": True}
+
+
+@app.get("/telegram-set-webhook")
+async def telegram_set_webhook():
+    """Llama una sola vez para registrar el webhook con Telegram."""
+    if not TG_TOKEN:
+        return {"error": "TELEGRAM_TOKEN no configurado en Render"}
+    webhook_url = f"{RENDER_URL}/telegram-webhook"
+    async with httpx.AsyncClient(timeout=10) as c:
+        r = await c.post(f"{TG_API}/setWebhook", json={
+            "url": webhook_url,
+            "allowed_updates": ["message", "callback_query"]
+        })
+        return r.json()
+
+
+@app.get("/telegram-info")
+async def telegram_info():
+    """Verifica el estado del bot de Telegram."""
+    if not TG_TOKEN:
+        return {"error": "TELEGRAM_TOKEN no configurado"}
+    async with httpx.AsyncClient(timeout=10) as c:
+        me = await c.get(f"{TG_API}/getMe")
+        wh = await c.get(f"{TG_API}/getWebhookInfo")
+        return {"bot": me.json(), "webhook": wh.json()}
