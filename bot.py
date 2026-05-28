@@ -57,6 +57,7 @@ SITE_URL            = "https://www.asesoriadevisadosglobal.com"
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
 # Estado en memoria
+_tg_debug        = {"last_update": None, "last_send_result": None}  # diagnóstico
 conversations    = {}   # phone → historial de mensajes
 pending_payments = {}   # order_id → {phone, phone_number_id, nombre, tipo_visa, paquete, precio}
 lead_tracking    = {}   # phone → {nombre, phone_number_id, followup_activado}
@@ -616,9 +617,11 @@ async def tg_send(chat_id: int, text: str, buttons: list = None, parse_mode: str
     try:
         async with httpx.AsyncClient(timeout=10) as c:
             r = await c.post(f"{TG_API}/sendMessage", json=payload)
+            _tg_debug["last_send_result"] = {"status": r.status_code, "body": r.text[:500]}
             if r.status_code != 200:
                 print(f"[TG] sendMessage error {r.status_code}: {r.text[:300]}")
     except Exception as e:
+        _tg_debug["last_send_result"] = {"error": str(e)}
         print(f"[TG] send exception: {e}")
 
 
@@ -646,6 +649,7 @@ async def telegram_webhook(request: Request):
         return {"ok": True}
 
     data = await request.json()
+    _tg_debug["last_update"] = data  # guardar para diagnóstico
 
     # ── Callback de botón inline ──────────────────────────────────────────
     if "callback_query" in data:
@@ -778,6 +782,12 @@ async def telegram_info():
         me = await c.get(f"{TG_API}/getMe")
         wh = await c.get(f"{TG_API}/getWebhookInfo")
         return {"bot": me.json(), "webhook": wh.json()}
+
+
+@app.get("/telegram-debug")
+async def telegram_debug_endpoint():
+    """Muestra el último update recibido y resultado del último send."""
+    return _tg_debug
 
 
 @app.get("/telegram-test/{chat_id}")
