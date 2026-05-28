@@ -53,6 +53,8 @@ GREEN_API_BASE      = f"https://api.green-api.com/waInstance{GREEN_API_INSTANCE}
 TG_TOKEN            = os.getenv("TELEGRAM_TOKEN", "")
 TG_API              = f"https://api.telegram.org/bot{TG_TOKEN}"
 SITE_URL            = "https://www.asesoriadevisadosglobal.com"
+GEMINI_KEY          = os.getenv("GEMINI_API_KEY", "AIzaSyCphVM6rvGL68pKcdC39v_ikwKOB2VLgx8")
+GEMINI_URL          = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_KEY}"
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
@@ -164,6 +166,35 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
             pass
 
     return bot_reply, cierre_info
+
+
+async def get_gemini_response(session_id: str, user_message: str) -> str:
+    """Respuesta de IA usando Gemini (gratis). Usado por el bot de Telegram."""
+    if session_id not in conversations:
+        conversations[session_id] = []
+
+    conversations[session_id].append({"role": "user", "content": user_message})
+    history = conversations[session_id][-20:]
+
+    # Convertir historial al formato de Gemini
+    contents = []
+    for msg in history:
+        role = "model" if msg["role"] == "assistant" else "user"
+        contents.append({"role": role, "parts": [{"text": msg["content"]}]})
+
+    payload = {
+        "system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]},
+        "contents": contents,
+        "generationConfig": {"maxOutputTokens": 700, "temperature": 0.75},
+    }
+
+    async with httpx.AsyncClient(timeout=30) as c:
+        r = await c.post(GEMINI_URL, json=payload)
+        r.raise_for_status()
+        reply = r.json()["candidates"][0]["content"]["parts"][0]["text"]
+
+    conversations[session_id].append({"role": "assistant", "content": reply})
+    return reply
 
 
 # ── WHATSAPP ───────────────────────────────────────────────────────────────────
@@ -663,19 +694,16 @@ async def telegram_webhook(request: Request):
                 await c.post(f"{TG_API}/answerCallbackQuery", json={"callback_query_id": cb_id})
         except Exception:
             pass
-        # Tratar el texto del botón como mensaje
+        # Tratar el texto del botón como mensaje con Gemini
         try:
-            reply, quick = await get_ai_response(f"tg-{chat_id}", cb_text)
+            reply = await get_gemini_response(f"tg-{chat_id}", cb_text)
             btns = None
-            if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50"]):
+            if any(w in reply.lower() for w in ["diagnostico", "$50"]):
                 btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
             await tg_send(chat_id, reply, btns)
         except Exception as e:
-            print(f"[TG] Error callback: {e}")
-            await tg_send(chat_id,
-                "En este momento tengo problemas para responder. "
-                "Escríbeme al WhatsApp: +593 99 444 2512",
-                [[{"text": "WhatsApp", "url": "https://wa.me/593994442512"}]])
+            print(f"[TG] Error callback Gemini: {e}")
+            await tg_send(chat_id, "Disculpa, escríbeme al WhatsApp +593 99 444 2512.")
         return {"ok": True}
 
     # ── Mensaje normal ────────────────────────────────────────────────────
@@ -716,18 +744,17 @@ async def telegram_webhook(request: Request):
             "La evaluacion inicial es gratis. Cuentame tu caso.")
         return {"ok": True}
 
-    # ── Cualquier mensaje → IA (igual que WhatsApp) ───────────────────────
+    # ── Cualquier mensaje → Gemini (gratis, no depende de creditos Anthropic) ──
     session_id = f"tg-{chat_id}"
     try:
-        reply, _ = await get_ai_response(session_id, text)
-        # Solo agregar boton de diagnostico si la IA lo menciona explicitamente
+        reply = await get_gemini_response(session_id, text)
         btns = None
-        if any(w in reply.lower() for w in ["diagnostico", "$50", "50 dolares", "diagnostico ia"]):
+        if any(w in reply.lower() for w in ["diagnostico", "$50", "50 dolares"]):
             btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
         await tg_send(chat_id, reply, btns)
     except Exception as e:
         _tg_debug["last_send_result"] = {"ai_error": str(e)}
-        print(f"[TG] Error en get_ai_response: {e}")
+        print(f"[TG] Error Gemini: {e}")
         await tg_send(chat_id,
             "Disculpa, tuve un problema tecnico. "
             "Escribeme al WhatsApp +593 99 444 2512 y te atiendo de inmediato.")
