@@ -54,7 +54,7 @@ TG_TOKEN            = os.getenv("TELEGRAM_TOKEN", "")
 TG_API              = f"https://api.telegram.org/bot{TG_TOKEN}"
 SITE_URL            = "https://www.asesoriadevisadosglobal.com"
 GEMINI_KEY          = os.getenv("GEMINI_API_KEY", "AIzaSyCphVM6rvGL68pKcdC39v_ikwKOB2VLgx8")
-GEMINI_URL          = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_KEY}"
+GEMINI_URL          = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_KEY}"
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
