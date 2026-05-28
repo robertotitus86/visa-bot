@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, HTTPException, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 import pdfplumber
 import io
@@ -33,6 +34,13 @@ from uk_flow import (
 )
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://www.asesoriadevisadosglobal.com", "https://robertotitus86.github.io", "http://localhost", "http://127.0.0.1"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type"],
+)
 
 ANTHROPIC_KEY       = os.getenv("ANTHROPIC_API_KEY")
 VERIFY_TOKEN        = os.getenv("VERIFY_TOKEN", "visaglobal2026")
@@ -507,6 +515,34 @@ async def send_followup(request: Request):
 @app.get("/")
 async def root():
     return {"status": "Asesoria Visa Global Bot v7.0 — Sistema automatizado completo"}
+
+
+@app.post("/web-chat")
+async def web_chat(request: Request):
+    """Endpoint para el widget de chat en la web. Sin dependencia de WhatsApp."""
+    data       = await request.json()
+    session_id = data.get("session_id", "web-anonymous")
+    message    = data.get("message", "")
+    if not message.strip():
+        return {"reply": "No entendi tu mensaje. Puedes escribirlo de nuevo.", "quick_replies": []}
+
+    reply, _ = await get_ai_response("web-" + session_id, message)
+
+    # Sugerir respuestas rapidas segun contexto
+    msg_lower = reply.lower()
+    quick = []
+    if any(w in msg_lower for w in ["precio", "paquete", "cuesta", "cobran"]):
+        quick = ["Ver paquetes", "Quiero el diagnostico", "Hablar con Roberto"]
+    elif any(w in msg_lower for w in ["rechazo", "negaron", "rechazado"]):
+        quick = ["Si, me rechazaron", "No, es primera vez", "Ver Paquete VIP"]
+    elif any(w in msg_lower for w in ["diagnostico", "$50", "50 dolares"]):
+        quick = ["Obtener diagnostico $50", "Primero tengo preguntas"]
+    elif any(w in msg_lower for w in ["hola", "buenos", "buenas", "bienvenido"]):
+        quick = ["Visa USA", "Visa España/Schengen", "Tengo rechazo previo"]
+    else:
+        quick = ["Cuanto cuesta", "Como funciona", "Hablar con Roberto"]
+
+    return {"reply": reply, "quick_replies": quick}
 
 
 @app.post("/test")
