@@ -694,15 +694,15 @@ async def telegram_webhook(request: Request):
                 await c.post(f"{TG_API}/answerCallbackQuery", json={"callback_query_id": cb_id})
         except Exception:
             pass
-        # Tratar el texto del botón como mensaje con Gemini
+        # Tratar el texto del botón como mensaje con IA
         try:
-            reply = await get_gemini_response(f"tg-{chat_id}", cb_text)
+            reply, _ = await get_ai_response(f"tg-{chat_id}", cb_text)
             btns = None
             if any(w in reply.lower() for w in ["diagnostico", "$50"]):
                 btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
             await tg_send(chat_id, reply, btns)
         except Exception as e:
-            print(f"[TG] Error callback Gemini: {e}")
+            print(f"[TG] Error callback IA: {e}")
             await tg_send(chat_id, "Disculpa, escríbeme al WhatsApp +593 99 444 2512.")
         return {"ok": True}
 
@@ -744,17 +744,17 @@ async def telegram_webhook(request: Request):
             "La evaluacion inicial es gratis. Cuentame tu caso.")
         return {"ok": True}
 
-    # ── Cualquier mensaje → Gemini (gratis, no depende de creditos Anthropic) ──
+    # ── Cualquier mensaje → IA ────────────────────────────────────────────
     session_id = f"tg-{chat_id}"
     try:
-        reply = await get_gemini_response(session_id, text)
+        reply, _ = await get_ai_response(session_id, text)
         btns = None
         if any(w in reply.lower() for w in ["diagnostico", "$50", "50 dolares"]):
             btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
         await tg_send(chat_id, reply, btns)
     except Exception as e:
         _tg_debug["last_send_result"] = {"ai_error": str(e)}
-        print(f"[TG] Error Gemini: {e}")
+        print(f"[TG] Error IA: {e}")
         await tg_send(chat_id,
             "Disculpa, tuve un problema tecnico. "
             "Escribeme al WhatsApp +593 99 444 2512 y te atiendo de inmediato.")
