@@ -603,20 +603,23 @@ async def extract_pdfs(files: List[UploadFile] = File(...)):
 # TELEGRAM BOT
 # ══════════════════════════════════════════════════════════════════════════════
 
-async def tg_send(chat_id: int, text: str, buttons: list = None):
+async def tg_send(chat_id: int, text: str, buttons: list = None, parse_mode: str = None):
     """Envía mensaje de Telegram con botones opcionales."""
     if not TG_TOKEN:
         return
-    # Telegram max 4096 chars
     text = text[:4096]
-    payload = {"chat_id": chat_id, "text": text, "parse_mode": "HTML"}
+    payload = {"chat_id": chat_id, "text": text}
+    if parse_mode:
+        payload["parse_mode"] = parse_mode
     if buttons:
         payload["reply_markup"] = {"inline_keyboard": buttons}
     try:
         async with httpx.AsyncClient(timeout=10) as c:
-            await c.post(f"{TG_API}/sendMessage", json=payload)
-    except Exception:
-        pass
+            r = await c.post(f"{TG_API}/sendMessage", json=payload)
+            if r.status_code != 200:
+                print(f"[TG] sendMessage error {r.status_code}: {r.text[:300]}")
+    except Exception as e:
+        print(f"[TG] send exception: {e}")
 
 
 async def tg_notify_admin(text: str):
@@ -660,8 +663,8 @@ async def telegram_webhook(request: Request):
         reply, quick = await get_ai_response(f"tg-{chat_id}", cb_text)
         btns = tg_quick_buttons(quick) if quick else None
         if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50"]):
-            btns = [[{"text": "⚡ Hacer mi diagnóstico $50", "url": f"{SITE_URL}/diagnostico.html"}]]
-        await tg_send(chat_id, reply, btns)
+            btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+        await tg_send(chat_id, reply, btns)  # plain text para respuestas IA
         return {"ok": True}
 
     # ── Mensaje normal ────────────────────────────────────────────────────
@@ -678,20 +681,22 @@ async def telegram_webhook(request: Request):
 
     # ── /start ────────────────────────────────────────────────────────────
     if text == "/start":
+        import html as _html
+        safe_name = _html.escape(first_name) if first_name else ""
         saludo = (
-            f"Hola{' <b>' + first_name + '</b>' if first_name else ''}. "
+            f"Hola{' <b>' + safe_name + '</b>' if safe_name else ''}. "
             "Soy el asistente de <b>Asesoría Visa Global</b>.\n\n"
             "Tu primera consulta es completamente <b>gratis</b>. "
             "Cuéntame tu situación o elige tu destino:"
         )
         btns = [
-            [{"text": "🇺🇸 Visa USA",          "callback_data": "Quiero tramitar la visa para Estados Unidos"},
-             {"text": "🇪🇺 Visa Schengen",       "callback_data": "Quiero tramitar la visa Schengen para Europa"}],
-            [{"text": "🇬🇧 Visa Reino Unido",   "callback_data": "Quiero tramitar la visa para Reino Unido"},
-             {"text": "🌍 Otro destino",          "callback_data": "Quiero tramitar una visa para otro destino"}],
-            [{"text": "⚡ Diagnóstico IA — $50", "url": f"{SITE_URL}/diagnostico.html"}],
+            [{"text": "Visa USA",       "callback_data": "Quiero tramitar la visa para Estados Unidos"},
+             {"text": "Visa Schengen",  "callback_data": "Quiero tramitar la visa Schengen para Europa"}],
+            [{"text": "Visa UK",        "callback_data": "Quiero tramitar la visa para Reino Unido"},
+             {"text": "Otro destino",   "callback_data": "Quiero tramitar una visa para otro destino"}],
+            [{"text": "Diagnostico IA - $50", "url": f"{SITE_URL}/diagnostico.html"}],
         ]
-        await tg_send(chat_id, saludo, btns)
+        await tg_send(chat_id, saludo, btns, parse_mode="HTML")
         return {"ok": True}
 
     # ── /diagnostico ──────────────────────────────────────────────────────
@@ -705,22 +710,22 @@ async def telegram_webhook(request: Request):
             "✔ Lista exacta de documentos\n"
             "✔ Resultado en 5 minutos · 100% online"
         )
-        btns = [[{"text": "Hacer mi diagnóstico ahora →", "url": f"{SITE_URL}/diagnostico.html"}]]
-        await tg_send(chat_id, msg_diag, btns)
+        btns = [[{"text": "Hacer mi diagnostico ahora", "url": f"{SITE_URL}/diagnostico.html"}]]
+        await tg_send(chat_id, msg_diag, btns, parse_mode="HTML")
         return {"ok": True}
 
     # ── /precios ──────────────────────────────────────────────────────────
     if text in ("/precios", "/paquetes"):
         msg_p = (
-            "💼 <b>Paquetes de Asesoría</b>\n\n"
-            "🔹 <b>Esencial — $197</b>\nPerfil sólido, primera solicitud. Revisión completa + guía de entrevista.\n\n"
-            "🔹 <b>Profesional — $250</b> ⭐ El más elegido\nTodo lo anterior + expediente completo + simulacro de entrevista.\n\n"
-            "🔹 <b>VIP — $320</b>\nPara rechazos previos y casos complejos. Estrategia completa de reconversión.\n\n"
-            "La primera consulta es <b>gratis</b>. Escríbeme y evaluamos tu caso."
+            "Paquetes de Asesoria\n\n"
+            "Esencial - $197\nPerfil solido, primera solicitud. Revision completa + guia de entrevista.\n\n"
+            "Profesional - $250 (el mas solicitado)\nTodo lo anterior + expediente completo + simulacro de entrevista.\n\n"
+            "VIP - $320\nPara rechazos previos y casos complejos. Estrategia completa de reconversion.\n\n"
+            "La primera consulta es gratis. Escribeme y evaluamos tu caso."
         )
         btns = [
-            [{"text": "Consulta gratuita", "callback_data": "Quiero una evaluación gratuita de mi caso"}],
-            [{"text": "⚡ Diagnóstico IA $50", "url": f"{SITE_URL}/diagnostico.html"}],
+            [{"text": "Consulta gratuita", "callback_data": "Quiero una evaluacion gratuita de mi caso"}],
+            [{"text": "Diagnostico IA $50", "url": f"{SITE_URL}/diagnostico.html"}],
         ]
         await tg_send(chat_id, msg_p, btns)
         return {"ok": True}
@@ -733,15 +738,16 @@ async def telegram_webhook(request: Request):
 
     # Si la IA menciona diagnóstico y no hay botones ya, agregar botón
     if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50", "50 dólares"]):
-        btns = [[{"text": "⚡ Hacer mi diagnóstico $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+        btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
 
+    # Respuesta de IA: texto plano (sin parse_mode para evitar errores con caracteres especiales)
     await tg_send(chat_id, reply, btns)
 
     # Notificar al admin si es lead caliente
     msg_lower = text.lower()
     if any(s in msg_lower for s in ["quiero", "me interesa", "pagar", "contratar", "cuándo empezamos"]):
         await tg_notify_admin(
-            f"🔥 Lead caliente en Telegram\n"
+            f"Lead caliente en Telegram\n"
             f"Nombre: {first_name} | Chat ID: {chat_id}\n"
             f"Mensaje: {text[:200]}"
         )
