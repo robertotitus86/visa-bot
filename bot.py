@@ -778,3 +778,24 @@ async def telegram_info():
         me = await c.get(f"{TG_API}/getMe")
         wh = await c.get(f"{TG_API}/getWebhookInfo")
         return {"bot": me.json(), "webhook": wh.json()}
+
+
+@app.get("/telegram-test/{chat_id}")
+async def telegram_test(chat_id: int):
+    """Envía un mensaje de prueba al chat_id dado para verificar que tg_send funciona."""
+    if not TG_TOKEN:
+        return {"error": "TELEGRAM_TOKEN no configurado"}
+    async with httpx.AsyncClient(timeout=10) as c:
+        r = await c.post(f"{TG_API}/sendMessage", json={
+            "chat_id": chat_id,
+            "text": "Test bot Visa Global: si ves esto, el bot funciona correctamente.",
+        })
+    return {"status": r.status_code, "response": r.json()}
+
+
+@app.post("/telegram-webhook-echo")
+async def telegram_webhook_echo(request: Request):
+    """Echo del webhook para ver exactamente que manda Telegram."""
+    body = await request.body()
+    print(f"[TG-ECHO] {body.decode()[:500]}")
+    return {"ok": True, "received": body.decode()[:200]}
