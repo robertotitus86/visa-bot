@@ -736,16 +736,22 @@ async def telegram_webhook(request: Request):
 
     # ── Mensaje regular → IA ──────────────────────────────────────────────
     session_id = f"tg-{chat_id}"
-    reply, quick = await get_ai_response(session_id, text)
-
-    btns = tg_quick_buttons(quick) if quick else None
-
-    # Si la IA menciona diagnóstico y no hay botones ya, agregar botón
-    if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50", "50 dólares"]):
-        btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
-
-    # Respuesta de IA: texto plano (sin parse_mode para evitar errores con caracteres especiales)
-    await tg_send(chat_id, reply, btns)
+    try:
+        reply, quick = await get_ai_response(session_id, text)
+        btns = tg_quick_buttons(quick) if quick else None
+        if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50", "50 dólares"]):
+            btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+        await tg_send(chat_id, reply, btns)
+    except Exception as e:
+        print(f"[TG] Error en get_ai_response: {e}")
+        fallback_btns = [
+            [{"text": "WhatsApp", "url": "https://wa.me/593994442512?text=Hola,%20quiero%20asesoria%20de%20visa"}],
+            [{"text": "Diagnostico IA - $50", "url": f"{SITE_URL}/diagnostico.html"}],
+        ]
+        await tg_send(chat_id,
+            "En este momento tengo problemas para responder. "
+            "Escríbeme directo al WhatsApp o usa el diagnostico online.",
+            fallback_btns)
 
     # Notificar al admin si es lead caliente
     msg_lower = text.lower()
