@@ -775,6 +775,20 @@ async def telegram_debug_endpoint():
     return _tg_debug
 
 
+@app.get("/test-ai")
+async def test_ai():
+    """Prueba la conexion con Anthropic directamente."""
+    try:
+        resp = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=50,
+            messages=[{"role": "user", "content": "di hola"}],
+        )
+        return {"ok": True, "respuesta": resp.content[0].text}
+    except Exception as e:
+        return {"ok": False, "error": str(e), "tipo": type(e).__name__}
+
+
 @app.get("/telegram-test/{chat_id}")
 async def telegram_test(chat_id: int):
     """Envía un mensaje de prueba al chat_id dado para verificar que tg_send funciona."""
