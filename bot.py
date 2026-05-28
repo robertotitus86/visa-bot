@@ -265,14 +265,14 @@ def is_uk_trigger(text: str) -> bool:
 # ── KEEP ALIVE ────────────────────────────────────────────────────────────────
 
 async def keep_alive():
-    await asyncio.sleep(60)
+    await asyncio.sleep(30)
     while True:
         try:
             async with httpx.AsyncClient(timeout=10) as c:
                 await c.get(f"{RENDER_URL}/ping")
         except Exception:
             pass
-        await asyncio.sleep(600)
+        await asyncio.sleep(240)  # cada 4 minutos — Render duerme a los 15 min
 
 
 async def configure_green_api():
@@ -664,11 +664,18 @@ async def telegram_webhook(request: Request):
         except Exception:
             pass
         # Tratar el texto del botón como mensaje
-        reply, quick = await get_ai_response(f"tg-{chat_id}", cb_text)
-        btns = tg_quick_buttons(quick) if quick else None
-        if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50"]):
-            btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
-        await tg_send(chat_id, reply, btns)  # plain text para respuestas IA
+        try:
+            reply, quick = await get_ai_response(f"tg-{chat_id}", cb_text)
+            btns = None
+            if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50"]):
+                btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+            await tg_send(chat_id, reply, btns)
+        except Exception as e:
+            print(f"[TG] Error callback: {e}")
+            await tg_send(chat_id,
+                "En este momento tengo problemas para responder. "
+                "Escríbeme al WhatsApp: +593 99 444 2512",
+                [[{"text": "WhatsApp", "url": "https://wa.me/593994442512"}]])
         return {"ok": True}
 
     # ── Mensaje normal ────────────────────────────────────────────────────
