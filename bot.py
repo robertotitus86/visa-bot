@@ -690,75 +690,47 @@ async def telegram_webhook(request: Request):
     if not text:
         return {"ok": True}
 
-    # ── /start ────────────────────────────────────────────────────────────
+    # ── Comandos simples — respuesta directa sin menú ────────────────────
     if text == "/start":
-        import html as _html
-        safe_name = _html.escape(first_name) if first_name else ""
+        nombre = f", {first_name}" if first_name else ""
         saludo = (
-            f"Hola{' <b>' + safe_name + '</b>' if safe_name else ''}. "
-            "Soy el asistente de <b>Asesoría Visa Global</b>.\n\n"
-            "Tu primera consulta es completamente <b>gratis</b>. "
-            "Cuéntame tu situación o elige tu destino:"
+            f"Hola{nombre}. Soy el asesor de Asesoria Visa Global. "
+            "Primera consulta completamente gratis.\n\n"
+            "Cuentame: a donde quieres viajar y cual es tu situacion?"
         )
-        btns = [
-            [{"text": "Visa USA",       "callback_data": "Quiero tramitar la visa para Estados Unidos"},
-             {"text": "Visa Schengen",  "callback_data": "Quiero tramitar la visa Schengen para Europa"}],
-            [{"text": "Visa UK",        "callback_data": "Quiero tramitar la visa para Reino Unido"},
-             {"text": "Otro destino",   "callback_data": "Quiero tramitar una visa para otro destino"}],
-            [{"text": "Diagnostico IA - $50", "url": f"{SITE_URL}/diagnostico.html"}],
-        ]
-        await tg_send(chat_id, saludo, btns, parse_mode="HTML")
+        await tg_send(chat_id, saludo)
         return {"ok": True}
 
-    # ── /diagnostico ──────────────────────────────────────────────────────
     if text in ("/diagnostico", "/diagnostico@VisaGlobalEC_bot"):
-        msg_diag = (
-            "⚡ <b>Diagnóstico IA de Visa — $50</b>\n\n"
-            "Analiza tu perfil exactamente como lo haría un cónsul, "
-            "antes de gastar $185 en la cita consular.\n\n"
-            "✔ 15 preguntas sobre tu perfil\n"
-            "✔ Fortalezas y riesgos detectados\n"
-            "✔ Lista exacta de documentos\n"
-            "✔ Resultado en 5 minutos · 100% online"
-        )
-        btns = [[{"text": "Hacer mi diagnostico ahora", "url": f"{SITE_URL}/diagnostico.html"}]]
-        await tg_send(chat_id, msg_diag, btns, parse_mode="HTML")
+        await tg_send(chat_id,
+            "El Diagnostico IA analiza tu perfil antes de gastar $185 en la cita consular. "
+            f"Cuesta $50 y el resultado es en 5 minutos: {SITE_URL}/diagnostico.html")
         return {"ok": True}
 
-    # ── /precios ──────────────────────────────────────────────────────────
     if text in ("/precios", "/paquetes"):
-        msg_p = (
-            "Paquetes de Asesoria\n\n"
-            "Esencial - $197\nPerfil solido, primera solicitud. Revision completa + guia de entrevista.\n\n"
-            "Profesional - $250 (el mas solicitado)\nTodo lo anterior + expediente completo + simulacro de entrevista.\n\n"
-            "VIP - $320\nPara rechazos previos y casos complejos. Estrategia completa de reconversion.\n\n"
-            "La primera consulta es gratis. Escribeme y evaluamos tu caso."
-        )
-        btns = [
-            [{"text": "Consulta gratuita", "callback_data": "Quiero una evaluacion gratuita de mi caso"}],
-            [{"text": "Diagnostico IA $50", "url": f"{SITE_URL}/diagnostico.html"}],
-        ]
-        await tg_send(chat_id, msg_p, btns)
+        await tg_send(chat_id,
+            "Nuestros paquetes:\n\n"
+            "Esencial $197 - revision completa + guia de entrevista\n"
+            "Profesional $250 - el mas solicitado, expediente completo + simulacro\n"
+            "VIP $320 - para rechazos previos, estrategia completa\n\n"
+            "La evaluacion inicial es gratis. Cuentame tu caso.")
         return {"ok": True}
 
-    # ── Mensaje regular → IA ──────────────────────────────────────────────
+    # ── Cualquier mensaje → IA (igual que WhatsApp) ───────────────────────
     session_id = f"tg-{chat_id}"
     try:
-        reply, quick = await get_ai_response(session_id, text)
-        btns = tg_quick_buttons(quick) if quick else None
-        if not btns and any(w in reply.lower() for w in ["diagnóstico", "diagnostico", "$50", "50 dólares"]):
+        reply, _ = await get_ai_response(session_id, text)
+        # Solo agregar boton de diagnostico si la IA lo menciona explicitamente
+        btns = None
+        if any(w in reply.lower() for w in ["diagnostico", "$50", "50 dolares", "diagnostico ia"]):
             btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
         await tg_send(chat_id, reply, btns)
     except Exception as e:
+        _tg_debug["last_send_result"] = {"ai_error": str(e)}
         print(f"[TG] Error en get_ai_response: {e}")
-        fallback_btns = [
-            [{"text": "WhatsApp", "url": "https://wa.me/593994442512?text=Hola,%20quiero%20asesoria%20de%20visa"}],
-            [{"text": "Diagnostico IA - $50", "url": f"{SITE_URL}/diagnostico.html"}],
-        ]
         await tg_send(chat_id,
-            "En este momento tengo problemas para responder. "
-            "Escríbeme directo al WhatsApp o usa el diagnostico online.",
-            fallback_btns)
+            "Disculpa, tuve un problema tecnico. "
+            "Escribeme al WhatsApp +593 99 444 2512 y te atiendo de inmediato.")
 
     # Notificar al admin si es lead caliente
     msg_lower = text.lower()
