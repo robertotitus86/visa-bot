@@ -816,6 +816,24 @@ async def test_ai():
         return {"ok": False, "error": str(e), "tipo": type(e).__name__}
 
 
+@app.get("/test-gemini")
+async def test_gemini():
+    """Prueba la conexion con Gemini directamente."""
+    try:
+        async with httpx.AsyncClient(timeout=20) as c:
+            r = await c.post(GEMINI_URL, json={
+                "contents": [{"role": "user", "parts": [{"text": "di hola en espanol"}]}],
+                "generationConfig": {"maxOutputTokens": 50},
+            })
+            if r.status_code != 200:
+                return {"ok": False, "status": r.status_code, "error": r.text[:500]}
+            data = r.json()
+            reply = data["candidates"][0]["content"]["parts"][0]["text"]
+            return {"ok": True, "respuesta": reply}
+    except Exception as e:
+        return {"ok": False, "error": str(e), "tipo": type(e).__name__}
+
+
 @app.get("/telegram-test/{chat_id}")
 async def telegram_test(chat_id: int):
     """Envía un mensaje de prueba al chat_id dado para verificar que tg_send funciona."""
