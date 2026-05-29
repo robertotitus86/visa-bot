@@ -165,6 +165,12 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
         except Exception:
             pass
 
+    # Detectar solicitud de pago de diagnóstico
+    if "[DIAGNOSTICO]" in bot_reply:
+        if not cierre_info:
+            cierre_info = {"paquete": "DIAGNOSTICO"}
+        bot_reply = bot_reply.replace("[DIAGNOSTICO]", "").strip()
+
     return bot_reply, cierre_info
 
 
@@ -453,12 +459,20 @@ async def receive_message(request: Request):
 
         # Si el bot decidió cerrar la venta → generar link de pago
         if cierre_info:
-            await cerrar_venta(
-                from_number, phone_number_id,
-                cierre_info["paquete"],
-                cierre_info["tipo_visa"],
-                cierre_info["nombre"],
-            )
+            if cierre_info.get("paquete") == "DIAGNOSTICO":
+                msg_diag = (
+                    f"Puedes hacerlo aqui, el resultado es en 5 minutos:\n"
+                    f"{SITE_URL}/diagnostico.html\n\n"
+                    "Y si decides continuar con nosotros, los $50 se descuentan del plan que elijas."
+                )
+                send_whatsapp_message(from_number, msg_diag, phone_number_id)
+            else:
+                await cerrar_venta(
+                    from_number, phone_number_id,
+                    cierre_info["paquete"],
+                    cierre_info["tipo_visa"],
+                    cierre_info["nombre"],
+                )
 
     except Exception as e:
         print(f"Error webhook: {e}")
@@ -696,10 +710,12 @@ async def telegram_webhook(request: Request):
             pass
         # Tratar el texto del botón como mensaje con IA
         try:
-            reply, _ = await get_ai_response(f"tg-{chat_id}", cb_text)
+            reply, cierre_cb = await get_ai_response(f"tg-{chat_id}", cb_text)
             btns = None
-            if any(w in reply.lower() for w in ["diagnostico", "$50"]):
-                btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+            if cierre_cb and cierre_cb.get("paquete") == "DIAGNOSTICO":
+                btns = [[{"text": "Hacer mi Diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+            elif any(w in reply.lower() for w in ["diagnostico", "$50"]):
+                btns = [[{"text": "Hacer mi Diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
             await tg_send(chat_id, reply, btns)
         except Exception as e:
             print(f"[TG] Error callback IA: {e}")
@@ -731,8 +747,10 @@ async def telegram_webhook(request: Request):
 
     if text in ("/diagnostico", "/diagnostico@VisaGlobalEC_bot"):
         await tg_send(chat_id,
-            "El Diagnostico IA analiza tu perfil antes de gastar $185 en la cita consular. "
-            f"Cuesta $50 y el resultado es en 5 minutos: {SITE_URL}/diagnostico.html")
+            "El Diagnostico analiza tu perfil y te dice exactamente que tan fuerte esta tu caso "
+            "antes de gastar $185 en la cita consular. Resultado en 5 minutos. "
+            "Y si decides seguir con nosotros, los $50 se descuentan del plan que elijas.",
+            [[{"text": "Hacer mi Diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]])
         return {"ok": True}
 
     if text in ("/precios", "/paquetes"):
@@ -747,10 +765,12 @@ async def telegram_webhook(request: Request):
     # ── Cualquier mensaje → IA ────────────────────────────────────────────
     session_id = f"tg-{chat_id}"
     try:
-        reply, _ = await get_ai_response(session_id, text)
+        reply, cierre_tg = await get_ai_response(session_id, text)
         btns = None
-        if any(w in reply.lower() for w in ["diagnostico", "$50", "50 dolares"]):
-            btns = [[{"text": "Hacer mi diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+        if cierre_tg and cierre_tg.get("paquete") == "DIAGNOSTICO":
+            btns = [[{"text": "Hacer mi Diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+        elif any(w in reply.lower() for w in ["diagnostico", "$50", "50 dolares"]):
+            btns = [[{"text": "Hacer mi Diagnostico - $50", "url": f"{SITE_URL}/diagnostico.html"}]]
         await tg_send(chat_id, reply, btns)
     except Exception as e:
         _tg_debug["last_send_result"] = {"ai_error": str(e)}
