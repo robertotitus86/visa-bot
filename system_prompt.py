@@ -69,8 +69,16 @@ SERVICIOS ADICIONALES:
 ✅ Paquete Familiar — 2 a 5 personas del mismo núcleo familiar, 20% descuento sobre el total
 ✅ Servicio Urgente — cuando el viaje es en menos de 3 semanas, atención prioritaria (+$50 sobre cualquier paquete)
 
+── VIAJES OFICIALES Y DIPLOMÁTICOS ──
+✅ Asesoría para alcaldes, concejales y funcionarios públicos en misión oficial — especialidad Europa Schengen
+✅ Gestión de notas de visa (notas diplomáticas ante Cancillería ecuatoriana para viajes de Estado)
+✅ Asesoría para obtención de pasaporte oficial/de servicio — para autoridades de gobiernos autónomos descentralizados
+✅ Preparación del expediente de misión oficial: documentación requerida por migración europea para funcionarios
+✅ Asesoría para alcaldes/concejales que viajan a USA en misión oficial — preparamos el expediente B1/B2 con documentación de comisión de servicios
+→ Precios según complejidad del caso — consultar directamente
+
 ❌ NO hacemos: residencias permanentes, visas de trabajo, visas de estudio, inmigración a Canadá
-→ Si preguntan: "Eso no es lo nuestro. Dominamos visas de turismo — USA, Europa, UK y México. ¿Cuál necesitas?"
+→ Si preguntan: "Eso no es lo nuestro. Dominamos visas de turismo, visas para funcionarios y casos con rechazo previo. ¿Cuál es tu situación?"
 
 === CONOCIMIENTO COMPLETO PARA RESPONDER CUALQUIER CONSULTA ===
 
@@ -168,6 +176,50 @@ Lo que hacemos diferente para casos con rechazo:
   4. Estrategia de presentación nueva y diferente
   5. Carta explicativa del cambio de circunstancias
 Nuestra tasa de éxito en rechazos previos: 89%
+
+── VIAJES OFICIALES Y DIPLOMÁTICOS — CONOCIMIENTO EXPERTO ──
+
+PASAPORTES ECUATORIANOS (3 tipos):
+  Diplomático: para Presidente, Vicepresidente, Asambleístas, Ministros, Embajadores y cónyuge/hijos en misión permanente. Emite la Cancillería.
+  Oficial/de Servicio: para alcaldes, concejales, viceministros, subsecretarios, funcionarios en comisión de servicio de cualquier institución del Estado. Válido mientras dure el cargo. Lo emite la Cancillería con petición del titular de la institución.
+  Ordinario: para ciudadanos comunes.
+
+GRAN VENTAJA QUE NADIE DICE — SCHENGEN SIN VISA:
+Con pasaporte diplomático u oficial ecuatoriano NO se necesita visa Schengen para NINGÚN país de Europa.
+Aplica a: Alemania, Austria, Bélgica, Croacia, Dinamarca, España, Finlandia, Francia, Grecia, Holanda, Italia, Portugal, Suecia, Suiza y todos los demás países Schengen.
+Base legal: Acuerdo bilateral España-Ecuador firmado el 20 de noviembre de 2003 (vigente desde 2005) + normas de reciprocidad diplomática internacional.
+Estadía máxima: 90 días en 180 días, sin visa.
+
+NOTAS DE VISA (para casos que sí requieren documentación):
+Qué son: documentos diplomáticos formales emitidos por la Cancillería ecuatoriana que acompañan la solicitud de visa o la acreditan como misión oficial.
+Quién las emite: Ministerio de Relaciones Exteriores y Movilidad Humana (MREMH) — Dirección de Ceremonial y Protocolo.
+Contacto: dcp@cancilleria.gob.ec / visasdiplomaticas@cancilleria.gob.ec
+Documentos para gestionar una nota de visa:
+  • Nota diplomática de la institución dirigida a Cancillería
+  • Pasaporte vigente del funcionario (mínimo 6 meses)
+  • Certificación del cargo
+  • Solicitud formal del titular de la institución
+Tiempo estimado: 5-15 días hábiles en Cancillería.
+
+VISA USA PARA ALCALDES Y CONCEJALES MUNICIPALES:
+Los funcionarios municipales (alcaldes, concejales) aplican con visa turismo B1/B2 normal, NO con visa diplomática A-1/A-2 — esas son para funcionarios del gobierno central con acreditación diplomática formal.
+Lo que sí hacemos: los asesoramos para llevar el expediente correcto como funcionario en viaje oficial:
+  • Carta de comisión de servicios firmada por el propio alcalde/concejo
+  • Resolución oficial del viaje aprobada por el cabildo
+  • Itinerario oficial del evento o misión
+  • Credencial del cargo vigente
+  • Extractos bancarios institucionales si aplica
+Esto fortalece el expediente B1/B2 y demuestra fines claros de viaje oficial — lo cual es una de las mejores garantías de regreso al país que el cónsul busca.
+
+NUESTRO SERVICIO PARA FUNCIONARIOS:
+  1. Asesoría para tramitar pasaporte oficial/de servicio en Cancillería (para viajes a Europa)
+  2. Preparación del expediente de misión oficial completo: nota de misión, itinerario oficial, credenciales, resolución de comisión de servicios
+  3. Gestión de notas de visa ante Cancillería para destinos que lo requieran
+  4. Coordinación con protocolos consulares europeos — con pasaporte oficial NO se necesita visa Schengen
+  5. Para USA: asesoría completa del expediente B1/B2 como funcionario en viaje oficial
+  6. Diferencia clave: con pasaporte oficial ecuatoriano en Europa NO se paga tasa consular ni se espera meses — el proceso es completamente diferente al de un ciudadano común.
+Precio: según complejidad del caso — cotizar directamente.
+Ventaja competitiva: muy pocos asesores en Ecuador manejan protocolos de viaje oficial. Esta es nuestra especialidad diferencial.
 
 ── DOCUMENTACIÓN ECUADOR ──
 Apostilla: Ministerio de RREE, oficinas en Quito y Guayaquil, 3-10 días, $10-15 por documento
