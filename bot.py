@@ -53,6 +53,7 @@ GREEN_API_BASE      = f"https://api.green-api.com/waInstance{GREEN_API_INSTANCE}
 TG_TOKEN            = os.getenv("TELEGRAM_TOKEN", "")
 TG_API              = f"https://api.telegram.org/bot{TG_TOKEN}"
 SITE_URL            = "https://www.asesoriadevisadosglobal.com"
+GAS_URL             = "https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec"
 GEMINI_KEY          = os.getenv("GEMINI_API_KEY", "AIzaSyCphVM6rvGL68pKcdC39v_ikwKOB2VLgx8")
 GEMINI_URL          = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_KEY}"
 
@@ -64,6 +65,8 @@ conversations    = {}   # phone → historial de mensajes
 pending_payments = {}   # order_id → {phone, phone_number_id, nombre, tipo_visa, paquete, precio}
 lead_tracking    = {}   # phone → {nombre, phone_number_id, followup_activado}
 clientes_activos = set()  # phones que ya pagaron
+_msg_buffer: dict = {}   # phone → {"texts": list[str], "phone_number_id": str}
+_msg_timers: dict = {}   # phone → asyncio.Task (debounce 3s)
 
 SENALES_CALIENTE = [
     "precio", "cuánto", "cuanto", "costo", "vale", "cobran",
@@ -248,6 +251,20 @@ async def completar_formulario(from_number: str, phone_number_id: str,
     send_whatsapp_message(from_number, mensaje_confirmacion_expediente(nombre), phone_number_id)
 
 
+# ── GENERAR LINK PAYPHONE ─────────────────────────────────────────────────────
+
+async def generar_link_payphone(ref: str, amount: int = 50) -> str | None:
+    """Llama al GAS para obtener un link de pago PayPhone. None si falla."""
+    try:
+        async with httpx.AsyncClient(timeout=20, follow_redirects=True) as c:
+            r = await c.get(f"{GAS_URL}?action=payphone_prepare&ref={ref}&amount={amount}")
+            data = r.json()
+            return data.get("url")
+    except Exception as e:
+        print(f"[PayPhone] Error generando link: {e}")
+        return None
+
+
 # ── CERRAR VENTA CON PAYPAL ────────────────────────────────────────────────────
 
 async def cerrar_venta(from_number: str, phone_number_id: str,
@@ -285,6 +302,68 @@ async def cerrar_venta(from_number: str, phone_number_id: str,
             "Para confirmar tu reserva, escríbeme y te envío los datos de pago directamente.",
             phone_number_id,
         )
+
+
+# ── MESSAGE BUFFER (debounce para ser más humano) ──────────────────────────────
+
+async def _flush_buffer(from_number: str):
+    """Espera 3s; si no llega otro mensaje, procesa todos los acumulados juntos."""
+    try:
+        await asyncio.sleep(3)
+    except asyncio.CancelledError:
+        return
+    buf = _msg_buffer.pop(from_number, None)
+    _msg_timers.pop(from_number, None)
+    if not buf:
+        return
+    combined = "\n".join(buf["texts"])
+    await _process_wa_ia(from_number, buf["phone_number_id"], combined)
+
+
+async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
+    """Procesa un mensaje (o mensajes combinados) con IA y envía respuesta WA."""
+    text_lower = text.lower()
+
+    # Activar follow-up en primer contacto
+    if from_number not in clientes_activos and from_number not in lead_tracking:
+        lead_tracking[from_number] = {"phone_number_id": phone_number_id, "followup_activado": False}
+
+    reply, cierre_info = await get_ai_response(from_number, text)
+    send_whatsapp_message(from_number, reply, phone_number_id)
+
+    lead = lead_tracking.get(from_number, {})
+    es_caliente = any(s in text_lower for s in SENALES_CALIENTE) or bool(cierre_info)
+
+    if from_number not in clientes_activos:
+        if es_caliente and not lead.get("caliente_activado"):
+            activar_followup_caliente(from_number, lead.get("nombre", ""), phone_number_id)
+            lead_tracking[from_number].update({"followup_activado": True, "caliente_activado": True})
+        elif not lead.get("followup_activado"):
+            activar_followup_lead(from_number, lead.get("nombre", ""), phone_number_id)
+            lead_tracking[from_number]["followup_activado"] = True
+
+    if cierre_info:
+        if cierre_info.get("paquete") == "DIAGNOSTICO":
+            pay_url = await generar_link_payphone(from_number)
+            if pay_url:
+                msg_diag = (
+                    "El Diagnóstico evalúa tu perfil con los criterios reales del consulado. "
+                    "Resultado en 5 minutos — $50.\n\n"
+                    f"Paga aquí directamente:\n{pay_url}\n\n"
+                    "Y si decides seguir con nosotros, esos $50 se descuentan del plan que elijas."
+                )
+            else:
+                msg_diag = (
+                    "El Diagnóstico evalúa tu perfil con los criterios reales del consulado. "
+                    f"Resultado en 5 minutos — $50.\n\n{SITE_URL}/diagnostico.html\n\n"
+                    "Y si decides seguir con nosotros, esos $50 se descuentan del plan que elijas."
+                )
+            send_whatsapp_message(from_number, msg_diag, phone_number_id)
+        else:
+            await cerrar_venta(
+                from_number, phone_number_id,
+                cierre_info["paquete"], cierre_info["tipo_visa"], cierre_info["nombre"],
+            )
 
 
 # ── HELPERS ───────────────────────────────────────────────────────────────────
@@ -370,14 +449,7 @@ async def receive_message(request: Request):
         phone_number_id = GREEN_API_INSTANCE
         text_lower      = text.lower()
 
-        # ── Activar follow-up en primer contacto de lead nuevo ──────
-        if from_number not in clientes_activos and from_number not in lead_tracking:
-            lead_tracking[from_number] = {
-                "phone_number_id": phone_number_id,
-                "followup_activado": False,
-            }
-
-        # ── Cancelar sesiones activas ───────────────────────────────
+        # ── Cancelar sesiones activas (inmediato, sin buffer) ──────
         if text_lower in ("cancelar", "cancel", "salir", "exit"):
             for cancelar_fn, esta_fn, msg_cancelar in [
                 (cancelar_sesion, esta_en_sesion_ds160, "Formulario cancelado. Escribe DS-160 cuando quieras retomarlo."),
@@ -390,7 +462,7 @@ async def receive_message(request: Request):
                     break
             return {"status": "ok"}
 
-        # ── Flujos de formulario activos ────────────────────────────
+        # ── Flujos de formulario activos (inmediato, sin buffer) ────
         if esta_en_sesion_ds160(from_number):
             respuestas = procesar_mensaje_ds160(from_number, text)
             if respuestas is None:
@@ -424,7 +496,7 @@ async def receive_message(request: Request):
                     if r: send_whatsapp_message(from_number, r, phone_number_id)
             return {"status": "ok"}
 
-        # ── Triggers de formularios ─────────────────────────────────
+        # ── Triggers de formularios (inmediato) ─────────────────────
         if is_ds160_trigger(text_lower):
             send_whatsapp_message(from_number, iniciar_sesion_ds160(from_number), phone_number_id)
             return {"status": "ok"}
@@ -435,45 +507,13 @@ async def receive_message(request: Request):
             send_whatsapp_message(from_number, iniciar_sesion_schengen(from_number), phone_number_id)
             return {"status": "ok"}
 
-        # ── Conversación con IA (venta SPIN) ────────────────────────
-        reply, cierre_info = await get_ai_response(from_number, text)
-        send_whatsapp_message(from_number, reply, phone_number_id)
-
-        lead = lead_tracking.get(from_number, {})
-
-        # Detectar si el lead es caliente (mostró interés real)
-        es_caliente = any(s in text_lower for s in SENALES_CALIENTE) or bool(cierre_info)
-
-        if from_number not in clientes_activos:
-            if es_caliente and not lead.get("caliente_activado"):
-                # Escalar a secuencia caliente (cancela la fría si estaba activa)
-                nombre_lead = lead.get("nombre", "")
-                activar_followup_caliente(from_number, nombre_lead, phone_number_id)
-                lead_tracking[from_number]["followup_activado"] = True
-                lead_tracking[from_number]["caliente_activado"] = True
-            elif not lead.get("followup_activado"):
-                # Primera respuesta: activar secuencia fría básica
-                nombre_lead = lead.get("nombre", "")
-                activar_followup_lead(from_number, nombre_lead, phone_number_id)
-                lead_tracking[from_number]["followup_activado"] = True
-
-        # Si el bot decidió cerrar la venta → generar link de pago
-        if cierre_info:
-            if cierre_info.get("paquete") == "DIAGNOSTICO":
-                msg_diag = (
-                    f"El Diagnostico evalua tu perfil con los criterios reales del consulado. "
-                    f"Resultado en 5 minutos — $50.\n\n"
-                    f"{SITE_URL}/diagnostico.html\n\n"
-                    "Y si decides seguir con nosotros, esos $50 se descuentan del plan que elijas."
-                )
-                send_whatsapp_message(from_number, msg_diag, phone_number_id)
-            else:
-                await cerrar_venta(
-                    from_number, phone_number_id,
-                    cierre_info["paquete"],
-                    cierre_info["tipo_visa"],
-                    cierre_info["nombre"],
-                )
+        # ── Conversación IA: buffer 3s para acumular mensajes ───────
+        if from_number in _msg_timers and not _msg_timers[from_number].done():
+            _msg_timers[from_number].cancel()
+        if from_number not in _msg_buffer:
+            _msg_buffer[from_number] = {"texts": [], "phone_number_id": phone_number_id}
+        _msg_buffer[from_number]["texts"].append(text)
+        _msg_timers[from_number] = asyncio.create_task(_flush_buffer(from_number))
 
     except Exception as e:
         print(f"Error webhook: {e}")
@@ -650,6 +690,18 @@ async def extract_pdfs(files: List[UploadFile] = File(...)):
 # TELEGRAM BOT
 # ══════════════════════════════════════════════════════════════════════════════
 
+async def tg_typing(chat_id: int):
+    """Muestra indicador 'escribiendo...' en Telegram por ~2s."""
+    if not TG_TOKEN:
+        return
+    try:
+        async with httpx.AsyncClient(timeout=5) as c:
+            await c.post(f"{TG_API}/sendChatAction", json={"chat_id": chat_id, "action": "typing"})
+        await asyncio.sleep(1.5)
+    except Exception:
+        pass
+
+
 async def tg_send(chat_id: int, text: str, buttons: list = None, parse_mode: str = None):
     """Envía mensaje de Telegram con botones opcionales."""
     if not TG_TOKEN:
@@ -711,10 +763,13 @@ async def telegram_webhook(request: Request):
             pass
         # Tratar el texto del botón como mensaje con IA
         try:
+            await tg_typing(chat_id)
             reply, cierre_cb = await get_ai_response(f"tg-{chat_id}", cb_text)
             btns = None
             if cierre_cb and cierre_cb.get("paquete") == "DIAGNOSTICO":
-                btns = [[{"text": "Hacer mi Diagnostico — $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+                pay_url = await generar_link_payphone(str(chat_id))
+                url_btn = pay_url or f"{SITE_URL}/diagnostico.html"
+                btns = [[{"text": "Hacer mi Diagnostico — $50", "url": url_btn}]]
             elif any(w in reply.lower() for w in ["diagnostico", "$50"]):
                 btns = [[{"text": "Hacer mi Diagnostico — $50", "url": f"{SITE_URL}/diagnostico.html"}]]
             await tg_send(chat_id, reply, btns)
@@ -767,10 +822,13 @@ async def telegram_webhook(request: Request):
     # ── Cualquier mensaje → IA ────────────────────────────────────────────
     session_id = f"tg-{chat_id}"
     try:
+        await tg_typing(chat_id)
         reply, cierre_tg = await get_ai_response(session_id, text)
         btns = None
         if cierre_tg and cierre_tg.get("paquete") == "DIAGNOSTICO":
-            btns = [[{"text": "Hacer mi Diagnostico — $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+            pay_url = await generar_link_payphone(str(chat_id))
+            url_btn = pay_url or f"{SITE_URL}/diagnostico.html"
+            btns = [[{"text": "Hacer mi Diagnostico — $50", "url": url_btn}]]
         elif any(w in reply.lower() for w in ["diagnostico", "$50", "50 dolares"]):
             btns = [[{"text": "Hacer mi Diagnostico — $50", "url": f"{SITE_URL}/diagnostico.html"}]]
         await tg_send(chat_id, reply, btns)
