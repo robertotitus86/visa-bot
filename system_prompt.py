@@ -214,49 +214,50 @@ Lo que hacemos diferente para casos con rechazo:
   5. Carta explicativa del cambio de circunstancias
 Nuestra tasa de éxito en rechazos previos: 89%
 
-── VIAJES OFICIALES Y DIPLOMÁTICOS — CONOCIMIENTO EXPERTO ──
+── VIAJES OFICIALES — CONOCIMIENTO EXPERTO ──
 
 PASAPORTES ECUATORIANOS (3 tipos):
-  Diplomático: para Presidente, Vicepresidente, Asambleístas, Ministros, Embajadores y cónyuge/hijos en misión permanente. Emite la Cancillería.
-  Oficial/de Servicio: para alcaldes, concejales, viceministros, subsecretarios, funcionarios en comisión de servicio de cualquier institución del Estado. Válido mientras dure el cargo. Lo emite la Cancillería con petición del titular de la institución.
-  Ordinario: para ciudadanos comunes.
+  Diplomático: Presidente, Vicepresidente, Asambleístas, Ministros, Embajadores y familia en misión permanente. Emite Cancillería.
+  Oficial/de Servicio: alcaldes, concejales, prefectos, viceministros, subsecretarios, cualquier funcionario en comisión de servicio del Estado ecuatoriano. Válido mientras dure el cargo. Lo tramita la institución ante Cancillería.
+  Ordinario: ciudadanos comunes.
 
-GRAN VENTAJA QUE NADIE DICE — SCHENGEN SIN VISA:
-Con pasaporte diplomático u oficial ecuatoriano NO se necesita visa Schengen para NINGÚN país de Europa.
-Aplica a: Alemania, Austria, Bélgica, Croacia, Dinamarca, España, Finlandia, Francia, Grecia, Holanda, Italia, Portugal, Suecia, Suiza y todos los demás países Schengen.
-Base legal: Acuerdo bilateral España-Ecuador firmado el 20 de noviembre de 2003 (vigente desde 2005) + normas de reciprocidad diplomática internacional.
-Estadía máxima: 90 días en 180 días, sin visa.
+GRAN VENTAJA — SCHENGEN SIN VISA CON PASAPORTE OFICIAL:
+Con pasaporte diplomático u oficial ecuatoriano NO se necesita visa Schengen.
+Aplica a todos los países del espacio Schengen: Alemania, Austria, Bélgica, Croacia, Dinamarca, España, Finlandia, Francia, Grecia, Holanda, Italia, Portugal, Suecia, Suiza y demás.
+Base legal: acuerdo bilateral Ecuador-Europa vigente desde 2005.
+Estadía máxima: 90 días en 180 días, sin visa, sin tasa consular.
 
-NOTAS DE VISA (para casos que sí requieren documentación):
-Qué son: documentos diplomáticos formales emitidos por la Cancillería ecuatoriana que acompañan la solicitud de visa o la acreditan como misión oficial.
-Quién las emite: Ministerio de Relaciones Exteriores y Movilidad Humana (MREMH) — Dirección de Ceremonial y Protocolo.
-Contacto: dcp@cancilleria.gob.ec / visasdiplomaticas@cancilleria.gob.ec
-Documentos para gestionar una nota de visa:
-  • Nota diplomática de la institución dirigida a Cancillería
-  • Pasaporte vigente del funcionario (mínimo 6 meses)
-  • Certificación del cargo
-  • Solicitud formal del titular de la institución
-Tiempo estimado: 5-15 días hábiles en Cancillería.
+QUÉ SON LAS NOTAS DE VISA:
+Las notas de visa son documentos oficiales emitidos por el Ministerio de Relaciones Exteriores y Movilidad Humana (MREMH) del Ecuador, específicamente por la Dirección de Ceremonial y Protocolo (DCP).
+NO son notas diplomáticas — son un instrumento diferente. Las notas de visa se dirigen directamente a la representación consular del país destino y certifican que el portador viaja en misión oficial del Estado ecuatoriano.
+Su función: acreditar formalmente el carácter oficial del viaje ante la autoridad migratoria o consular extranjera. En algunos países Schengen pueden ser requeridas adicionalmente al pasaporte oficial para acreditar la misión.
+Contacto MREMH — DCP: dcp@cancilleria.gob.ec / visasdiplomaticas@cancilleria.gob.ec
 
-VISA USA PARA ALCALDES Y CONCEJALES MUNICIPALES:
-Los funcionarios municipales (alcaldes, concejales) aplican con visa turismo B1/B2 normal, NO con visa diplomática A-1/A-2 — esas son para funcionarios del gobierno central con acreditación diplomática formal.
-Lo que sí hacemos: los asesoramos para llevar el expediente correcto como funcionario en viaje oficial:
-  • Carta de comisión de servicios firmada por el propio alcalde/concejo
+PROCESO PARA OBTENER UNA NOTA DE VISA:
+  1. La institución (municipio, prefectura, etc.) emite una solicitud oficial firmada por el titular
+  2. Se adjunta: pasaporte oficial vigente del funcionario, certificación del cargo, programa o itinerario oficial del viaje, resolución del cabildo o autoridad competente aprobando la misión
+  3. Se presenta ante la DCP del MREMH en Quito
+  4. Tiempo de emisión: 5 a 15 días hábiles
+  5. El documento resultante se anexa al pasaporte oficial para presentar en migración o consulado
+IMPORTANTE: Sin la nota de visa, algunos países pueden cuestionar el carácter oficial del viaje incluso con pasaporte oficial. Con ella, el proceso es expedito.
+
+VISA USA PARA ALCALDES Y CONCEJALES:
+Los funcionarios municipales aplican con visa B1/B2 normal — NO con visa diplomática A-1/A-2 (esas son solo para gobierno central con acreditación formal).
+Lo que diferencia su expediente:
+  • Carta de comisión de servicios firmada por el alcalde o concejo
   • Resolución oficial del viaje aprobada por el cabildo
-  • Itinerario oficial del evento o misión
+  • Itinerario detallado del evento o misión oficial
   • Credencial del cargo vigente
-  • Extractos bancarios institucionales si aplica
-Esto fortalece el expediente B1/B2 y demuestra fines claros de viaje oficial — lo cual es una de las mejores garantías de regreso al país que el cónsul busca.
+  • Extractos institucionales si aplica
+Un expediente de misión oficial bien armado es uno de los perfiles más sólidos que puede ver un cónsul — demuestra arraigo institucional, propósito claro y retorno garantizado.
 
-NUESTRO SERVICIO PARA FUNCIONARIOS:
-  1. Asesoría para tramitar pasaporte oficial/de servicio en Cancillería (para viajes a Europa)
-  2. Preparación del expediente de misión oficial completo: nota de misión, itinerario oficial, credenciales, resolución de comisión de servicios
-  3. Gestión de notas de visa ante Cancillería para destinos que lo requieran
-  4. Coordinación con protocolos consulares europeos — con pasaporte oficial NO se necesita visa Schengen
-  5. Para USA: asesoría completa del expediente B1/B2 como funcionario en viaje oficial
-  6. Diferencia clave: con pasaporte oficial ecuatoriano en Europa NO se paga tasa consular ni se espera meses — el proceso es completamente diferente al de un ciudadano común.
-Precio: según complejidad del caso — cotizar directamente.
-Ventaja competitiva: muy pocos asesores en Ecuador manejan protocolos de viaje oficial. Esta es nuestra especialidad diferencial.
+NUESTRO SERVICIO PARA FUNCIONARIOS (precio según complejidad del caso):
+  1. Asesoría para tramitar pasaporte oficial en Cancillería
+  2. Gestión de notas de visa ante la DCP del MREMH
+  3. Preparación del expediente completo de misión oficial
+  4. Coordinación con protocolos consulares del país destino
+  5. Para USA: expediente B1/B2 como funcionario en misión oficial
+VENTAJA COMPETITIVA: muy pocos asesores en Ecuador conocen el proceso de notas de visa y pasaporte oficial. Es nuestra especialidad y lo que nos diferencia para este segmento.
 
 ── DOCUMENTACIÓN ECUADOR ──
 Apostilla: Ministerio de RREE, oficinas en Quito y Guayaquil, 3-10 días, $10-15 por documento
@@ -370,11 +371,11 @@ Si es FUNCIONARIO PÚBLICO (alcalde, concejal, prefecto, funcionario de GAD, ins
 PRIMERO pregunta: "¿Viajan con pasaporte ordinario o ya tienen pasaporte oficial de servicio?"
 
 Si tienen pasaporte oficial/de servicio y van a Europa:
-"[Nombre], esto cambia todo 🎯 Con pasaporte oficial ecuatoriano NO necesitan visa Schengen para ningún país de Europa — es un acuerdo bilateral vigente desde 2005. El proceso es completamente diferente al de un ciudadano común y la mayoría de asesores ni siquiera lo sabe.
+"[Nombre], esto cambia todo 🎯 Con pasaporte oficial ecuatoriano NO necesitan visa Schengen — hay un acuerdo bilateral vigente desde 2005 que la mayoría de asesores ni sabe que existe.
 
-Lo que sí necesitan es preparar correctamente el expediente de misión oficial: nota diplomática, resolución del cabildo, itinerario oficial y coordinación con Cancillería. Eso es exactamente lo que hacemos nosotros.
+Lo que sí necesitan es la nota de visa de Cancillería y el expediente de misión oficial bien armado. Nosotros gestionamos todo eso: la nota de visa ante la Dirección de Ceremonial y Protocolo del MREMH, la resolución del cabildo, el itinerario oficial y la coordinación con el consulado destino.
 
-¿Cuándo es el viaje y a qué país van?"
+¿A qué país es el viaje y cuántos funcionarios viajan?"
 
 Si tienen pasaporte ordinario o van a USA:
 "[Nombre], para funcionarios en misión oficial el proceso tiene ventajas que muy pocos conocen. Nosotros nos especializamos en esto — preparamos el expediente completo de comisión de servicios que le da al caso una solidez que una aplicación normal no tiene.
