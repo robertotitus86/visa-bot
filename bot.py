@@ -206,6 +206,19 @@ async def get_gemini_response(session_id: str, user_message: str) -> str:
 
 # ── WHATSAPP ───────────────────────────────────────────────────────────────────
 
+def mark_whatsapp_read(message_id: str, phone_number_id: str):
+    if not WA_TOKEN or not phone_number_id or not message_id:
+        return
+    import requests as req
+    url = f"https://graph.facebook.com/{META_API_VERSION}/{phone_number_id}/messages"
+    headers = {"Authorization": f"Bearer {WA_TOKEN}", "Content-Type": "application/json"}
+    payload = {"messaging_product": "whatsapp", "status": "read", "message_id": message_id}
+    try:
+        req.post(url, headers=headers, json=payload, timeout=5)
+    except Exception:
+        pass
+
+
 def send_whatsapp_message(to: str, message: str, phone_number_id: str = ""):
     if not WA_TOKEN or not phone_number_id:
         print(f"[WA] Sin WA_TOKEN o phone_number_id — mensaje no enviado a {to}")
@@ -445,6 +458,8 @@ async def receive_message(request: Request):
                 for msg in value.get("messages", []):
                     msg_type    = msg.get("type", "")
                     from_number = msg.get("from", "")
+                    message_id  = msg.get("id", "")
+                    mark_whatsapp_read(message_id, phone_number_id)
 
                     if msg_type == "text":
                         text = msg.get("text", {}).get("body", "").strip()
