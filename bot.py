@@ -47,15 +47,13 @@ VERIFY_TOKEN        = os.getenv("VERIFY_TOKEN", "visaglobal2026")
 WA_TOKEN            = os.getenv("WA_TOKEN", "")
 RENDER_URL          = os.getenv("RENDER_URL", "https://visa-global-bot.onrender.com")
 ADMIN_PHONE         = os.getenv("PHONE_NUMBER", "593994442512")
-GREEN_API_INSTANCE  = os.getenv("GREEN_API_INSTANCE", "7107614197")
-GREEN_API_TOKEN     = os.getenv("GREEN_API_TOKEN", "e9bb0092f5e845cea9e281735d92c7ae9663e67a5a654b0c8b")
-GREEN_API_BASE      = f"https://api.green-api.com/waInstance{GREEN_API_INSTANCE}"
 TG_TOKEN            = os.getenv("TELEGRAM_TOKEN", "")
 TG_API              = f"https://api.telegram.org/bot{TG_TOKEN}"
 SITE_URL            = "https://www.asesoriadevisadosglobal.com"
 GAS_URL             = "https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec"
 GEMINI_KEY          = os.getenv("GEMINI_API_KEY", "AIzaSyCphVM6rvGL68pKcdC39v_ikwKOB2VLgx8")
 GEMINI_URL          = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_KEY}"
+META_API_VERSION    = "v19.0"
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 
@@ -209,13 +207,27 @@ async def get_gemini_response(session_id: str, user_message: str) -> str:
 # ── WHATSAPP ───────────────────────────────────────────────────────────────────
 
 def send_whatsapp_message(to: str, message: str, phone_number_id: str = ""):
+    if not WA_TOKEN or not phone_number_id:
+        print(f"[WA] Sin WA_TOKEN o phone_number_id — mensaje no enviado a {to}")
+        return
     import requests as req
-    chat_id = to if "@" in to else f"{to}@c.us"
-    req.post(
-        f"{GREEN_API_BASE}/sendMessage/{GREEN_API_TOKEN}",
-        json={"chatId": chat_id, "message": message},
-        timeout=10,
-    )
+    url = f"https://graph.facebook.com/{META_API_VERSION}/{phone_number_id}/messages"
+    headers = {
+        "Authorization": f"Bearer {WA_TOKEN}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": to,
+        "type": "text",
+        "text": {"body": message[:4096]},
+    }
+    try:
+        r = req.post(url, headers=headers, json=payload, timeout=10)
+        if r.status_code != 200:
+            print(f"[WA] Error {r.status_code}: {r.text[:200]}")
+    except Exception as e:
+        print(f"[WA] Excepción enviando mensaje: {e}")
 
 
 # ── COMPLETAR FORMULARIO (post-pago) ──────────────────────────────────────────
@@ -391,23 +403,9 @@ async def keep_alive():
         await asyncio.sleep(240)  # cada 4 minutos — Render duerme a los 15 min
 
 
-async def configure_green_api():
-    await asyncio.sleep(5)
-    try:
-        async with httpx.AsyncClient(timeout=10) as c:
-            await c.post(
-                f"{GREEN_API_BASE}/setSettings/{GREEN_API_TOKEN}",
-                json={"webhookUrl": f"{RENDER_URL}/webhook", "incomingWebhook": "yes"},
-            )
-        print("Green API webhook configurado correctamente")
-    except Exception as e:
-        print(f"Error configurando Green API webhook: {e}")
-
-
 @app.on_event("startup")
 async def startup_event():
     asyncio.create_task(keep_alive())
-    asyncio.create_task(configure_green_api())
 
 
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────
@@ -418,102 +416,139 @@ async def ping():
 
 
 @app.get("/webhook")
-async def verify_webhook():
-    return {"status": "ok"}
+async def verify_webhook(request: Request):
+    mode      = request.query_params.get("hub.mode")
+    token     = request.query_params.get("hub.verify_token")
+    challenge = request.query_params.get("hub.challenge")
+    if mode == "subscribe" and token == VERIFY_TOKEN:
+        return PlainTextResponse(challenge)
+    raise HTTPException(status_code=403, detail="Token inválido")
 
 
 @app.post("/webhook")
 async def receive_message(request: Request):
     data = await request.json()
+
+    # Meta WhatsApp Business API — ignorar lo que no sean mensajes
+    if data.get("object") != "whatsapp_business_account":
+        return {"status": "ok"}
+
     try:
-        # Solo mensajes entrantes de texto (formato Green API)
-        if data.get("typeWebhook") != "incomingMessageReceived":
-            return {"status": "ok"}
+        for entry in data.get("entry", []):
+            for change in entry.get("changes", []):
+                if change.get("field") != "messages":
+                    continue
 
-        msg_data    = data.get("messageData", {})
-        sender_data = data.get("senderData", {})
-        type_msg    = msg_data.get("typeMessage", "")
+                value           = change.get("value", {})
+                phone_number_id = value.get("metadata", {}).get("phone_number_id", "")
 
-        if type_msg == "textMessage":
-            text = msg_data.get("textMessageData", {}).get("textMessage", "").strip()
-        elif type_msg == "extendedTextMessage":
-            text = msg_data.get("extendedTextMessageData", {}).get("text", "").strip()
-        else:
-            return {"status": "ok"}
+                for msg in value.get("messages", []):
+                    msg_type    = msg.get("type", "")
+                    from_number = msg.get("from", "")
 
-        if not text:
-            return {"status": "ok"}
+                    if msg_type == "text":
+                        text = msg.get("text", {}).get("body", "").strip()
+                    elif msg_type == "interactive":
+                        interactive = msg.get("interactive", {})
+                        itype = interactive.get("type", "")
+                        if itype == "button_reply":
+                            text = interactive.get("button_reply", {}).get("title", "").strip()
+                        elif itype == "list_reply":
+                            text = interactive.get("list_reply", {}).get("title", "").strip()
+                        else:
+                            continue
+                    else:
+                        continue
 
-        chat_id         = sender_data.get("chatId", "")
-        from_number     = chat_id.replace("@c.us", "").replace("@g.us", "")
-        phone_number_id = GREEN_API_INSTANCE
-        text_lower      = text.lower()
+                    if not text or not from_number:
+                        continue
 
-        # ── Cancelar sesiones activas (inmediato, sin buffer) ──────
-        if text_lower in ("cancelar", "cancel", "salir", "exit"):
-            for cancelar_fn, esta_fn, msg_cancelar in [
-                (cancelar_sesion, esta_en_sesion_ds160, "Formulario cancelado. Escribe DS-160 cuando quieras retomarlo."),
-                (cancelar_sesion_schengen, esta_en_sesion_schengen, "Formulario cancelado. Escribe 'Europa' cuando quieras retomarlo."),
-                (cancelar_sesion_uk, esta_en_sesion_uk, "Formulario cancelado. Escribe 'Reino Unido' cuando quieras retomarlo."),
-            ]:
-                if esta_fn(from_number):
-                    cancelar_fn(from_number)
-                    send_whatsapp_message(from_number, msg_cancelar, phone_number_id)
-                    break
-            return {"status": "ok"}
+                    text_lower = text.lower()
 
-        # ── Flujos de formulario activos (inmediato, sin buffer) ────
-        if esta_en_sesion_ds160(from_number):
-            respuestas = procesar_mensaje_ds160(from_number, text)
-            if respuestas is None:
-                bloques = obtener_reporte(from_number) or []
-                personas, datos = obtener_datos_sesion(from_number)
-                await completar_formulario(from_number, phone_number_id, personas, datos, "USA DS-160", bloques)
-            else:
-                for r in respuestas:
-                    if r: send_whatsapp_message(from_number, r, phone_number_id)
-            return {"status": "ok"}
+                    # Opt-out obligatorio por política de Meta
+                    if text_lower == "stop":
+                        send_whatsapp_message(
+                            from_number,
+                            "Has cancelado los mensajes de Asesoría Visa Global. Si deseas reactivar, escribe HOLA.",
+                            phone_number_id,
+                        )
+                        continue
 
-        if esta_en_sesion_uk(from_number):
-            respuestas = procesar_mensaje_uk(from_number, text)
-            if respuestas is None:
-                bloques = obtener_reporte_uk(from_number) or []
-                personas, datos = obtener_datos_sesion_uk(from_number)
-                await completar_formulario(from_number, phone_number_id, personas, datos, "Reino Unido", bloques)
-            else:
-                for r in respuestas:
-                    if r: send_whatsapp_message(from_number, r, phone_number_id)
-            return {"status": "ok"}
+                    # Aviso de privacidad en primer contacto (exigido por Meta)
+                    if from_number not in conversations:
+                        send_whatsapp_message(
+                            from_number,
+                            "Este chat es atendido por el asistente virtual de Asesoría Visa Global. "
+                            "Tu información se usa únicamente para gestionar tu asesoría. "
+                            "Escribe STOP si no deseas recibir más mensajes.",
+                            phone_number_id,
+                        )
 
-        if esta_en_sesion_schengen(from_number):
-            respuestas = procesar_mensaje_schengen(from_number, text)
-            if respuestas is None:
-                bloques = obtener_reporte_schengen(from_number) or []
-                personas, datos = obtener_datos_sesion_schengen(from_number)
-                await completar_formulario(from_number, phone_number_id, personas, datos, "Schengen", bloques)
-            else:
-                for r in respuestas:
-                    if r: send_whatsapp_message(from_number, r, phone_number_id)
-            return {"status": "ok"}
+                    # ── Cancelar sesiones activas (inmediato, sin buffer) ──
+                    if text_lower in ("cancelar", "cancel", "salir", "exit"):
+                        for cancelar_fn, esta_fn, msg_cancelar in [
+                            (cancelar_sesion, esta_en_sesion_ds160, "Formulario cancelado. Escribe DS-160 cuando quieras retomarlo."),
+                            (cancelar_sesion_schengen, esta_en_sesion_schengen, "Formulario cancelado. Escribe 'Europa' cuando quieras retomarlo."),
+                            (cancelar_sesion_uk, esta_en_sesion_uk, "Formulario cancelado. Escribe 'Reino Unido' cuando quieras retomarlo."),
+                        ]:
+                            if esta_fn(from_number):
+                                cancelar_fn(from_number)
+                                send_whatsapp_message(from_number, msg_cancelar, phone_number_id)
+                                break
+                        continue
 
-        # ── Triggers de formularios (inmediato) ─────────────────────
-        if is_ds160_trigger(text_lower):
-            send_whatsapp_message(from_number, iniciar_sesion_ds160(from_number), phone_number_id)
-            return {"status": "ok"}
-        if is_uk_trigger(text_lower):
-            send_whatsapp_message(from_number, iniciar_sesion_uk(from_number), phone_number_id)
-            return {"status": "ok"}
-        if is_schengen_trigger(text_lower):
-            send_whatsapp_message(from_number, iniciar_sesion_schengen(from_number), phone_number_id)
-            return {"status": "ok"}
+                    # ── Flujos de formulario activos (inmediato, sin buffer) ──
+                    if esta_en_sesion_ds160(from_number):
+                        respuestas = procesar_mensaje_ds160(from_number, text)
+                        if respuestas is None:
+                            bloques = obtener_reporte(from_number) or []
+                            personas, datos = obtener_datos_sesion(from_number)
+                            await completar_formulario(from_number, phone_number_id, personas, datos, "USA DS-160", bloques)
+                        else:
+                            for r in respuestas:
+                                if r: send_whatsapp_message(from_number, r, phone_number_id)
+                        continue
 
-        # ── Conversación IA: buffer 3s para acumular mensajes ───────
-        if from_number in _msg_timers and not _msg_timers[from_number].done():
-            _msg_timers[from_number].cancel()
-        if from_number not in _msg_buffer:
-            _msg_buffer[from_number] = {"texts": [], "phone_number_id": phone_number_id}
-        _msg_buffer[from_number]["texts"].append(text)
-        _msg_timers[from_number] = asyncio.create_task(_flush_buffer(from_number))
+                    if esta_en_sesion_uk(from_number):
+                        respuestas = procesar_mensaje_uk(from_number, text)
+                        if respuestas is None:
+                            bloques = obtener_reporte_uk(from_number) or []
+                            personas, datos = obtener_datos_sesion_uk(from_number)
+                            await completar_formulario(from_number, phone_number_id, personas, datos, "Reino Unido", bloques)
+                        else:
+                            for r in respuestas:
+                                if r: send_whatsapp_message(from_number, r, phone_number_id)
+                        continue
+
+                    if esta_en_sesion_schengen(from_number):
+                        respuestas = procesar_mensaje_schengen(from_number, text)
+                        if respuestas is None:
+                            bloques = obtener_reporte_schengen(from_number) or []
+                            personas, datos = obtener_datos_sesion_schengen(from_number)
+                            await completar_formulario(from_number, phone_number_id, personas, datos, "Schengen", bloques)
+                        else:
+                            for r in respuestas:
+                                if r: send_whatsapp_message(from_number, r, phone_number_id)
+                        continue
+
+                    # ── Triggers de formularios (inmediato) ─────────────────
+                    if is_ds160_trigger(text_lower):
+                        send_whatsapp_message(from_number, iniciar_sesion_ds160(from_number), phone_number_id)
+                        continue
+                    if is_uk_trigger(text_lower):
+                        send_whatsapp_message(from_number, iniciar_sesion_uk(from_number), phone_number_id)
+                        continue
+                    if is_schengen_trigger(text_lower):
+                        send_whatsapp_message(from_number, iniciar_sesion_schengen(from_number), phone_number_id)
+                        continue
+
+                    # ── Conversación IA: buffer 3s para acumular mensajes ────
+                    if from_number in _msg_timers and not _msg_timers[from_number].done():
+                        _msg_timers[from_number].cancel()
+                    if from_number not in _msg_buffer:
+                        _msg_buffer[from_number] = {"texts": [], "phone_number_id": phone_number_id}
+                    _msg_buffer[from_number]["texts"].append(text)
+                    _msg_timers[from_number] = asyncio.create_task(_flush_buffer(from_number))
 
     except Exception as e:
         print(f"Error webhook: {e}")
