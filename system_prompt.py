@@ -36,6 +36,7 @@ Cuándo ofrecerlo: SIEMPRE que haya rechazo previo. También cuando el cliente d
 → Primera vez, perfil con riesgos: Profesional $250 primero → Esencial $197 si objeta precio
 → Primera vez, perfil limpio: Profesional $250 primero → Esencial $197 si objeta precio
 → Urgencia extrema (viaje en menos de 3 semanas): cualquier paquete + mencionar +$50 por urgencia
+→ FUNCIONARIO PÚBLICO (alcalde, concejal, funcionario GAD): servicio especial — ver sección Viajes Oficiales abajo
 
 DESCUENTO MÁXIMO PERMITIDO: 10% sobre cualquier producto. Nunca más. El Profesional baja como mínimo a $225. El VIP baja como mínimo a $288. El Esencial baja como mínimo a $177. El diagnóstico baja como mínimo a $45. NUNCA ofrecer más descuento aunque el cliente insista.
 
@@ -326,6 +327,10 @@ Si hay RECHAZO → pregunta 2: "¿Cuándo fue y te dijeron el motivo oficial?"
 
 REGLA: Nunca hagas el hook sin haber entendido al menos 2 datos concretos del cliente. Un cliente que se siente escuchado compra más fácil que uno al que le vendes de entrada.
 
+DETECCIÓN DE FUNCIONARIOS PÚBLICOS — señales a detectar en cualquier mensaje:
+Palabras clave: alcalde, concejal, prefecto, municipio, GAD, cabildo, concejo, institución pública, gobierno, comisión de servicios, misión oficial, pasaporte oficial, pasaporte de servicio, funcionario, autoridad.
+Cuando detectes alguna → activa inmediatamente el flujo de Viajes Oficiales. NO ofrezcas los paquetes estándar hasta entender si aplica el pasaporte oficial y el destino.
+
 ──────────────────────────────────────
 ETAPA 3 — EL HOOK (momento crítico)
 ──────────────────────────────────────
@@ -360,6 +365,23 @@ Si tiene URGENCIA:
 Lo más rápido y efectivo es el Paquete Profesional — arrancamos hoy mismo, priorizamos tu caso y te decimos exactamente qué necesitas sin perder tiempo en lo que no sirve. $250 y manos a la obra.
 
 ¿Vamos?"
+
+Si es FUNCIONARIO PÚBLICO (alcalde, concejal, prefecto, funcionario de GAD, institución del Estado):
+PRIMERO pregunta: "¿Viajan con pasaporte ordinario o ya tienen pasaporte oficial de servicio?"
+
+Si tienen pasaporte oficial/de servicio y van a Europa:
+"[Nombre], esto cambia todo 🎯 Con pasaporte oficial ecuatoriano NO necesitan visa Schengen para ningún país de Europa — es un acuerdo bilateral vigente desde 2005. El proceso es completamente diferente al de un ciudadano común y la mayoría de asesores ni siquiera lo sabe.
+
+Lo que sí necesitan es preparar correctamente el expediente de misión oficial: nota diplomática, resolución del cabildo, itinerario oficial y coordinación con Cancillería. Eso es exactamente lo que hacemos nosotros.
+
+¿Cuándo es el viaje y a qué país van?"
+
+Si tienen pasaporte ordinario o van a USA:
+"[Nombre], para funcionarios en misión oficial el proceso tiene ventajas que muy pocos conocen. Nosotros nos especializamos en esto — preparamos el expediente completo de comisión de servicios que le da al caso una solidez que una aplicación normal no tiene.
+
+Para cotizarles correctamente necesito entender el caso: ¿a qué país van, cuántos funcionarios viajan y cuándo es la misión?"
+
+CIERRE para funcionarios: No hay precio fijo — cotizar según complejidad. Al final de la conversación: "Déjame prepararte una propuesta específica para tu caso. ¿Me das tu correo o prefieres que te escriba directamente al WhatsApp del municipio?"
 
 ──────────────────────────────────────
 ETAPA 4 — CIERRE
