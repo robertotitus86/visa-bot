@@ -157,11 +157,12 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
         try:
             tag_start = bot_reply.index("[CERRAR:") + 8
             tag_end   = bot_reply.index("]", tag_start)
-            parts     = bot_reply[tag_start:tag_end].split(":")
-            paquete   = parts[0].strip()
-            tipo_visa = parts[1].strip() if len(parts) > 1 else "Visa"
-            nombre    = parts[2].strip() if len(parts) > 2 else "Cliente"
-            cierre_info = {"paquete": paquete, "tipo_visa": tipo_visa, "nombre": nombre}
+            parts        = bot_reply[tag_start:tag_end].split(":")
+            paquete      = parts[0].strip()
+            tipo_visa    = parts[1].strip() if len(parts) > 1 else "Visa"
+            nombre       = parts[2].strip() if len(parts) > 2 else "Cliente"
+            precio_total = int(parts[3].strip()) if len(parts) > 3 and parts[3].strip().isdigit() else None
+            cierre_info  = {"paquete": paquete, "tipo_visa": tipo_visa, "nombre": nombre, "precio_total": precio_total}
             bot_reply = bot_reply.replace(f"[CERRAR:{bot_reply[tag_start:tag_end]}]", "").strip()
         except Exception:
             pass
@@ -306,10 +307,11 @@ PRECIOS_PAQUETES = {
 # ── CERRAR VENTA CON PAYPHONE ──────────────────────────────────────────────────
 
 async def cerrar_venta(from_number: str, phone_number_id: str,
-                       paquete: str, tipo_visa: str, nombre: str):
+                       paquete: str, tipo_visa: str, nombre: str,
+                       precio_total: int = None):
     """Genera link de pago PayPhone y lo envía al cliente."""
     paquete_upper = paquete.upper()
-    precio = PRECIOS_PAQUETES.get(paquete_upper, 250)
+    precio = precio_total if precio_total else PRECIOS_PAQUETES.get(paquete_upper, 250)
     ref = f"{paquete_upper}-{from_number[-6:]}-{int(asyncio.get_event_loop().time())}"
 
     try:
@@ -405,6 +407,7 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
             await cerrar_venta(
                 from_number, phone_number_id,
                 cierre_info["paquete"], cierre_info["tipo_visa"], cierre_info["nombre"],
+                cierre_info.get("precio_total"),
             )
 
 
