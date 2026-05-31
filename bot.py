@@ -290,41 +290,58 @@ async def generar_link_payphone(ref: str, amount: int = 50) -> str | None:
         return None
 
 
-# ── CERRAR VENTA CON PAYPAL ────────────────────────────────────────────────────
+PRECIOS_PAQUETES = {
+    "ESENCIAL": 197, "PROFESIONAL": 250, "VIP": 320,
+    "DIAGNOSTICO": 50, "MEXICO": 79, "RENOVACION": 79, "REVISION": 49,
+    "URGENTE_ESENCIAL": 247, "URGENTE_PROFESIONAL": 300, "URGENTE_VIP": 370,
+}
+
+# ── CERRAR VENTA CON PAYPHONE ──────────────────────────────────────────────────
 
 async def cerrar_venta(from_number: str, phone_number_id: str,
                        paquete: str, tipo_visa: str, nombre: str):
-    """Genera link de pago PayPal y lo envía al cliente."""
+    """Genera link de pago PayPhone y lo envía al cliente."""
+    paquete_upper = paquete.upper()
+    precio = PRECIOS_PAQUETES.get(paquete_upper, 250)
+    ref = f"{paquete_upper}-{from_number[-6:]}-{int(asyncio.get_event_loop().time())}"
+
     try:
-        orden = crear_orden(paquete, from_number)
-        order_id = orden["order_id"]
-        precio   = orden["precio"]
-        url_pago = orden["approval_url"]
+        async with httpx.AsyncClient(timeout=20, follow_redirects=True) as c:
+            r = await c.get(
+                f"{GAS_URL}?action=payphone_prepare"
+                f"&ref={ref}&amount={precio}&paquete={paquete_upper}"
+                f"&nombre={nombre.replace(' ', '+')}"
+            )
+            data = r.json()
+            url_pago = data.get("url")
 
-        # Guardar orden pendiente
-        pending_payments[order_id] = {
-            "phone": from_number,
-            "phone_number_id": phone_number_id,
-            "nombre": nombre,
-            "tipo_visa": tipo_visa,
-            "paquete": paquete,
-            "precio": precio,
-        }
+        if url_pago:
+            pending_payments[ref] = {
+                "phone": from_number,
+                "phone_number_id": phone_number_id,
+                "nombre": nombre,
+                "tipo_visa": tipo_visa,
+                "paquete": paquete_upper,
+                "precio": precio,
+            }
+            send_whatsapp_message(
+                from_number,
+                f"Perfecto {nombre.split()[0]} 🎯 Aquí tienes el link para confirmar tu lugar:\n\n"
+                f"{url_pago}\n\n"
+                f"Paquete {paquete.capitalize()}: ${precio} USD — puedes pagar con tarjeta de crédito o débito.\n\n"
+                f"En cuanto se confirme el pago arrancamos con tu caso.",
+                phone_number_id,
+            )
+        else:
+            raise Exception(data.get("error", "Sin URL de pago"))
 
-        send_whatsapp_message(
-            from_number,
-            f"Para confirmar tu lugar, realiza el pago aquí:\n\n"
-            f"{url_pago}\n\n"
-            f"Paquete {paquete.capitalize()}: ${precio} USD\n"
-            f"Puedes pagar con tarjeta de crédito o débito a través de PayPal.\n\n"
-            f"Una vez confirmado el pago, recibirás acceso inmediato al proceso.",
-            phone_number_id,
-        )
     except Exception as e:
-        print(f"Error creando orden PayPal: {e}")
+        print(f"[PayPhone] Error cerrar_venta: {e}")
         send_whatsapp_message(
             from_number,
-            "Para confirmar tu reserva, escríbeme y te envío los datos de pago directamente.",
+            f"Para confirmar tu lugar en el Paquete {paquete.capitalize()} (${precio} USD), "
+            f"puedes transferir a:\n\nBanco Pichincha — Cuenta Ahorros\nTitular: Roberto Acosta\n"
+            f"Número: 2200449871\n\nEnvía el comprobante aquí mismo y arrancamos.",
             phone_number_id,
         )
 
