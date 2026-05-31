@@ -298,9 +298,9 @@ async def generar_link_payphone(ref: str, amount: int = 50, paquete: str = "DIAG
 
 
 PRECIOS_PAQUETES = {
-    "ESENCIAL": 197, "PROFESIONAL": 250, "VIP": 320,
+    "ESENCIAL": 197, "PROFESIONAL": 265, "VIP": 320,
     "DIAGNOSTICO": 50, "MEXICO": 79, "RENOVACION": 79, "REVISION": 49,
-    "URGENTE_ESENCIAL": 247, "URGENTE_PROFESIONAL": 300, "URGENTE_VIP": 370,
+    "URGENTE_ESENCIAL": 247, "URGENTE_PROFESIONAL": 315, "URGENTE_VIP": 370,
 }
 
 # ── CERRAR VENTA CON PAYPHONE ──────────────────────────────────────────────────
