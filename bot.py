@@ -546,15 +546,18 @@ async def receive_message(request: Request):
                                 if r: send_whatsapp_message(from_number, r, phone_number_id)
                         continue
 
-                    # ── Triggers de formularios (inmediato) ─────────────────
-                    if is_ds160_trigger(text_lower):
-                        send_whatsapp_message(from_number, iniciar_sesion_ds160(from_number), phone_number_id)
-                        continue
-                    if is_uk_trigger(text_lower):
-                        send_whatsapp_message(from_number, iniciar_sesion_uk(from_number), phone_number_id)
-                        continue
-                    if is_schengen_trigger(text_lower):
-                        send_whatsapp_message(from_number, iniciar_sesion_schengen(from_number), phone_number_id)
+                    # ── Triggers de formularios — SOLO si ya pagó ───────────
+                    if is_ds160_trigger(text_lower) or is_uk_trigger(text_lower) or is_schengen_trigger(text_lower):
+                        if from_number in clientes_activos:
+                            if is_ds160_trigger(text_lower):
+                                send_whatsapp_message(from_number, iniciar_sesion_ds160(from_number), phone_number_id)
+                            elif is_uk_trigger(text_lower):
+                                send_whatsapp_message(from_number, iniciar_sesion_uk(from_number), phone_number_id)
+                            elif is_schengen_trigger(text_lower):
+                                send_whatsapp_message(from_number, iniciar_sesion_schengen(from_number), phone_number_id)
+                        else:
+                            # No ha pagado — ignorar trigger y dejar que la IA continúe la venta
+                            pass
                         continue
 
                     # ── Conversación IA: buffer 3s para acumular mensajes ────
