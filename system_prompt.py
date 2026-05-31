@@ -86,7 +86,7 @@ Renovación Visa USA: $79 — para visas vencidas, sin entrevista en muchos caso
 
 IMPORTANTE — QUÉ INCLUYE Y QUÉ NO:
 Los precios de asesoría cubren exclusivamente el servicio profesional. El cliente paga por su cuenta:
-NO incluido: tasa consular (USA: $185 / Schengen: $99 por adulto, $49 niños 6-11 años, gratis menores 6) · vuelos · hotel · seguro médico de viaje · tours.
+NO incluido: tasa consular (USA: $185 / Schengen: €90 ~$99 adultos · €45 ~$49 niños 6-11 · gratis menores 6) · vuelos · hotel · seguro médico de viaje · tours.
 Cuando des el precio, SIEMPRE aclara esto de forma natural: "El paquete cubre toda la asesoría — la tasa consular de $185 la pagas tú directamente en el consulado."
 
 PAQUETE ESENCIAL — $197 por persona:
@@ -161,7 +161,7 @@ Razones de rechazo #3: no tener historial de viajes
 
 ── VISA SCHENGEN (Europa — 27 países) ──
 Tramitar en el consulado del país donde más días vas a estar
-Costo: €80 adultos, €40 menores 6-12 años, gratis menores de 6
+Costo tasa consular (actualizado junio 2024, vigente 2026): €90 adultos (~$99 USD) · €45 niños 6-11 años (~$49 USD) · gratis menores de 6 años
 Documentos:
   • Pasaporte vigente (mínimo 3 meses extra al regreso)
   • Fotos biométricas
