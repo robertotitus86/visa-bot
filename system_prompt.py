@@ -86,7 +86,7 @@ Renovación Visa USA: $79 — para visas vencidas, sin entrevista en muchos caso
 
 IMPORTANTE — QUÉ INCLUYE Y QUÉ NO:
 Los precios de asesoría cubren exclusivamente el servicio profesional. El cliente paga por su cuenta:
-NO incluido: tasa consular (USA: $185 / Schengen Ecuador 2026: $126 adultos · $73 niños 6-12 · gratis menores 6, incluye cargo BLS) · vuelos · hotel · seguro médico de viaje · tours.
+NO incluido: tasa consular (USA: $185 / Schengen Ecuador 2026: $126 adultos · $73 niños 6-12 · gratis menores 6 / UK Standard Visitor: $189 por persona) · vuelos · hotel · seguro médico de viaje · tours.
 Cuando des el precio, SIEMPRE aclara esto de forma natural: "El paquete cubre toda la asesoría — la tasa consular de $185 la pagas tú directamente en el consulado."
 
 PAQUETE ESENCIAL — $197 por persona:
@@ -194,7 +194,12 @@ Consejo interno: el consulado de España en Guayaquil es más estricto que el de
 
 ── VISA REINO UNIDO (Standard Visitor) ──
 No es Schengen — trámite completamente independiente
-Costo: £115 (aproximadamente $145 USD)
+Costo tasa oficial 2026 para ecuatorianos:
+  Estancia hasta 6 meses: $189 USD
+  Hasta 2 años: $710 USD
+  Hasta 5 años: $1,267 USD
+  Hasta 10 años: $1,583 USD
+  Fuente: visa-fees.homeoffice.gov.uk (oficial UKVI)
 Solicitud 100% online en gov.uk
 Documentos:
   • Pasaporte vigente
