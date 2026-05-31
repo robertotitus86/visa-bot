@@ -278,11 +278,23 @@ async def completar_formulario(from_number: str, phone_number_id: str,
 
 # ── GENERAR LINK PAYPHONE ─────────────────────────────────────────────────────
 
-def generar_link_payphone(ref: str, amount: int = 50, paquete: str = "DIAGNOSTICO", nombre: str = "Cliente") -> str:
-    """Devuelve link a la página intermedia /pagar.html que redirige a PayPhone."""
+async def generar_link_payphone(ref: str, amount: int = 50, paquete: str = "DIAGNOSTICO", nombre: str = "Cliente") -> str | None:
+    """Llama GAS servidor a servidor, obtiene URL PayPhone, la envuelve en pagar.html."""
     import urllib.parse
-    params = urllib.parse.urlencode({"ref": ref, "amount": amount, "paquete": paquete, "nombre": nombre})
-    return f"{SITE_URL}/pagar.html?{params}"
+    try:
+        async with httpx.AsyncClient(timeout=20, follow_redirects=True) as c:
+            r = await c.get(
+                f"{GAS_URL}?action=payphone_prepare"
+                f"&ref={urllib.parse.quote(ref)}&amount={amount}"
+                f"&paquete={paquete}&nombre={urllib.parse.quote(nombre)}"
+            )
+            data = r.json()
+            payphone_url = data.get("url")
+            if payphone_url:
+                return f"{SITE_URL}/pagar.html?url={urllib.parse.quote(payphone_url, safe='')}"
+    except Exception as e:
+        print(f"[PayPhone] Error: {e}")
+    return None
 
 
 PRECIOS_PAQUETES = {
@@ -301,7 +313,7 @@ async def cerrar_venta(from_number: str, phone_number_id: str,
     ref = f"{paquete_upper}-{from_number[-6:]}-{int(asyncio.get_event_loop().time())}"
 
     try:
-        url_pago = generar_link_payphone(ref, precio, paquete_upper, nombre)
+        url_pago = await generar_link_payphone(ref, precio, paquete_upper, nombre)
 
         if url_pago:
             pending_payments[ref] = {
