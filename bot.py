@@ -163,6 +163,18 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
     bot_reply = response.content[0].text
     conversations[phone].append({"role": "assistant", "content": bot_reply})
 
+    # Reenviar conversacion a Roberto si es cliente en preparacion activa
+    TELEFONOS_PREPARACION = {"593997119313", "593988229894"}
+    tel_limpio_check = "".join(filter(str.isdigit, phone))
+    if tel_limpio_check in TELEFONOS_PREPARACION:
+        nombre_cache = _crm_cache.get(phone, {}).get("nombre", phone)
+        reenvio = (
+            f"👤 *{nombre_cache}*\n"
+            f"📨 Ellos: {user_message[:200]}\n\n"
+            f"🤖 Bot: {bot_reply[:300]}"
+        )
+        send_whatsapp_message(ADMIN_PHONE, reenvio, phone_number_id)
+
     # Detectar cierre de venta
     cierre_info = None
     if "[CERRAR:" in bot_reply:
