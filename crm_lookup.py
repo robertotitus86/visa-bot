@@ -18,7 +18,7 @@ CLIENTES_PREPARACION = {
         "Estado": "En preparacion de entrevista consular",
         "Paquete": "Preparacion VIP",
         "Llegada USA": "20 marzo 2027",
-        "Cita": "Por confirmar",
+        "Cita": "1 julio 2026, 7:30 AM — Consulado Quito (frente Hospital SOLCA)",
         "Pago": "Pagado",
         "Notas": (
             "CASO ESPECIAL - FAMILIA SEAS GUAMAN. "
@@ -40,7 +40,7 @@ CLIENTES_PREPARACION = {
         "Estado": "En preparacion de entrevista consular",
         "Paquete": "Preparacion VIP",
         "Llegada USA": "20 marzo 2027",
-        "Cita": "Por confirmar",
+        "Cita": "1 julio 2026, 7:30 AM — Consulado Quito (frente Hospital SOLCA)",
         "Pago": "Pagado",
         "Notas": (
             "CASO ESPECIAL - FAMILIA SEAS GUAMAN (conyuge de Luis Alfonso Seas, Alcalde Yacuambi). "
