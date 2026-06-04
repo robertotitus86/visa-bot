@@ -164,6 +164,36 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
     bot_reply = response.content[0].text
     conversations[phone].append({"role": "assistant", "content": bot_reply})
 
+    # Enviar PDFs como documentos reales cuando los piden
+    TELEFONOS_PREP = {"593997119313", "593988229894"}
+    tel_check = "".join(filter(str.isdigit, phone))
+    if tel_check in TELEFONOS_PREP:
+        msg_l = user_message.lower()
+        if any(p in msg_l for p in ["checklist","documentos","lista","que necesito","que llevar","papeles"]):
+            send_whatsapp_document(
+                phone,
+                "https://www.asesoriadevisadosglobal.com/checklist-seas-guaman.pdf",
+                "Checklist_Documentos_Seas_Guaman.pdf",
+                "Tu checklist de documentos personalizado para la entrevista consular",
+                phone_number_id
+            )
+        elif any(p in msg_l for p in ["plan","que hacer","pasos","preparar","cronograma"]):
+            send_whatsapp_document(
+                phone,
+                "https://www.asesoriadevisadosglobal.com/plan-seas-guaman.pdf",
+                "Plan_de_Accion_Seas_Guaman.pdf",
+                "Tu plan de accion semana a semana antes de la entrevista",
+                phone_number_id
+            )
+        elif any(p in msg_l for p in ["simulador","practicar","preguntas","entrevista","portal"]):
+            send_whatsapp_document(
+                phone,
+                "https://www.asesoriadevisadosglobal.com/guia-simulador-seas.pdf",
+                "Guia_Simulador_Seas_Guaman.pdf",
+                "Guia completa del simulador personalizado para tu familia",
+                phone_number_id
+            )
+
     # Registrar en log del admin
     from datetime import datetime as _dt
     _hora = _dt.now().strftime("%H:%M")
@@ -244,6 +274,31 @@ def mark_whatsapp_read(message_id: str, phone_number_id: str):
         req.post(url, headers=headers, json=payload, timeout=5)
     except Exception:
         pass
+
+
+def send_whatsapp_document(to: str, doc_url: str, filename: str, caption: str, phone_number_id: str = ""):
+    """Envía un documento PDF por WhatsApp."""
+    if not WA_TOKEN or not phone_number_id:
+        return
+    import requests as req
+    url = f"https://graph.facebook.com/{META_API_VERSION}/{phone_number_id}/messages"
+    payload = {
+        "messaging_product": "whatsapp",
+        "to": to,
+        "type": "document",
+        "document": {
+            "link": doc_url,
+            "filename": filename,
+            "caption": caption[:1024]
+        }
+    }
+    try:
+        r = req.post(url, headers={"Authorization": f"Bearer {WA_TOKEN}", "Content-Type": "application/json"},
+                     json=payload, timeout=10)
+        if r.status_code != 200:
+            print(f"[WA-DOC] Error {r.status_code}: {r.text[:200]}")
+    except Exception as e:
+        print(f"[WA-DOC] Excepcion: {e}")
 
 
 def send_whatsapp_message(to: str, message: str, phone_number_id: str = ""):
