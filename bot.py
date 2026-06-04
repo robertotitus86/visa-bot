@@ -60,6 +60,7 @@ client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
 # Estado en memoria
 _tg_debug        = {"last_update": None, "last_send_result": None}  # diagnóstico
 conversations    = {}   # phone → historial de mensajes
+_chat_log        = {}   # phone → {nombre, mensajes:[{rol,texto,hora}], ultima_hora}
 pending_payments = {}   # order_id → {phone, phone_number_id, nombre, tipo_visa, paquete, precio}
 lead_tracking    = {}   # phone → {nombre, phone_number_id, followup_activado}
 clientes_activos = set()  # phones que ya pagaron
@@ -163,17 +164,18 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
     bot_reply = response.content[0].text
     conversations[phone].append({"role": "assistant", "content": bot_reply})
 
-    # Reenviar conversacion a Roberto si es cliente en preparacion activa
-    TELEFONOS_PREPARACION = {"593997119313", "593988229894"}
-    tel_limpio_check = "".join(filter(str.isdigit, phone))
-    if tel_limpio_check in TELEFONOS_PREPARACION:
-        nombre_cache = _crm_cache.get(phone, {}).get("nombre", phone)
-        reenvio = (
-            f"👤 *{nombre_cache}*\n"
-            f"📨 Ellos: {user_message[:200]}\n\n"
-            f"🤖 Bot: {bot_reply[:300]}"
-        )
-        send_whatsapp_message(ADMIN_PHONE, reenvio, phone_number_id)
+    # Registrar en log del admin
+    from datetime import datetime as _dt
+    _hora = _dt.now().strftime("%H:%M")
+    _nombre = _crm_cache.get(phone, {}).get("nombre", "") or phone
+    if phone not in _chat_log:
+        _chat_log[phone] = {"nombre": _nombre, "mensajes": [], "ultima_hora": _hora}
+    _chat_log[phone]["nombre"] = _nombre
+    _chat_log[phone]["ultima_hora"] = _hora
+    _chat_log[phone]["mensajes"].append({"rol": "cliente", "texto": user_message, "hora": _hora})
+    _chat_log[phone]["mensajes"].append({"rol": "bot", "texto": bot_reply, "hora": _hora})
+    # Mantener solo últimos 50 mensajes por chat
+    _chat_log[phone]["mensajes"] = _chat_log[phone]["mensajes"][-50:]
 
     # Detectar cierre de venta
     cierre_info = None
@@ -1030,3 +1032,75 @@ async def telegram_webhook_echo(request: Request):
     body = await request.body()
     print(f"[TG-ECHO] {body.decode()[:500]}")
     return {"ok": True, "received": body.decode()[:200]}
+
+
+# ── ADMIN: VER CONVERSACIONES ──────────────────────────────────────────────────
+from fastapi.responses import HTMLResponse
+
+@app.get("/admin", response_class=HTMLResponse)
+async def admin_panel(request: Request, clave: str = ""):
+    """Panel admin para ver conversaciones activas del bot."""
+    if clave != "visa2026admin":
+        return HTMLResponse("""
+        <html><body style="font-family:sans-serif;background:#06101E;color:#CBD5E1;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">
+        <form method="get" style="text-align:center">
+          <h2 style="color:#F5C842">Panel Admin · Asesoría Visa Global</h2>
+          <input name="clave" type="password" placeholder="Contraseña" style="padding:12px;border-radius:8px;border:1px solid #333;background:#0d1a30;color:white;font-size:16px;margin:10px">
+          <br><button type="submit" style="padding:12px 28px;background:#F5C842;color:#06101E;border:none;border-radius:100px;font-weight:800;cursor:pointer;margin-top:10px">Entrar</button>
+        </form></body></html>""", status_code=200)
+
+    # Construir HTML de conversaciones
+    if not _chat_log:
+        cuerpo = "<p style='color:rgba(255,255,255,.4);text-align:center;padding:40px'>No hay conversaciones activas aún.</p>"
+    else:
+        chats_sorted = sorted(_chat_log.items(), key=lambda x: x[1]["ultima_hora"], reverse=True)
+        cuerpo = ""
+        for phone, data in chats_sorted:
+            nombre = data.get("nombre") or phone
+            ultima = data.get("ultima_hora", "")
+            msgs = data.get("mensajes", [])
+            burbuja = ""
+            for m in msgs:
+                es_bot = m["rol"] == "bot"
+                color = "rgba(245,200,66,.08)" if es_bot else "rgba(59,130,246,.08)"
+                borde = "rgba(245,200,66,.2)" if es_bot else "rgba(59,130,246,.2)"
+                lado = "flex-end" if es_bot else "flex-start"
+                label = "🤖 Bot" if es_bot else "👤 Cliente"
+                texto = m["texto"].replace("<","&lt;").replace(">","&gt;")
+                burbuja += f"""
+                <div style="display:flex;justify-content:{lado};margin-bottom:8px">
+                  <div style="max-width:80%;background:{color};border:1px solid {borde};border-radius:12px;padding:10px 14px">
+                    <div style="font-size:.6rem;color:rgba(255,255,255,.35);margin-bottom:4px">{label} · {m['hora']}</div>
+                    <div style="font-size:.85rem;color:#E2E8F0;line-height:1.5">{texto}</div>
+                  </div>
+                </div>"""
+            cuerpo += f"""
+            <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-bottom:16px">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.07)">
+                <div>
+                  <div style="font-weight:700;color:#F1F5F9;font-size:.95rem">{nombre}</div>
+                  <div style="font-size:.72rem;color:rgba(255,255,255,.35)">{phone}</div>
+                </div>
+                <div style="font-size:.7rem;color:rgba(255,255,255,.3)">Última actividad: {ultima}</div>
+              </div>
+              {burbuja}
+            </div>"""
+
+    total = len(_chat_log)
+    html = f"""<!DOCTYPE html>
+<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · Conversaciones Bot</title>
+<style>*{{margin:0;padding:0;box-sizing:border-box}}body{{font-family:'Segoe UI',sans-serif;background:#06101E;color:#CBD5E1;min-height:100vh}}</style>
+</head><body>
+<div style="max-width:900px;margin:0 auto;padding:24px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)">
+    <div>
+      <h1 style="font-size:1.3rem;font-weight:700;color:#F1F5F9">Conversaciones del Bot</h1>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:4px">Asesoría Visa Global · {total} chat(s) activo(s)</p>
+    </div>
+    <a href="/admin?clave=visa2026admin" style="font-size:.75rem;color:rgba(245,200,66,.7);border:1px solid rgba(245,200,66,.2);padding:6px 14px;border-radius:99px;text-decoration:none">↻ Actualizar</a>
+  </div>
+  {cuerpo}
+</div>
+</body></html>"""
+    return HTMLResponse(html)
