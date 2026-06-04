@@ -164,7 +164,28 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
     bot_reply = response.content[0].text
     conversations[phone].append({"role": "assistant", "content": bot_reply})
 
-    # Enviar PDFs como documentos reales cuando los piden
+    # ── PDFs GRATUITOS PARA TODOS LOS CLIENTES ────────────────────
+    msg_l = user_message.lower()
+    SITE = "https://www.asesoriadevisadosglobal.com"
+
+    if any(p in msg_l for p in ["checklist","check list","lista de documentos","que documentos","que necesito","que llevar","lista de cosas","27 punto","documentos para la entrevista"]):
+        send_whatsapp_document(
+            phone,
+            f"{SITE}/checklist-entrevista.pdf",
+            "Checklist_Entrevista_Consular.pdf",
+            "Tu checklist gratuito de 27 puntos para la entrevista consular. Revisa que tienes todo antes de presentarte.",
+            phone_number_id
+        )
+    elif any(p in msg_l for p in ["guia","guía","proceso visa","como es el proceso","pasos para la visa","cómo funciona","como funciona"]):
+        send_whatsapp_document(
+            phone,
+            f"{SITE}/guia-proceso-visa-usa.pdf",
+            "Guia_Proceso_Visa_USA.pdf",
+            "Guía completa del proceso de visa USA para ecuatorianos. Gratis de Asesoría Visa Global.",
+            phone_number_id
+        )
+
+    # ── PDFs PERSONALIZADOS FAMILIA SEAS GUAMÁN ───────────────────
     TELEFONOS_PREP = {"593997119313", "593988229894"}
     tel_check = "".join(filter(str.isdigit, phone))
     if tel_check in TELEFONOS_PREP:
