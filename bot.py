@@ -127,8 +127,20 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
             contexto_crm = construir_contexto_crm(resultado)
             _crm_cache[phone] = {
                 "contexto": contexto_crm,
-                "ref": resultado["caso"].get("Ref ID", "")
+                "ref": resultado["caso"].get("Ref ID", ""),
+                "nombre": resultado["caso"].get("Nombre Principal", "")
             }
+            # Notificar a Roberto cuando un cliente en preparacion escribe por primera vez
+            estado_caso = resultado["caso"].get("Estado", "")
+            if "preparacion" in estado_caso.lower() and not tiene_cache:
+                nombre_cli = resultado["caso"].get("Nombre Principal", phone)
+                aviso = (
+                    f"📱 *{nombre_cli}* escribio al bot\n"
+                    f"📞 {phone}\n"
+                    f"💬 \"{user_message[:120]}\"\n"
+                    f"_El bot esta respondiendo con contexto de su caso._"
+                )
+                send_whatsapp_message(ADMIN_PHONE, aviso, phone_number_id)
     elif tiene_cache and _crm_cache[phone]["contexto"]:
         contexto_crm = _crm_cache[phone]["contexto"]
 
