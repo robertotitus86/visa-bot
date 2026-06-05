@@ -20,6 +20,7 @@ from onboarding_flow import (
     mensaje_confirmacion_expediente,
 )
 from followup_manager import marcar_formulario_completado
+from recordatorios import enviar_recordatorios
 from ds160_flow import (
     esta_en_sesion_ds160, procesar_mensaje_ds160, obtener_reporte,
     cancelar_sesion, iniciar_sesion_ds160, obtener_datos_sesion,
@@ -541,6 +542,20 @@ async def keep_alive():
 @app.on_event("startup")
 async def startup_event():
     asyncio.create_task(keep_alive())
+
+    # ── Scheduler de recordatorios diarios ─────────────────────────
+    from apscheduler.schedulers.asyncio import AsyncIOScheduler
+    import pytz
+    scheduler = AsyncIOScheduler(timezone=pytz.timezone("America/Guayaquil"))
+    scheduler.add_job(
+        enviar_recordatorios,
+        trigger="cron",
+        hour=9, minute=0,
+        id="recordatorio_diario",
+        replace_existing=True,
+    )
+    scheduler.start()
+    print("[Scheduler] Recordatorio diario activado — 9:00 AM hora Ecuador")
 
 
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────
