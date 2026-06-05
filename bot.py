@@ -21,6 +21,12 @@ from onboarding_flow import (
 )
 from followup_manager import marcar_formulario_completado
 from recordatorios import enviar_recordatorios
+from lead_qualifier import (
+    viene_de_anuncio, es_nuevo_lead, iniciar_calificacion,
+    esta_en_calificacion, obtener_pregunta_actual, procesar_respuesta,
+    calcular_score, generar_notificacion_roberto, mensaje_cierre_calificacion,
+    marcar_notificado
+)
 from ds160_flow import (
     esta_en_sesion_ds160, procesar_mensaje_ds160, obtener_reporte,
     cancelar_sesion, iniciar_sesion_ds160, obtener_datos_sesion,
@@ -627,7 +633,8 @@ async def receive_message(request: Request):
                         continue
 
                     # Aviso de privacidad en primer contacto (exigido por Meta)
-                    if from_number not in conversations:
+                    es_primer_mensaje = from_number not in conversations
+                    if es_primer_mensaje:
                         send_whatsapp_message(
                             from_number,
                             "Este chat es atendido por el asistente virtual de Asesoría Visa Global. "
@@ -635,6 +642,32 @@ async def receive_message(request: Request):
                             "Escribe STOP si no deseas recibir más mensajes.",
                             phone_number_id,
                         )
+
+                    # ── CALIFICADOR DE LEADS DE ANUNCIO ──────────────────────
+                    # Detecta si viene de un anuncio de Meta y lo califica
+                    total_msgs = len(conversations.get(from_number, []))
+                    if (viene_de_anuncio(text) and es_nuevo_lead(from_number, total_msgs)
+                            and from_number not in [ADMIN_PHONE]):
+                        iniciar_calificacion(from_number)
+                        primera_pregunta = obtener_pregunta_actual(from_number)
+                        if primera_pregunta:
+                            send_whatsapp_message(from_number, primera_pregunta, phone_number_id)
+                            continue  # No llamar a la IA todavía
+
+                    if esta_en_calificacion(from_number):
+                        siguiente_msg, completa = procesar_respuesta(from_number, text)
+                        if not completa and siguiente_msg:
+                            send_whatsapp_message(from_number, siguiente_msg, phone_number_id)
+                            continue
+                        elif completa:
+                            # Calificación terminada — notificar a Roberto
+                            notif = generar_notificacion_roberto(from_number)
+                            send_whatsapp_message(ADMIN_PHONE, notif, phone_number_id)
+                            marcar_notificado(from_number)
+                            # Mensaje de cierre al lead y continuar con IA normal
+                            cierre = mensaje_cierre_calificacion(from_number)
+                            send_whatsapp_message(from_number, cierre, phone_number_id)
+                            print(f"[LEAD] Calificado: {from_number} — Score: {calcular_score(from_number)['score']}/100")
 
                     # ── Cancelar sesiones activas (inmediato, sin buffer) ──
                     if text_lower in ("cancelar", "cancel", "salir", "exit"):
