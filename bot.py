@@ -70,8 +70,17 @@ pending_payments = {}   # order_id → {phone, phone_number_id, nombre, tipo_vis
 lead_tracking    = {}   # phone → {nombre, phone_number_id, followup_activado}
 clientes_activos = set()  # phones que ya pagaron
 _notified_phones = set()  # phones ya notificados a Roberto (primer contacto)
+_cierre_intentos: dict = {}  # phone → nº de veces que el bot intentó cerrar sin éxito
 _msg_buffer: dict = {}   # phone → {"texts": list[str], "phone_number_id": str}
 _msg_timers: dict = {}   # phone → asyncio.Task (debounce 3s)
+
+SENALES_FRUSTRACION = [
+    "no entiendo", "no me queda claro", "no comprendo",
+    "ya te pregunté", "ya te dije", "otra vez lo mismo",
+    "no me ayudas", "no sirves", "inútil", "estoy harto",
+    "hablar con alguien", "hablar con una persona", "atención humana",
+    "quiero hablar con", "puedo hablar con", "necesito hablar",
+]
 
 SENALES_CALIENTE = [
     "precio", "cuánto", "cuanto", "costo", "vale", "cobran",
@@ -495,6 +504,39 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
             f"🤖 {reply[:400]}"
         )
         send_whatsapp_message(PERSONAL_PHONE, hilo, phone_number_id)
+
+    # ── Alerta 1: lead caliente sin cerrar ───────────────────────────────
+    if cierre_info and from_number not in clientes_activos:
+        _cierre_intentos[from_number] = _cierre_intentos.get(from_number, 0) + 1
+        if _cierre_intentos[from_number] == 2:
+            ultimos = conversations.get(from_number, [])[-6:]
+            resumen = "\n".join(
+                f"{'👤' if m['role'] == 'user' else '🤖'} {m['content'][:120]}"
+                for m in ultimos
+            )
+            send_whatsapp_message(
+                PERSONAL_PHONE,
+                f"🔥 RESCATA ESTE LEAD — el bot lleva 2 cierres sin éxito\n"
+                f"📞 {from_number}\n\n"
+                f"{resumen[:700]}\n\n"
+                f"Escríbele tú directamente.",
+                phone_number_id,
+            )
+
+    # ── Alerta 2: cliente frustrado ───────────────────────────────────────
+    es_frustrado = (
+        any(s in text_lower for s in SENALES_FRUSTRACION)
+        or len(text) > 420
+    )
+    if es_frustrado and from_number not in clientes_activos:
+        nombre_lead = _crm_cache.get(from_number, {}).get("nombre", "") or from_number
+        send_whatsapp_message(
+            PERSONAL_PHONE,
+            f"⚠️ Cliente frustrado — intervén antes de que se vaya\n"
+            f"📞 {from_number} ({nombre_lead})\n"
+            f"✉️ \"{text[:250]}\"",
+            phone_number_id,
+        )
 
     lead = lead_tracking.get(from_number, {})
     es_caliente = any(s in text_lower for s in SENALES_CALIENTE) or bool(cierre_info)
