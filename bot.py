@@ -486,6 +486,16 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
     reply, cierre_info = await get_ai_response(from_number, text)
     send_whatsapp_message(from_number, reply, phone_number_id)
 
+    # Reenviar conversación al número personal de Roberto
+    if from_number not in (ADMIN_PHONE, PERSONAL_PHONE):
+        nombre_lead = _crm_cache.get(from_number, {}).get("nombre", "") or from_number
+        hilo = (
+            f"👤 *{nombre_lead}*\n"
+            f"✉️ {text[:300]}\n\n"
+            f"🤖 {reply[:400]}"
+        )
+        send_whatsapp_message(PERSONAL_PHONE, hilo, phone_number_id)
+
     lead = lead_tracking.get(from_number, {})
     es_caliente = any(s in text_lower for s in SENALES_CALIENTE) or bool(cierre_info)
 
