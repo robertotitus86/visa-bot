@@ -644,6 +644,26 @@ async def receive_message(request: Request):
                         )
                         continue
 
+                    # Solicitud de atención humana
+                    if text_lower == "humano":
+                        nombre_lead = _crm_cache.get(from_number, {}).get("nombre", "") or from_number
+                        send_whatsapp_message(
+                            from_number,
+                            "Perfecto, te paso con Roberto ahora mismo 👇\n\n"
+                            "https://wa.me/593987846751\n\n"
+                            "Escríbele ahí y dile que ya hablamos — él te atiende directamente.",
+                            phone_number_id,
+                        )
+                        send_whatsapp_message(
+                            PERSONAL_PHONE,
+                            f"🙋 Cliente pide hablar contigo\n"
+                            f"📞 {from_number}\n"
+                            f"👤 {nombre_lead}\n\n"
+                            f"Le di tu link. Espera tu mensaje.",
+                            phone_number_id,
+                        )
+                        continue
+
                     # Aviso de privacidad en primer contacto (exigido por Meta)
                     es_primer_mensaje = from_number not in conversations
                     if es_primer_mensaje:
