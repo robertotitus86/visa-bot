@@ -51,6 +51,7 @@ VERIFY_TOKEN        = os.getenv("VERIFY_TOKEN", "visaglobal2026")
 WA_TOKEN            = os.getenv("WA_TOKEN", "")
 RENDER_URL          = os.getenv("RENDER_URL", "https://visa-global-bot.onrender.com")
 ADMIN_PHONE         = os.getenv("PHONE_NUMBER", "593994442512")
+PERSONAL_PHONE      = "593987846751"  # número personal Roberto — alertas de leads
 TG_TOKEN            = os.getenv("TELEGRAM_TOKEN", "")
 TG_API              = f"https://api.telegram.org/bot{TG_TOKEN}"
 SITE_URL            = "https://www.asesoriadevisadosglobal.com"
@@ -476,7 +477,7 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
             f"✉️ \"{text[:200]}\"\n\n"
             f"_Respondo en /admin?clave=visa2026admin_"
         )
-        send_whatsapp_message(ADMIN_PHONE, aviso, phone_number_id)
+        send_whatsapp_message(PERSONAL_PHONE, aviso, phone_number_id)
 
     # Activar follow-up en primer contacto
     if from_number not in clientes_activos and from_number not in lead_tracking:
