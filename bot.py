@@ -68,6 +68,7 @@ _chat_log        = {}   # phone → {nombre, mensajes:[{rol,texto,hora}], ultima
 pending_payments = {}   # order_id → {phone, phone_number_id, nombre, tipo_visa, paquete, precio}
 lead_tracking    = {}   # phone → {nombre, phone_number_id, followup_activado}
 clientes_activos = set()  # phones que ya pagaron
+_notified_phones = set()  # phones ya notificados a Roberto (primer contacto)
 _msg_buffer: dict = {}   # phone → {"texts": list[str], "phone_number_id": str}
 _msg_timers: dict = {}   # phone → asyncio.Task (debounce 3s)
 
@@ -135,17 +136,7 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
                 "ref": resultado["caso"].get("Ref ID", ""),
                 "nombre": resultado["caso"].get("Nombre Principal", "")
             }
-            # Notificar a Roberto cuando un cliente en preparacion escribe por primera vez
-            estado_caso = resultado["caso"].get("Estado", "")
-            if "preparacion" in estado_caso.lower() and not tiene_cache:
-                nombre_cli = resultado["caso"].get("Nombre Principal", phone)
-                aviso = (
-                    f"📱 *{nombre_cli}* escribio al bot\n"
-                    f"📞 {phone}\n"
-                    f"💬 \"{user_message[:120]}\"\n"
-                    f"_El bot esta respondiendo con contexto de su caso._"
-                )
-                send_whatsapp_message(ADMIN_PHONE, aviso, phone_number_id)
+            # (notificación de primer contacto se gestiona en _process_wa_ia)
     elif tiene_cache and _crm_cache[phone]["contexto"]:
         contexto_crm = _crm_cache[phone]["contexto"]
 
@@ -473,6 +464,19 @@ async def _flush_buffer(from_number: str):
 async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
     """Procesa un mensaje (o mensajes combinados) con IA y envía respuesta WA."""
     text_lower = text.lower()
+
+    # Notificar a Roberto en el primer mensaje de cada lead
+    if from_number not in _notified_phones and from_number != ADMIN_PHONE:
+        _notified_phones.add(from_number)
+        es_caliente_flag = any(s in text_lower for s in SENALES_CALIENTE)
+        emoji = "🔥 LEAD CALIENTE" if es_caliente_flag else "💬 Nuevo lead"
+        aviso = (
+            f"{emoji} en el bot\n"
+            f"📞 {from_number}\n"
+            f"✉️ \"{text[:200]}\"\n\n"
+            f"_Respondo en /admin?clave=visa2026admin_"
+        )
+        send_whatsapp_message(ADMIN_PHONE, aviso, phone_number_id)
 
     # Activar follow-up en primer contacto
     if from_number not in clientes_activos and from_number not in lead_tracking:
