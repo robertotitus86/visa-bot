@@ -647,6 +647,15 @@ async def ping():
     return {"status": "ok"}
 
 
+@app.get("/send-recordatorios")
+async def send_recordatorios_manual(request: Request):
+    """Disparo manual de recordatorios Seas Guaman. Requiere X-Admin-Secret."""
+    _require_admin(request)
+    import threading
+    threading.Thread(target=enviar_recordatorios, daemon=True).start()
+    return {"status": "enviando", "destinatarios": ["Luis Seas", "Zoila Guaman"]}
+
+
 @app.get("/webhook")
 async def verify_webhook(request: Request):
     mode      = request.query_params.get("hub.mode")

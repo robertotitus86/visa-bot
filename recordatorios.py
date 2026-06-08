@@ -4,6 +4,7 @@ Se ejecuta cada dia a las 9:00 AM hora Ecuador desde Render.
 """
 import smtplib
 import logging
+import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime, date
@@ -11,8 +12,8 @@ import pytz
 
 log = logging.getLogger(__name__)
 
-GMAIL_USER = "nanotiendaec@gmail.com"
-GMAIL_PASS = "mydjjjgvjecvmqmy"
+GMAIL_USER = os.getenv("GMAIL_USER", "nanotiendaec@gmail.com")
+GMAIL_PASS = os.getenv("GMAIL_PASS", "")
 FROM_NAME  = "Asesoria Visa Global"
 ZONA       = pytz.timezone("America/Guayaquil")
 SIMULADOR  = "https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html"
@@ -50,7 +51,7 @@ TIPS = [
     "Repase la respuesta sobre la hermana Alexandra: honesta, tranquila y con enfasis en sus raices en Ecuador.",
     "Luis: recuerde mencionar las sesiones del cabildo municipal del 5 de abril como razon de regreso.",
     "Zoila: su farmacia necesita su presencia. Eso es suficiente razon para regresar.",
-    "Los hijos tienen clases el 29 de marzo — ese dato ancla el regreso de toda la familia.",
+    "Los hijos tienen clases a partir del 28 de julio — ese dato ancla el regreso de toda la familia.",
     "Hotel Monreale Express & Studios en Orlando — tengan el numero de confirmacion listo.",
 ]
 
@@ -108,7 +109,7 @@ def _html_email(tratamiento, sim_link, cuenta):
         Luis es <strong>Alcalde electo</strong> — vinculo institucional inamovible<br>
         Zoila tiene <strong>Farmacia propia</strong> — necesita su presencia<br>
         Luis viajo a <strong>4 paises</strong> y siempre regreso<br>
-        Los hijos tienen clases el <strong>29 de marzo 2027</strong>
+        Los hijos tienen clases a partir del <strong>28 de julio 2026</strong>
       </p>
     </div>
 
@@ -133,6 +134,10 @@ def _html_email(tratamiento, sim_link, cuenta):
 
 def enviar_recordatorios():
     """Envia el correo diario a Luis y Zoila. Llamado por APScheduler."""
+    if not GMAIL_PASS:
+        log.error("[Recordatorios] GMAIL_PASS no configurado en Render — recordatorios no enviados")
+        return
+
     hoy  = datetime.now(ZONA).strftime("%d/%m/%Y %H:%M")
     cuenta = _cuenta_regresiva()
     log.info(f"[Recordatorios] Enviando — {hoy}")
@@ -149,7 +154,7 @@ def enviar_recordatorios():
         try:
             sim_link = f"{SIMULADOR}?miembro={dest['miembro']}"
             html     = _html_email(dest["tratamiento"], sim_link, cuenta)
-            asunto   = f"{dest['tratamiento']} · Practica de hoy — Visa USA 2027"
+            asunto   = f"{dest['tratamiento']} · Practica de hoy — Entrevista 1 julio 2026"
 
             msg = MIMEMultipart("alternative")
             msg["Subject"] = asunto
