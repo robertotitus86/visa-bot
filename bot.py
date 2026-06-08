@@ -9,6 +9,8 @@ import json
 import os
 import asyncio
 import httpx
+import hmac
+import hashlib
 from system_prompt import SYSTEM_PROMPT
 from crm_lookup import buscar_caso_por_telefono, construir_contexto_crm
 from analisis_cliente import analizar_sesion_completa
@@ -48,6 +50,8 @@ app.add_middleware(
 
 ANTHROPIC_KEY       = os.getenv("ANTHROPIC_API_KEY")
 VERIFY_TOKEN        = os.getenv("VERIFY_TOKEN", "visaglobal2026")
+FOLLOWUP_SECRET     = os.getenv("FOLLOWUP_SECRET", "")   # secreto GAS→bot; si vacío, sin auth (migración gradual)
+META_APP_SECRET     = os.getenv("META_APP_SECRET", "")   # firma webhook Meta; si vacío, sin verificación
 WA_TOKEN            = os.getenv("WA_TOKEN", "")
 RENDER_URL          = os.getenv("RENDER_URL", "https://visa-global-bot.onrender.com")
 ADMIN_PHONE         = os.getenv("PHONE_NUMBER", "593994442512")
@@ -56,7 +60,7 @@ TG_TOKEN            = os.getenv("TELEGRAM_TOKEN", "")
 TG_API              = f"https://api.telegram.org/bot{TG_TOKEN}"
 SITE_URL            = "https://www.asesoriadevisadosglobal.com"
 GAS_URL             = "https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec"
-GEMINI_KEY          = os.getenv("GEMINI_API_KEY", "AIzaSyCphVM6rvGL68pKcdC39v_ikwKOB2VLgx8")
+GEMINI_KEY          = os.getenv("GEMINI_API_KEY", "")
 GEMINI_URL          = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={GEMINI_KEY}"
 META_API_VERSION    = "v19.0"
 
@@ -476,7 +480,7 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
     text_lower = text.lower()
 
     # Notificar a Roberto en el primer mensaje de cada lead
-    if from_number not in _notified_phones and from_number != ADMIN_PHONE:
+    if from_number not in _notified_phones and from_number not in (ADMIN_PHONE, PERSONAL_PHONE):
         _notified_phones.add(from_number)
         es_caliente_flag = any(s in text_lower for s in SENALES_CALIENTE)
         emoji = "🔥 LEAD CALIENTE" if es_caliente_flag else "💬 Nuevo lead"
@@ -637,7 +641,16 @@ async def verify_webhook(request: Request):
 
 @app.post("/webhook")
 async def receive_message(request: Request):
-    data = await request.json()
+    body = await request.body()
+
+    # Verificar firma HMAC de Meta si META_APP_SECRET está configurado
+    if META_APP_SECRET:
+        sig = request.headers.get("X-Hub-Signature-256", "")
+        expected = "sha256=" + hmac.new(META_APP_SECRET.encode(), body, hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(sig, expected):
+            raise HTTPException(status_code=403, detail="Firma inválida")
+
+    data = json.loads(body)
 
     # Meta WhatsApp Business API — ignorar lo que no sean mensajes
     if data.get("object") != "whatsapp_business_account":
@@ -676,6 +689,22 @@ async def receive_message(request: Request):
                         continue
 
                     text_lower = text.lower()
+
+                    # Modo admin: número personal de Roberto — no procesar como cliente
+                    if from_number == PERSONAL_PHONE:
+                        leads_activos = len([p for p in lead_tracking if p not in clientes_activos])
+                        clientes = len(clientes_activos)
+                        send_whatsapp_message(
+                            PERSONAL_PHONE,
+                            f"✅ Alerta activa — te llegan notificaciones por 24h\n\n"
+                            f"📊 Estado actual:\n"
+                            f"• Leads activos: {leads_activos}\n"
+                            f"• Clientes con pago: {clientes}\n"
+                            f"• Conversaciones abiertas: {len(conversations)}\n\n"
+                            f"Escribe aquí cada día para mantener las alertas activas.",
+                            phone_number_id,
+                        )
+                        continue
 
                     # Opt-out obligatorio por política de Meta
                     if text_lower == "stop":
@@ -861,13 +890,14 @@ async def paypal_webhook(request: Request):
 
 @app.post("/send-followup")
 async def send_followup(request: Request):
-    """
-    Llamado por Google Apps Script cada 30 minutos.
-    Envía follow-ups programados que ya están pendientes.
-    """
+    """Llamado por Google Apps Script. Envía follow-ups programados."""
     data           = await request.json()
-    telefono       = data.get("telefono", "")
-    mensaje        = data.get("mensaje", "")
+
+    if FOLLOWUP_SECRET and data.get("secret") != FOLLOWUP_SECRET:
+        raise HTTPException(status_code=403, detail="No autorizado")
+
+    telefono        = data.get("telefono", "")
+    mensaje         = data.get("mensaje", "")
     phone_number_id = data.get("phone_number_id", "")
 
     if not all([telefono, mensaje, phone_number_id]):
@@ -915,9 +945,16 @@ async def web_chat(request: Request):
     return {"reply": reply, "quick_replies": quick}
 
 
+def _check_admin_secret(data: dict):
+    """Verifica que FOLLOWUP_SECRET esté presente cuando está configurado."""
+    if FOLLOWUP_SECRET and data.get("secret") != FOLLOWUP_SECRET:
+        raise HTTPException(status_code=403, detail="No autorizado")
+
+
 @app.post("/test")
 async def test_bot(request: Request):
     data    = await request.json()
+    _check_admin_secret(data)
     message = data.get("message", "Hola")
     phone   = data.get("phone", "test_user")
     reply, cierre = await get_ai_response(phone, message)
@@ -925,7 +962,13 @@ async def test_bot(request: Request):
 
 
 @app.delete("/reset/{phone}")
-async def reset_conversation(phone: str):
+async def reset_conversation(phone: str, request: Request):
+    data = {}
+    try:
+        data = await request.json()
+    except Exception:
+        pass
+    _check_admin_secret(data)
     for d in [conversations, pending_payments, lead_tracking]:
         d.pop(phone, None)
     clientes_activos.discard(phone)
