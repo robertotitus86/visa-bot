@@ -506,7 +506,7 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
             f"{emoji} en el bot\n"
             f"📞 {from_number}\n"
             f"✉️ \"{text[:200]}\"\n\n"
-            f"_Panel: /admin?clave={ADMIN_PANEL_SECRET}_"
+            f"Ver conversación:\n{RENDER_URL}/admin?clave={ADMIN_PANEL_SECRET}"
         )
         send_whatsapp_message(PERSONAL_PHONE, aviso, phone_number_id)
 
@@ -538,10 +538,10 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
             )
             send_whatsapp_message(
                 PERSONAL_PHONE,
-                f"🔥 RESCATA ESTE LEAD — el bot lleva 2 cierres sin éxito\n"
-                f"📞 {from_number}\n\n"
+                f"🔥 RESCATA ESTE LEAD — bot lleva 2 cierres sin éxito\n"
+                f"📞 wa.me/{from_number}\n\n"
                 f"{resumen[:700]}\n\n"
-                f"Escríbele tú directamente.",
+                f"Ver chat: {RENDER_URL}/admin?clave={ADMIN_PANEL_SECRET}",
                 phone_number_id,
             )
 
@@ -555,8 +555,9 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
         send_whatsapp_message(
             PERSONAL_PHONE,
             f"⚠️ Cliente frustrado — intervén antes de que se vaya\n"
-            f"📞 {from_number} ({nombre_lead})\n"
-            f"✉️ \"{text[:250]}\"",
+            f"📞 wa.me/{from_number} ({nombre_lead})\n"
+            f"✉️ \"{text[:250]}\"\n\n"
+            f"Ver chat: {RENDER_URL}/admin?clave={ADMIN_PANEL_SECRET}",
             phone_number_id,
         )
 
@@ -1346,9 +1347,15 @@ async def admin_panel(request: Request, clave: str = ""):
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.07)">
                 <div>
                   <div style="font-weight:700;color:#F1F5F9;font-size:.95rem">{nombre}</div>
-                  <div style="font-size:.72rem;color:rgba(255,255,255,.35)">{phone}</div>
+                  <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:2px">{phone}</div>
                 </div>
-                <div style="font-size:.7rem;color:rgba(255,255,255,.3)">Última actividad: {ultima}</div>
+                <div style="display:flex;gap:8px;align-items:center">
+                  <a href="https://wa.me/{phone}" target="_blank"
+                     style="font-size:.72rem;background:#25D366;color:#fff;padding:5px 12px;border-radius:99px;text-decoration:none;font-weight:600">
+                    💬 Escribir
+                  </a>
+                  <span style="font-size:.7rem;color:rgba(255,255,255,.3)">{ultima}</span>
+                </div>
               </div>
               {burbuja}
             </div>"""
