@@ -5,6 +5,9 @@ import requests
 from datetime import datetime
 
 WEBHOOK_URL = os.getenv("GOOGLE_SHEETS_WEBHOOK", "")
+GAS_URL     = os.getenv("GAS_URL",
+    "https://script.google.com/macros/s/AKfycbxAxCDZ5laDTvU-dfxvdAmyE0JmWfGrDbMDNIf3S_OVK1o-rEM9Gbvz0qkTsXj-vC4k/exec"
+)
 
 
 def _extraer_probabilidad(analisis: str) -> str:
@@ -69,3 +72,62 @@ def guardar_en_sheets(personas: list, datos: list, tipo_visa: str,
             print(f"Sheets excepcion — {e}")
 
     return ok_count == len(personas)
+
+
+def log_chat_message(phone: str, user_msg: str, bot_reply: str) -> None:
+    """Registra un intercambio de conversación en Google Sheets (fire-and-forget)."""
+    url = WEBHOOK_URL or GAS_URL
+    if not url:
+        return
+    try:
+        requests.post(
+            url,
+            json={"action": "bot_log", "phone": phone,
+                  "user_msg": user_msg[:2000], "bot_reply": bot_reply[:2000]},
+            timeout=8,
+            headers={"Content-Type": "application/json"},
+        )
+    except Exception:
+        pass  # no bloquear el flujo principal
+
+
+def cargar_chat_log(phone: str, limit: int = 20) -> list[dict]:
+    """Carga el historial de un teléfono desde Google Sheets. Devuelve lista [{user, bot}]."""
+    url = WEBHOOK_URL or GAS_URL
+    if not url:
+        return []
+    try:
+        resp = requests.get(
+            url,
+            params={"action": "bot_history", "phone": phone, "limit": limit},
+            timeout=10,
+        )
+        data = resp.json()
+        return [{"user": m["user"], "bot": m["bot"]} for m in data.get("messages", [])]
+    except Exception:
+        return []
+
+
+def cargar_todos_recientes(horas: int = 48) -> dict[str, list]:
+    """Carga las últimas conversaciones de todas las personas activas desde Sheets.
+    Devuelve {phone: [{"user":..., "bot":...}, ...]}
+    """
+    url = WEBHOOK_URL or GAS_URL
+    if not url:
+        return {}
+    try:
+        resp = requests.get(
+            url,
+            params={"action": "bot_history", "phone": "all_recent",
+                    "hours": horas, "limit": 200},
+            timeout=15,
+        )
+        data = resp.json()
+        resultado: dict[str, list] = {}
+        for m in data.get("messages", []):
+            ph = m.get("phone", "")
+            if ph:
+                resultado.setdefault(ph, []).append({"user": m["user"], "bot": m["bot"]})
+        return resultado
+    except Exception:
+        return {}

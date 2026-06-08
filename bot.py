@@ -15,7 +15,7 @@ import time
 from system_prompt import SYSTEM_PROMPT
 from crm_lookup import buscar_caso_por_telefono, construir_contexto_crm
 from analisis_cliente import analizar_sesion_completa
-from sheets_integration import guardar_en_sheets
+from sheets_integration import guardar_en_sheets, log_chat_message, cargar_chat_log
 from paypal_integration import crear_orden, verificar_webhook_signature
 from onboarding_flow import (
     activar_onboarding_post_pago, activar_followup_lead, activar_followup_caliente,
@@ -80,6 +80,12 @@ _cierre_intentos: dict = {}  # phone → nº de veces que el bot intentó cerrar
 _msg_buffer: dict = {}   # phone → {"texts": list[str], "phone_number_id": str}
 _msg_timers: dict = {}   # phone → asyncio.Task (debounce 3s)
 
+async def _log_chat_async(phone: str, user_msg: str, bot_reply: str) -> None:
+    """Guarda un intercambio en Google Sheets sin bloquear el event loop."""
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(None, log_chat_message, phone, user_msg, bot_reply)
+
+
 # Rate limiting — protege la API key de Anthropic
 _rate_limit: dict  = {}  # phone → {"count": int, "window_start": float}
 RATE_LIMIT_MAX     = 20   # mensajes máximos por hora por teléfono
@@ -139,6 +145,31 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
     """
     if phone not in conversations:
         conversations[phone] = []
+        # Restaurar historial desde Google Sheets (máx 4s para no bloquear)
+        try:
+            loop = asyncio.get_event_loop()
+            historial = await asyncio.wait_for(
+                loop.run_in_executor(None, cargar_chat_log, phone, 20),
+                timeout=4.0,
+            )
+            for par in historial:
+                conversations[phone].append({"role": "user",      "content": par["user"]})
+                conversations[phone].append({"role": "assistant", "content": par["bot"]})
+            if historial:
+                from datetime import datetime as _dt2
+                _h2    = _dt2.now().strftime("%H:%M")
+                _nom2  = _crm_cache.get(phone, {}).get("nombre", "") or phone
+                _msgs2 = []
+                for par in historial:
+                    _msgs2.append({"rol": "cliente", "texto": par["user"], "hora": "—"})
+                    _msgs2.append({"rol": "bot",     "texto": par["bot"],  "hora": "—"})
+                _chat_log[phone] = {
+                    "nombre": _nom2,
+                    "mensajes": _msgs2[-50:],
+                    "ultima_hora": _h2,
+                }
+        except Exception:
+            pass  # continúa sin historial si Sheets no responde
 
     # ── Lookup CRM ──────────────────────────────────────────────
     contexto_crm = ""
@@ -243,6 +274,9 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
     _chat_log[phone]["mensajes"].append({"rol": "bot", "texto": bot_reply, "hora": _hora})
     # Mantener solo últimos 50 mensajes por chat
     _chat_log[phone]["mensajes"] = _chat_log[phone]["mensajes"][-50:]
+
+    # Persistir en Google Sheets (fire-and-forget — no bloquea)
+    asyncio.create_task(_log_chat_async(phone, user_message, bot_reply))
 
     # Detectar cierre de venta
     cierre_info = None
