@@ -111,7 +111,8 @@ def verificar_webhook_signature(headers: dict, body: bytes) -> bool:
     """Verifica que el webhook venga realmente de PayPal."""
     webhook_id = os.getenv("PAYPAL_WEBHOOK_ID", "")
     if not webhook_id:
-        return True  # Sin webhook_id configurado, aceptar (cambiar en producción)
+        print("[PAYPAL] PAYPAL_WEBHOOK_ID no configurado — rechazando webhook por seguridad")
+        return False
     try:
         token = _get_access_token()
         payload = {

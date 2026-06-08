@@ -11,6 +11,7 @@ import asyncio
 import httpx
 import hmac
 import hashlib
+import time
 from system_prompt import SYSTEM_PROMPT
 from crm_lookup import buscar_caso_por_telefono, construir_contexto_crm
 from analisis_cliente import analizar_sesion_completa
@@ -50,8 +51,9 @@ app.add_middleware(
 
 ANTHROPIC_KEY       = os.getenv("ANTHROPIC_API_KEY")
 VERIFY_TOKEN        = os.getenv("VERIFY_TOKEN", "visaglobal2026")
-FOLLOWUP_SECRET     = os.getenv("FOLLOWUP_SECRET", "")   # secreto GAS→bot; si vacío, sin auth (migración gradual)
-META_APP_SECRET     = os.getenv("META_APP_SECRET", "")   # firma webhook Meta; si vacío, sin verificación
+FOLLOWUP_SECRET     = os.getenv("FOLLOWUP_SECRET", "")       # secreto GAS→bot; si vacío, sin auth
+META_APP_SECRET     = os.getenv("META_APP_SECRET", "")       # firma webhook Meta; si vacío, sin verificación
+ADMIN_PANEL_SECRET  = os.getenv("ADMIN_PANEL_SECRET", "visa2026admin")  # clave panel /admin
 WA_TOKEN            = os.getenv("WA_TOKEN", "")
 RENDER_URL          = os.getenv("RENDER_URL", "https://visa-global-bot.onrender.com")
 ADMIN_PHONE         = os.getenv("PHONE_NUMBER", "593994442512")
@@ -77,6 +79,11 @@ _notified_phones = set()  # phones ya notificados a Roberto (primer contacto)
 _cierre_intentos: dict = {}  # phone → nº de veces que el bot intentó cerrar sin éxito
 _msg_buffer: dict = {}   # phone → {"texts": list[str], "phone_number_id": str}
 _msg_timers: dict = {}   # phone → asyncio.Task (debounce 3s)
+
+# Rate limiting — protege la API key de Anthropic
+_rate_limit: dict  = {}  # phone → {"count": int, "window_start": float}
+RATE_LIMIT_MAX     = 20   # mensajes máximos por hora por teléfono
+RATE_LIMIT_WINDOW  = 3600 # ventana: 1 hora
 
 SENALES_FRUSTRACION = [
     "no entiendo", "no me queda claro", "no comprendo",
@@ -475,6 +482,17 @@ async def _flush_buffer(from_number: str):
     await _process_wa_ia(from_number, buf["phone_number_id"], combined)
 
 
+def _check_rate_limit(phone: str) -> bool:
+    """True = dentro del límite. False = excedió, bloquear."""
+    now = time.time()
+    entry = _rate_limit.get(phone)
+    if not entry or now - entry["window_start"] > RATE_LIMIT_WINDOW:
+        _rate_limit[phone] = {"count": 1, "window_start": now}
+        return True
+    entry["count"] += 1
+    return entry["count"] <= RATE_LIMIT_MAX
+
+
 async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
     """Procesa un mensaje (o mensajes combinados) con IA y envía respuesta WA."""
     text_lower = text.lower()
@@ -488,7 +506,7 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
             f"{emoji} en el bot\n"
             f"📞 {from_number}\n"
             f"✉️ \"{text[:200]}\"\n\n"
-            f"_Respondo en /admin?clave=visa2026admin_"
+            f"_Panel: /admin?clave={ADMIN_PANEL_SECRET}_"
         )
         send_whatsapp_message(PERSONAL_PHONE, aviso, phone_number_id)
 
@@ -686,6 +704,16 @@ async def receive_message(request: Request):
                         continue
 
                     if not text or not from_number:
+                        continue
+
+                    # Rate limiting — protege Anthropic API
+                    if from_number not in (ADMIN_PHONE, PERSONAL_PHONE) and not _check_rate_limit(from_number):
+                        print(f"[RATE] {from_number} excedió {RATE_LIMIT_MAX} mensajes/hora — descartado")
+                        send_whatsapp_message(
+                            from_number,
+                            "Has enviado muchos mensajes en poco tiempo. Espera unos minutos e intenta de nuevo.",
+                            phone_number_id,
+                        )
                         continue
 
                     text_lower = text.lower()
@@ -1174,9 +1202,15 @@ async def telegram_webhook(request: Request):
     return {"ok": True}
 
 
+def _require_admin(request: Request):
+    """Verifica X-Admin-Secret header para endpoints de diagnóstico."""
+    if FOLLOWUP_SECRET and request.headers.get("X-Admin-Secret") != FOLLOWUP_SECRET:
+        raise HTTPException(status_code=403, detail="No autorizado")
+
+
 @app.get("/telegram-set-webhook")
-async def telegram_set_webhook():
-    """Llama una sola vez para registrar el webhook con Telegram."""
+async def telegram_set_webhook(request: Request):
+    _require_admin(request)
     if not TG_TOKEN:
         return {"error": "TELEGRAM_TOKEN no configurado en Render"}
     webhook_url = f"{RENDER_URL}/telegram-webhook"
@@ -1189,8 +1223,8 @@ async def telegram_set_webhook():
 
 
 @app.get("/telegram-info")
-async def telegram_info():
-    """Verifica el estado del bot de Telegram."""
+async def telegram_info(request: Request):
+    _require_admin(request)
     if not TG_TOKEN:
         return {"error": "TELEGRAM_TOKEN no configurado"}
     async with httpx.AsyncClient(timeout=10) as c:
@@ -1200,14 +1234,14 @@ async def telegram_info():
 
 
 @app.get("/telegram-debug")
-async def telegram_debug_endpoint():
-    """Muestra el último update recibido y resultado del último send."""
+async def telegram_debug_endpoint(request: Request):
+    _require_admin(request)
     return _tg_debug
 
 
 @app.get("/test-ai")
-async def test_ai():
-    """Prueba la conexion con Anthropic directamente."""
+async def test_ai(request: Request):
+    _require_admin(request)
     try:
         resp = client.messages.create(
             model="claude-haiku-4-5-20251001",
@@ -1220,8 +1254,8 @@ async def test_ai():
 
 
 @app.get("/test-gemini")
-async def test_gemini():
-    """Prueba la conexion con Gemini directamente."""
+async def test_gemini(request: Request):
+    _require_admin(request)
     try:
         async with httpx.AsyncClient(timeout=20) as c:
             r = await c.post(GEMINI_URL, json={
@@ -1238,8 +1272,8 @@ async def test_gemini():
 
 
 @app.get("/telegram-test/{chat_id}")
-async def telegram_test(chat_id: int):
-    """Envía un mensaje de prueba al chat_id dado para verificar que tg_send funciona."""
+async def telegram_test(chat_id: int, request: Request):
+    _require_admin(request)
     if not TG_TOKEN:
         return {"error": "TELEGRAM_TOKEN no configurado"}
     async with httpx.AsyncClient(timeout=10) as c:
@@ -1252,7 +1286,7 @@ async def telegram_test(chat_id: int):
 
 @app.post("/telegram-webhook-echo")
 async def telegram_webhook_echo(request: Request):
-    """Echo del webhook para ver exactamente que manda Telegram."""
+    _require_admin(request)
     body = await request.body()
     print(f"[TG-ECHO] {body.decode()[:500]}")
     return {"ok": True, "received": body.decode()[:200]}
@@ -1264,7 +1298,7 @@ from fastapi.responses import HTMLResponse
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_panel(request: Request, clave: str = ""):
     """Panel admin para ver conversaciones activas del bot."""
-    if clave != "visa2026admin":
+    if not clave or clave != ADMIN_PANEL_SECRET:
         return HTMLResponse("""
         <html><body style="font-family:sans-serif;background:#06101E;color:#CBD5E1;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">
         <form method="get" style="text-align:center">
@@ -1322,7 +1356,7 @@ async def admin_panel(request: Request, clave: str = ""):
       <h1 style="font-size:1.3rem;font-weight:700;color:#F1F5F9">Conversaciones del Bot</h1>
       <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:4px">Asesoría Visa Global · {total} chat(s) activo(s)</p>
     </div>
-    <a href="/admin?clave=visa2026admin" style="font-size:.75rem;color:rgba(245,200,66,.7);border:1px solid rgba(245,200,66,.2);padding:6px 14px;border-radius:99px;text-decoration:none">↻ Actualizar</a>
+    <a href="/admin?clave={clave}" style="font-size:.75rem;color:rgba(245,200,66,.7);border:1px solid rgba(245,200,66,.2);padding:6px 14px;border-radius:99px;text-decoration:none">↻ Actualizar</a>
   </div>
   {cuerpo}
 </div>
