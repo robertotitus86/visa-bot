@@ -10,17 +10,28 @@ from email.mime.multipart import MIMEMultipart
 from datetime import datetime, date
 import pytz
 
+import requests as req
+
 log = logging.getLogger(__name__)
 
-GMAIL_USER = os.getenv("GMAIL_USER", "nanotiendaec@gmail.com")
-GMAIL_PASS = os.getenv("GMAIL_PASS", "")
-FROM_NAME  = "Asesoria Visa Global"
-ZONA       = pytz.timezone("America/Guayaquil")
-SIMULADOR  = "https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html"
+GMAIL_USER      = os.getenv("GMAIL_USER", "nanotiendaec@gmail.com")
+GMAIL_PASS      = os.getenv("GMAIL_PASS", "")
+WA_TOKEN        = os.getenv("WA_TOKEN", "")
+PHONE_NUMBER_ID = os.getenv("PHONE_NUMBER_ID", "1132483959957091")
+FROM_NAME       = "Asesoria Visa Global"
+ZONA            = pytz.timezone("America/Guayaquil")
+SIMULADOR       = "https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html"
+META_API_VER    = "v19.0"
 
 DESTINATARIOS = [
-    {"nombre": "Luis", "tratamiento": "Estimado Sr. Alcalde", "email": "siul_2386@hotmail.com",  "miembro": "luis"},
-    {"nombre": "Zoila","tratamiento": "Estimada Sra. Zoila",  "email": "zoilyss_@hotmail.es",    "miembro": "zoila"},
+    {
+        "nombre": "Luis", "tratamiento": "Estimado Sr. Alcalde",
+        "email": "siul_2386@hotmail.com", "telefono": "593997119313", "miembro": "luis",
+    },
+    {
+        "nombre": "Zoila", "tratamiento": "Estimada Sra. Zoila",
+        "email": "zoilyss_@hotmail.es", "telefono": "593988229894", "miembro": "zoila",
+    },
 ]
 
 def _cuenta_regresiva():
@@ -58,6 +69,27 @@ TIPS = [
 def _tip_del_dia():
     dia = datetime.now(ZONA).timetuple().tm_yday
     return TIPS[dia % len(TIPS)]
+
+
+def _send_wa(telefono: str, mensaje: str):
+    """Envía mensaje WhatsApp — best-effort, falla silenciosamente si no hay ventana 24h."""
+    if not WA_TOKEN:
+        return
+    try:
+        url = f"https://graph.facebook.com/{META_API_VER}/{PHONE_NUMBER_ID}/messages"
+        r = req.post(
+            url,
+            headers={"Authorization": f"Bearer {WA_TOKEN}", "Content-Type": "application/json"},
+            json={"messaging_product": "whatsapp", "to": telefono, "type": "text",
+                  "text": {"body": mensaje[:4096]}},
+            timeout=10,
+        )
+        if r.status_code == 200:
+            log.info(f"  [WA OK] → {telefono}")
+        else:
+            log.warning(f"  [WA] Error {r.status_code}: {r.text[:200]}")
+    except Exception as e:
+        log.warning(f"  [WA] Excepcion: {e}")
 
 def _html_email(tratamiento, sim_link, cuenta):
     tip = _tip_del_dia()
@@ -132,15 +164,39 @@ def _html_email(tratamiento, sim_link, cuenta):
 </body></html>"""
 
 
-def enviar_recordatorios():
-    """Envia el correo diario a Luis y Zoila. Llamado por APScheduler."""
-    if not GMAIL_PASS:
-        log.error("[Recordatorios] GMAIL_PASS no configurado en Render — recordatorios no enviados")
-        return
+def _wa_recordatorio(nombre: str, tratamiento: str, miembro: str) -> str:
+    """Genera el texto corto del recordatorio para WhatsApp."""
+    hoy    = datetime.now(ZONA).date()
+    cita   = date(2026, 7, 1)
+    dias   = (cita - hoy).days
+    tip    = _tip_del_dia()
+    sim    = f"{SIMULADOR}?miembro={miembro}"
+    urgencia = f"⏳ Faltan *{dias} días* para la entrevista." if dias > 0 else "🗓 ¡Hoy es la entrevista!"
+    return (
+        f"Buenos días {nombre} 👋\n\n"
+        f"{urgencia}\n"
+        f"📅 *1 julio 2026 · 7:30 AM* — Consulado Quito\n\n"
+        f"Tu simulador personalizado está listo:\n{sim}\n\n"
+        f"💡 *Consejo de hoy:*\n_{tip}_\n\n"
+        f"— Roberto · Asesoría Visa Global"
+    )
 
-    hoy  = datetime.now(ZONA).strftime("%d/%m/%Y %H:%M")
+
+def enviar_recordatorios():
+    """Envia email + WhatsApp diario a Luis y Zoila. Llamado por APScheduler."""
+    hoy    = datetime.now(ZONA).strftime("%d/%m/%Y %H:%M")
     cuenta = _cuenta_regresiva()
     log.info(f"[Recordatorios] Enviando — {hoy}")
+
+    # ── WhatsApp (best-effort — requiere ventana 24h activa) ─────────
+    for dest in DESTINATARIOS:
+        wa_msg = _wa_recordatorio(dest["nombre"], dest["tratamiento"], dest["miembro"])
+        _send_wa(dest["telefono"], wa_msg)
+
+    # ── Email ─────────────────────────────────────────────────────────
+    if not GMAIL_PASS:
+        log.error("[Recordatorios] GMAIL_PASS no configurado — email no enviado")
+        return
 
     try:
         smtp = smtplib.SMTP("smtp.gmail.com", 587)
@@ -163,7 +219,7 @@ def enviar_recordatorios():
             msg.attach(MIMEText(html, "html", "utf-8"))
 
             smtp.sendmail(GMAIL_USER, dest["email"], msg.as_string())
-            log.info(f"  OK -> {dest['nombre']} <{dest['email']}>")
+            log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}>")
         except Exception as e:
             log.error(f"  ERROR -> {dest['nombre']}: {e}")
 
