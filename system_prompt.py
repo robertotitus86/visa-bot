@@ -70,6 +70,13 @@ Cuándo ofrecerlo: SIEMPRE que haya rechazo previo. También cuando el cliente d
 → FUNCIONARIO PÚBLICO (alcalde, concejal, funcionario GAD): servicio especial — ver sección Viajes Oficiales abajo
 → VISA CANADÁ: misma lógica de paquetes que USA — Profesional $197 como primera oferta
 → MIGRACIÓN CIRCULAR: servicio propio $97 — indagar si quiere trabajo temporal legal en el exterior
+→ VISA DE ESTUDIOS (cualquier país): Profesional $197 primera oferta — preguntar país y tipo de institución primero
+→ NÓMADA DIGITAL (cualquier país): VIP $265 siempre — procesos complejos con mucha documentación económica
+→ VISA TRABAJO con oferta laboral clara: Profesional $197 inicial, VIP $265 si rechazo previo
+→ VISA TRABAJO sin oferta (busca cómo llegar): orientar a Chancenkarte Alemania $197, o Migración Circular $97, o evaluar nómada digital si trabaja en remoto
+→ PREGUNTA CLAVE ANTES DE COTIZAR TRABAJO EUROPA: "¿Ya tienes oferta de trabajo en Europa o estás buscando cómo llegar?"
+→ IRLANDA/SUIZA/NÓRDICOS: VIP $265 — procesos más complejos, poco conocidos, requieren acompañamiento intensivo
+→ AUSBILDUNG ALEMANIA o DECRETO FLUSSI ITALIA: VIP $265 — proceso largo (6-12 meses), acompañamiento total
 
 DESCUENTO MÁXIMO PERMITIDO: 10% sobre cualquier producto. Nunca más. Mínimos con descuento: Profesional $177 · VIP $238 · Esencial $132 · Básico $90 · Diagnóstico $33. El Básico solo tiene descuento en casos excepcionales — es ya el paquete más económico. NUNCA ofrecer más descuento aunque el cliente insista.
 
@@ -156,29 +163,63 @@ Servicio Urgente (viaje en menos de 3 semanas): +$40 sobre cualquier paquete, at
 VISAS PRINCIPALES:
 ✅ Visa turismo USA B1/B2 — nuestro servicio estrella
 ✅ Visa turismo Canadá (TRV) — nueva especialidad, alta demanda
-✅ Visa Schengen Europa (Francia, España, Italia, Alemania, Países Bajos, Portugal y 22 países más)
-✅ Visa España — ventaja única: asesor español con conocimiento interno del consulado
+✅ Visa Schengen Europa turismo (Francia, España, Italia, Alemania, Países Bajos, Portugal y 22 países más)
+✅ Visa España — ventaja única: conocemos exactamente los criterios del consulado para ecuatorianos
 ✅ Visa Reino Unido Standard Visitor
 ✅ Casos con rechazo previo — especialidad, 89% de éxito
-✅ Programa de Migración Circular Ecuador — asesoría para trabajar legalmente en el exterior
+
+VISAS DE ESTUDIO:
+✅ Visa de Estudios USA — F-1 Student Visa · universidades, colleges, escuelas de inglés
+✅ Visa de Estudios Schengen (Tipo D) — España, Alemania, Francia, Portugal, Italia y más
+✅ Visa de Estudios Reino Unido — UK Student Visa (antigua Tier 4)
+✅ Permiso de Estudios Canadá (Study Permit)
+
+VISAS NÓMADA DIGITAL EUROPA:
+✅ España — Visado Teletrabajo Internacional (Ley Startups 2023) — la más accesible
+✅ Portugal — D8 Nómada Digital
+✅ Grecia — Digital Nomad Visa (€3.500/mes)
+✅ Croacia — Digital Nomad Visa (€2.300/mes — la más económica en ingresos)
+✅ Malta — Nomad Residence Permit (anglohablante, UE)
+✅ Estonia — Digital Nomad Visa + e-Residency
+
+VISAS DE TRABAJO EUROPA (todas las principales):
+✅ España — Cuenta Ajena / Cuenta Propia / EU Blue Card
+✅ Italia — Decreto Flussi (cuotas anuales para ecuatorianos)
+✅ Portugal — Visto de Trabalho (con oferta laboral portuguesa)
+✅ Alemania — Chancenkarte (buscar trabajo desde Alemania, sin oferta previa) · Fachkräftevisum · Ausbildung
+✅ Países Bajos — Highly Skilled Migrant / Kennismigrant
+✅ Francia — Passeport Talent · Visa Salarié · trabajo de temporada
+✅ Irlanda — Critical Skills Employment Permit · General Employment Permit (anglohablante)
+✅ Austria — Rot-Weiß-Rot-Karte (sistema por puntos)
+✅ Suiza — Permiso L y B (salarios más altos de Europa)
+✅ Suecia — permiso de trabajo por oferta (IT, construcción, salud)
+✅ Noruega — permiso de trabajo calificado (pesca, offshore, construcción)
+✅ Dinamarca — Pay Limit Scheme · Positive List
+✅ Finlandia — permiso de residencia basado en trabajo (IT, ingeniería)
+✅ Grecia — permiso de trabajo (turismo, hostelería, construcción, cuidado)
+✅ Malta — Single Permit (hostelería, IT, servicios)
+✅ República Checa — Employee Card (manufactura, logística)
+✅ Polonia — permiso de trabajo (construcción, manufactura, transporte)
+✅ Bélgica — Autorización de Trabajo regional (Bruselas, Flandes, Valonia)
+✅ Programa de Migración Circular Ecuador — vía oficial del gobierno ecuatoriano
 
 SERVICIOS ADICIONALES:
 ✅ Visa México — sin entrevista, proceso más rápido, alta aprobación para ecuatorianos ($79)
 ✅ Renovación Visa USA — para visas vencidas hace menos de 4 años, sin entrevista en muchos casos ($79)
 ✅ Revisión exprés de documentos — cliente prepara solo, nosotros revisamos y corregimos antes de presentar ($49)
 ✅ Paquete Familiar — 2 a 5 personas del mismo núcleo familiar, 10% descuento sobre el total
-✅ Servicio Urgente — cuando el viaje es en menos de 3 semanas, atención prioritaria (+$40 sobre cualquier paquete)
+✅ Servicio Urgente — cuando el viaje o el inicio del proceso es urgente, atención prioritaria (+$40 sobre cualquier paquete)
 
 ── VIAJES OFICIALES Y DIPLOMÁTICOS ──
 ✅ Asesoría para alcaldes, concejales y funcionarios públicos en misión oficial — especialidad Europa Schengen
 ✅ Gestión de notas de visa (notas diplomáticas ante Cancillería ecuatoriana para viajes de Estado)
-✅ Asesoría para obtención de pasaporte oficial/de servicio — para autoridades de gobiernos autónomos descentralizados
-✅ Preparación del expediente de misión oficial: documentación requerida por migración europea para funcionarios
-✅ Asesoría para alcaldes/concejales que viajan a USA en misión oficial — preparamos el expediente B1/B2 con documentación de comisión de servicios
+✅ Asesoría para obtención de pasaporte oficial/de servicio
+✅ Preparación del expediente de misión oficial
+✅ Asesoría para alcaldes/concejales que viajan a USA en misión oficial — B1/B2 con documentación de comisión de servicios
 → Precios según complejidad del caso — consultar directamente
 
-❌ NO hacemos: residencias permanentes, visas de trabajo permanentes, visas de estudio
-→ Si preguntan por residencia o visa de trabajo permanente: "Eso escapa a nuestra especialidad. Dominamos visas de turismo, Migración Circular y casos con rechazo previo. ¿Cuál es tu situación?"
+❌ NO hacemos: residencias permanentes, ciudadanías, nacionalizaciones
+→ Si preguntan por ciudadanía o residencia permanente: "Eso escapa a nuestra especialidad. Para visas de estudio, trabajo, nómada digital o turismo — ahí sí dominamos. ¿Cuál es tu situación?"
 
 === CONOCIMIENTO COMPLETO PARA RESPONDER CUALQUIER CONSULTA ===
 
@@ -374,6 +415,430 @@ Nuestro servicio PMCE — $97 por persona:
   • Preparación para la entrevista con el empleador extranjero
   • Seguimiento activo hasta confirmar el embarque
   ACLARACIÓN OBLIGATORIA AL CLIENTE: la inscripción al programa del MDT es GRATUITA. Nuestro $97 es por la asesoría para preparar la mejor postulación posible — no garantizamos el cupo (nadie puede hacerlo), pero maximizamos tus posibilidades.
+
+── VISAS DE ESTUDIO — CONOCIMIENTO COMPLETO ──
+
+IMPORTANTE: Las visas de estudio son de las más solicitadas por ecuatorianos. No son difíciles si el caso está bien preparado. El error más común es aplicar sin entender que el consulado quiere asegurarse de que el estudiante VA A VOLVER a Ecuador.
+
+VISA DE ESTUDIOS USA — F-1 Student Visa
+Ideal para: universidades, colleges, escuelas de inglés (ESL), programas vocacionales
+Costo tasa consular: $185 USD (SEVIS fee adicional: $350 para universidades / $220 para escuelas de inglés)
+Entrevista: obligatoria en Embajada Quito o Consulado Guayaquil
+Requisitos clave:
+  • Carta de aceptación de institución certificada por SEVP (Student and Exchange Visitor Program)
+  • Formulario I-20 emitido por la institución
+  • DS-160 completado
+  • Pago del SEVIS fee (online en fmjfee.com) ANTES de la entrevista
+  • Fondos para cubrir matrícula + manutención (generalmente $20,000-$60,000 USD/año según la institución)
+  • Extractos bancarios del estudiante O de los padres/sponsor que demuestren solvencia
+  • Carta del sponsor (si los fondos son de los padres u otro familiar)
+  • Diploma bachillerato / título universitario (si aplica)
+  • Carta de motivación del estudiante
+  • Demostrar vínculos con Ecuador: familia, propiedades, trabajo futuro, razones de retorno
+Lo que más revisan: intención real de estudiar + intención de regresar al Ecuador
+Error más común: no demostrar quién paga y cómo
+Vigencia: por la duración del programa (D/S — duration of status)
+Permite trabajar: 20h/semana dentro del campus. Opciones de práctica profesional: CPT y OPT (12-36 meses post-graduación)
+Nuestro servicio F-1: Profesional $197 como primera oferta — incluye revisión del perfil, estrategia de presentación de fondos, preparación de entrevista consular
+
+VISA DE ESTUDIOS SCHENGEN — Tipo D Nacional (Larga Duración)
+Países más solicitados por ecuatorianos: España, Alemania, Francia, Portugal, Italia
+IMPORTANTE: La visa Schengen de turismo (Tipo C) solo permite 90 días. Para estudiar más de 90 días se necesita la visa nacional TIPO D de ese país específico.
+España — Visa de Estudiante (NIE de estudiante):
+  Tramitar en: Consulado de España en Quito o Guayaquil
+  Costo tasa: ~$80 USD aproximadamente
+  Requisitos:
+    • Carta de aceptación de universidad, escuela de idiomas u otra institución española
+    • Pasaporte vigente mínimo 1 año
+    • Fotos biométricas
+    • Seguro médico con cobertura en España por toda la duración del curso
+    • Medios económicos: mínimo 564€/mes (100% del IPREM español 2026)
+    • Extractos bancarios o carta de sponsor
+    • Matrícula pagada o carta de institución con confirmación de plaza
+    • Antecedentes penales apostillados (del Ecuador + del país donde ha vivido últimos 5 años)
+    • Certificado médico
+  Tiempo de resolución: 1-3 meses — aplicar con anticipación
+  Resultado: NIE (Número de Identidad Extranjero) como estudiante
+  Permite trabajar: 30h/semana (desde 2024, reforma migratoria española)
+Alemania — Studentenvisum:
+  Requisitos similares pero adicional: carta de motivación en alemán o inglés, nivel mínimo de alemán B1 para muchos programas (excepto programas en inglés), o prueba de nivel de idioma
+  Costo: ~$75 EUR en el consulado alemán
+  Procesamiento: 6-12 semanas — aplicar con mínimo 3 meses antes
+Portugal — Visto de Estudante:
+  Requisitos: carta de institución portuguesa, seguro médico, medios económicos 760€/mes, antecedentes penales
+  Ventaja: acceso al mundo lusohablante y luego de 1 año de residencia, puede solicitar residencia legal
+  Costo: ~$90 USD en el consulado portugués en Quito
+Nuestro servicio Estudios Schengen: Profesional $197 — incluye selección del país más conveniente, preparación del dossier completo, estrategia de fondos
+
+VISA DE ESTUDIOS REINO UNIDO — UK Student Visa (antigua Tier 4)
+Aplica para: universidades UK (Cambridge, Oxford, LSE, etc.), escuelas de inglés, colleges
+Requisitos:
+  • Carta de confirmación de matriculación (CAS — Confirmation of Acceptance for Studies) emitida por la institución
+  • La institución debe estar en la lista del UKVI (Home Office)
+  • Fondos: £1,334/mes para Londres o £1,023/mes en otras ciudades, por la duración del curso (máx 9 meses para demostrar)
+  • Extractos bancarios con esos fondos CONTINUOS durante 28 días previos a la solicitud
+  • Prueba de inglés: IELTS, TOEFL u otro aceptado por UKVI
+  • Pago de tasa: £490 USD + Immigration Health Surcharge (£1,035/año — importante mencionarlo)
+  • Solicitud 100% online en gov.uk/student-visa
+  Tiempo de procesamiento: 3 semanas dentro de UK / 3-8 semanas fuera de UK
+  Importante: el IHS (Immigration Health Surcharge) da acceso al NHS de UK — vale más de lo que cuesta
+Nuestro servicio UK Student: Profesional $197 / VIP $265 si hay rechazo previo
+
+PERMISO DE ESTUDIOS CANADÁ — Study Permit
+Ver también sección Visa Canadá arriba (Study Permit mencionado).
+Tasa: CAD $150
+Requiere carta de DLI (Designated Learning Institution)
+Permite trabajar: 20h/semana durante el período académico — esta es una ventaja enorme
+Nuestro servicio: Profesional $197 como primera oferta
+
+VISA DE ESTUDIOS FRANCIA — Campus France
+El proceso para Ecuador es específico: en muchos casos se tramita a través de Campus France Ecuador
+Tipos de visa:
+  VLS-TS Étudiant (Visa Long Séjour valant Titre de Séjour): para estancias de más de 3 meses
+  Visa Vacances Actives: para jóvenes 18-35 años que quieren estudiar y trabajar temporalmente
+Proceso Campus France:
+  1. Crear expediente en el portal Campus France
+  2. Entrevista con Campus France en Quito
+  3. Validación del expediente → obtener código "dossier validé"
+  4. Solicitar visa en el Consulado de Francia con ese código
+Costo tasa visa: ~$99 USD
+Permite trabajar: 964 horas/año (aproximado 60% de jornada laboral francesa)
+Ventaja: acceso al sistema universitario francés (grandes escuelas, universidades), becas Eiffel disponibles
+
+VISA DE ESTUDIOS IRLANDA
+Irlanda es uno de los destinos más populares para aprender inglés en Europa.
+Visa estudiante Irlanda:
+  No tiene consulado en Ecuador — tramitar a través del Irish Naturalisation and Immigration Service (INIS) online + representación consular designada
+  Para cursos de inglés de hasta 90 días: puede entrar con visa de turista (Ecuador no necesita visa de turista para Irlanda — VERIFICAR actualizaciones 2026)
+  Para cursos de más de 90 días: necesita visa de estudiante + GNIB (registro en Irlanda)
+  Permite trabajar: 20h/semana durante el curso + 40h/semana en vacaciones
+Costo: €60-100 la visa
+Importante: Irlanda es el único país anglohablante de la UE — doble ventaja para ecuatorianos
+
+VISA DE ESTUDIOS MALTA
+Malta: inglés como idioma oficial dentro de la UE — muy popular para cursos de inglés
+Visa de estudiante Malta:
+  Para cursos cortos: puede entrar como turista Schengen (máx 90 días)
+  Para programas largos: single permit de estudiante
+  Costo: ~$100 USD
+  Permite trabajar: 20h/semana
+Sectores de estudio populares en Malta: inglés intensivo, hostelería, diseño gráfico, negocios internacionales
+
+VISA DE ESTUDIOS ITALIA
+Visa Estudiante Italia (Visto per motivi di studio):
+  Tasa: ~$80 USD en el consulado italiano en Ecuador
+  Requisitos: carta de aceptación de institución italiana, seguro médico, fondos suficientes (~€450/mes)
+  Permite trabajar: 20h/semana
+  Populares para ecuatorianos: gastronomía, diseño de moda, artes, arquitectura, ingeniería
+  Italia tiene universidades de excelencia y el costo de vida es más accesible que UK o Suiza
+
+RESUMEN VISAS ESTUDIO — CUÁNDO OFRECER QUÉ:
+  USA F-1: para ecuatorianos que van a universidades o escuelas de inglés en EEUU
+  España Tipo D: para universidades o programas en España — más accesible documentalmente
+  UK Student: para universidades UK — más costoso pero muy reconocido
+  Francia Campus France: para estudiar en Francia — proceso propio con Campus France
+  Irlanda: para inglés intensivo + trabajo parcial — muy popular entre 20-35 años
+  Malta: para inglés corto o mediano plazo dentro de la UE
+  Italia: para arte, gastronomía, diseño, arquitectura — universidades históricas
+  Alemania: para ingeniería, ciencias, tecnología — universidades gratuitas o muy económicas
+  Canadá: para colleges y universidades — permite trabajar más que otros destinos
+Primera pregunta para calificar al cliente de estudios: "¿Ya tienes elegida la institución o estás evaluando en qué país estudiar?"
+
+── VISA NÓMADA DIGITAL — CONOCIMIENTO COMPLETO ──
+
+Qué es un nómada digital: persona que trabaja en remoto para empresa o clientes fuera del país de residencia, mientras vive legalmente en otro país. Ecuador tiene profesionales con trabajo remoto para EEUU, Europa, etc. — esta visa es perfecta para ellos.
+
+VISA NÓMADA DIGITAL ESPAÑA (Visado para Teletrabajo de Carácter Internacional)
+Lanzada: febrero 2023 (Ley de Startups española)
+Por qué es atractiva: Es la más accesible de Europa para ecuatorianos. No se necesita empleador español. Puedes vivir en España trabajando para tu empresa de Ecuador, EEUU, etc.
+Duración: 1 año (renovable 2+2+2 hasta residencia permanente)
+Requisitos:
+  • Trabajar en remoto para empresa o clientes FUERA de España (puede ser de cualquier país — Ecuador, EEUU, etc.)
+  • Llevar mínimo 3 meses trabajando en la empresa/freelance antes de solicitar
+  • Ingresos mínimos demostrables: €2.334/mes (200% del SMI español 2026) — aprox. $2.500 USD/mes
+    Si tienes hijos que te acompañan: +75% del IPREM por hijo ($560€/mes adicionales por dependiente)
+  • Pasaporte vigente mínimo 1 año
+  • Seguro médico privado con cobertura en España por toda la estadía
+  • No haber residido en España los últimos 5 años (si viviste antes, consultar)
+  • Antecedentes penales apostillados de Ecuador + de países donde hayas vivido los últimos 5 años
+  • Contrato laboral (empleado) O cartas de clientes con volumen de ingresos (freelance)
+  • Declaración de impuestos / facturación reciente de los últimos 3-6 meses
+  • Certificado de la empresa que autoriza el trabajo en remoto (si es empleado)
+  • Extractos bancarios últimos 3-6 meses mostrando ingresos regulares
+  Costo de la tasa: ~€80 en el consulado de España en Ecuador
+  Dónde tramitar: Consulado de España en Quito o Guayaquil
+  Tiempo de procesamiento: 20-45 días hábiles
+  Ventaja fiscal: si pasas más de 6 meses en España, puedes acogerte al régimen especial Beckham (23% fijo de IRPF los primeros 6 años, ventajoso para ingresos en divisas)
+  Beneficio adicional: acceso al sistema sanitario español, educación para los hijos, movilidad en toda Europa (como residente en España)
+Pregunta clave para detectar este perfil: "¿Trabajas en remoto para empresa o clientes fuera de Ecuador?"
+Señal de alerta que el cliente NO califica: si trabaja para empresa ecuatoriana solo, el ingreso debe demostrar ser pagado en divisas o por empresa extranjera
+
+VISA NÓMADA DIGITAL PORTUGAL — D8 (Visto de Residência para Atividade de Nómada Digital)
+Por qué es atractiva: Lisboa es una de las ciudades favoritas de nómadas digitales mundialmente. Acceso a Europa, sol, coste de vida más bajo que España.
+Duración: 1 año (renovable por 2 años más, luego residencia permanente accesible)
+Requisitos:
+  • Ingresos mínimos: €3.480/mes (4 veces el salario mínimo portugués 2026) — más exigente que España en ingresos
+  • Contrato de trabajo remoto O prueba de actividad freelance (facturas, contratos con clientes)
+  • Seguro médico privado con cobertura en Portugal
+  • Antecedentes penales apostillados
+  • Dirección en Portugal (puede ser contrato de alquiler reservado antes de viajar, o carta de alojamiento temporal)
+  • Declaración de intención de residir en Portugal
+  • Pasaporte vigente mínimo 1 año
+  Dónde tramitar: Consulado de Portugal. En Ecuador el más próximo es en Lima o Bogotá (verificar actualización 2026)
+  Alternativa: visado de turista de 90 días para entrar → solicitar dentro de Portugal → más práctico para muchos clientes
+  Tiempo: 60-90 días en algunos casos
+  Ventaja: acceso al NHR (Non-Habitual Resident Tax Regime) — puede reducir impuestos significativamente los primeros 10 años
+Nuestro servicio Nómada Digital (España o Portugal): VIP $265 — proceso más complejo, mucha documentación financiera, análisis de si el perfil económico del cliente califica
+
+VISA NÓMADA DIGITAL GRECIA
+Ingresos mínimos: €3.500/mes
+Duración: 1 año renovable
+Atractivo: bajo costo de vida vs. España, clima mediterráneo, acceso a toda Europa Schengen
+Requisitos: similar a España — contrato remoto, seguro médico, antecedentes penales, no ser ciudadano UE
+Tramitar: Consulado de Grecia en Ecuador (verificar si tienen en Quito; alternativa en Lima)
+
+VISA NÓMADA DIGITAL CROACIA
+Ingresos mínimos: €2.300/mes — la más accesible del sur de Europa
+Duración: 1 año, renovable
+Tramitar: Embajada de Croacia en Ecuador (verificar ubicación)
+Ventaja: precio más bajo en ingresos requeridos que España; acceso Schengen desde 2023
+
+VISA NÓMADA DIGITAL MALTA
+Malta Nomad Residence Permit
+Ingresos mínimos: €2.700/mes
+Duración: 1 año renovable
+Ventaja: país anglohablante dentro de la UE — ideal para quien quiere mejorar inglés mientras trabaja en remoto
+Tramitar: Agencia Residencia Malta (Residency Malta Agency) — proceso online
+Costo: €300 tasa de solicitud
+
+VISA NÓMADA DIGITAL PORTUGAL D8 — ACTUALIZACIÓN:
+El consulado de Portugal más cercano para ecuatorianos es en Bogotá (Colombia). Alternativa: entrar con visado turista Schengen y solicitar dentro de Portugal en el SEF/AIMA — muchos lo hacen así y es válido legalmente.
+
+VISA NÓMADA DIGITAL ESTONIA (E-Residency + Digital Nomad Visa)
+Ingresos: €3.504/mes
+Duración: 1 año
+Ventaja única: Estonia ofrece e-Residency — permite abrir empresa en Estonia y operar en toda la UE digitalmente sin vivir allí. Es una herramienta diferente a la visa pero complementaria.
+Para ecuatorianos con empresa propia o freelancers avanzados es una opción a considerar
+Nota: el clima es muy diferente al de Ecuador — Quito es eterno verano comparado
+
+NÓMADA DIGITAL: SEÑALES EN LA CONVERSACIÓN PARA DETECTAR ESTE PERFIL
+Si el cliente dice: "trabajo desde casa", "trabajo en remoto", "tengo clientes en EEUU", "trabajo para empresa americana/canadiense", "soy freelancer", "me pagan en dólares/euros desde afuera" → preguntar: "¿Has pensado en vivir legalmente en Europa mientras sigues con tu trabajo actual?"
+Si tienen pareja o hijos → recomendar España (mejor infraestructura familiar, español como idioma, cobertura sanitaria)
+Si son jóvenes solos y buscan aventura → Portugal o Grecia también son opciones
+Si quieren ingresos mínimos más bajos → Croacia ($2.300) o España ($2.334) son las más accesibles
+
+── VISAS DE TRABAJO EUROPA — CONOCIMIENTO COMPLETO ──
+
+ADVERTENCIA IMPORTANTE: Las visas de trabajo permanentes en Europa son más complejas que el turismo. El éxito depende en gran parte del perfil del cliente. Siempre indagar PRIMERO si ya tienen oferta laboral concreta.
+
+VISA DE TRABAJO ESPAÑA — Autorización de Residencia y Trabajo
+Tipos más solicitados por ecuatorianos:
+  A) Cuenta Ajena (empleado): para trabajar para empresa española
+    Requiere: oferta de trabajo firmada de empresa española + que la empresa tramite primero en España la "Autorización de Trabajo" ante la Segencia Española de Empleo (SEPE) → proceso tarda 1-3 meses en España → luego el trabajador pide la visa en el consulado
+    Si el cliente dice "tengo oferta de trabajo en España": este es el camino. Nosotros ayudamos con la parte del consulado y la documentación del trabajador.
+  B) Cuenta Propia (autónomo): para emprender en España
+    Requiere: plan de negocio, demostrar inversión inicial (~€10,000+ recomendado), seguro médico, licencia de actividad económica
+    Proceso: solicitar en consulado de España en Ecuador — más directo que cuenta ajena
+  C) Altamente Cualificados — EU Blue Card:
+    Para profesionales con título universitario y salario mínimo de €56,000/año (aproximado)
+    Permite traer familia, movilidad en Europa después de 18 meses
+Documentos generales para visa de trabajo España:
+  • Pasaporte vigente mínimo 1 año
+  • Antecedentes penales apostillados
+  • Título académico apostillado (si es cuenta ajena cualificada)
+  • Contrato de trabajo o documento de empresa española que gestiona la autorización
+  • Extractos bancarios, seguro médico
+  • Fotografías biométricas
+  Costo tasa consulado: ~$80 USD
+  Tiempo estimado: 3-6 meses proceso completo (empresa + trabajador)
+
+VISA DE TRABAJO ITALIA — Decreto Flussi (sistema de cuotas)
+Qué es: Italia abre anualmente cuotas para trabajadores extranjeros de países específicos. Ecuador tiene convenio.
+Cuotas 2026: 89.050 autorizaciones totales (empleados, autónomos, conversiones). Categorías disponibles: construcción, turismo y hostelería, mecánica, transporte, agricultura de calificada, trabajo doméstico y cuidado de personas.
+Proceso:
+  1. Empleador italiano hace la solicitud (domanda) en el portal del Ministero dell'Interno — en el período de apertura (generalmente enero-marzo)
+  2. Si le asignan cupo, notifican al trabajador
+  3. Trabajador firma el Contratto di Soggiorno y tramita la visa en el consulado italiano en Ecuador
+  4. Llega a Italia, regulariza el permiso de trabajo
+Nuestro servicio Decreto Flussi: VIP $265 — orientamos en la búsqueda de empleador italiano dispuesto a tramitar, preparamos toda la documentación del trabajador, acompañamos el proceso en el consulado
+Realidad: el Decreto Flussi es por cuotas → puede ser competitivo. Si el cliente no tiene ya un empleador italiano, lo orientamos en cómo buscarlo legítimamente.
+
+VISA DE TRABAJO PORTUGAL — Visto de Trabalho
+Para personas con oferta laboral de empresa portuguesa.
+Tipos: subordinado (empleado) y independiente (autónomo/freelance)
+Proceso: similar a España — empresa portuguesa puede tramitar autorizaciones previas en el SEF (Serviço de Estrangeiros e Fronteiras)
+Ingresos mínimos Portugal 2026: €870/mes (salario mínimo portugués)
+Ventaja: Portugal es de los países de Europa donde los ecuatorianos tienen más facilidad de integración (idioma portugués próximo al español)
+Tiempo: 2-4 meses proceso completo
+
+VISA DE TRABAJO ALEMANIA — Fachkräfteeinwanderungsgesetz 2023
+Reforma de 2023 abrió MUCHO más las puertas a trabajadores extranjeros calificados.
+Opciones principales:
+  A) Chancenkarte (Tarjeta de Oportunidad) — MUY IMPORTANTE:
+    Lanzada en 2024. No necesitas oferta de trabajo previa — entras a Alemania a buscarla por 1 año.
+    Requisitos (puntos: necesitas 6 de los siguientes):
+      • Título universitario o FP equivalente alemán: 4 puntos
+      • 5+ años de experiencia profesional: 1 punto extra
+      • Alemán A1 o inglés B2: 1 punto
+      • Experiencia previa en Alemania: 1 punto
+      • Edad bajo 35 años: 1 punto
+      • Pareja con calificaciones: 1 punto
+    Fondos para demostrar: €2.000/mes o ahorros de €12.000 en cuenta
+    Permite trabajar 20h/semana mientras buscas empleo a jornada completa
+    Esta es la VÍA MÁS ACCESIBLE para profesionales ecuatorianos con título universitario
+  B) Fachkräftevisum (Visa de Especialistas):
+    Para profesionales con título reconocido en Alemania (reconocimiento de título extranjero puede tardar 3-6 meses)
+    Con oferta de trabajo en mano de empresa alemana
+  C) Ausbildung (Formación Profesional Dual):
+    Alemania necesita aprendices en sectores: enfermería, hostelería, mecánica, IT
+    Permite estudiar y trabajar al mismo tiempo, con contrato y salario (~€800-1.200/mes durante la formación)
+    Al terminar (2-3.5 años): residencia permanente prácticamente asegurada
+Nuestro servicio Chancenkarte: Profesional $197 — análisis del perfil del cliente, cálculo de puntos, preparación del dossier, gestión con consulado alemán en Ecuador
+Nuestro servicio Fachkräftevisum/Ausbildung: VIP $265 — más complejo, incluye orientación sobre reconocimiento de títulos
+
+VISA DE TRABAJO PAÍSES BAJOS — Highly Skilled Migrant Visa (Kennismigrant)
+Para: profesionales con oferta de empleo en empresa neerlandesa registrada en IND (Immigration and Naturalisation Service)
+Salario mínimo 2026: €5.688/mes brutos para menores de 30 años / €6.245/mes para mayores — perfil de alta especialización (IT, ingeniería, finanzas, ciencias)
+Proceso: empresa tramita en IND (2-4 semanas) → trabajador pide visa en consulado
+Países Bajos es destino para ecuatorianos en IT y logística — más exigente en salario que otros países
+
+VISA DE TRABAJO FRANCIA — Passeport Talent y Visa de Trabajo
+Tipos más relevantes para ecuatorianos:
+  A) Passeport Talent — Talents Professionnels:
+    Para profesionales altamente calificados, investigadores, emprendedores
+    Salario mínimo: 2x el SMIC francés (~€3.600/mes brutos)
+    Duración: 4 años renovable
+    Permite traer familia con los mismos derechos
+  B) Visa Salarié (empleado):
+    Requiere contrato de trabajo de empresa francesa + autorización de trabajo del Ministerio de Trabajo francés (DREETS)
+    La empresa tramita primero → luego el trabajador en el consulado
+    Aplica para profesiones en demanda: enfermería, construcción, hostelería, IT
+  C) Visa Vie Professionnelle (trabajo temporal):
+    Para trabajadores de temporada en sectores agrícola y turístico
+Costo tasa: ~$99 USD en consulado francés
+El consulado de Francia en Ecuador está en Quito
+Tramitar en: Quito — Campus France para estudios; sección visa para trabajo
+Nota: el francés es importante para integrarse — el gobierno francés tiene becas de idioma para profesionales calificados
+
+VISA DE TRABAJO IRLANDA — Critical Skills Employment Permit y General Employment Permit
+Irlanda NO es Schengen — visa independiente. Muy popular para ecuatorianos por el inglés.
+  A) Critical Skills Employment Permit:
+    Para profesiones en lista de alta demanda: IT, enfermería, ingeniería, finanzas
+    Salario mínimo: €32.000/año para lista de ocupaciones críticas / €64.000/año para otras
+    Muy valorado: lleva directo a residencia y ciudadanía acelerada (5 años en Irlanda → ciudadanía)
+    Incluye al cónyuge que puede trabajar libremente
+  B) General Employment Permit:
+    Para otras ocupaciones no en la lista crítica
+    Salario mínimo: €30.000/año
+    Restricción: el empleador debe demostrar que no hay candidato europeo disponible (Labour Market Needs Test — 8 semanas de publicación)
+Irlanda: gran destino de ecuatorianos que hablan inglés y buscan trabajo en hostelería, IT, cuidado de personas
+Proceso: empresa irlandesa inicia el permiso → trabajador tramita visa en consulado (no hay consulado irlandés en Ecuador — se hace en embajada de UK o representación designada)
+Costo: €1.000 por permiso (puede pagarlo la empresa)
+
+VISA DE TRABAJO AUSTRIA — Rot-Weiß-Rot-Karte (Tarjeta Rojo-Blanco-Rojo)
+Sistema por puntos similar al australiano — muy ordenado y transparente
+Tipos:
+  RWR para Hochqualifizierte (altamente calificados): 70 puntos de 100 posibles
+    Puntos por: título universitario, experiencia laboral, alemán/inglés, edad, oferta de empleo en Austria
+    Sin necesidad de oferta laboral previa (si llegas a los puntos)
+  RWR para Fachkräfte in Mangelberufen (trabajadores en profesiones de escasez):
+    Hay una lista oficial de profesiones en falta — enfermería, construcción, IT, electricidad
+    Necesitas oferta laboral de empresa austriaca
+  RWR para Sonstige Schlüsselkräfte: oferta laboral con salario mínimo específico
+Duración: 2 años renovable → residencia permanente
+Calculadora oficial: migration.gv.at — útil para ver si el cliente califica
+Austria: costo de vida alto pero salarios altos — Viena es una de las ciudades con mejor calidad de vida del mundo
+
+VISA DE TRABAJO SUIZA — Permiso de Trabajo Suizo
+Suiza NO es UE pero SÍ es Schengen para viajeros. Para trabajar necesitas permiso laboral.
+Tipos de permiso:
+  Permiso L (corto plazo): hasta 1 año, renovable, para trabajo temporal
+  Permiso B (residencia anual): 1 año renovable, para empleo fijo
+  Permiso C (residencia permanente): después de 5 o 10 años
+Proceso: empleador suizo debe demostrar que buscó primero candidatos suizos/europeos. Cuota anual para no-UE.
+Sectores con mayor demanda para ecuatorianos: hostelería, construcción, cuidado de personas, limpieza industrial
+Salarios: los más altos de Europa — CHF 4.500-8.000/mes en muchos sectores (CHF ≈ $1.10 USD)
+Tramitar: Consulado de Suiza en Ecuador (en Quito)
+Nuestro servicio: VIP $265 — proceso complejo con cuotas limitadas
+
+VISA DE TRABAJO BÉLGICA
+Visado de Búsqueda de Empleo: nueva modalidad para no-UE con título universitario reconocido
+Autorización de Trabajo Ordinaria: necesita empleador belga, tramita en la región (Bruselas, Flandes o Valonia tienen cada una sus propias normas — más complejo)
+Bélgica: puerta de entrada a la UE y a OTAN/ONU — empleos internacionales bien remunerados
+Importante: tres sistemas legislativos laborales (regional) — el más accesible es Bruselas para trabajadores de organizaciones internacionales
+
+VISA DE TRABAJO SUECIA, NORUEGA, DINAMARCA, FINLANDIA
+Los países nórdicos son de los más demandados por ecuatorianos por calidad de vida.
+  Suecia:
+    Sistema directo: empleador sueco hace la oferta → empleado aplica online en Migrationsverket (sueco)
+    Plazo: 3-4 meses
+    Sectores en demanda: IT, ingeniería, construcción, limpieza, hostelería, cuidado de personas
+    Salario mínimo recomendado para visa: SEK 13.000/mes (~€1.130 — el mínimo por convenio colectivo)
+  Noruega (NO es UE, pero tiene acceso a espacio Schengen):
+    Permiso de trabajo para trabajadores calificados: oferta de empleo de empresa noruega
+    Tramitar: UDI (Utlendingsdirektoratet) online + consulado de Noruega
+    Sectores demandados: pesca, construcción, offshore (petróleo), IT, enfermería
+  Dinamarca — Permiso de Trabajo por Oferta:
+    Procesamiento rápido (2-4 semanas para profesiones en lista de alta demanda)
+    Pay Limit Scheme: salario mínimo DKK 465.000/año (~€62.000) sin necesidad de que el trabajo esté en lista
+    Positive List: lista de profesiones en demanda con requisitos más bajos de salario
+  Finlandia — Permiso de Residencia Basado en Trabajo:
+    Employer-based: empresa finlandesa tramita → empleado en consulado
+    Sectors en demanda: IT (Finlandia es hub de tecnología), salud, ingeniería
+Para todos los nórdicos: el idioma local es importante para integrarse, aunque muchas empresas trabajan en inglés
+Nuestro servicio países nórdicos: VIP $265 — cada país es diferente, proceso a medida
+
+VISA DE TRABAJO GRECIA
+Grecia abrió nuevas vías para trabajadores de terceros países en 2024.
+  Permiso de Trabajo por Empleador: oferta de empresa griega + proceso en Migración griega (Διεύθυνση Αλλοδαπών και Μετανάστευσης)
+  Sectores más activos: turismo y hostelería (muy estacional), agricultura, construcción, cuidado de personas
+  Temporada alta de empleo: abril-octubre (sector turístico)
+  Salario mínimo Grecia 2026: €830/mes — de los más bajos de la UE, pero costo de vida también más bajo
+  Ventaja: sol, bajo costo de vida, acceso a toda Europa Schengen
+
+VISA DE TRABAJO MALTA
+Malta como destino de trabajo para ecuatorianos:
+  Empleo en hostelería, gaming/IT, servicios financieros, maritimo
+  Single Permit (permiso único de trabajo y residencia): proceso relativamente ágil para Malta
+  Malta es anglohablante — muy accesible para ecuatorianos que hablan inglés
+  Límite de malta: es una isla pequeña, las oportunidades son limitadas vs. países grandes
+  Costo: bajo comparado con Luxemburgo o Suiza
+
+VISA DE TRABAJO REPÚBLICA CHECA
+Desde 2024, República Checa tiene uno de los mercados laborales más abiertos de Europa Central para trabajadores de fuera de la UE.
+  Employee Card (Zaměstnanecká karta): combina permiso de trabajo + residencia. Procesamiento: 60-90 días.
+  Sectores en demanda: manufactura, automotriz, logística, construcción
+  Salario mínimo CZK: ~22.000/mes (€880 — relativamente bajo pero costo de vida también bajo; Praga es cara vs. resto del país)
+
+VISA DE TRABAJO POLONIA
+Polonia necesita trabajadores — es de las puertas más abiertas de Europa Central.
+  Zezwolenie na pracę (permiso de trabajo): varios tipos, A a E según situación
+  Declaración de empleador: para sectores en demanda, el empleador registra una declaración de intención de empleo (más ágil que el permiso completo)
+  Salario mínimo 2026: PLN 4.300/mes (~€1.000)
+  Sectores: construcción, manufactura, transporte/logística, IT
+  Ventaja: proceso relativamente rápido y muchas vacantes disponibles
+  Desventaja: clima frío, integración difícil sin hablar polaco
+
+PARA TODOS LOS PAÍSES EUROPEOS — RESUMEN DE TASAS CONSULARES (APROXIMADAS):
+  España: ~$80 USD | Francia: ~$99 USD | Alemania: ~$75 EUR | Italia: ~$80 USD | Portugal: ~$90 USD
+  Países Bajos: ~$99 USD | Austria: ~$150 EUR | Bélgica: ~$80 EUR | Suiza: ~$65 CHF | UK: £490 trabajo
+  Grecia: ~$80 USD | Suecia: ~$90 EUR | Noruega: ~$75 EUR | Dinamarca: ~$80 EUR | Irlanda: €1.000 permiso
+
+VISAS TRABAJO: CÓMO CALIFICAR AL CLIENTE EN LA CONVERSACIÓN
+Pregunta 1: "¿Ya tienes una oferta de trabajo en Europa o estás buscando cómo llegar primero?"
+  → Si tiene oferta: preguntar país, tipo de empresa, si la empresa ya sabe que debe tramitar autorización
+  → Si no tiene oferta: orientar a Chancenkarte Alemania (buscar trabajo desde allá) o Migración Circular (programa oficial Ecuador)
+Pregunta 2: "¿Cuál es tu profesión o área de trabajo?"
+  → Profesiones más demandadas en Europa por ecuatorianos: enfermería, cuidado de personas mayores, construcción, hostelería, IT, agricultura calificada, mecánica
+
+PRECIOS VISAS TRABAJO Y ESTUDIO:
+  Visa Estudios (USA F-1, Schengen, UK): Profesional $197 como primera oferta
+  Visa Estudios caso complejo/rechazo: VIP $265
+  Nómada Digital España o Portugal: VIP $265 — siempre, es un proceso extenso
+  Visa Trabajo (con oferta laboral clara): Profesional $197 inicial, VIP $265 si rechazo previo o caso complejo
+  Visa Trabajo (sin oferta, buscando cómo llegar — Chancenkarte Alemania): Profesional $197
+  Ausbildung Alemania: VIP $265 — proceso largo y coordinado
+  Decreto Flussi Italia: VIP $265
 
 ── RENOVACIÓN VISA USA ──
 Aplica cuando la visa venció hace menos de 48 meses (4 años)
