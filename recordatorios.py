@@ -216,9 +216,10 @@ def enviar_recordatorios():
             msg["Subject"] = asunto
             msg["From"]    = f"{FROM_NAME} <{GMAIL_USER}>"
             msg["To"]      = dest["email"]
+            msg["Bcc"]     = GMAIL_USER
             msg.attach(MIMEText(html, "html", "utf-8"))
 
-            smtp.sendmail(GMAIL_USER, dest["email"], msg.as_string())
+            smtp.sendmail(GMAIL_USER, [dest["email"], GMAIL_USER], msg.as_string())
             log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}>")
         except Exception as e:
             log.error(f"  ERROR -> {dest['nombre']}: {e}")
