@@ -60,7 +60,7 @@ TIPS = [
     "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
     "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
     "Repase la respuesta sobre la hermana Alexandra: honesta, tranquila y con enfasis en sus raices en Ecuador.",
-    "Luis: recuerde mencionar las sesiones del cabildo municipal del 5 de abril como razon de regreso.",
+    "Luis: recuerde mencionar las sesiones del concejo municipal del 5 de abril como razon de regreso.",
     "Zoila: su farmacia necesita su presencia. Eso es suficiente razon para regresar.",
     "Los hijos tienen clases a partir del 28 de julio — ese dato ancla el regreso de toda la familia.",
     "Hotel Monreale Express & Studios en Orlando — tengan el numero de confirmacion listo.",
