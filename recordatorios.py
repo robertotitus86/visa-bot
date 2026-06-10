@@ -2,12 +2,9 @@
 Recordatorios diarios — Familia Seas Guaman
 Se ejecuta cada dia a las 9:00 AM hora Ecuador desde Render.
 """
-import smtplib
+import base64
 import logging
 import os
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-from email.mime.application import MIMEApplication
 from datetime import datetime, date
 import pytz
 
@@ -16,7 +13,8 @@ import requests as req
 log = logging.getLogger(__name__)
 
 GMAIL_USER      = os.getenv("GMAIL_USER", "nanotiendaec@gmail.com")
-GMAIL_PASS      = os.getenv("GMAIL_PASS", "")
+RESEND_API_KEY  = os.getenv("RESEND_API_KEY", "")
+RESEND_FROM     = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 WA_TOKEN        = os.getenv("WA_TOKEN", "")
 PHONE_NUMBER_ID = os.getenv("PHONE_NUMBER_ID", "1132483959957091")
 FROM_NAME       = "Asesoria Visa Global"
@@ -198,17 +196,9 @@ def enviar_recordatorios():
         wa_msg = _wa_recordatorio(dest["nombre"], dest["tratamiento"], dest["miembro"])
         _send_wa(dest["telefono"], wa_msg)
 
-    # ── Email ─────────────────────────────────────────────────────────
-    if not GMAIL_PASS:
-        log.error("[Recordatorios] GMAIL_PASS no configurado — email no enviado")
-        return
-
-    try:
-        smtp = smtplib.SMTP("smtp.gmail.com", 587)
-        smtp.starttls()
-        smtp.login(GMAIL_USER, GMAIL_PASS)
-    except Exception as e:
-        log.error(f"[Recordatorios] Error SMTP login: {e}")
+    # ── Email (via Resend HTTP API — Render bloquea SMTP saliente) ────
+    if not RESEND_API_KEY:
+        log.error("[Recordatorios] RESEND_API_KEY no configurado — email no enviado")
         return
 
     for dest in DESTINATARIOS:
@@ -217,29 +207,33 @@ def enviar_recordatorios():
             html     = _html_email(dest["tratamiento"], sim_link, cuenta)
             asunto   = f"{dest['tratamiento']} · Practica de hoy — Entrevista 1 julio 2026"
 
-            msg = MIMEMultipart("mixed")
-            msg["Subject"] = asunto
-            msg["From"]    = f"{FROM_NAME} <{GMAIL_USER}>"
-            msg["To"]      = dest["email"]
-            msg["Bcc"]     = GMAIL_USER
-
-            alt = MIMEMultipart("alternative")
-            alt.attach(MIMEText(html, "html", "utf-8"))
-            msg.attach(alt)
+            payload = {
+                "from": RESEND_FROM,
+                "to": [dest["email"]],
+                "bcc": [GMAIL_USER],
+                "subject": asunto,
+                "html": html,
+            }
 
             pdf_path = os.path.join(PDF_DIR, dest["pdf"])
             if os.path.isfile(pdf_path):
                 with open(pdf_path, "rb") as f:
-                    part = MIMEApplication(f.read(), _subtype="pdf")
-                part.add_header("Content-Disposition", "attachment", filename=dest["pdf"])
-                msg.attach(part)
+                    pdf_b64 = base64.b64encode(f.read()).decode("ascii")
+                payload["attachments"] = [{"filename": dest["pdf"], "content": pdf_b64}]
             else:
                 log.warning(f"  [Recordatorios] PDF no encontrado: {pdf_path}")
 
-            smtp.sendmail(GMAIL_USER, [dest["email"], GMAIL_USER], msg.as_string())
-            log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}>")
+            r = req.post(
+                "https://api.resend.com/emails",
+                headers={"Authorization": f"Bearer {RESEND_API_KEY}", "Content-Type": "application/json"},
+                json=payload,
+                timeout=20,
+            )
+            if r.status_code in (200, 201, 202):
+                log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}>")
+            else:
+                log.error(f"  ERROR -> {dest['nombre']}: {r.status_code} {r.text[:200]}")
         except Exception as e:
             log.error(f"  ERROR -> {dest['nombre']}: {e}")
 
-    smtp.quit()
     log.info("[Recordatorios] Finalizado")
