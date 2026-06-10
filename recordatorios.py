@@ -7,6 +7,7 @@ import logging
 import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.application import MIMEApplication
 from datetime import datetime, date
 import pytz
 
@@ -23,14 +24,18 @@ ZONA            = pytz.timezone("America/Guayaquil")
 SIMULADOR       = "https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html"
 META_API_VER    = "v19.0"
 
+PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
+
 DESTINATARIOS = [
     {
         "nombre": "Luis", "tratamiento": "Estimado Sr. Alcalde",
         "email": "siul_2386@hotmail.com", "telefono": "593997119313", "miembro": "luis",
+        "pdf": "pdf-luis-seas.pdf",
     },
     {
         "nombre": "Zoila", "tratamiento": "Estimada Sra. Zoila",
         "email": "zoilyss_@hotmail.es", "telefono": "593988229894", "miembro": "zoila",
+        "pdf": "pdf-zoila-guaman.pdf",
     },
 ]
 
@@ -212,12 +217,24 @@ def enviar_recordatorios():
             html     = _html_email(dest["tratamiento"], sim_link, cuenta)
             asunto   = f"{dest['tratamiento']} · Practica de hoy — Entrevista 1 julio 2026"
 
-            msg = MIMEMultipart("alternative")
+            msg = MIMEMultipart("mixed")
             msg["Subject"] = asunto
             msg["From"]    = f"{FROM_NAME} <{GMAIL_USER}>"
             msg["To"]      = dest["email"]
             msg["Bcc"]     = GMAIL_USER
-            msg.attach(MIMEText(html, "html", "utf-8"))
+
+            alt = MIMEMultipart("alternative")
+            alt.attach(MIMEText(html, "html", "utf-8"))
+            msg.attach(alt)
+
+            pdf_path = os.path.join(PDF_DIR, dest["pdf"])
+            if os.path.isfile(pdf_path):
+                with open(pdf_path, "rb") as f:
+                    part = MIMEApplication(f.read(), _subtype="pdf")
+                part.add_header("Content-Disposition", "attachment", filename=dest["pdf"])
+                msg.attach(part)
+            else:
+                log.warning(f"  [Recordatorios] PDF no encontrado: {pdf_path}")
 
             smtp.sendmail(GMAIL_USER, [dest["email"], GMAIL_USER], msg.as_string())
             log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}>")
