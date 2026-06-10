@@ -15,7 +15,7 @@ import time
 from system_prompt import SYSTEM_PROMPT
 from crm_lookup import buscar_caso_por_telefono, construir_contexto_crm
 from analisis_cliente import analizar_sesion_completa
-from sheets_integration import guardar_en_sheets, log_chat_message, cargar_chat_log
+from sheets_integration import guardar_en_sheets, log_chat_message, cargar_chat_log, cargar_todos_recientes
 from paypal_integration import crear_orden, verificar_webhook_signature
 from onboarding_flow import (
     activar_onboarding_post_pago, activar_followup_lead, activar_followup_caliente,
@@ -51,12 +51,13 @@ app.add_middleware(
 
 ANTHROPIC_KEY       = os.getenv("ANTHROPIC_API_KEY")
 VERIFY_TOKEN        = os.getenv("VERIFY_TOKEN", "visaglobal2026")
-FOLLOWUP_SECRET     = os.getenv("FOLLOWUP_SECRET", "")       # secreto GAS→bot; si vacío, sin auth
+FOLLOWUP_SECRET     = os.getenv("FOLLOWUP_SECRET", "")       # REQUERIDO en Render — vacío = todos los endpoints admin bloqueados
 META_APP_SECRET     = os.getenv("META_APP_SECRET", "")       # firma webhook Meta; si vacío, sin verificación
-ADMIN_PANEL_SECRET  = os.getenv("ADMIN_PANEL_SECRET", "visa2026admin")  # clave panel /admin
+ADMIN_PANEL_SECRET  = os.getenv("ADMIN_PANEL_SECRET", "")    # REQUERIDO en Render — vacío = panel /admin bloqueado
 WA_TOKEN            = os.getenv("WA_TOKEN", "")
 RENDER_URL          = os.getenv("RENDER_URL", "https://visa-global-bot.onrender.com")
 ADMIN_PHONE         = os.getenv("PHONE_NUMBER", "593994442512")
+PHONE_NUMBER_ID     = os.getenv("PHONE_NUMBER_ID", "1132483959957091")
 PERSONAL_PHONE      = "593987846751"  # número personal Roberto — alertas de leads
 TG_TOKEN            = os.getenv("TELEGRAM_TOKEN", "")
 TG_API              = f"https://api.telegram.org/bot{TG_TOKEN}"
@@ -396,6 +397,88 @@ def send_whatsapp_message(to: str, message: str, phone_number_id: str = ""):
         print(f"[WA] Excepción enviando mensaje: {e}")
 
 
+# ── RESUMEN DIARIO DE CONVERSACIONES (8 PM hora Ecuador) ──────────────────────
+
+def _resumen_temperatura(pares: list) -> tuple[str, str]:
+    """pares: lista de {"user":..., "bot":...}. Devuelve (icono, etiqueta)."""
+    n = len(pares)
+    texto_cliente = " ".join(p.get("user", "").lower() for p in pares)
+    texto_bot     = " ".join(p.get("bot", "") for p in pares)
+    if "[CERRAR:" in texto_bot:
+        return ("✅", "VENTA")
+    if any(s in texto_cliente for s in SENALES_CALIENTE):
+        return ("🔴", "CALIENTE")
+    if n >= 3:
+        return ("🟡", "TIBIA")
+    return ("⚪", "FRÍA")
+
+
+async def generar_resumen_diario():
+    """Envía a Roberto (PERSONAL_PHONE) un resumen de las conversaciones de las últimas 24h."""
+    if not FOLLOWUP_SECRET:
+        print("[Resumen] FOLLOWUP_SECRET no configurado — omitiendo resumen diario")
+        return
+    try:
+        loop = asyncio.get_event_loop()
+        recientes = await asyncio.wait_for(
+            loop.run_in_executor(None, cargar_todos_recientes, 24),
+            timeout=15.0,
+        )
+    except Exception as e:
+        print(f"[Resumen] Error cargando conversaciones: {e}")
+        return
+
+    if not recientes:
+        send_whatsapp_message(
+            PERSONAL_PHONE,
+            "📊 *Resumen del día — Asesoría Visa Global*\n\nNo hubo conversaciones en las últimas 24h.",
+            PHONE_NUMBER_ID,
+        )
+        return
+
+    ventas, calientes, tibias, frias = [], [], [], []
+    for phone, pares in recientes.items():
+        if not pares:
+            continue
+        icono, etiqueta = _resumen_temperatura(pares)
+        ultimo = pares[-1].get("user", "")[:80]
+        item = (phone, len(pares), ultimo)
+        if etiqueta == "VENTA":      ventas.append(item)
+        elif etiqueta == "CALIENTE": calientes.append(item)
+        elif etiqueta == "TIBIA":    tibias.append(item)
+        else:                        frias.append(item)
+
+    lineas = ["📊 *Resumen del día — Asesoría Visa Global*\n"]
+
+    if ventas:
+        lineas.append(f"✅ *{len(ventas)} venta(s) cerrada(s):*")
+        for ph, n, _ in ventas:
+            lineas.append(f"• {ph} — {n} mensajes")
+        lineas.append("")
+
+    if calientes:
+        lineas.append(f"🔴 *{len(calientes)} lead(s) CALIENTE(S) — recupéralos hoy:*")
+        for ph, n, ultimo in calientes:
+            lineas.append(f"• {ph} ({n} msj) — \"{ultimo}\"")
+            lineas.append(f"  👉 wa.me/{ph}")
+        lineas.append("")
+    else:
+        lineas.append("🔴 Calientes: 0\n")
+
+    if tibias:
+        lineas.append(f"🟡 *{len(tibias)} conversación(es) tibia(s):*")
+        for ph, n, ultimo in tibias:
+            lineas.append(f"• {ph} ({n} msj) — \"{ultimo}\"")
+        lineas.append("")
+
+    lineas.append(f"⚪ Frías (1-2 mensajes): {len(frias)}")
+    lineas.append(f"\n📋 Panel completo: {RENDER_URL}/admin?clave={ADMIN_PANEL_SECRET}")
+
+    mensaje = "\n".join(lineas)
+    send_whatsapp_message(PERSONAL_PHONE, mensaje, PHONE_NUMBER_ID)
+    print("[Resumen] Enviado a Roberto")
+
+
 # ── COMPLETAR FORMULARIO (post-pago) ──────────────────────────────────────────
 
 async def completar_formulario(from_number: str, phone_number_id: str,
@@ -671,8 +754,16 @@ async def startup_event():
         id="recordatorio_diario",
         replace_existing=True,
     )
+    scheduler.add_job(
+        generar_resumen_diario,
+        trigger="cron",
+        hour=20, minute=0,
+        id="resumen_diario_conversaciones",
+        replace_existing=True,
+    )
     scheduler.start()
     print("[Scheduler] Recordatorio diario activado — 9:00 AM hora Ecuador")
+    print("[Scheduler] Resumen de conversaciones activado — 8:00 PM hora Ecuador")
 
 
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────
@@ -689,6 +780,14 @@ async def send_recordatorios_manual(request: Request):
     import threading
     threading.Thread(target=enviar_recordatorios, daemon=True).start()
     return {"status": "enviando", "destinatarios": ["Luis Seas", "Zoila Guaman"]}
+
+
+@app.get("/send-resumen")
+async def send_resumen_manual(request: Request):
+    """Disparo manual del resumen diario de conversaciones. Requiere X-Admin-Secret."""
+    _require_admin(request)
+    asyncio.create_task(generar_resumen_diario())
+    return {"status": "enviando", "destino": PERSONAL_PHONE}
 
 
 @app.get("/webhook")
@@ -965,7 +1064,7 @@ async def send_followup(request: Request):
     """Llamado por Google Apps Script. Envía follow-ups programados."""
     data           = await request.json()
 
-    if FOLLOWUP_SECRET and data.get("secret") != FOLLOWUP_SECRET:
+    if not FOLLOWUP_SECRET or data.get("secret") != FOLLOWUP_SECRET:
         raise HTTPException(status_code=403, detail="No autorizado")
 
     telefono        = data.get("telefono", "")
@@ -992,6 +1091,10 @@ async def root():
 @app.post("/web-chat")
 async def web_chat(request: Request):
     """Endpoint para el widget de chat en la web. Sin dependencia de WhatsApp."""
+    client_ip  = request.headers.get("x-forwarded-for", request.client.host or "unknown").split(",")[0].strip()
+    if not _check_rate_limit("web-" + client_ip):
+        return {"reply": "Has enviado muchos mensajes. Espera unos minutos.", "quick_replies": []}
+
     data       = await request.json()
     session_id = data.get("session_id", "web-anonymous")
     message    = data.get("message", "")
@@ -1007,8 +1110,8 @@ async def web_chat(request: Request):
         quick = ["Ver paquetes", "Quiero el diagnostico", "Hablar con Roberto"]
     elif any(w in msg_lower for w in ["rechazo", "negaron", "rechazado"]):
         quick = ["Si, me rechazaron", "No, es primera vez", "Ver Paquete VIP"]
-    elif any(w in msg_lower for w in ["diagnostico", "$50", "50 dolares"]):
-        quick = ["Obtener diagnostico $50", "Primero tengo preguntas"]
+    elif any(w in msg_lower for w in ["diagnostico", "$37", "37 dolares"]):
+        quick = ["Obtener diagnostico $37", "Primero tengo preguntas"]
     elif any(w in msg_lower for w in ["hola", "buenos", "buenas", "bienvenido"]):
         quick = ["Visa USA", "Visa España/Schengen", "Tengo rechazo previo"]
     else:
@@ -1018,8 +1121,8 @@ async def web_chat(request: Request):
 
 
 def _check_admin_secret(data: dict):
-    """Verifica que FOLLOWUP_SECRET esté presente cuando está configurado."""
-    if FOLLOWUP_SECRET and data.get("secret") != FOLLOWUP_SECRET:
+    """Verifica FOLLOWUP_SECRET en body. Falla cerrado si no está configurado."""
+    if not FOLLOWUP_SECRET or data.get("secret") != FOLLOWUP_SECRET:
         raise HTTPException(status_code=403, detail="No autorizado")
 
 
@@ -1247,8 +1350,10 @@ async def telegram_webhook(request: Request):
 
 
 def _require_admin(request: Request):
-    """Verifica X-Admin-Secret header para endpoints de diagnóstico."""
-    if FOLLOWUP_SECRET and request.headers.get("X-Admin-Secret") != FOLLOWUP_SECRET:
+    """Verifica X-Admin-Secret header. Falla cerrado: bloquea si FOLLOWUP_SECRET no está configurado."""
+    if not FOLLOWUP_SECRET:
+        raise HTTPException(status_code=503, detail="FOLLOWUP_SECRET no configurado en Render")
+    if request.headers.get("X-Admin-Secret") != FOLLOWUP_SECRET:
         raise HTTPException(status_code=403, detail="No autorizado")
 
 
@@ -1342,7 +1447,7 @@ from fastapi.responses import HTMLResponse
 @app.get("/admin", response_class=HTMLResponse)
 async def admin_panel(request: Request, clave: str = ""):
     """Panel admin para ver conversaciones activas del bot."""
-    if not clave or clave != ADMIN_PANEL_SECRET:
+    if not clave or not ADMIN_PANEL_SECRET or clave != ADMIN_PANEL_SECRET:
         return HTMLResponse("""
         <html><body style="font-family:sans-serif;background:#06101E;color:#CBD5E1;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">
         <form method="get" style="text-align:center">
@@ -1351,9 +1456,41 @@ async def admin_panel(request: Request, clave: str = ""):
           <br><button type="submit" style="padding:12px 28px;background:#F5C842;color:#06101E;border:none;border-radius:100px;font-weight:800;cursor:pointer;margin-top:10px">Entrar</button>
         </form></body></html>""", status_code=200)
 
+    # Si la memoria está vacía (Render reinició el bot), recargar desde Sheets
+    fuente = "memoria (sesión actual)"
+    if not _chat_log and FOLLOWUP_SECRET:
+        try:
+            loop = asyncio.get_event_loop()
+            recientes = await asyncio.wait_for(
+                loop.run_in_executor(None, cargar_todos_recientes, 48),
+                timeout=10.0,
+            )
+            for ph, pares in recientes.items():
+                entry = _chat_log.setdefault(ph, {"nombre": ph, "mensajes": [], "ultima_hora": "—"})
+                for par in pares:
+                    entry["mensajes"].append({"rol": "cliente", "texto": par["user"], "hora": "—"})
+                    entry["mensajes"].append({"rol": "bot", "texto": par["bot"], "hora": "—"})
+                entry["mensajes"] = entry["mensajes"][-50:]
+            if recientes:
+                fuente = "Google Sheets (últimas 48h)"
+        except Exception:
+            pass
+
+    # Clasificar temperatura de cada conversación
+    def _temperatura(msgs: list) -> tuple[str, str]:
+        n = len(msgs)
+        texto_cliente = " ".join(m["texto"].lower() for m in msgs if m["rol"] == "cliente")
+        texto_bot     = " ".join(m["texto"] for m in msgs if m["rol"] == "bot")
+        if "[CERRAR:" in texto_bot or any(s in texto_cliente for s in SENALES_CALIENTE):
+            return ("🔴", "CALIENTE")
+        if n >= 6:
+            return ("🟡", "TIBIA")
+        return ("⚪", "FRÍA")
+
     # Construir HTML de conversaciones
+    n_caliente = n_tibia = n_fria = 0
     if not _chat_log:
-        cuerpo = "<p style='color:rgba(255,255,255,.4);text-align:center;padding:40px'>No hay conversaciones activas aún.</p>"
+        cuerpo = "<p style='color:rgba(255,255,255,.4);text-align:center;padding:40px'>No hay conversaciones registradas aún.</p>"
     else:
         chats_sorted = sorted(_chat_log.items(), key=lambda x: x[1]["ultima_hora"], reverse=True)
         cuerpo = ""
@@ -1361,6 +1498,10 @@ async def admin_panel(request: Request, clave: str = ""):
             nombre = data.get("nombre") or phone
             ultima = data.get("ultima_hora", "")
             msgs = data.get("mensajes", [])
+            icono, etiqueta = _temperatura(msgs)
+            if etiqueta == "CALIENTE": n_caliente += 1
+            elif etiqueta == "TIBIA":  n_tibia += 1
+            else:                      n_fria += 1
             burbuja = ""
             for m in msgs:
                 es_bot = m["rol"] == "bot"
@@ -1380,7 +1521,7 @@ async def admin_panel(request: Request, clave: str = ""):
             <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-bottom:16px">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.07)">
                 <div>
-                  <div style="font-weight:700;color:#F1F5F9;font-size:.95rem">{nombre}</div>
+                  <div style="font-weight:700;color:#F1F5F9;font-size:.95rem">{icono} {nombre} <span style="font-size:.65rem;color:rgba(255,255,255,.35);font-weight:500">· {etiqueta} · {len(msgs)} msj</span></div>
                   <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:2px">{phone}</div>
                 </div>
                 <div style="display:flex;gap:8px;align-items:center">
@@ -1401,12 +1542,17 @@ async def admin_panel(request: Request, clave: str = ""):
 <style>*{{margin:0;padding:0;box-sizing:border-box}}body{{font-family:'Segoe UI',sans-serif;background:#06101E;color:#CBD5E1;min-height:100vh}}</style>
 </head><body>
 <div style="max-width:900px;margin:0 auto;padding:24px">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)">
     <div>
       <h1 style="font-size:1.3rem;font-weight:700;color:#F1F5F9">Conversaciones del Bot</h1>
-      <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:4px">Asesoría Visa Global · {total} chat(s) activo(s)</p>
+      <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:4px">Asesoría Visa Global · {total} chat(s) · fuente: {fuente}</p>
     </div>
     <a href="/admin?clave={clave}" style="font-size:.75rem;color:rgba(245,200,66,.7);border:1px solid rgba(245,200,66,.2);padding:6px 14px;border-radius:99px;text-decoration:none">↻ Actualizar</a>
+  </div>
+  <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap">
+    <span style="font-size:.75rem;font-weight:600;padding:5px 12px;border-radius:99px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171">🔴 Calientes: {n_caliente}</span>
+    <span style="font-size:.75rem;font-weight:600;padding:5px 12px;border-radius:99px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);color:#F5C842">🟡 Tibias: {n_tibia}</span>
+    <span style="font-size:.75rem;font-weight:600;padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5)">⚪ Frías: {n_fria}</span>
   </div>
   {cuerpo}
 </div>

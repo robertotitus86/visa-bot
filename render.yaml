@@ -11,6 +11,15 @@ services:
       - key: VERIFY_TOKEN
         value: visaglobal2026
       - key: WA_TOKEN
-        value: PENDIENTE_TOKEN_META
+        value: CONFIGURAR_EN_RENDER_DASHBOARD
       - key: PHONE_NUMBER
         value: "593994442512"
+      # ── REQUERIDOS para seguridad — configurar en Render Dashboard ──
+      - key: FOLLOWUP_SECRET
+        value: CONFIGURAR_EN_RENDER_DASHBOARD
+      - key: ADMIN_PANEL_SECRET
+        value: CONFIGURAR_EN_RENDER_DASHBOARD
+      - key: META_APP_SECRET
+        value: CONFIGURAR_EN_RENDER_DASHBOARD
+      - key: GEMINI_API_KEY
+        value: CONFIGURAR_EN_RENDER_DASHBOARD
