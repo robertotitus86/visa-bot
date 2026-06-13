@@ -65,7 +65,7 @@ TIPS = [
     "Repase la respuesta sobre la hermana Alexandra: honesta, tranquila y con enfasis en sus raices en Ecuador.",
     "Luis: recuerde mencionar las sesiones del concejo municipal del 5 de abril como razon de regreso.",
     "Zoila: su farmacia necesita su presencia. Eso es suficiente razon para regresar.",
-    "Los hijos tienen clases a partir del 28 de julio — ese dato ancla el regreso de toda la familia.",
+    "El viaje es del 20 al 28 de marzo de 2027 — justo en plena fecha de clases de Zoe y Luis Deoniel en Loja, otro motivo claro de regreso.",
     "Hotel Monreale Express & Studios en Orlando — tengan el numero de confirmacion listo.",
 ]
 
@@ -144,7 +144,7 @@ def _html_email(tratamiento, sim_link, cuenta):
         Luis es <strong>Alcalde electo</strong> — vinculo institucional inamovible<br>
         Zoila tiene <strong>Farmacia propia</strong> — necesita su presencia<br>
         Luis viajo a <strong>4 paises</strong> y siempre regreso<br>
-        Los hijos tienen clases a partir del <strong>28 de julio 2026</strong>
+        Viaje del <strong>20 al 28 de marzo de 2027</strong>, en plena fecha de clases de Zoe y Luis Deoniel en Loja
       </p>
     </div>
 
