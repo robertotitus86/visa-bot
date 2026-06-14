@@ -1,5 +1,5 @@
 """
-Recordatorios diarios — Familia Seas Guaman
+Recordatorios diarios — Familias en preparacion de entrevista
 Se ejecuta cada dia a las 9:00 AM hora Ecuador desde Render.
 """
 import base64
@@ -19,27 +19,104 @@ WA_TOKEN        = os.getenv("WA_TOKEN", "")
 PHONE_NUMBER_ID = os.getenv("PHONE_NUMBER_ID", "1132483959957091")
 FROM_NAME       = "Asesoria Visa Global"
 ZONA            = pytz.timezone("America/Guayaquil")
-SIMULADOR       = "https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html"
 META_API_VER    = "v19.0"
 
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
-DESTINATARIOS = [
+# ═══════════════════════════════════════════════════════
+# FAMILIAS EN PREPARACION
+# ═══════════════════════════════════════════════════════
+FAMILIAS = [
     {
-        "nombre": "Luis", "tratamiento": "Estimado Sr. Alcalde",
-        "email": "siul_2386@hotmail.com", "telefono": "593997119313", "miembro": "luis",
-        "pdf": "pdf-luis-seas.pdf",
+        "id": "seas_guaman",
+        "cita": date(2026, 7, 1),
+        "cita_texto": "Miercoles 1 julio 2026 · 7:30 AM",
+        "lugar": "Consulado Quito · Avigiras E12-170, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/familia-seas-guaman.html",
+        "preguntas": "35 preguntas",
+        "zoom_html": (
+            "Domingo 15 de junio 2026 · 7:00 PM<br>"
+            "Lunes 29 de junio 2026 · 7:00 PM"
+        ),
+        "fortalezas_html": (
+            "Luis es <strong>Alcalde electo</strong> — vinculo institucional inamovible<br>"
+            "Zoila tiene <strong>Farmacia propia</strong> — necesita su presencia<br>"
+            "Luis viajo a <strong>4 paises</strong> y siempre regreso<br>"
+            "Viaje del <strong>20 al 28 de marzo de 2027</strong>, en el receso de fin del primer trimestre — Zoe y Luis Deoniel vuelven a clases justo despues"
+        ),
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "Repase la respuesta sobre la hermana Alexandra: honesta, tranquila y con enfasis en sus raices en Ecuador.",
+            "Luis: recuerde mencionar las sesiones del concejo municipal del 5 de abril como razon de regreso.",
+            "Zoila: su farmacia necesita su presencia. Eso es suficiente razon para regresar.",
+            "El viaje es del 20 al 28 de marzo de 2027, en el receso de fin del primer trimestre — Zoe y Luis Deoniel regresan a clases justo despues, otro motivo claro de regreso.",
+            "Hotel Monreale Express & Studios en Orlando — tengan el numero de confirmacion listo.",
+        ],
+        "destinatarios": [
+            {
+                "nombre": "Luis", "tratamiento": "Estimado Sr. Alcalde",
+                "email": "siul_2386@hotmail.com", "telefono": "593997119313", "miembro": "luis",
+                "pdf": "pdf-luis-seas.pdf",
+            },
+            {
+                "nombre": "Zoila", "tratamiento": "Estimada Sra. Zoila",
+                "email": "zoilyss_@hotmail.es", "telefono": "593988229894", "miembro": "zoila",
+                "pdf": "pdf-zoila-guaman.pdf",
+            },
+        ],
     },
     {
-        "nombre": "Zoila", "tratamiento": "Estimada Sra. Zoila",
-        "email": "zoilyss_@hotmail.es", "telefono": "593988229894", "miembro": "zoila",
-        "pdf": "pdf-zoila-guaman.pdf",
+        "id": "rodriguez_masache",
+        "cita": date(2026, 7, 31),
+        "cita_texto": "Viernes 31 julio 2026 · 8:30 AM",
+        "lugar": "Consulado Quito · Avigiras E12-170, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/familia-rodriguez-masache.html",
+        "preguntas": "36 preguntas",
+        "zoom_html": (
+            "Domingo 12 de julio 2026 · 7:00 PM<br>"
+            "Domingo 26 de julio 2026 · 7:00 PM"
+        ),
+        "fortalezas_html": (
+            "Paul Fernando es <strong>Alcalde de Paquisha</strong> en campana de reeleccion — vinculo institucional inamovible<br>"
+            "Jenny es <strong>Presidenta del Patronato de Accion Social de Paquisha</strong> — cargo nuevo desde la negativa de noviembre 2025<br>"
+            "Jenny administra la <strong>Granja Familiar \"El Piolin\"</strong> — necesita su presencia<br>"
+            "Paul Fernando fue Policia Nacional 15 anos y viajo a <strong>Espana y Peru</strong>, siempre regreso<br>"
+            "Viaje del <strong>21 al 28 de marzo de 2027</strong> — Mileidy y Paul Smith vuelven a clases el 29 de marzo"
+        ),
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "Si preguntan por la negativa de noviembre 2025: reconozcanla con calma y expliquen que cambio — la reeleccion de Paul Fernando y la presidencia del Patronato de Jenny.",
+            "Paul Fernando: recuerde mencionar su campana de reeleccion como Alcalde de Paquisha y sus 15 anos en la Policia Nacional.",
+            "Jenny: su nuevo cargo en el Patronato y la Granja 'El Piolin' son razones claras para regresar.",
+            "El viaje es del 21 al 28 de marzo de 2027 — Mileidy y Paul Smith regresan a clases el 29 de marzo, otro motivo claro de regreso.",
+            "Hotel The Point Hotel & Suites en Orlando (7389 Universal Boulevard) — tengan el numero de confirmacion listo.",
+        ],
+        "destinatarios": [
+            {
+                "nombre": "Paul Fernando", "tratamiento": "Estimado Sr. Alcalde",
+                "email": None, "telefono": "593985926007", "miembro": "paul",
+                "pdf": "pdf-rodriguez-masache.pdf",
+            },
+            {
+                "nombre": "Jenny", "tratamiento": "Estimada Sra. Jenny",
+                "email": None, "telefono": "593991468488", "miembro": "jenny",
+                "pdf": "pdf-rodriguez-masache.pdf",
+            },
+            {
+                "nombre": "Mileidy", "tratamiento": "Estimada Mileidy",
+                "email": None, "telefono": "593979521411", "miembro": "mileidy",
+                "pdf": "pdf-rodriguez-masache.pdf",
+            },
+        ],
     },
 ]
 
-def _cuenta_regresiva():
+
+def _cuenta_regresiva(familia: dict) -> str:
     hoy  = datetime.now(ZONA).date()
-    cita = date(2026, 7, 1)
+    cita = familia["cita"]
     dias = (cita - hoy).days
     if dias > 0:
         if dias <= 7:
@@ -54,24 +131,16 @@ def _cuenta_regresiva():
             f"<div style='font-size:.8rem;font-weight:700;color:{color};margin-bottom:4px'>"
             f"{emoji} — Faltan {dias} dias para la entrevista</div>"
             f"<div style='font-size:.9rem;color:#1E293B;'>"
-            f"Entrevista: <strong>Miercoles 1 julio 2026 · 7:30 AM</strong><br>"
-            f"Consulado Quito · Avigiras E12-170, frente al Hospital SOLCA</div></div>"
+            f"Entrevista: <strong>{familia['cita_texto']}</strong><br>"
+            f"{familia['lugar']}</div></div>"
         )
     return ""
 
-TIPS = [
-    "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
-    "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
-    "Repase la respuesta sobre la hermana Alexandra: honesta, tranquila y con enfasis en sus raices en Ecuador.",
-    "Luis: recuerde mencionar las sesiones del concejo municipal del 5 de abril como razon de regreso.",
-    "Zoila: su farmacia necesita su presencia. Eso es suficiente razon para regresar.",
-    "El viaje es del 20 al 28 de marzo de 2027, en el receso de fin del primer trimestre — Zoe y Luis Deoniel regresan a clases justo despues, otro motivo claro de regreso.",
-    "Hotel Monreale Express & Studios en Orlando — tengan el numero de confirmacion listo.",
-]
 
-def _tip_del_dia():
+def _tip_del_dia(familia: dict) -> str:
     dia = datetime.now(ZONA).timetuple().tm_yday
-    return TIPS[dia % len(TIPS)]
+    tips = familia["tips"]
+    return tips[dia % len(tips)]
 
 
 def _send_wa(telefono: str, mensaje: str):
@@ -94,8 +163,9 @@ def _send_wa(telefono: str, mensaje: str):
     except Exception as e:
         log.warning(f"  [WA] Excepcion: {e}")
 
-def _html_email(tratamiento, sim_link, cuenta):
-    tip = _tip_del_dia()
+
+def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str) -> str:
+    tip = _tip_del_dia(familia)
     return f"""<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#F1F5F9;font-family:'Segoe UI',Arial,sans-serif;">
@@ -116,7 +186,7 @@ def _html_email(tratamiento, sim_link, cuenta):
 
     <p style="color:#475569;font-size:15px;line-height:1.7;margin:0 0 14px;">
       La entrevista consular se acerca y cada dia de practica marca la diferencia.
-      Su simulador personalizado esta listo con <strong>35 preguntas basadas en su DS-160 real</strong>.
+      Su simulador personalizado esta listo con <strong>{familia['preguntas']} basadas en su DS-160 real</strong>.
     </p>
 
     {cuenta}
@@ -141,10 +211,7 @@ def _html_email(tratamiento, sim_link, cuenta):
       <p style="color:#475569;font-size:11px;font-weight:700;margin:0 0 10px;
                 text-transform:uppercase;letter-spacing:1px;">Sus fortalezas</p>
       <p style="color:#1E293B;font-size:12px;line-height:2;margin:0;">
-        Luis es <strong>Alcalde electo</strong> — vinculo institucional inamovible<br>
-        Zoila tiene <strong>Farmacia propia</strong> — necesita su presencia<br>
-        Luis viajo a <strong>4 paises</strong> y siempre regreso<br>
-        Viaje del <strong>20 al 28 de marzo de 2027</strong>, en el receso de fin del primer trimestre — Zoe y Luis Deoniel vuelven a clases justo despues
+        {familia['fortalezas_html']}
       </p>
     </div>
 
@@ -152,8 +219,7 @@ def _html_email(tratamiento, sim_link, cuenta):
       <p style="color:#3730A3;font-size:11px;font-weight:700;margin:0 0 6px;
                 text-transform:uppercase;letter-spacing:1px;">Proximas sesiones con Roberto</p>
       <p style="color:#1E293B;font-size:12px;margin:0;line-height:1.8;">
-        Domingo 15 de junio 2026 · 7:00 PM<br>
-        Lunes 29 de junio 2026 · 7:00 PM
+        {familia['zoom_html']}
       </p>
     </div>
 
@@ -167,18 +233,18 @@ def _html_email(tratamiento, sim_link, cuenta):
 </body></html>"""
 
 
-def _wa_recordatorio(nombre: str, tratamiento: str, miembro: str) -> str:
+def _wa_recordatorio(familia: dict, nombre: str, miembro: str) -> str:
     """Genera el texto corto del recordatorio para WhatsApp."""
     hoy    = datetime.now(ZONA).date()
-    cita   = date(2026, 7, 1)
+    cita   = familia["cita"]
     dias   = (cita - hoy).days
-    tip    = _tip_del_dia()
-    sim    = f"{SIMULADOR}?miembro={miembro}"
+    tip    = _tip_del_dia(familia)
+    sim    = f"{familia['simulador']}?miembro={miembro}"
     urgencia = f"⏳ Faltan *{dias} días* para la entrevista." if dias > 0 else "🗓 ¡Hoy es la entrevista!"
     return (
         f"Buenos días {nombre} 👋\n\n"
         f"{urgencia}\n"
-        f"📅 *1 julio 2026 · 7:30 AM* — Consulado Quito\n\n"
+        f"📅 *{familia['cita_texto']}* — Consulado Quito\n\n"
         f"Tu simulador personalizado está listo:\n{sim}\n\n"
         f"💡 *Consejo de hoy:*\n_{tip}_\n\n"
         f"— Roberto · Asesoría Visa Global"
@@ -186,54 +252,58 @@ def _wa_recordatorio(nombre: str, tratamiento: str, miembro: str) -> str:
 
 
 def enviar_recordatorios():
-    """Envia email + WhatsApp diario a Luis y Zoila. Llamado por APScheduler."""
-    hoy    = datetime.now(ZONA).strftime("%d/%m/%Y %H:%M")
-    cuenta = _cuenta_regresiva()
+    """Envia email + WhatsApp diario a todas las familias en preparacion. Llamado por APScheduler."""
+    hoy = datetime.now(ZONA).strftime("%d/%m/%Y %H:%M")
     log.info(f"[Recordatorios] Enviando — {hoy}")
 
-    # ── WhatsApp (best-effort — requiere ventana 24h activa) ─────────
-    for dest in DESTINATARIOS:
-        wa_msg = _wa_recordatorio(dest["nombre"], dest["tratamiento"], dest["miembro"])
-        _send_wa(dest["telefono"], wa_msg)
+    for familia in FAMILIAS:
+        cuenta = _cuenta_regresiva(familia)
 
-    # ── Email (via Resend HTTP API — Render bloquea SMTP saliente) ────
-    if not RESEND_API_KEY:
-        log.error("[Recordatorios] RESEND_API_KEY no configurado — email no enviado")
-        return
+        # ── WhatsApp (best-effort — requiere ventana 24h activa) ─────────
+        for dest in familia["destinatarios"]:
+            wa_msg = _wa_recordatorio(familia, dest["nombre"], dest["miembro"])
+            _send_wa(dest["telefono"], wa_msg)
 
-    for dest in DESTINATARIOS:
-        try:
-            sim_link = f"{SIMULADOR}?miembro={dest['miembro']}"
-            html     = _html_email(dest["tratamiento"], sim_link, cuenta)
-            asunto   = f"{dest['tratamiento']} · Practica de hoy — Entrevista 1 julio 2026"
+        # ── Email (via Resend HTTP API — Render bloquea SMTP saliente) ────
+        if not RESEND_API_KEY:
+            log.error("[Recordatorios] RESEND_API_KEY no configurado — email no enviado")
+            continue
 
-            payload = {
-                "from": RESEND_FROM,
-                "to": [dest["email"]],
-                "bcc": [GMAIL_USER],
-                "subject": asunto,
-                "html": html,
-            }
+        for dest in familia["destinatarios"]:
+            if not dest.get("email"):
+                continue
+            try:
+                sim_link = f"{familia['simulador']}?miembro={dest['miembro']}"
+                html     = _html_email(familia, dest["tratamiento"], sim_link, cuenta)
+                asunto   = f"{dest['tratamiento']} · Practica de hoy — Entrevista {familia['cita_texto']}"
 
-            pdf_path = os.path.join(PDF_DIR, dest["pdf"])
-            if os.path.isfile(pdf_path):
-                with open(pdf_path, "rb") as f:
-                    pdf_b64 = base64.b64encode(f.read()).decode("ascii")
-                payload["attachments"] = [{"filename": dest["pdf"], "content": pdf_b64}]
-            else:
-                log.warning(f"  [Recordatorios] PDF no encontrado: {pdf_path}")
+                payload = {
+                    "from": RESEND_FROM,
+                    "to": [dest["email"]],
+                    "bcc": [GMAIL_USER],
+                    "subject": asunto,
+                    "html": html,
+                }
 
-            r = req.post(
-                "https://api.resend.com/emails",
-                headers={"Authorization": f"Bearer {RESEND_API_KEY}", "Content-Type": "application/json"},
-                json=payload,
-                timeout=20,
-            )
-            if r.status_code in (200, 201, 202):
-                log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}>")
-            else:
-                log.error(f"  ERROR -> {dest['nombre']}: {r.status_code} {r.text[:200]}")
-        except Exception as e:
-            log.error(f"  ERROR -> {dest['nombre']}: {e}")
+                pdf_path = os.path.join(PDF_DIR, dest["pdf"])
+                if os.path.isfile(pdf_path):
+                    with open(pdf_path, "rb") as f:
+                        pdf_b64 = base64.b64encode(f.read()).decode("ascii")
+                    payload["attachments"] = [{"filename": dest["pdf"], "content": pdf_b64}]
+                else:
+                    log.warning(f"  [Recordatorios] PDF no encontrado: {pdf_path}")
+
+                r = req.post(
+                    "https://api.resend.com/emails",
+                    headers={"Authorization": f"Bearer {RESEND_API_KEY}", "Content-Type": "application/json"},
+                    json=payload,
+                    timeout=20,
+                )
+                if r.status_code in (200, 201, 202):
+                    log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}>")
+                else:
+                    log.error(f"  ERROR -> {dest['nombre']}: {r.status_code} {r.text[:200]}")
+            except Exception as e:
+                log.error(f"  ERROR -> {dest['nombre']}: {e}")
 
     log.info("[Recordatorios] Finalizado")
