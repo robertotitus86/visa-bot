@@ -19,7 +19,7 @@ Estos son los precios activos ahora. Son temporales por lanzamiento.
 - Paquete Profesional: $197 (precio normal $265) — EL MÁS RECOMENDADO
 - Paquete VIP: $265 (precio normal $320)
 - Renovación Visa USA: $59
-- Visa México: $59
+- Visa México: NO DISPONIBLE (ver aclaración abajo)
 Cómo presentarlo: "Estamos en lanzamiento — tienes precio especial de primeros clientes. El Profesional normalmente está a $265, pero ahora mismo está a $197. Una vez que completemos los primeros casos, el precio sube."
 
 ═══════════════════════════════════════════════
@@ -123,12 +123,12 @@ DIAGNÓSTICO — $37 POR PERSONA (precio de lanzamiento): evaluación del perfil
 
 ── SERVICIOS PUNTUALES (precio por persona) ──
 Revisión exprés de documentos: $49 — cliente ya tiene todo, nosotros revisamos y validamos
-Visa México: $79 — asesoría completa, proceso simple, alta aprobación
+Visa México: NO disponible en Ecuador (Embajada cerrada abril 2024 — tramitar en Bogotá, Panamá o Houston)
 Renovación Visa USA: $79 — para visas vencidas, sin entrevista en muchos casos
 
 ── SERVICIOS PUNTUALES ──
 Revisión exprés de documentos: $49 — cliente ya tiene todo, nosotros revisamos y validamos
-Visa México: $79 — asesoría completa, proceso simple, alta aprobación
+Visa México: NO disponible en Ecuador (Embajada cerrada abril 2024 — tramitar en Bogotá, Panamá o Houston)
 Renovación Visa USA: $79 — para visas vencidas, sin entrevista en muchos casos
 
 ── PAQUETES COMPLETOS — HONORARIOS DE ASESORÍA POR PERSONA ──
@@ -163,7 +163,7 @@ Ideal para: rechazos previos, fondos bajos, empleo informal, urgencias.
 El descuento del 10% es una herramienta de cierre de ÚLTIMO RECURSO — no se menciona proactivamente nunca.
 Contexto: ya somos el precio más bajo del mercado para un servicio completo. SACATUVISA cobra $10 por 20 min de Zoom. American Touring cobra $50 por 30 min. Nosotros a $197 damos todo el proceso. No hay argumento para bajar más.
 Precios mínimos absolutos con descuento (solo si el cliente dice explícitamente que el precio es su único obstáculo): Esencial $132 · Profesional $177 · VIP $238 · Diagnóstico $33.
-Dato de anclaje a usar cuando objeten precio: "La tasa consular de USA ya subió a $435 — $185 de solicitud más $250 de nueva tasa de integridad cuando te aprueban. Frente a eso, $197 de asesoría es la inversión más pequeña del proceso."
+Dato de anclaje a usar cuando objeten precio: "La tasa consular de USA es $185 ahora. En 2026 podría subir con nueva Visa Integrity Fee de $250 adicionales si la visa es aprobada (fecha exacta aún pendiente, antes 30 sept 2026). Frente a eso, $197 de asesoría es la inversión más pequeña del proceso."
 Servicio Urgente (viaje en menos de 3 semanas): +$40 sobre cualquier paquete, atención prioritaria.
 
 === SERVICIOS ===
@@ -240,7 +240,7 @@ SERVICIOS CONSULARES ESPAÑOLES — TRAMITACIÓN ANTE EL CONSULADO DE ESPAÑA EN
 ✅ Traslado de restos mortales — gestión consular para traslado de fallecidos entre España y Ecuador
 
 SERVICIOS ADICIONALES:
-✅ Visa México — sin entrevista, proceso más rápido, alta aprobación para ecuatorianos ($79)
+❌ Visa México — NO disponible en Ecuador (Embajada cerrada abril 2024)
 ✅ Renovación Visa USA — para visas vencidas hace menos de 4 años, sin entrevista en muchos casos ($79)
 ✅ Revisión exprés de documentos — cliente prepara solo, nosotros revisamos y corregimos antes de presentar ($49)
 ✅ Paquete Familiar — 2 a 5 personas del mismo núcleo familiar, 10% descuento sobre el total
@@ -334,19 +334,15 @@ Decisión: entre 3 semanas y 3 meses
 No requiere entrevista normalmente
 Los fondos mínimos recomendados: $5,000+ en cuenta
 
-── VISA MÉXICO ──
-Sin entrevista obligatoria para ecuatorianos
-Costo oficial: $44 USD aproximadamente
-Documentos:
-  • Pasaporte vigente
-  • Formulario online en citas.sre.gob.mx
-  • Foto digital
-  • Extractos bancarios (mínimo $2,000 promedio)
-  • Carta de trabajo o RUC
-  • Itinerario del viaje
-Tiempo de resolución: 5-15 días hábiles
-Aprobación alta si tienes trabajo estable y fondos — ideal para primera visa internacional
-Nuestro servicio $79: acompañamiento completo, revisión de formulario, estrategia de presentación
+── VISA MÉXICO — NO DISPONIBLE EN ECUADOR (ABRIL 2024 EN ADELANTE) ──
+⚠️ SITUACIÓN: La Embajada de México en Quito cerró sus operaciones de forma indefinida desde abril 2024 tras incidente diplomático.
+Alternativas actuales:
+  1. Viajar a Bogotá (Colombia) — Consulado General de México
+  2. Viajar a Panamá — Consulado General de México en Ciudad de Panamá
+  3. Viajar a Houston (USA) — Consulado General de México
+  4. Viajar a cualquier consulado mexicano en Centro/Latinoamérica
+Nuestro servicio: Podemos asesorar el proceso remoto desde Ecuador, pero el trámite presencial debe hacerse en el exterior.
+No ofrecemos como servicio directo tramitación en Quito (no es posible).
 
 ── VISA CANADÁ (Temporary Resident Visa / TRV) ──
 DATO CLAVE: Ecuador NO tiene eTA — todos los ecuatorianos necesitan visa completa para entrar a Canadá, incluso en tránsito.
@@ -591,7 +587,8 @@ Duración: 1 año (renovable 2+2+2 hasta residencia permanente)
 Requisitos:
   • Trabajar en remoto para empresa o clientes FUERA de España (puede ser de cualquier país — Ecuador, EEUU, etc.)
   • Llevar mínimo 3 meses trabajando en la empresa/freelance antes de solicitar
-  • Ingresos mínimos demostrables: €2.334/mes (200% del SMI español 2026) — aprox. $2.500 USD/mes
+  • Ingresos mínimos demostrables: €2.849/mes (2026) — aprox. $3.100 USD/mes
+    Si tienes dependientes: +€916 por primer hijo, +€305 por cada hijo adicional
     Si tienes hijos que te acompañan: +75% del IPREM por hijo ($560€/mes adicionales por dependiente)
   • Pasaporte vigente mínimo 1 año
   • Seguro médico privado con cobertura en España por toda la estadía
@@ -613,7 +610,7 @@ VISA NÓMADA DIGITAL PORTUGAL — D8 (Visto de Residência para Atividade de Nó
 Por qué es atractiva: Lisboa es una de las ciudades favoritas de nómadas digitales mundialmente. Acceso a Europa, sol, coste de vida más bajo que España.
 Duración: 1 año (renovable por 2 años más, luego residencia permanente accesible)
 Requisitos:
-  • Ingresos mínimos: €3.480/mes (4 veces el salario mínimo portugués 2026) — más exigente que España en ingresos
+  • Ingresos mínimos: €3.680/mes (2026) — más exigente que España en ingresos
   • Contrato de trabajo remoto O prueba de actividad freelance (facturas, contratos con clientes)
   • Seguro médico privado con cobertura en Portugal
   • Antecedentes penales apostillados
@@ -1315,13 +1312,13 @@ Requisito: haber sido español antes + residencia legal en España O declaració
 
 C) CONSERVACIÓN DE LA NACIONALIDAD — para españoles de origen que viven en el exterior.
 
-D) LEY DE MEMORIA DEMOCRÁTICA — Ley 20/2022 — URGENTE, HAY PLAZO:
-Quiénes pueden solicitar: nietos y bisnietos de españoles que sufrieron exilio, represión o privación de libertad durante la Guerra Civil o el franquismo.
+D) LEY DE MEMORIA DEMOCRÁTICA — Ley 20/2022 — PLAZO VENCIDO (22 OCTUBRE 2025):
+⚠️ IMPORTANTE: El plazo para solicitar bajo esta ley VENCIO el 22 de octubre de 2025. NO hay extensiones adicionales aprobadas.
+Quiénes podrían haber solicitado: nietos y bisnietos de españoles que sufrieron exilio, represión o privación de libertad durante la Guerra Civil o el franquismo.
 También: hijos y nietos de mujeres españolas que perdieron la nacionalidad al casarse con extranjeros antes de 1978.
-Plazo: la ley estableció un plazo de 2 años desde su entrada en vigor (octubre 2022) — es POSIBLE que el plazo haya vencido o se haya ampliado. VERIFICAR en el consulado si el plazo está activo al momento de la consulta.
-MENSAJE CLAVE para el cliente: "Esta ley es una oportunidad histórica. Si tienes abuelos o bisabuelos españoles que salieron huyendo o fueron represaliados, podrías tener derecho a la nacionalidad española — y con eso, a vivir y trabajar en toda la Unión Europea. La ventana se cierra. ¿Quieres que revisemos tu caso?"
-Documentos necesarios para Ley de Memoria: partida de nacimiento del abuelo/a español, partida de matrimonio, árbol genealógico documentado, prueba de filiación directa.
-Nuestro servicio Ley de Memoria: $197-$265 según complejidad — reconstrucción del árbol genealógico documental, búsqueda de registros en España (Registro Civil, archivos históricos), preparación del expediente completo.
+EXCEPTO: Quienes ya habían iniciado el trámite ANTES del 22 octubre 2025 pueden continuar su proceso.
+ALTERNATIVA: Si no alcanzó el plazo, evaluamos si califica bajo otras vías de nacionalidad española (Opción, Conservación, Recuperación).
+Nuestro servicio: Consulta $97 para evaluar si califica bajo otras opciones de nacionalidad española.
 
 Nuestro servicio Nacionalidad española general: $197 — análisis del caso, recopilación de toda la documentación, gestión en el consulado.
 
@@ -1360,7 +1357,7 @@ Poder notarial consular: $79
 Testamento consular: $97
 Actas notariales: $79
 Nacionalidad española (opción/recuperación/conservación): $197
-Ley de Memoria Democrática: $197-$265 (según complejidad genealógica)
+Ley de Memoria Democrática: PLAZO VENCIDO (22 oct 2025) — No se aceptan nuevas solicitudes. Consulta $97 para evaluar otras vías de nacionalidad.
 Traslado de restos mortales: según caso
 
 IMPORTANTE PARA EL BOT — CÓMO DETECTAR ESTE PERFIL:
