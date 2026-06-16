@@ -78,8 +78,8 @@ FAMILIAS = [
             "Domingo 26 de julio 2026 · 7:00 PM"
         ),
         "fortalezas_html": (
-            "Paul Fernando es <strong>Alcalde de Paquisha</strong> en campana de reeleccion — vinculo institucional inamovible<br>"
-            "Jenny es <strong>Presidenta del Patronato de Accion Social de Paquisha</strong> — cargo nuevo desde la negativa de noviembre 2025<br>"
+            "Paul Fernando es <strong>Alcalde de Paquisha</strong> desde 2023, en campana de reeleccion — vinculo institucional inamovible<br>"
+            "Jenny es <strong>Presidenta del Patronato de Accion Social de Paquisha</strong> desde 2023<br>"
             "Jenny administra la <strong>Granja Familiar \"El Piolin\"</strong> — necesita su presencia<br>"
             "Paul Fernando fue Policia Nacional 15 anos y viajo a <strong>Espana y Peru</strong>, siempre regreso<br>"
             "Viaje del <strong>21 al 28 de marzo de 2027</strong> — Mileidy y Paul Smith vuelven a clases el 29 de marzo"
@@ -87,9 +87,9 @@ FAMILIAS = [
         "tips": [
             "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
-            "Si preguntan por la negativa de noviembre 2025: reconozcanla con calma y expliquen que cambio — la reeleccion de Paul Fernando y la presidencia del Patronato de Jenny.",
-            "Paul Fernando: recuerde mencionar su campana de reeleccion como Alcalde de Paquisha y sus 15 anos en la Policia Nacional.",
-            "Jenny: su nuevo cargo en el Patronato y la Granja 'El Piolin' son razones claras para regresar.",
+            "Si preguntan por la negativa de noviembre 2025: reconozcanla con calma. Paul Fernando fue alcalde desde 2023, Jenny presidenta del Patronato desde 2023.",
+            "Paul Fernando: recuerde mencionar su cargo como Alcalde de Paquisha desde 2023, campana de reeleccion, y sus 15 anos en la Policia Nacional.",
+            "Jenny: su cargo en el Patronato (desde 2023) y la administracion de la Granja 'El Piolin' son razones claras para regresar.",
             "El viaje es del 21 al 28 de marzo de 2027 — Mileidy y Paul Smith regresan a clases el 29 de marzo, otro motivo claro de regreso.",
             "Hotel The Point Hotel & Suites en Orlando (7389 Universal Boulevard) — tengan el numero de confirmacion listo.",
         ],
@@ -141,6 +141,33 @@ def _tip_del_dia(familia: dict) -> str:
     dia = datetime.now(ZONA).timetuple().tm_yday
     tips = familia["tips"]
     return tips[dia % len(tips)]
+
+
+def enviar_email_simple(asunto: str, html: str, to: str = None) -> bool:
+    """Envia un correo simple via Resend. Usado como respaldo cuando WhatsApp falla (ventana 24h)."""
+    if not RESEND_API_KEY:
+        log.error("[Email] RESEND_API_KEY no configurado — email no enviado")
+        return False
+    try:
+        r = req.post(
+            "https://api.resend.com/emails",
+            headers={"Authorization": f"Bearer {RESEND_API_KEY}", "Content-Type": "application/json"},
+            json={
+                "from": RESEND_FROM,
+                "to": [to or GMAIL_USER],
+                "subject": asunto,
+                "html": html,
+            },
+            timeout=20,
+        )
+        if r.status_code in (200, 201, 202):
+            log.info(f"[Email] OK -> {to or GMAIL_USER}")
+            return True
+        log.error(f"[Email] Error {r.status_code}: {r.text[:200]}")
+        return False
+    except Exception as e:
+        log.error(f"[Email] Excepcion: {e}")
+        return False
 
 
 def _send_wa(telefono: str, mensaje: str):
