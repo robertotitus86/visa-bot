@@ -23,7 +23,7 @@ from onboarding_flow import (
     mensaje_confirmacion_expediente,
 )
 from followup_manager import marcar_formulario_completado
-from recordatorios import enviar_recordatorios
+from recordatorios import enviar_recordatorios, enviar_email_simple
 from lead_qualifier import (
     viene_de_anuncio, es_nuevo_lead, iniciar_calificacion
 )
@@ -68,6 +68,22 @@ GEMINI_URL          = f"https://generativelanguage.googleapis.com/v1beta/models/
 META_API_VERSION    = "v19.0"
 
 client = anthropic.Anthropic(api_key=ANTHROPIC_KEY)
+
+# ── VALIDACIÓN DE CLAVES AL STARTUP ──────────────────────────────────
+if not ANTHROPIC_KEY:
+    raise ValueError("❌ ERROR CRÍTICA: ANTHROPIC_API_KEY no está configurada en Render")
+if not WA_TOKEN:
+    raise ValueError("❌ ERROR CRÍTICA: WA_TOKEN no está configurada en Render")
+if not GEMINI_KEY:
+    print("⚠️ ADVERTENCIA: GEMINI_API_KEY no está configurada — recordatorios sin Gemini")
+if not FOLLOWUP_SECRET:
+    print("⚠️ ADVERTENCIA: FOLLOWUP_SECRET no configurado — endpoints admin bloqueados")
+if not ADMIN_PANEL_SECRET:
+    print("⚠️ ADVERTENCIA: ADMIN_PANEL_SECRET no configurado — panel /admin bloqueado")
+if not META_APP_SECRET:
+    print("⚠️ ADVERTENCIA: META_APP_SECRET no configurado — webhook Meta sin verificación")
+
+print("✅ Bot iniciando — claves de entorno validadas")
 
 # Estado en memoria
 _tg_debug        = {"last_update": None, "last_send_result": None}  # diagnóstico
@@ -413,26 +429,23 @@ def _resumen_temperatura(pares: list) -> tuple[str, str]:
     return ("⚪", "FRÍA")
 
 
-async def generar_resumen_diario():
+def generar_resumen_diario():
     """Envía a Roberto (PERSONAL_PHONE) un resumen de las conversaciones de las últimas 24h."""
-    if not FOLLOWUP_SECRET:
-        print("[Resumen] FOLLOWUP_SECRET no configurado — omitiendo resumen diario")
+    if not FOLLOWUP_SECRET or not WA_TOKEN:
+        print("[Resumen] Credenciales incompletas — omitiendo resumen")
         return
     try:
-        loop = asyncio.get_event_loop()
-        recientes = await asyncio.wait_for(
-            loop.run_in_executor(None, cargar_todos_recientes, 24),
-            timeout=15.0,
-        )
+        recientes = cargar_todos_recientes(24)
     except Exception as e:
         print(f"[Resumen] Error cargando conversaciones: {e}")
         return
 
     if not recientes:
-        send_whatsapp_message(
-            PERSONAL_PHONE,
-            "📊 *Resumen del día — Asesoría Visa Global*\n\nNo hubo conversaciones en las últimas 24h.",
-            PHONE_NUMBER_ID,
+        texto = "📊 *Resumen del día — Asesoría Visa Global*\n\nNo hubo conversaciones en las últimas 24h."
+        send_whatsapp_message(PERSONAL_PHONE, texto, PHONE_NUMBER_ID)
+        enviar_email_simple(
+            "Resumen del día — Asesoría Visa Global",
+            f"<pre style='font-family:sans-serif;white-space:pre-wrap'>{texto}</pre>",
         )
         return
 
@@ -786,7 +799,8 @@ async def send_recordatorios_manual(request: Request):
 async def send_resumen_manual(request: Request):
     """Disparo manual del resumen diario de conversaciones. Requiere X-Admin-Secret."""
     _require_admin(request)
-    asyncio.create_task(generar_resumen_diario())
+    import threading
+    threading.Thread(target=generar_resumen_diario, daemon=True).start()
     return {"status": "enviando", "destino": PERSONAL_PHONE}
 
 
