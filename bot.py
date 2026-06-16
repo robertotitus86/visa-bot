@@ -877,19 +877,23 @@ async def receive_message(request: Request):
 
                     # Modo admin: número personal de Roberto — no procesar como cliente
                     if from_number == PERSONAL_PHONE:
-                        leads_activos = len([p for p in lead_tracking if p not in clientes_activos])
-                        clientes = len(clientes_activos)
-                        send_whatsapp_message(
-                            PERSONAL_PHONE,
-                            f"✅ Alerta activa — te llegan notificaciones por 24h\n\n"
-                            f"📊 Estado actual:\n"
-                            f"• Leads activos: {leads_activos}\n"
-                            f"• Clientes con pago: {clientes}\n"
-                            f"• Conversaciones abiertas: {len(conversations)}\n\n"
-                            f"Escribe aquí cada día para mantener las alertas activas.",
-                            phone_number_id,
-                        )
-                        continue
+                        # Si escribes "STATUS", recibe resumen de alertas
+                        if text_lower == "status":
+                            leads_activos = len([p for p in lead_tracking if p not in clientes_activos])
+                            clientes = len(clientes_activos)
+                            send_whatsapp_message(
+                                PERSONAL_PHONE,
+                                f"✅ Alerta activa — te llegan notificaciones por 24h\n\n"
+                                f"📊 Estado actual:\n"
+                                f"• Leads activos: {leads_activos}\n"
+                                f"• Clientes con pago: {clientes}\n"
+                                f"• Conversaciones abiertas: {len(conversations)}\n\n"
+                                f"Escribe aquí cada día para mantener las alertas activas.",
+                                phone_number_id,
+                            )
+                            continue
+                        # Cualquier otro mensaje: procesa normalmente (TEST MODE)
+                        # Roberto puede testear el bot como cliente normal
 
                     # Opt-out obligatorio por política de Meta
                     if text_lower == "stop":
