@@ -1510,9 +1510,9 @@ async def admin_panel(request: Request, clave: str = ""):
           <br><button type="submit" style="padding:12px 28px;background:#F5C842;color:#06101E;border:none;border-radius:100px;font-weight:800;cursor:pointer;margin-top:10px">Entrar</button>
         </form></body></html>""", status_code=200)
 
-    # Si la memoria está vacía (Render reinició el bot), recargar desde Sheets
+    # Siempre hacer merge con Sheets para mostrar todas las personas (no solo la sesión activa)
     fuente = "memoria (sesión actual)"
-    if not _chat_log and FOLLOWUP_SECRET:
+    if FOLLOWUP_SECRET:
         try:
             loop = asyncio.get_event_loop()
             recientes = await asyncio.wait_for(
