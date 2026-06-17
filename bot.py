@@ -562,7 +562,7 @@ async def cerrar_venta(from_number: str, phone_number_id: str,
     """Genera link de pago PayPhone y lo envía al cliente."""
     paquete_upper = paquete.upper()
     precio = precio_total if precio_total else PRECIOS_PAQUETES.get(paquete_upper, 250)
-    ref = f"{paquete_upper}-{from_number[-6:]}-{int(asyncio.get_event_loop().time())}"
+    ref = f"{paquete_upper}-{from_number[-6:]}-{int(time.time())}"
 
     try:
         url_pago = await generar_link_payphone(ref, precio, paquete_upper, nombre)
