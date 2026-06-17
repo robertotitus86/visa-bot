@@ -563,7 +563,7 @@ async def cerrar_venta(from_number: str, phone_number_id: str,
     """Genera link de pago PayPhone y lo envía al cliente."""
     paquete_upper = paquete.upper()
     precio = precio_total if precio_total else PRECIOS_PAQUETES.get(paquete_upper, 250)
-    ref = f"{paquete_upper}-{from_number[-6:]}-{int(time.time())}"
+    ref = f"{paquete_upper}-{from_number[-6:]}-{int(time.time() * 1000)}"
     _last_payment[from_number] = {"paquete": paquete_upper, "tipo_visa": tipo_visa, "nombre": nombre, "precio": precio}
 
     try:
