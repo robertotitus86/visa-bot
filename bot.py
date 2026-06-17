@@ -527,7 +527,7 @@ async def completar_formulario(from_number: str, phone_number_id: str,
 
 # ── GENERAR LINK PAYPHONE ─────────────────────────────────────────────────────
 
-async def generar_link_payphone(ref: str, amount: int = 50, paquete: str = "DIAGNOSTICO", nombre: str = "Cliente") -> str | None:
+async def generar_link_payphone(ref: str, amount: int = 37, paquete: str = "DIAGNOSTICO", nombre: str = "Cliente") -> str | None:
     """Llama GAS servidor a servidor, obtiene URL PayPhone, la envuelve en pagar.html."""
     import urllib.parse
     try:
@@ -538,9 +538,11 @@ async def generar_link_payphone(ref: str, amount: int = 50, paquete: str = "DIAG
                 f"&paquete={paquete}&nombre={urllib.parse.quote(nombre)}"
             )
             data = r.json()
+            print(f"[PayPhone] GAS response: {data}")
             payphone_url = data.get("url")
             if payphone_url:
                 return f"{SITE_URL}/pagar.html?url={urllib.parse.quote(payphone_url, safe='')}"
+            print(f"[PayPhone] Sin URL — error GAS: {data.get('error', 'respuesta sin url ni error')}")
     except Exception as e:
         print(f"[PayPhone] Error: {e}")
     return None
@@ -583,7 +585,7 @@ async def cerrar_venta(from_number: str, phone_number_id: str,
                 phone_number_id,
             )
         else:
-            raise Exception(data.get("error", "Sin URL de pago"))
+            raise Exception("Sin URL de pago — ver logs [PayPhone]")
 
     except Exception as e:
         print(f"[PayPhone] Error cerrar_venta: {e}")
@@ -708,15 +710,15 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
             if pay_url:
                 msg_diag = (
                     "El Diagnóstico evalúa tu perfil con los criterios reales del consulado. "
-                    "Resultado en 5 minutos — $50.\n\n"
+                    "Resultado en 5 minutos — $37 precio de lanzamiento.\n\n"
                     f"Paga aquí directamente:\n{pay_url}\n\n"
-                    "Y si decides seguir con nosotros, esos $50 se descuentan del plan que elijas."
+                    "Y si decides seguir con nosotros, esos $37 se descuentan del plan que elijas."
                 )
             else:
                 msg_diag = (
                     "El Diagnóstico evalúa tu perfil con los criterios reales del consulado. "
-                    f"Resultado en 5 minutos — $50.\n\n{SITE_URL}/diagnostico.html\n\n"
-                    "Y si decides seguir con nosotros, esos $50 se descuentan del plan que elijas."
+                    f"Resultado en 5 minutos — $37 precio de lanzamiento.\n\n{SITE_URL}/diagnostico.html\n\n"
+                    "Y si decides seguir con nosotros, esos $37 se descuentan del plan que elijas."
                 )
             send_whatsapp_message(from_number, msg_diag, phone_number_id)
         else:
@@ -1285,9 +1287,9 @@ async def telegram_webhook(request: Request):
             if cierre_cb and cierre_cb.get("paquete") == "DIAGNOSTICO":
                 pay_url = await generar_link_payphone(str(chat_id))
                 url_btn = pay_url or f"{SITE_URL}/diagnostico.html"
-                btns = [[{"text": "Hacer mi Diagnostico — $50", "url": url_btn}]]
-            elif any(w in reply.lower() for w in ["diagnostico", "$50"]):
-                btns = [[{"text": "Hacer mi Diagnostico — $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+                btns = [[{"text": "Hacer mi Diagnóstico — $37", "url": url_btn}]]
+            elif any(w in reply.lower() for w in ["diagnostico", "$37"]):
+                btns = [[{"text": "Hacer mi Diagnóstico — $37", "url": f"{SITE_URL}/diagnostico.html"}]]
             await tg_send(chat_id, reply, btns)
         except Exception as e:
             print(f"[TG] Error callback IA: {e}")
@@ -1321,17 +1323,18 @@ async def telegram_webhook(request: Request):
         await tg_send(chat_id,
             "El Diagnostico evalua tu perfil con los criterios reales del consulado — "
             "te dice exactamente que tan solido esta tu caso antes de gastar $185 en la cita. "
-            "Resultado en 5 minutos, $50. "
-            "Y si decides seguir con nosotros, esos $50 se descuentan del plan que elijas.",
-            [[{"text": "Hacer mi Diagnostico — $50", "url": f"{SITE_URL}/diagnostico.html"}]])
+            "Resultado en 5 minutos, $37 precio de lanzamiento. "
+            "Y si decides seguir con nosotros, esos $37 se descuentan del plan que elijas.",
+            [[{"text": "Hacer mi Diagnóstico — $37", "url": f"{SITE_URL}/diagnostico.html"}]])
         return {"ok": True}
 
     if text in ("/precios", "/paquetes"):
         await tg_send(chat_id,
-            "Nuestros paquetes:\n\n"
-            "Esencial $197 - revision completa + guia de entrevista\n"
-            "Profesional $250 - el mas solicitado, expediente completo + simulacro\n"
-            "VIP $320 - para rechazos previos, estrategia completa\n\n"
+            "Precios de lanzamiento (primeros clientes):\n\n"
+            "Diagnostico $37 — evaluacion del perfil en 5 minutos\n"
+            "Esencial $147 — revision completa + guia de entrevista\n"
+            "Profesional $197 — el mas solicitado, expediente completo + simulacro\n"
+            "VIP $265 — para rechazos previos, estrategia completa\n\n"
             "La evaluacion inicial es gratis. Cuentame tu caso.")
         return {"ok": True}
 
@@ -1344,9 +1347,9 @@ async def telegram_webhook(request: Request):
         if cierre_tg and cierre_tg.get("paquete") == "DIAGNOSTICO":
             pay_url = await generar_link_payphone(str(chat_id))
             url_btn = pay_url or f"{SITE_URL}/diagnostico.html"
-            btns = [[{"text": "Hacer mi Diagnostico — $50", "url": url_btn}]]
-        elif any(w in reply.lower() for w in ["diagnostico", "$50", "50 dolares"]):
-            btns = [[{"text": "Hacer mi Diagnostico — $50", "url": f"{SITE_URL}/diagnostico.html"}]]
+            btns = [[{"text": "Hacer mi Diagnóstico — $37", "url": url_btn}]]
+        elif any(w in reply.lower() for w in ["diagnostico", "$37", "37 dolares"]):
+            btns = [[{"text": "Hacer mi Diagnóstico — $37", "url": f"{SITE_URL}/diagnostico.html"}]]
         await tg_send(chat_id, reply, btns)
     except Exception as e:
         _tg_debug["last_send_result"] = {"ai_error": str(e)}
