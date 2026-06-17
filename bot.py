@@ -1530,85 +1530,209 @@ async def admin_panel(request: Request, clave: str = ""):
         except Exception:
             pass
 
-    # Clasificar temperatura de cada conversación
-    def _temperatura(msgs: list) -> tuple[str, str]:
-        n = len(msgs)
+    # Clasificar temperatura
+    def _temperatura(msgs: list) -> str:
         texto_cliente = " ".join(m["texto"].lower() for m in msgs if m["rol"] == "cliente")
         texto_bot     = " ".join(m["texto"] for m in msgs if m["rol"] == "bot")
         if "[CERRAR:" in texto_bot or any(s in texto_cliente for s in SENALES_CALIENTE):
-            return ("🔴", "CALIENTE")
-        if n >= 6:
-            return ("🟡", "TIBIA")
-        return ("⚪", "FRÍA")
+            return "CALIENTE"
+        if len(msgs) >= 6:
+            return "TIBIA"
+        return "FRIA"
 
-    # Construir HTML de conversaciones
+    # Serializar chats a JSON para el frontend
+    import json as _json
+    chats_data = {}
     n_caliente = n_tibia = n_fria = 0
-    if not _chat_log:
-        cuerpo = "<p style='color:rgba(255,255,255,.4);text-align:center;padding:40px'>No hay conversaciones registradas aún.</p>"
-    else:
-        chats_sorted = sorted(_chat_log.items(), key=lambda x: x[1]["ultima_hora"], reverse=True)
-        cuerpo = ""
-        for phone, data in chats_sorted:
-            nombre = data.get("nombre") or phone
-            ultima = data.get("ultima_hora", "")
-            msgs = data.get("mensajes", [])
-            icono, etiqueta = _temperatura(msgs)
-            if etiqueta == "CALIENTE": n_caliente += 1
-            elif etiqueta == "TIBIA":  n_tibia += 1
-            else:                      n_fria += 1
-            burbuja = ""
-            for m in msgs:
-                es_bot = m["rol"] == "bot"
-                color = "rgba(245,200,66,.08)" if es_bot else "rgba(59,130,246,.08)"
-                borde = "rgba(245,200,66,.2)" if es_bot else "rgba(59,130,246,.2)"
-                lado = "flex-end" if es_bot else "flex-start"
-                label = "🤖 Bot" if es_bot else "👤 Cliente"
-                texto = m["texto"].replace("<","&lt;").replace(">","&gt;")
-                burbuja += f"""
-                <div style="display:flex;justify-content:{lado};margin-bottom:8px">
-                  <div style="max-width:80%;background:{color};border:1px solid {borde};border-radius:12px;padding:10px 14px">
-                    <div style="font-size:.6rem;color:rgba(255,255,255,.35);margin-bottom:4px">{label} · {m['hora']}</div>
-                    <div style="font-size:.85rem;color:#E2E8F0;line-height:1.5">{texto}</div>
-                  </div>
-                </div>"""
-            cuerpo += f"""
-            <div style="background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px;margin-bottom:16px">
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.07)">
-                <div>
-                  <div style="font-weight:700;color:#F1F5F9;font-size:.95rem">{icono} {nombre} <span style="font-size:.65rem;color:rgba(255,255,255,.35);font-weight:500">· {etiqueta} · {len(msgs)} msj</span></div>
-                  <div style="font-size:.72rem;color:rgba(255,255,255,.35);margin-top:2px">{phone}</div>
-                </div>
-                <div style="display:flex;gap:8px;align-items:center">
-                  <a href="https://wa.me/{phone}" target="_blank"
-                     style="font-size:.72rem;background:#25D366;color:#fff;padding:5px 12px;border-radius:99px;text-decoration:none;font-weight:600">
-                    💬 Escribir
-                  </a>
-                  <span style="font-size:.7rem;color:rgba(255,255,255,.3)">{ultima}</span>
-                </div>
-              </div>
-              {burbuja}
-            </div>"""
+    chats_sorted = sorted(_chat_log.items(), key=lambda x: x[1].get("ultima_hora",""), reverse=True)
+    for phone, data in chats_sorted:
+        msgs  = data.get("mensajes", [])
+        temp  = _temperatura(msgs)
+        if temp == "CALIENTE": n_caliente += 1
+        elif temp == "TIBIA":  n_tibia += 1
+        else:                  n_fria += 1
+        ultimo_texto = msgs[-1]["texto"][:60] + "…" if msgs else ""
+        chats_data[phone] = {
+            "nombre":   data.get("nombre") or phone,
+            "phone":    phone,
+            "ultima":   data.get("ultima_hora", ""),
+            "temp":     temp,
+            "preview":  ultimo_texto,
+            "mensajes": [{"rol": m["rol"], "texto": m["texto"], "hora": m.get("hora","")} for m in msgs],
+        }
+    chats_json = _json.dumps(chats_data, ensure_ascii=False)
+    total = len(chats_data)
 
-    total = len(_chat_log)
     html = f"""<!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Admin · Conversaciones Bot</title>
-<style>*{{margin:0;padding:0;box-sizing:border-box}}body{{font-family:'Segoe UI',sans-serif;background:#06101E;color:#CBD5E1;min-height:100vh}}</style>
-</head><body>
-<div style="max-width:900px;margin:0 auto;padding:24px">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.08)">
-    <div>
-      <h1 style="font-size:1.3rem;font-weight:700;color:#F1F5F9">Conversaciones del Bot</h1>
-      <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:4px">Asesoría Visa Global · {total} chat(s) · fuente: {fuente}</p>
-    </div>
-    <a href="/admin?clave={clave}" style="font-size:.75rem;color:rgba(245,200,66,.7);border:1px solid rgba(245,200,66,.2);padding:6px 14px;border-radius:99px;text-decoration:none">↻ Actualizar</a>
-  </div>
-  <div style="display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap">
-    <span style="font-size:.75rem;font-weight:600;padding:5px 12px;border-radius:99px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:#f87171">🔴 Calientes: {n_caliente}</span>
-    <span style="font-size:.75rem;font-weight:600;padding:5px 12px;border-radius:99px;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);color:#F5C842">🟡 Tibias: {n_tibia}</span>
-    <span style="font-size:.75rem;font-weight:600;padding:5px 12px;border-radius:99px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5)">⚪ Frías: {n_fria}</span>
-  </div>
-  {cuerpo}
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin · Bot Visa Global</title>
+<style>
+*{{margin:0;padding:0;box-sizing:border-box}}
+body{{font-family:'Segoe UI',system-ui,sans-serif;background:#06101E;color:#CBD5E1;height:100dvh;display:flex;flex-direction:column;overflow:hidden}}
+/* ─ top bar ─ */
+.topbar{{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0;background:#06101E}}
+.topbar h1{{font-size:1rem;font-weight:700;color:#F1F5F9}}
+.topbar small{{font-size:.68rem;color:rgba(255,255,255,.35)}}
+.btn-refresh{{font-size:.72rem;color:rgba(245,200,66,.7);border:1px solid rgba(245,200,66,.2);padding:5px 12px;border-radius:99px;text-decoration:none;white-space:nowrap}}
+.badges{{display:flex;gap:6px;padding:8px 16px;border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}}
+.badge{{font-size:.65rem;font-weight:700;padding:3px 10px;border-radius:99px}}
+.b-hot{{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#f87171}}
+.b-warm{{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);color:#F5C842}}
+.b-cold{{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.45)}}
+/* ─ layout ─ */
+.layout{{display:flex;flex:1;overflow:hidden}}
+/* ─ sidebar ─ */
+.sidebar{{width:280px;flex-shrink:0;border-right:1px solid rgba(255,255,255,.07);overflow-y:auto;background:#06101E}}
+@media(max-width:600px){{
+  .sidebar{{width:100%;display:block}}
+  .chat-panel{{display:none;position:fixed;inset:0;z-index:10;background:#06101E;flex-direction:column}}
+  .chat-panel.open{{display:flex}}
+}}
+.contact{{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s}}
+.contact:hover,.contact.active{{background:rgba(245,200,66,.07)}}
+.avatar{{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0;background:rgba(245,200,66,.15);color:#F5C842}}
+.c-name{{font-size:.85rem;font-weight:600;color:#F1F5F9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+.c-preview{{font-size:.7rem;color:rgba(255,255,255,.35);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}}
+.c-meta{{display:flex;align-items:center;gap:5px;margin-left:auto;flex-shrink:0;flex-direction:column;align-items:flex-end}}
+.c-time{{font-size:.6rem;color:rgba(255,255,255,.3)}}
+.dot{{width:8px;height:8px;border-radius:50%}}
+.dot-CALIENTE{{background:#ef4444}}
+.dot-TIBIA{{background:#F5C842}}
+.dot-FRIA{{background:rgba(255,255,255,.2)}}
+/* ─ chat panel ─ */
+.chat-panel{{flex:1;display:flex;flex-direction:column;overflow:hidden}}
+.chat-header{{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.07);flex-shrink:0}}
+.ch-back{{display:none;background:none;border:none;color:#F5C842;font-size:1.2rem;cursor:pointer;padding:0 4px}}
+@media(max-width:600px){{.ch-back{{display:block}}}}
+.ch-name{{font-weight:700;font-size:.95rem;color:#F1F5F9}}
+.ch-phone{{font-size:.7rem;color:rgba(255,255,255,.35)}}
+.ch-temp{{font-size:.65rem;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px}}
+.temp-CALIENTE{{background:rgba(239,68,68,.15);color:#f87171}}
+.temp-TIBIA{{background:rgba(245,200,66,.15);color:#F5C842}}
+.temp-FRIA{{background:rgba(255,255,255,.07);color:rgba(255,255,255,.4)}}
+.wa-btn{{margin-left:auto;font-size:.72rem;background:#25D366;color:#fff;padding:5px 12px;border-radius:99px;text-decoration:none;font-weight:600;white-space:nowrap}}
+.messages{{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:8px}}
+.bubble-wrap{{display:flex}}
+.bubble-wrap.bot{{justify-content:flex-end}}
+.bubble-wrap.cliente{{justify-content:flex-start}}
+.bubble{{max-width:78%;padding:9px 13px;border-radius:12px;font-size:.83rem;line-height:1.55;color:#E2E8F0}}
+.bubble.bot{{background:rgba(245,200,66,.09);border:1px solid rgba(245,200,66,.18);border-bottom-right-radius:3px}}
+.bubble.cliente{{background:rgba(59,130,246,.09);border:1px solid rgba(59,130,246,.18);border-bottom-left-radius:3px}}
+.bubble-label{{font-size:.58rem;color:rgba(255,255,255,.3);margin-bottom:3px}}
+.empty-state{{flex:1;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.2);font-size:.85rem;flex-direction:column;gap:8px}}
+.empty-state svg{{opacity:.2}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div><h1>Bot Visa Global <small>· {total} chat(s)</small></h1><small>fuente: {fuente}</small></div>
+  <a class="btn-refresh" href="/admin?clave={clave}">↻ Actualizar</a>
 </div>
+<div class="badges">
+  <span class="badge b-hot">🔴 Calientes: {n_caliente}</span>
+  <span class="badge b-warm">🟡 Tibias: {n_tibia}</span>
+  <span class="badge b-cold">⚪ Frías: {n_fria}</span>
+</div>
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div id="contact-list"></div>
+  </div>
+  <!-- CHAT -->
+  <div class="chat-panel" id="chat-panel">
+    <div class="chat-header" id="chat-header">
+      <button class="ch-back" onclick="closeMobile()">‹</button>
+      <div style="flex:1;min-width:0">
+        <div class="ch-name" id="ch-name">Selecciona un chat</div>
+        <div class="ch-phone" id="ch-phone"></div>
+      </div>
+      <span class="ch-temp" id="ch-temp" style="display:none"></span>
+      <a class="wa-btn" id="ch-wa" href="#" target="_blank" style="display:none">💬 WhatsApp</a>
+    </div>
+    <div class="messages" id="messages">
+      <div class="empty-state">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Selecciona una conversación
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const CHATS = {chats_json};
+
+function initials(name) {{
+  return name.split(' ').slice(0,2).map(w=>w[0]||'').join('').toUpperCase() || '?';
+}}
+
+// Render sidebar
+const list = document.getElementById('contact-list');
+Object.values(CHATS).forEach(c => {{
+  const el = document.createElement('div');
+  el.className = 'contact';
+  el.dataset.phone = c.phone;
+  el.innerHTML = `
+    <div class="avatar">${{initials(c.nombre)}}</div>
+    <div style="min-width:0;flex:1">
+      <div class="c-name">${{esc(c.nombre)}}</div>
+      <div class="c-preview">${{esc(c.preview)}}</div>
+    </div>
+    <div class="c-meta">
+      <span class="c-time">${{esc(c.ultima)}}</span>
+      <span class="dot dot-${{c.temp}}"></span>
+    </div>`;
+  el.addEventListener('click', () => openChat(c.phone));
+  list.appendChild(el);
+}});
+
+function esc(s) {{
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}}
+
+function openChat(phone) {{
+  const c = CHATS[phone];
+  if (!c) return;
+  // sidebar active state
+  document.querySelectorAll('.contact').forEach(el => el.classList.toggle('active', el.dataset.phone === phone));
+  // header
+  document.getElementById('ch-name').textContent  = c.nombre;
+  document.getElementById('ch-phone').textContent = c.phone;
+  const tempEl = document.getElementById('ch-temp');
+  tempEl.textContent = c.temp === 'CALIENTE' ? '🔴 Caliente' : c.temp === 'TIBIA' ? '🟡 Tibia' : '⚪ Fría';
+  tempEl.className = 'ch-temp temp-' + c.temp;
+  tempEl.style.display = '';
+  const waBtn = document.getElementById('ch-wa');
+  waBtn.href = 'https://wa.me/' + c.phone;
+  waBtn.style.display = '';
+  // messages
+  const box = document.getElementById('messages');
+  if (!c.mensajes.length) {{
+    box.innerHTML = '<div class="empty-state">Sin mensajes registrados</div>';
+  }} else {{
+    box.innerHTML = c.mensajes.map(m => `
+      <div class="bubble-wrap ${{m.rol}}">
+        <div class="bubble ${{m.rol}}">
+          <div class="bubble-label">${{m.rol === 'bot' ? '🤖 Bot' : '👤 Cliente'}}${{m.hora ? ' · ' + esc(m.hora) : ''}}</div>
+          ${{esc(m.texto).replace(/\\n/g,'<br>')}}
+        </div>
+      </div>`).join('');
+    box.scrollTop = box.scrollHeight;
+  }}
+  // mobile: show panel
+  document.getElementById('chat-panel').classList.add('open');
+}}
+
+function closeMobile() {{
+  document.getElementById('chat-panel').classList.remove('open');
+}}
+
+// Auto-open first chat on desktop
+if (window.innerWidth > 600 && Object.keys(CHATS).length) {{
+  openChat(Object.keys(CHATS)[0]);
+}}
+</script>
 </body></html>"""
     return HTMLResponse(html)
