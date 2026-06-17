@@ -661,7 +661,8 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
         return
 
     reply, cierre_info = await get_ai_response(from_number, text)
-    send_whatsapp_message(from_number, reply, phone_number_id)
+    if reply and reply.strip():
+        send_whatsapp_message(from_number, reply, phone_number_id)
 
     # Reenviar conversación al número personal de Roberto
     if from_number not in (ADMIN_PHONE, PERSONAL_PHONE):
