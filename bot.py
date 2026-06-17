@@ -94,6 +94,7 @@ lead_tracking    = {}   # phone → {nombre, phone_number_id, followup_activado}
 clientes_activos = set()  # phones que ya pagaron
 _notified_phones = set()  # phones ya notificados a Roberto (primer contacto)
 _cierre_intentos: dict = {}  # phone → nº de veces que el bot intentó cerrar sin éxito
+_last_payment: dict = {}  # phone → {paquete, tipo_visa, nombre, precio} del último intento
 _msg_buffer: dict = {}   # phone → {"texts": list[str], "phone_number_id": str}
 _msg_timers: dict = {}   # phone → asyncio.Task (debounce 3s)
 
@@ -563,6 +564,7 @@ async def cerrar_venta(from_number: str, phone_number_id: str,
     paquete_upper = paquete.upper()
     precio = precio_total if precio_total else PRECIOS_PAQUETES.get(paquete_upper, 250)
     ref = f"{paquete_upper}-{from_number[-6:]}-{int(time.time())}"
+    _last_payment[from_number] = {"paquete": paquete_upper, "tipo_visa": tipo_visa, "nombre": nombre, "precio": precio}
 
     try:
         url_pago = await generar_link_payphone(ref, precio, paquete_upper, nombre)
@@ -645,6 +647,18 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
     # Activar follow-up en primer contacto
     if from_number not in clientes_activos and from_number not in lead_tracking:
         lead_tracking[from_number] = {"phone_number_id": phone_number_id, "followup_activado": False}
+
+    # Detectar solicitud de reenvío de link de pago sin pasar por IA
+    REENVIO_TRIGGERS = [
+        "reenvía", "reenviar", "manda el link", "el link de pago", "link de tarjeta",
+        "link de pago", "no me llegó el link", "no llego el link", "otra vez el link",
+        "vuelve a mandar", "mándame el link", "mandame el link", "link otra vez",
+        "reenvíame", "reenviame", "el link de nuevo", "link de nuevo",
+    ]
+    if any(t in text_lower for t in REENVIO_TRIGGERS) and from_number in _last_payment:
+        lp = _last_payment[from_number]
+        await cerrar_venta(from_number, phone_number_id, lp["paquete"], lp["tipo_visa"], lp["nombre"], lp["precio"])
+        return
 
     reply, cierre_info = await get_ai_response(from_number, text)
     send_whatsapp_message(from_number, reply, phone_number_id)

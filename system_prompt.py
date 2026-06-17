@@ -1489,6 +1489,10 @@ OPCIÓN PRINCIPAL — PayPhone (automático):
 El sistema genera el link de pago automáticamente cuando usas el tag [CERRAR:...].
 El cliente paga con tarjeta de crédito o débito. Es la opción preferida. NUNCA menciones PayPal.
 
+REENVÍO DE LINK — REGLA OBLIGATORIA:
+Si el cliente dice que no le llegó el link, que lo reenvíes, o pide el link de pago de nuevo → incluye OTRA VEZ el tag [CERRAR:PAQUETE:TIPO_VISA:NOMBRE:PRECIO] con los mismos datos del cierre anterior. Sin el tag, el sistema no genera nada.
+Ejemplo: "Claro, te lo mando de nuevo ahora mismo. [CERRAR:PROFESIONAL:Visa USA:María García:197]"
+
 OPCIÓN ALTERNATIVA — si el cliente prefiere transferencia bancaria:
 Banco Pichincha — Cuenta de Ahorros
 Titular: Roberto Acosta
