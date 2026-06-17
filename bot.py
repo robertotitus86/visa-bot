@@ -12,6 +12,7 @@ import httpx
 import hmac
 import hashlib
 import time
+import re
 from system_prompt import SYSTEM_PROMPT
 from crm_lookup import buscar_caso_por_telefono, construir_contexto_crm
 from analisis_cliente import analizar_sesion_completa
@@ -308,7 +309,8 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
             nombre       = parts[2].strip() if len(parts) > 2 else "Cliente"
             precio_total = int(parts[3].strip()) if len(parts) > 3 and parts[3].strip().isdigit() else None
             cierre_info  = {"paquete": paquete, "tipo_visa": tipo_visa, "nombre": nombre, "precio_total": precio_total}
-            bot_reply = bot_reply.replace(f"[CERRAR:{bot_reply[tag_start:tag_end]}]", "").strip()
+            tag_full_start = bot_reply.index("[CERRAR:")
+            bot_reply = bot_reply[:tag_full_start].strip()
         except Exception:
             pass
 
@@ -388,6 +390,22 @@ def send_whatsapp_document(to: str, doc_url: str, filename: str, caption: str, p
             print(f"[WA-DOC] Error {r.status_code}: {r.text[:200]}")
     except Exception as e:
         print(f"[WA-DOC] Excepcion: {e}")
+
+
+_PALABRAS_PROHIBIDAS = [
+    (r'\bresend[aáo]r?(lo|la|le|se|me|te|les|los|las)?\b', 'reenviar'),
+    (r'\bresend(i[eé]ndolo|ando|ado)\b', 'reenviando'),
+    (r'\bresend\b', 'reenvío'),
+    (r'\bincludes?\b', 'incluye'),
+    (r'\bincluded\b', 'incluido'),
+    (r'\bsend(ar|ando|ado)\b', 'enviar'),
+    (r'\bpackage\b', 'paquete'),
+]
+
+def limpiar_palabras(texto: str) -> str:
+    for patron, reemplazo in _PALABRAS_PROHIBIDAS:
+        texto = re.sub(patron, reemplazo, texto, flags=re.IGNORECASE)
+    return texto
 
 
 def send_whatsapp_message(to: str, message: str, phone_number_id: str = ""):
@@ -662,7 +680,7 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
 
     reply, cierre_info = await get_ai_response(from_number, text)
     if reply and reply.strip():
-        send_whatsapp_message(from_number, reply, phone_number_id)
+        send_whatsapp_message(from_number, limpiar_palabras(reply), phone_number_id)
 
     # Reenviar conversación al número personal de Roberto
     if from_number not in (ADMIN_PHONE, PERSONAL_PHONE):
