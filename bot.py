@@ -408,10 +408,11 @@ def limpiar_palabras(texto: str) -> str:
     return texto
 
 
-def send_whatsapp_message(to: str, message: str, phone_number_id: str = ""):
+def send_whatsapp_message(to: str, message: str, phone_number_id: str = "") -> bool:
+    """Envía mensaje WhatsApp. Retorna True si exitoso, False si falla."""
     if not WA_TOKEN or not phone_number_id:
         print(f"[WA] Sin WA_TOKEN o phone_number_id — mensaje no enviado a {to}")
-        return
+        return False
     import requests as req
     url = f"https://graph.facebook.com/{META_API_VERSION}/{phone_number_id}/messages"
     headers = {
@@ -428,8 +429,11 @@ def send_whatsapp_message(to: str, message: str, phone_number_id: str = ""):
         r = req.post(url, headers=headers, json=payload, timeout=10)
         if r.status_code != 200:
             print(f"[WA] Error {r.status_code}: {r.text[:200]}")
+            return False
+        return True
     except Exception as e:
         print(f"[WA] Excepción enviando mensaje: {e}")
+        return False
 
 
 # ── RESUMEN DIARIO DE CONVERSACIONES (8 PM hora Ecuador) ──────────────────────
@@ -448,8 +452,20 @@ def _resumen_temperatura(pares: list) -> tuple[str, str]:
     return ("⚪", "FRÍA")
 
 
+def _enviar_resumen_email(texto: str):
+    """Envía el resumen diario por email como respaldo."""
+    html = f"<pre style='font-family:sans-serif;white-space:pre-wrap;font-size:14px'>{texto}</pre>"
+    ok = enviar_email_simple("📊 Resumen del día — Asesoría Visa Global", html)
+    if ok:
+        print("[Resumen] Email enviado correctamente")
+    else:
+        print("[Resumen] ⚠️  Falló el email de respaldo")
+
+
 def generar_resumen_diario():
-    """Envía a Roberto (PERSONAL_PHONE) un resumen de las conversaciones de las últimas 24h."""
+    """Envía a Roberto (PERSONAL_PHONE) un resumen de las conversaciones de las últimas 24h.
+    Canal primario: WhatsApp. Canal de respaldo: email vía Resend (siempre se envía).
+    """
     if not FOLLOWUP_SECRET or not WA_TOKEN:
         print("[Resumen] Credenciales incompletas — omitiendo resumen")
         return
@@ -457,15 +473,15 @@ def generar_resumen_diario():
         recientes = cargar_todos_recientes(24)
     except Exception as e:
         print(f"[Resumen] Error cargando conversaciones: {e}")
+        _enviar_resumen_email(f"⚠️ Error cargando conversaciones: {e}")
         return
 
     if not recientes:
         texto = "📊 *Resumen del día — Asesoría Visa Global*\n\nNo hubo conversaciones en las últimas 24h."
-        send_whatsapp_message(PERSONAL_PHONE, texto, PHONE_NUMBER_ID)
-        enviar_email_simple(
-            "Resumen del día — Asesoría Visa Global",
-            f"<pre style='font-family:sans-serif;white-space:pre-wrap'>{texto}</pre>",
-        )
+        wa_ok = send_whatsapp_message(PERSONAL_PHONE, texto, PHONE_NUMBER_ID)
+        if not wa_ok:
+            print("[Resumen] ⚠️  WhatsApp falló (ventana 24h cerrada) — enviando por email")
+        _enviar_resumen_email(texto)
         return
 
     ventas, calientes, tibias, frias = [], [], [], []
@@ -507,8 +523,11 @@ def generar_resumen_diario():
     lineas.append(f"\n📋 Panel completo: {RENDER_URL}/admin?clave={ADMIN_PANEL_SECRET}")
 
     mensaje = "\n".join(lineas)
-    send_whatsapp_message(PERSONAL_PHONE, mensaje, PHONE_NUMBER_ID)
-    print("[Resumen] Enviado a Roberto")
+    wa_ok = send_whatsapp_message(PERSONAL_PHONE, mensaje, PHONE_NUMBER_ID)
+    if not wa_ok:
+        print("[Resumen] ⚠️  WhatsApp falló (ventana 24h cerrada) — enviando por email")
+    _enviar_resumen_email(mensaje)
+    print("[Resumen] Procesado — WA:", "✅" if wa_ok else "❌", "| Email: siempre")
 
 
 # ── COMPLETAR FORMULARIO (post-pago) ──────────────────────────────────────────
