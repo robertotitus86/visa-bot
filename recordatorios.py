@@ -80,7 +80,7 @@ FAMILIAS = [
         "fortalezas_html": (
             "Paul Fernando es <strong>Alcalde de Paquisha</strong> desde 2023, en campana de reeleccion — vinculo institucional inamovible<br>"
             "Jenny es <strong>Presidenta del Patronato de Accion Social de Paquisha</strong> desde 2023 (desde la eleccion de Paul Fernando como Alcalde)<br>"
-            "Jenny trabaja en la <strong>Granja Familiar de Criadero Porcino \"El Piolin\"</strong> desde su mayoria de edad — actividad familiar de toda la vida<br>"
+            "Jenny administra la <strong>Granja Familiar de Criadero Porcino \"El Piolin\"</strong> desde su mayoria de edad<br>"
             "Paul Fernando fue Policia Nacional 15 anos y viajo a <strong>Espana y Peru</strong>, siempre regreso<br>"
             "Viaje del <strong>21 al 28 de marzo de 2027</strong> — Mileidy y Paul Smith vuelven a clases el 29 de marzo"
         ),
@@ -89,7 +89,7 @@ FAMILIAS = [
             "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
             "Si preguntan por la negativa de noviembre 2025: reconozcanla con calma. Paul Fernando fue alcalde desde 2023, Jenny presidenta del Patronato desde 2023.",
             "Paul Fernando: recuerde mencionar su cargo como Alcalde de Paquisha desde 2023, campana de reeleccion, y sus 15 anos en la Policia Nacional.",
-            "Jenny: Presidenta del Patronato desde 2023 (desde la eleccion de Paul Fernando) y trabaja en la granja familiar de criadero porcino desde su mayoria de edad — raices solidas en Paquisha.",
+            "Jenny: Presidenta del Patronato desde 2023 y administra la granja familiar de criadero porcino El Piolin desde su mayoria de edad — arraigo solido en Paquisha.",
             "El viaje es del 21 al 28 de marzo de 2027 — Mileidy y Paul Smith regresan a clases el 29 de marzo, otro motivo claro de regreso.",
             "Hotel The Point Hotel & Suites en Orlando (7389 Universal Boulevard) — tengan el numero de confirmacion listo.",
         ],
