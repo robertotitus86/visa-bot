@@ -97,12 +97,12 @@ FAMILIAS = [
             {
                 "nombre": "Paul Fernando", "tratamiento": "Estimado Sr. Alcalde",
                 "email": "paulfernando82@hotmail.com", "telefono": "593985926007", "miembro": "paul",
-                "pdf": "pdf-rodriguez-masache.pdf",
+                "pdf": "pdf-paul-rodriguez.pdf",
             },
             {
                 "nombre": "Jenny", "tratamiento": "Estimada Sra. Jenny",
                 "email": "masachejenny373@gmail.com", "telefono": "593991468488", "miembro": "jenny",
-                "pdf": "pdf-rodriguez-masache.pdf",
+                "pdf": "pdf-jenny-masache.pdf",
             },
             {
                 "nombre": "Mileidy", "tratamiento": "Estimada Mileidy",
