@@ -220,14 +220,30 @@ async def get_ai_response(phone: str, user_message: str) -> tuple[str, dict | No
     conversations[phone].append({"role": "user", "content": user_message})
     history = conversations[phone][-30:]
 
-    response = client.messages.create(
-        model="claude-haiku-4-5-20251001",
-        max_tokens=700,
-        system=system,
-        messages=history,
-    )
+    try:
+        response = client.messages.create(
+            model="claude-haiku-4-5-20251001",
+            max_tokens=700,
+            system=system,
+            messages=history,
+        )
+        bot_reply = response.content[0].text
+    except Exception as e:
+        print(f"[ANTHROPIC] ❌ Error API Claude: {e}")
+        # Alerta inmediata a Roberto
+        send_whatsapp_message(
+            PERSONAL_PHONE,
+            f"🚨 ALERTA CRÍTICA — API Anthropic falló\n"
+            f"Error: {str(e)[:200]}\n"
+            f"Lead afectado: {phone}\n\n"
+            f"El bot respondió con mensaje de respaldo.\n"
+            f"Interviene si es un lead caliente.",
+            PHONE_NUMBER_ID,
+        )
+        # Mensaje de respaldo al cliente (no pierde la conversación)
+        conversations[phone].pop()  # sacar el mensaje que no pudo procesarse
+        raise RuntimeError(f"anthropic_error: {e}")
 
-    bot_reply = response.content[0].text
     conversations[phone].append({"role": "assistant", "content": bot_reply})
 
     # ── PDFs GRATUITOS PARA TODOS LOS CLIENTES ────────────────────
@@ -697,7 +713,17 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
         await cerrar_venta(from_number, phone_number_id, lp["paquete"], lp["tipo_visa"], lp["nombre"], lp["precio"])
         return
 
-    reply, cierre_info = await get_ai_response(from_number, text)
+    try:
+        reply, cierre_info = await get_ai_response(from_number, text)
+    except RuntimeError as e:
+        if "anthropic_error" in str(e):
+            send_whatsapp_message(
+                from_number,
+                "Disculpa, tuve un problema técnico momentáneo. Escríbeme en un minuto y te atiendo 🙏",
+                phone_number_id,
+            )
+            return
+        raise
     if reply and reply.strip():
         send_whatsapp_message(from_number, limpiar_palabras(reply), phone_number_id)
 
@@ -726,6 +752,16 @@ async def _process_wa_ia(from_number: str, phone_number_id: str, text: str):
                 f"📞 wa.me/{from_number}\n\n"
                 f"{resumen[:700]}\n\n"
                 f"Ver chat: {RENDER_URL}/admin?clave={ADMIN_PANEL_SECRET}",
+                phone_number_id,
+            )
+            # Ofrecer al cliente una llamada directa con Roberto
+            nombre_lead = _crm_cache.get(from_number, {}).get("nombre", "").split()[0] or "hola"
+            send_whatsapp_message(
+                from_number,
+                f"Oye {nombre_lead}, quiero asegurarme de que no te quedes con ninguna duda. "
+                f"Roberto, nuestro asesor senior, te va a escribir en los próximos minutos "
+                f"para repasar tu caso contigo directamente. "
+                f"Si prefieres escribirle ya, aquí tienes su contacto: wa.me/593987846751",
                 phone_number_id,
             )
 
@@ -983,9 +1019,10 @@ async def receive_message(request: Request):
                     if es_primer_mensaje:
                         send_whatsapp_message(
                             from_number,
-                            "Este chat es atendido por el asistente virtual de Asesoría Visa Global. "
-                            "Tu información se usa únicamente para gestionar tu asesoría. "
-                            "Escribe STOP si no deseas recibir más mensajes.",
+                            "Hola, bienvenido a Asesoría Visa Global. "
+                            "Soy el asesor virtual — tu información se usa solo para gestionar tu caso. "
+                            "Escribe STOP si no deseas recibir más mensajes.\n\n"
+                            "Un momento, estoy revisando tu consulta...",
                             phone_number_id,
                         )
 
