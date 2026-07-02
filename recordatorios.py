@@ -67,6 +67,41 @@ FAMILIAS = [
         ],
     },
     {
+        "id": "cesar_castro",
+        "cita": date(2026, 7, 14),
+        "cita_texto": "Lunes 14 julio 2026 · 7:30 AM",
+        "lugar": "Embajada EE.UU. · Avigiras E12-170, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/cesar-castro.html",
+        "preguntas": "30 preguntas",
+        "zoom_html": (
+            "Domingo 6 de julio 2026 · 7:00 PM<br>"
+            "Sabado 12 de julio 2026 · 7:00 PM"
+        ),
+        "fortalezas_html": (
+            "Cesar es <strong>Alcalde de Santa Clara en ejercicio</strong> — vinculo institucional inamovible<br>"
+            "Es <strong>Presidente del COMAGA</strong> — viaje tiene proposito institucional real y verificable<br>"
+            "Ingresos documentados y estables: <strong>$4.474/mes</strong><br>"
+            "Sin familiares en USA, sin rechazos previos — perfil limpio<br>"
+            "Tiene <strong>sesiones de cabildo el 6 de agosto</strong> — garantia de regreso"
+        ),
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "Proposito del viaje: COMAGA + Comite Civico Ecuatoriano en Elmhurst, Queens, Nueva York.",
+            "Garantia de regreso: Alcalde en ejercicio, sesiones de cabildo el 6 de agosto en Santa Clara.",
+            "Primera vez en USA: primera oportunidad institucional para representar al COMAGA en Nueva York.",
+            "Si preguntan por el contacto en USA: el contacto es institucional — el Comite Civico Ecuatoriano como organizacion.",
+            "Llegue a las 7:00 AM (30 minutos antes), sin celular, ropa formal, carpeta con documentos.",
+        ],
+        "destinatarios": [
+            {
+                "nombre": "Cesar", "tratamiento": "Estimado Sr. Alcalde",
+                "email": "castroromulo1977@gmail.com", "telefono": "593992564507", "miembro": "cesar",
+                "pdf": "pdf-cesar-castro.pdf",
+            },
+        ],
+    },
+    {
         "id": "rodriguez_masache",
         "cita": date(2026, 7, 31),
         "cita_texto": "Viernes 31 julio 2026 · 8:30 AM",
