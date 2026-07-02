@@ -11,45 +11,25 @@ SHEETS_WEBHOOK = os.getenv(
 
 # Clientes en preparacion activa — reconocidos directamente
 CLIENTES_PREPARACION = {
-    "593997119313": {  # Luis Seas
-        "Nombre Principal": "Luis Alfonso Seas Quezada",
+    "593992564507": {  # Cesar Castro
+        "Nombre Principal": "Romulo Cesar Castro Wilcapi",
         "Tipo Visa": "USA B1/B2",
-        "Num Viajeros": "4 (familia completa)",
+        "Num Viajeros": "1",
         "Estado": "En preparacion de entrevista consular",
         "Paquete": "Preparacion VIP",
-        "Llegada USA": "20 marzo 2027",
-        "Cita": "1 julio 2026, 7:30 AM — Consulado Quito (frente Hospital SOLCA)",
+        "Llegada USA": "30 julio 2026",
+        "Cita": "14 julio 2026, 7:30 AM — Embajada EE.UU. Quito (Avigiras E12-170, frente Hospital SOLCA)",
         "Pago": "Pagado",
         "Notas": (
-            "CASO ESPECIAL - FAMILIA SEAS GUAMAN. "
-            "Luis es Alcalde del Canton Yacuambi (GAD), elegido 2023, en proceso de reeleccion. $3250/mes. "
-            "Esposa Zoila Ines: propietaria Farmacia Familiar Yacuambi. $1500/mes. "
-            "Hijos: Zoe Scarlett (14) y Luis Deoniel (16), estudiantes en Loja. "
-            "Hotel reservado: Monreale Express & Studios, Orlando FL. "
-            "Viajan 20 al 28 marzo 2027 (8 dias). "
-            "PRIMER VIAJE a USA - sin rechazos previos. "
-            "PUNTO CRITICO: Luis declaro hermana (Lupe Alexandra) en USA - estatus desconocido - ya tiene respuesta preparada. "
-            "Tienen portal personalizado: asesoriadevisadosglobal.com/seas-guaman.html "
-            "y simulador con 35 preguntas: asesoriadevisadosglobal.com/familia-seas-guaman.html"
-        ),
-    },
-    "593988229894": {  # Zoila Guaman
-        "Nombre Principal": "Zoila Ines Guaman Gonzalez",
-        "Tipo Visa": "USA B1/B2",
-        "Num Viajeros": "4 (familia completa)",
-        "Estado": "En preparacion de entrevista consular",
-        "Paquete": "Preparacion VIP",
-        "Llegada USA": "20 marzo 2027",
-        "Cita": "1 julio 2026, 7:30 AM — Consulado Quito (frente Hospital SOLCA)",
-        "Pago": "Pagado",
-        "Notas": (
-            "CASO ESPECIAL - FAMILIA SEAS GUAMAN (conyuge de Luis Alfonso Seas, Alcalde Yacuambi). "
-            "Zoila es propietaria de Farmacia Familiar en Yacuambi. $1500/mes. "
-            "Viajan en familia: Luis, Zoila, Zoe (14) y Deoniel (16). "
-            "Orlando FL, 20-28 marzo 2027. Hotel Monreale Express. "
-            "Sin rechazos previos. Sin familiares en USA. "
-            "Portal: asesoriadevisadosglobal.com/seas-guaman.html "
-            "Simulador: asesoriadevisadosglobal.com/familia-seas-guaman.html?miembro=zoila"
+            "CASO ESPECIAL - CESAR CASTRO - UN SOLO VIAJERO. "
+            "Alcalde del GAD Municipal de Santa Clara, Pastaza. Presidente del COMAGA (Consorcio de Municipios Amazonicos y Galalagos). $4474/mes. "
+            "Viaja solo del 30 julio al 5 agosto 2026 (6 dias). Nueva York (Queens). "
+            "Hospedaje: 38-70 12th St, Long Island City, Queens NY 11101. "
+            "Contacto USA: Ecuadorian Civic Committee, 96-09 Roosevelt Ave 2nd Floor, Elmhurst NY 11368. "
+            "DS-160: AA00FMXHFP. Pasaporte A9905551, vence jul 2033. "
+            "PRIMER VIAJE a USA - sin rechazos previos. Sin familiares en USA. Esposa en Ecuador: Rocio Rubio Lopez. "
+            "PUNTO CRITICO: Primera vez en USA + contacto es organizacion no persona (DO NOT KNOW en DS-160) - tiene respuestas preparadas. "
+            "Simulador personalizado: asesoriadevisadosglobal.com/cesar-castro.html"
         ),
     },
     "593985926007": {  # Paul Fernando Rodriguez Narvaez
