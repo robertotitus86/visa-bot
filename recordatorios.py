@@ -315,10 +315,14 @@ def _wa_recordatorio(familia: dict, nombre: str, miembro: str) -> str:
 
 def enviar_recordatorios():
     """Envia email + WhatsApp diario a todas las familias en preparacion. Llamado por APScheduler."""
+    hoy_dt = datetime.now(ZONA).date()
     hoy = datetime.now(ZONA).strftime("%d/%m/%Y %H:%M")
     log.info(f"[Recordatorios] Enviando — {hoy}")
 
     for familia in FAMILIAS:
+        if familia["cita"] < hoy_dt:
+            log.info(f"[Recordatorios] Saltando {familia['id']} — cita ya ocurrió ({familia['cita']})")
+            continue
         cuenta = _cuenta_regresiva(familia)
 
         # ── WhatsApp (best-effort — requiere ventana 24h activa) ─────────
