@@ -93,6 +93,7 @@ FAMILIAS = [
             "Si preguntan por el contacto en USA: el contacto es institucional — el Comite Civico Ecuatoriano como organizacion.",
             "Llegue a las 7:00 AM (30 minutos antes), sin celular, ropa formal, carpeta con documentos.",
         ],
+        "cc_visibles": ["blankytorres27@gmail.com", "janiobunshe@gmail.com"],
         "destinatarios": [
             {
                 "nombre": "Cesar", "tratamiento": "Estimado Sr. Alcalde",
@@ -346,6 +347,7 @@ def enviar_recordatorios():
                 payload = {
                     "from": RESEND_FROM,
                     "to": [dest["email"]],
+                    "cc": familia.get("cc_visibles", []),
                     "bcc": [GMAIL_USER],
                     "subject": asunto,
                     "html": html,
