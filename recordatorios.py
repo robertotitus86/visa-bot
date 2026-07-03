@@ -125,7 +125,7 @@ FAMILIAS = [
             "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
             "Si preguntan por su hermano en USA: reconozcalo con calma, y enfatice trabajo y padres en Ecuador.",
             "Primera vez fuera de Ecuador: no se disculpe. Anos de trabajo y ahorro respaldan este viaje.",
-            "Recuerde: PAGAR LA TASA MRV ($185) antes del 05 de julio 2026 en Banco de Guayaquil — sin esto no se puede continuar.",
+            "Tasa MRV ya pagada — lleve el comprobante de pago impreso el dia de la entrevista.",
             "Si preguntan por el contacto en USA: el Comite Civico Ecuatoriano es una organizacion comunitaria, no una persona.",
             "Llegue a las 8:00 AM (30 minutos antes), sin celular, ropa formal, carpeta con documentos.",
         ],

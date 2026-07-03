@@ -83,7 +83,7 @@ CLIENTES_PREPARACION = {
         "Paquete": "Preparacion VIP",
         "Llegada USA": "30 julio 2026",
         "Cita": "13 julio 2026, 8:30 AM — Consulado Quito (Avigiras E12-170, frente Hospital SOLCA)",
-        "Pago": "Pendiente confirmar (tasa MRV $185 vence 05 jul 2026)",
+        "Pago": "Pagado (tasa MRV $185 ya pagada)",
         "Notas": (
             "CASO ESPECIAL - HUGO LEON - UN SOLO VIAJERO. "
             "Responsable de Gestion de Comunicacion Institucional en la Asociacion de Municipalidades Ecuatorianas (AME), Quito. $1212/mes. "
@@ -94,7 +94,7 @@ CLIENTES_PREPARACION = {
             "Contacto USA: The Ecuadorian Civic Committee, 96-09 Roosevelt Ave 2nd Floor, Elmhurst NY 11368 (organizacion, no persona). "
             "DS-160: AA00FN4S2Z. Pasaporte B1385793, emitido 27 mar 2026, vence 27 mar 2036. "
             "PRIMER VIAJE fuera de Ecuador - sin rechazos previos. TIENE UN HERMANO EN USA (Cristhian Leonardo Leon Santillan, status desconocido) - punto de riesgo con respuesta preparada. "
-            "PAGO MRV PENDIENTE: $185 USD, PIN 8703753612260, vence 05 julio 2026 en Banco de Guayaquil — URGENTE avisar al cliente. "
+            "Tasa MRV ($185, PIN 8703753612260) YA PAGADA por el cliente. "
             "Simulador personalizado: asesoriadevisadosglobal.com/hugo-leon.html"
         ),
     },
