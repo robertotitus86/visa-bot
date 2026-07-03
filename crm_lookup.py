@@ -75,6 +75,29 @@ CLIENTES_PREPARACION = {
             "Simulador: asesoriadevisadosglobal.com/familia-rodriguez-masache.html?miembro=jenny"
         ),
     },
+    "593964178137": {  # Hugo Leonel Leon Santillan
+        "Nombre Principal": "Hugo Leonel Leon Santillan",
+        "Tipo Visa": "USA B1/B2",
+        "Num Viajeros": "1",
+        "Estado": "En preparacion de entrevista consular",
+        "Paquete": "Preparacion VIP",
+        "Llegada USA": "30 julio 2026",
+        "Cita": "13 julio 2026, 8:30 AM — Consulado Quito (Avigiras E12-170, frente Hospital SOLCA)",
+        "Pago": "Pendiente confirmar (tasa MRV $185 vence 05 jul 2026)",
+        "Notas": (
+            "CASO ESPECIAL - HUGO LEON - UN SOLO VIAJERO. "
+            "Responsable de Gestion de Comunicacion Institucional en la Asociacion de Municipalidades Ecuatorianas (AME), Quito. $1212/mes. "
+            "Trayectoria previa: 9 anos en Gobernacion de Esmeraldas (2014-2023) + GAD Municipal Esmeraldas (ago2025-jun2026). "
+            "Soltero, nacido 08 enero 1991 en Esmeraldas. Padres (Homero y Mariela) viven en Esmeraldas. "
+            "Viaja solo del 30 julio al 5 agosto 2026 (6 dias). Nueva York (Queens) — proposito TURISMO/negocios personal (B1/B2). "
+            "Hospedaje: 38-70 12th St, Long Island City, Queens NY 11101. "
+            "Contacto USA: The Ecuadorian Civic Committee, 96-09 Roosevelt Ave 2nd Floor, Elmhurst NY 11368 (organizacion, no persona). "
+            "DS-160: AA00FN4S2Z. Pasaporte B1385793, emitido 27 mar 2026, vence 27 mar 2036. "
+            "PRIMER VIAJE fuera de Ecuador - sin rechazos previos. TIENE UN HERMANO EN USA (Cristhian Leonardo Leon Santillan, status desconocido) - punto de riesgo con respuesta preparada. "
+            "PAGO MRV PENDIENTE: $185 USD, PIN 8703753612260, vence 05 julio 2026 en Banco de Guayaquil — URGENTE avisar al cliente. "
+            "Simulador personalizado: asesoriadevisadosglobal.com/hugo-leon.html"
+        ),
+    },
     "593979521411": {  # Mileidy Maily Masache Yaruqui
         "Nombre Principal": "Mileidy Maily Masache Yaruqui",
         "Tipo Visa": "USA B1/B2",

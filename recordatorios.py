@@ -103,6 +103,41 @@ FAMILIAS = [
         ],
     },
     {
+        "id": "hugo_leon",
+        "cita": date(2026, 7, 13),
+        "cita_texto": "Lunes 13 julio 2026 · 8:30 AM",
+        "lugar": "Consulado Quito · Avigiras E12-170, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/hugo-leon.html",
+        "preguntas": "16 preguntas",
+        "zoom_html": (
+            "Domingo 5 de julio 2026 · 7:00 PM<br>"
+            "Sabado 11 de julio 2026 · 7:00 PM"
+        ),
+        "fortalezas_html": (
+            "Hugo tiene <strong>9 anos de trayectoria en el sector publico</strong> — Gobernacion de Esmeraldas y GAD Municipal<br>"
+            "Cargo actual en la <strong>Asociacion de Municipalidades Ecuatorianas (AME)</strong> en Quito<br>"
+            "Sus <strong>padres viven en Esmeraldas</strong> — vinculo familiar solido<br>"
+            "Sin rechazos previos, pasaporte nuevo vigente hasta 2036<br>"
+            "Viaje corto de <strong>6 dias (30 jul-5 ago)</strong> con fecha de regreso fija"
+        ),
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "Si preguntan por su hermano en USA: reconozcalo con calma, y enfatice trabajo y padres en Ecuador.",
+            "Primera vez fuera de Ecuador: no se disculpe. Anos de trabajo y ahorro respaldan este viaje.",
+            "Recuerde: PAGAR LA TASA MRV ($185) antes del 05 de julio 2026 en Banco de Guayaquil — sin esto no se puede continuar.",
+            "Si preguntan por el contacto en USA: el Comite Civico Ecuatoriano es una organizacion comunitaria, no una persona.",
+            "Llegue a las 8:00 AM (30 minutos antes), sin celular, ropa formal, carpeta con documentos.",
+        ],
+        "destinatarios": [
+            {
+                "nombre": "Hugo", "tratamiento": "Estimado Hugo",
+                "email": "hugo91_l-s@hotmail.com", "telefono": "593964178137", "miembro": "hugo",
+                "pdf": "pdf-hugo-leon.pdf",
+            },
+        ],
+    },
+    {
         "id": "rodriguez_masache",
         "cita": date(2026, 7, 31),
         "cita_texto": "Viernes 31 julio 2026 · 8:30 AM",
