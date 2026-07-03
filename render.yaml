@@ -1,4 +1,11 @@
 services:
+  - type: worker
+    name: recordatorios-castro
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python recordatorios_castro.py
+
   - type: web
     name: visa-global-bot
     env: python
