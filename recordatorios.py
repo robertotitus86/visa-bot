@@ -167,7 +167,7 @@ FAMILIAS = [
         "destinatarios": [
             {
                 "nombre": "Fiorella", "tratamiento": "Estimada Fiorella",
-                "email": "fiore28mm@gmail.com", "telefono": None, "miembro": "fiorella",
+                "email": "fiore28mm@gmail.com", "telefono": "593962756878", "miembro": "fiorella",
                 "pdf": "pdf-fiorella-martinez.pdf",
             },
         ],
