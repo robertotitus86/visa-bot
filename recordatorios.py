@@ -138,6 +138,41 @@ FAMILIAS = [
         ],
     },
     {
+        "id": "fiorella_martinez",
+        "cita": date(2026, 7, 14),
+        "cita_texto": "Martes 14 julio 2026 · 8:00 AM",
+        "lugar": "Consulado Quito · Avigiras E12-170, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/fiorella-martinez.html",
+        "preguntas": "15 preguntas",
+        "zoom_html": (
+            "Miercoles 8 de julio 2026 · 7:00 PM<br>"
+            "Domingo 12 de julio 2026 · 7:00 PM"
+        ),
+        "fortalezas_html": (
+            "Fiorella tiene un <strong>cargo formal en la Asociacion de Municipalidades Ecuatorianas (AME)</strong> — vinculo laboral verificable<br>"
+            "Cursa una <strong>maestria virtual</strong> en Comunicacion y Marketing Politico desde Ecuador — proyecto de vida en el pais<br>"
+            "Viaje de <strong>negocios</strong> acompanando a su jefa, quien organiza y cubre los gastos<br>"
+            "Ya viajo a <strong>Republica Dominicana</strong> y siempre regreso a Ecuador<br>"
+            "Sin familiares en USA, sin rechazos previos — perfil limpio"
+        ),
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "Si preguntan por que paga su jefa: es normal en un viaje de trabajo, digalo con naturalidad, sin dudar.",
+            "Garantia de regreso: trabajo estable en la AME + maestria en curso desde Ecuador.",
+            "Primera vez en USA: no se disculpe. Esta es la primera oportunidad concreta de negocios que se presento.",
+            "Si preguntan por su cargo reciente (desde octubre 2025): explique su rol actual con seguridad, sin nerviosismo.",
+            "Llegue a las 7:30 AM (30 minutos antes), sin celular, ropa formal, carpeta con documentos.",
+        ],
+        "destinatarios": [
+            {
+                "nombre": "Fiorella", "tratamiento": "Estimada Fiorella",
+                "email": "fiore28mm@gmail.com", "telefono": None, "miembro": "fiorella",
+                "pdf": "pdf-fiorella-martinez.pdf",
+            },
+        ],
+    },
+    {
         "id": "rodriguez_masache",
         "cita": date(2026, 7, 31),
         "cita_texto": "Viernes 31 julio 2026 · 8:30 AM",
