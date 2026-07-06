@@ -117,28 +117,7 @@ def _html_bienvenida(caso: dict) -> str:
 </body></html>"""
 
 
-def enviar_bienvenida(caso: dict = CASO):
-    api_key = os.environ.get("RESEND_API_KEY", "")
-    if not api_key:
-        print("ERROR: falta RESEND_API_KEY en el entorno.")
-        return
-
-    payload = {
-        "from": RESEND_FROM,
-        "to": [caso["email"]],
-        "bcc": caso.get("bcc", []),
-        "subject": caso["asunto"],
-        "html": _html_bienvenida(caso),
-    }
-
-    pdf_path = os.path.join(PDF_DIR, caso["pdf"])
-    if os.path.isfile(pdf_path):
-        with open(pdf_path, "rb") as f:
-            pdf_b64 = base64.b64encode(f.read()).decode("ascii")
-        payload["attachments"] = [{"filename": caso["pdf"], "content": pdf_b64}]
-    else:
-        print(f"AVISO: PDF no encontrado en {pdf_path} — se envia sin adjunto.")
-
+def _enviar(payload: dict, api_key: str):
     resp = req.post(
         "https://api.resend.com/emails",
         headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
@@ -147,6 +126,51 @@ def enviar_bienvenida(caso: dict = CASO):
     )
     print("Status:", resp.status_code)
     print("Respuesta:", resp.text[:500])
+    return resp
+
+
+def enviar_bienvenida(caso: dict = CASO):
+    """Envia la bienvenida al cliente y, por separado, una copia DIRECTA
+    (no bcc) a Roberto — el bcc de Resend no le estaba llegando de forma
+    confiable (confirmado con Fiorella, 6-jul-2026), asi que se manda como
+    un segundo correo independiente en vez de depender de bcc."""
+    api_key = os.environ.get("RESEND_API_KEY", "")
+    if not api_key:
+        print("ERROR: falta RESEND_API_KEY en el entorno.")
+        return
+
+    attachments = None
+    pdf_path = os.path.join(PDF_DIR, caso["pdf"])
+    if os.path.isfile(pdf_path):
+        with open(pdf_path, "rb") as f:
+            pdf_b64 = base64.b64encode(f.read()).decode("ascii")
+        attachments = [{"filename": caso["pdf"], "content": pdf_b64}]
+    else:
+        print(f"AVISO: PDF no encontrado en {pdf_path} — se envia sin adjunto.")
+
+    payload_cliente = {
+        "from": RESEND_FROM,
+        "to": [caso["email"]],
+        "subject": caso["asunto"],
+        "html": _html_bienvenida(caso),
+    }
+    if attachments:
+        payload_cliente["attachments"] = attachments
+
+    print("--- Enviando al cliente ---")
+    _enviar(payload_cliente, api_key)
+
+    for copia_a in caso.get("bcc", []):
+        payload_roberto = {
+            "from": RESEND_FROM,
+            "to": [copia_a],
+            "subject": f"[COPIA] {caso['asunto']}",
+            "html": _html_bienvenida(caso),
+        }
+        if attachments:
+            payload_roberto["attachments"] = attachments
+        print(f"--- Enviando copia directa a {copia_a} ---")
+        _enviar(payload_roberto, api_key)
 
 
 if __name__ == "__main__":
