@@ -130,10 +130,7 @@ def _enviar(payload: dict, api_key: str):
 
 
 def enviar_bienvenida(caso: dict = CASO):
-    """Envia la bienvenida al cliente y, por separado, una copia DIRECTA
-    (no bcc) a Roberto — el bcc de Resend no le estaba llegando de forma
-    confiable (confirmado con Fiorella, 6-jul-2026), asi que se manda como
-    un segundo correo independiente en vez de depender de bcc."""
+    """Envia la bienvenida al cliente con Roberto en bcc (copia oculta)."""
     api_key = os.environ.get("RESEND_API_KEY", "")
     if not api_key:
         print("ERROR: falta RESEND_API_KEY en el entorno.")
@@ -151,26 +148,15 @@ def enviar_bienvenida(caso: dict = CASO):
     payload_cliente = {
         "from": RESEND_FROM,
         "to": [caso["email"]],
+        "bcc": caso.get("bcc", []),
         "subject": caso["asunto"],
         "html": _html_bienvenida(caso),
     }
     if attachments:
         payload_cliente["attachments"] = attachments
 
-    print("--- Enviando al cliente ---")
+    print("--- Enviando al cliente (con bcc a Roberto) ---")
     _enviar(payload_cliente, api_key)
-
-    for copia_a in caso.get("bcc", []):
-        payload_roberto = {
-            "from": RESEND_FROM,
-            "to": [copia_a],
-            "subject": f"[COPIA] {caso['asunto']}",
-            "html": _html_bienvenida(caso),
-        }
-        if attachments:
-            payload_roberto["attachments"] = attachments
-        print(f"--- Enviando copia directa a {copia_a} ---")
-        _enviar(payload_roberto, api_key)
 
 
 if __name__ == "__main__":

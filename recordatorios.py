@@ -418,6 +418,7 @@ def enviar_recordatorios():
                     "from": RESEND_FROM,
                     "to": [dest["email"]],
                     "cc": familia.get("cc_visibles", []),
+                    "bcc": [GMAIL_USER],
                     "subject": asunto,
                     "html": html,
                 }
@@ -439,28 +440,9 @@ def enviar_recordatorios():
                     timeout=20,
                 )
                 if r.status_code in (200, 201, 202):
-                    log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}>")
+                    log.info(f"  Email OK -> {dest['nombre']} <{dest['email']}> (bcc Roberto)")
                 else:
                     log.error(f"  ERROR -> {dest['nombre']}: {r.status_code} {r.text[:200]}")
-
-                # ── Copia directa a Roberto (NO bcc — el bcc de Resend no le
-                # llegaba de forma confiable, confirmado con Fiorella 6-jul-2026) ──
-                payload_copia = {
-                    "from": RESEND_FROM,
-                    "to": [GMAIL_USER],
-                    "subject": f"[COPIA] {asunto}",
-                    "html": html,
-                }
-                if attachments:
-                    payload_copia["attachments"] = attachments
-                r2 = req.post(
-                    "https://api.resend.com/emails",
-                    headers={"Authorization": f"Bearer {RESEND_API_KEY}", "Content-Type": "application/json"},
-                    json=payload_copia,
-                    timeout=20,
-                )
-                if r2.status_code not in (200, 201, 202):
-                    log.error(f"  ERROR copia Roberto -> {dest['nombre']}: {r2.status_code} {r2.text[:200]}")
             except Exception as e:
                 log.error(f"  ERROR -> {dest['nombre']}: {e}")
 
