@@ -98,6 +98,29 @@ CLIENTES_PREPARACION = {
             "Simulador personalizado: asesoriadevisadosglobal.com/hugo-leon.html"
         ),
     },
+    "593999657787": {  # Jhomira Piedad Maldonado Cambisaca
+        "Nombre Principal": "Jhomira Piedad Maldonado Cambisaca",
+        "Tipo Visa": "USA B1/B2",
+        "Num Viajeros": "1",
+        "Estado": "Pendiente pago tasa MRV y agendamiento de cita — reaplicacion tras negativa 214(b)",
+        "Paquete": "Preparacion VIP",
+        "Llegada USA": "30 julio 2026 (viaje planeado — sujeto a conseguir cita a tiempo)",
+        "Cita": "Por agendar",
+        "Pago": "Pendiente — tasa MRV $185 no pagada",
+        "Notas": (
+            "CASO ESPECIAL - JHOMIRA MALDONADO - REAPLICACION. "
+            "Tuvo una negativa de visa 214(b) hace aproximadamente un mes. "
+            "Apoyo tecnico y administrativo al Concejo Cantonal de Proteccion de Derechos, GAD Municipal de Santa Clara, Pastaza (mismo municipio de Cesar Castro, Alcalde, cliente activo). $680/mes. "
+            "Viaja como invitada de honor al Desfile Ecuatoriano 2026 en Nueva York, en delegacion institucional junto al Alcalde Cesar Castro. "
+            "PENDIENTE CRITICO: pagar tasa MRV $185 y agendar cita consular (aun no agendada) — viaje planeado 30 jul - 5 ago 2026. "
+            "Hospedaje: 38-70 12th St, Long Island City, Queens NY (mismo domicilio institucional que Cesar Castro). "
+            "Contacto USA: Ecuadorian Civic Committee, 96-09 Roosevelt Ave, Elmhurst NY. "
+            "DS-160: AA00FNLB7H. Pasaporte A9183462, vence ene 2034. "
+            "Divorciada desde 2023 (ex-esposo Fabricio Penaherrera), sin hijos. Padres viven en Ecuador. Sin familiares en USA. "
+            "PUNTO CRITICO: debe explicar con calma el cambio desde la negativa (invitacion oficial + delegacion institucional) y aclarar que su relacion con el Alcalde es estrictamente laboral, no personal. "
+            "Simulador personalizado: asesoriadevisadosglobal.com/yhomira-maldonado.html"
+        ),
+    },
     "593979521411": {  # Mileidy Maily Masache Yaruqui
         "Nombre Principal": "Mileidy Maily Masache Yaruqui",
         "Tipo Visa": "USA B1/B2",
