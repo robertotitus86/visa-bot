@@ -55,7 +55,7 @@ asesoriadevisadosglobal.com/cesar-castro.html
 
 Practícalo todos los días. Empieza por el recorrido completo (Módulos 1 al 8), luego repite solo las preguntas difíciles. En 10-15 minutos diarios estarás más preparado que el 95% de las personas que van a esa entrevista.
 
-📅 Tu entrevista: Lunes 14 de julio · 7:30 AM
+📅 Tu entrevista: Martes 14 de julio · 7:30 AM
 📍 Embajada EE.UU. · Avigiras E12-170 · Frente al SOLCA
 
 En los próximos días te enviaré recordatorios con los puntos más importantes. Si tienes alguna duda antes, escríbeme directamente:
@@ -103,7 +103,7 @@ Asesoría Visa Global
 
 Ya falta solo UNA SEMANA para tu entrevista consular en la Embajada de los EE.UU.
 
-📅 CITA: Lunes 14 de julio 2026 · 7:30 AM
+📅 CITA: Martes 14 de julio 2026 · 7:30 AM
 📍 Dirección: Avigiras E12-170 y Guayacanes, Quito (frente al Hospital SOLCA)
 ⚠️ LÍMITE para reagendar/cancelar: Viernes 10 de julio, 5:00 AM
 
@@ -131,7 +131,7 @@ www.asesoriadevisadosglobal.com
 HOY a las 5:00 AM venció el plazo para cancelar o reprogramar tu cita.
 
 Esto significa que tu entrevista está CONFIRMADA para:
-📅 Lunes 14 de julio 2026 · 7:30 AM
+📅 Martes 14 de julio 2026 · 7:30 AM
 📍 Embajada EE.UU. · Avigiras E12-170 · Frente al SOLCA
 
 ✅ DOCUMENTOS — verifica que los tienes listos:
@@ -187,7 +187,7 @@ Asesoría Visa Global · +593 98 784 6751
         "asunto": "🏛️ Mañana es tu entrevista — Último repaso · Asesoría Visa Global",
         "cuerpo": f"""Hola {CLIENTE_NOMBRE},
 
-Mañana lunes 14 de julio a las 7:30 AM es tu entrevista consular.
+Mañana martes 14 de julio a las 7:30 AM es tu entrevista consular.
 
 Esta noche:
 ✅ Prepara tu carpeta con todos los documentos

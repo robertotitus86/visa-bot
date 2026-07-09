@@ -69,7 +69,7 @@ FAMILIAS = [
     {
         "id": "cesar_castro",
         "cita": date(2026, 7, 14),
-        "cita_texto": "Lunes 14 julio 2026 · 7:30 AM",
+        "cita_texto": "Martes 14 julio 2026 · 7:30 AM",
         "lugar": "Embajada EE.UU. · Avigiras E12-170, frente al Hospital SOLCA",
         "simulador": "https://www.asesoriadevisadosglobal.com/cesar-castro.html",
         "preguntas": "30 preguntas",
