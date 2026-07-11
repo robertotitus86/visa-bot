@@ -173,6 +173,41 @@ FAMILIAS = [
         ],
     },
     {
+        "id": "alex_quinde",
+        "cita": date(2026, 7, 15),
+        "cita_texto": "Martes 15 julio 2026 · 09:00 AM",
+        "lugar": "Embajada EE.UU. · Quito, Pichincha",
+        "simulador": "https://www.asesoriadevisadosglobal.com/alex-quinde.html",
+        "preguntas": "20 preguntas",
+        "zoom_html": (
+            "Viernes 10 de julio 2026 · 6:00 PM<br>"
+            "Domingo 12 de julio 2026 · 5:00 PM"
+        ),
+        "fortalezas_html": (
+            "Alex trabaja en <strong>Asociacion de Municipalidades Ecuatorianas</strong> desde enero 2025 — empleo estable verificable<br>"
+            "Ingresos documentados y estables desde su posicion en AME<br>"
+            "Padre jubilado y madre en Ecuador — vinculos familiares solidos<br>"
+            "Perfil profesional en LinkedIn, Instagram (@CREATIVO_VISUAL) y Facebook — consistencia digital<br>"
+            "Sin familiares en USA (solo contacto organizacional), sin rechazos previos — perfil limpio"
+        ),
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "Proposito del viaje: especificar exactamente que negocios y con quien. No ser vago.",
+            "Garantia de regreso: mi empleo en AME, mis padres en Ecuador, mi vida en Quito.",
+            "Si preguntan por contactos en USA: el Comite Civico Ecuatoriano es una organizacion comunitaria establecida en Queens.",
+            "Redes sociales: revisa que tu Instagram, Facebook y LinkedIn sean consistentes con tu DS-160.",
+            "Llegue a las 8:45 AM (15 minutos antes), sin celular, ropa formal, todos los documentos originales.",
+        ],
+        "destinatarios": [
+            {
+                "nombre": "Alex", "tratamiento": "Estimado Alex",
+                "email": "oswladoguzman@gmail.com", "telefono": "593", "miembro": "alex",
+                "pdf": "pdf-alex-quinde.pdf",
+            },
+        ],
+    },
+    {
         "id": "rodriguez_masache",
         "cita": date(2026, 7, 31),
         "cita_texto": "Viernes 31 julio 2026 · 8:30 AM",
