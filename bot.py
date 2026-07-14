@@ -846,27 +846,7 @@ async def keep_alive():
 async def startup_event():
     asyncio.create_task(keep_alive())
 
-    # ── Scheduler de recordatorios diarios ─────────────────────────
-    from apscheduler.schedulers.asyncio import AsyncIOScheduler
-    import pytz
-    scheduler = AsyncIOScheduler(timezone=pytz.timezone("America/Guayaquil"))
-    scheduler.add_job(
-        enviar_recordatorios,
-        trigger="cron",
-        hour=9, minute=0,
-        id="recordatorio_diario",
-        replace_existing=True,
-    )
-    scheduler.add_job(
-        generar_resumen_diario,
-        trigger="cron",
-        hour=20, minute=0,
-        id="resumen_diario_conversaciones",
-        replace_existing=True,
-    )
-    scheduler.start()
-    print("[Scheduler] Recordatorio diario activado — 9:00 AM hora Ecuador")
-    print("[Scheduler] Resumen de conversaciones activado — 8:00 PM hora Ecuador")
+    print("[⚠️ SCHEDULER DESACTIVADO] — Recordatorios y resumen automático pausados por consumo API")
 
 
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────

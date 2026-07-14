@@ -290,15 +290,18 @@ def enviar_bienvenida():
         print("   Verifica que GMAIL_PASSWORD sea un App Password válido")
 
 if __name__ == "__main__":
-    import sys
-    if len(sys.argv) > 1 and sys.argv[1] == "--bienvenida":
-        enviar_bienvenida()
-    elif len(sys.argv) > 1 and sys.argv[1] == "--test":
-        print("Modo TEST — enviando todos los emails ahora...")
-        enviar_todos_ahora()
-    else:
-        print("Iniciando scheduler...")
-        print("  --bienvenida  = enviar solo el email de bienvenida ahora")
-        print("  --test        = enviar todos los emails ahora (prueba)")
-        print("  (sin args)    = iniciar scheduler automatico")
-        iniciar_scheduler()
+    print("⚠️ SCHEDULER PAUSADO — recordatorios_castro desactivado por consumo de tokens")
+    print("Para reactivar, usa: python recordatorios_castro.py --bienvenida")
+    # Commented out to stop automatic email loops
+    # import sys
+    # if len(sys.argv) > 1 and sys.argv[1] == "--bienvenida":
+    #     enviar_bienvenida()
+    # elif len(sys.argv) > 1 and sys.argv[1] == "--test":
+    #     print("Modo TEST — enviando todos los emails ahora...")
+    #     enviar_todos_ahora()
+    # else:
+    #     print("Iniciando scheduler...")
+    #     print("  --bienvenida  = enviar solo el email de bienvenida ahora")
+    #     print("  --test        = enviar todos los emails ahora (prueba)")
+    #     print("  (sin args)    = iniciar scheduler automatico")
+    #     iniciar_scheduler()
