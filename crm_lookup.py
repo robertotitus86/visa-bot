@@ -12,6 +12,46 @@ SHEETS_WEBHOOK = os.getenv(
 # Clientes en preparacion activa — reconocidos directamente
 CLIENTES_PREPARACION = {
     # Todos los casos anteriores cerrados (aprobados) - 4 ago 2026
+    "593987672577": {
+        "Nombre Principal": "Shirma Consuelo Cortes Sanmiguel",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "POR AGENDAR - DS-160 recien enviado (4 ago 2026)",
+        "Estado": "DS-160 enviado - pendiente agendar cita consular y pago tasa MRV",
+        "Notas": (
+            "Alcaldesa del GAD Municipal de Fco. de Orellana (Coca). Ingreso $4,508/mes. "
+            "DS-160: AA00FPKGRL. Pasaporte A9349382 (vence 28 feb 2034). Nacida 29 dic 1973. Soltera. "
+            "PRIMER VIAJE A USA. Sin rechazos previos. Sin familiares en USA. "
+            "INVITACION OFICIAL de ICLEI (Gobiernos Locales por la Sostenibilidad) a la delegacion de "
+            "gobiernos locales en la Semana del Clima de Nueva York (New York Climate Week), 20-27 sept 2026, "
+            "en paralelo a la Asamblea General de la ONU. Firmada por Rodrigo de Oliveira Perpetuo, Secretario "
+            "Ejecutivo ICLEI America del Sur. Contactos: bianca.cantoni@iclei.org, luz.camacho@iclei.org. "
+            "Viaje: 20-28 septiembre 2026, Nueva York. Hospedaje: 891 Amsterdam Avenue, Upper West Side, NY 10025. "
+            "Viaja junto a Michelle Revelo (funcionaria de su GAD), a quien designo delegada oficial. "
+            "CITA CONSULAR: POR AGENDAR - DS-160 firmado 4 agosto 2026. "
+            "Simulador: asesoriadevisadosglobal.com/shirma-cortes.html"
+        ),
+    },
+    "593987200130": {
+        "Nombre Principal": "Michelle Monserrath Revelo Suarez",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "POR AGENDAR - DS-160 recien enviado (4 ago 2026)",
+        "Estado": "DS-160 enviado - pendiente agendar cita consular y pago tasa MRV",
+        "Notas": (
+            "Jefa de Uso y Ocupacion de Suelo, GAD Municipal de Fco. de Orellana. Ingreso $1,612/mes. "
+            "DS-160: AA00FPK3AJ. Pasaporte B1542895 (nuevo, emitido 3 jul 2026, vence 3 jul 2036). "
+            "Nacida 18 may 1996 en Quito. Soltera. Maestria en Planificacion y Prospectiva Multisectorial (IAEN); "
+            "Ingenieria Geografica y Planificacion Territorial (PUCE Quito). "
+            "PRIMER VIAJE A USA. Sin rechazos previos. Sin familiares en USA. "
+            "Viaja como DELEGADA OFICIAL designada por la Alcaldesa Shirma Cortes Sanmiguel (su jefa) para "
+            "acompanarla a la Semana del Clima de Nueva York (invitacion oficial de ICLEI dirigida a la Alcaldesa, "
+            "no a Michelle). Pendiente conseguir memo/oficio formal de designacion del GAD. "
+            "Viaje: 20-28 septiembre 2026, Nueva York. Hospedaje: 891 Amsterdam Avenue, Upper West Side, NY 10025. "
+            "CITA CONSULAR: POR AGENDAR - DS-160 firmado 4 agosto 2026. "
+            "Simulador: asesoriadevisadosglobal.com/michelle-revelo.html"
+        ),
+    },
 }
 
 async def buscar_caso_por_telefono(telefono: str) -> dict | None:

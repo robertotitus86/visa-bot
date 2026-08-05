@@ -28,6 +28,62 @@ PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 # ═══════════════════════════════════════════════════════
 FAMILIAS = [
     # Todos los casos anteriores cerrados (aprobados) - 4 ago 2026
+
+    # PENDIENTE: actualizar "cita" cuando Roberto de la fecha real de la cita
+    # consular — hasta entonces no se envian recordatorios diarios (ver check
+    # "if familia.get('cita') is None: continue" en enviar_recordatorios()).
+    {
+        "id": "shirma_cortes",
+        "cita": None,
+        "cita_texto": "POR AGENDAR — DS-160 recien enviado (4 ago 2026)",
+        "lugar": "Consulado de Estados Unidos, Quito (por confirmar con la cita)",
+        "simulador": "https://www.asesoriadevisadosglobal.com/shirma-cortes.html",
+        "preguntas": "15 preguntas (basico/intermedio/dificil)",
+        "fortalezas_html": (
+            "&#8226; Invitacion oficial de ICLEI a la Semana del Clima de Nueva York<br>"
+            "&#8226; Alcaldesa en funciones, cargo publico de maxima autoridad<br>"
+            "&#8226; Ingresos verificables y patrimonio/familia en Ecuador<br>"
+            "&#8226; Sin rechazos previos, sin familiares en USA"
+        ),
+        "zoom_html": "Por agendar — se coordinaran sesiones de repaso una vez tengamos fecha de cita.",
+        "tips": [
+            "Lleva impresa la carta de invitacion oficial de ICLEI a la entrevista — es tu mejor respaldo.",
+            "Explica con calma que es un viaje institucional corto, de ocho dias.",
+            "Recalca que eres la maxima autoridad electa del municipio y tu regreso es indispensable.",
+        ],
+        "destinatarios": [
+            {"nombre": "Shirma", "miembro": "shirma", "telefono": "593987672577",
+             "email": "lacurvadelcanon@hotmail.com", "tratamiento": "Estimada Shirma",
+             "pdf": "pdf-shirma-cortes.pdf"},
+        ],
+        "cc_visibles": [],
+    },
+    {
+        "id": "michelle_revelo",
+        "cita": None,
+        "cita_texto": "POR AGENDAR — DS-160 recien enviado (4 ago 2026)",
+        "lugar": "Consulado de Estados Unidos, Quito (por confirmar con la cita)",
+        "simulador": "https://www.asesoriadevisadosglobal.com/michelle-revelo.html",
+        "preguntas": "15 preguntas (basico/intermedio/dificil)",
+        "fortalezas_html": (
+            "&#8226; Designada delegada oficial por la Alcaldesa Shirma Cortes<br>"
+            "&#8226; Jefa de Uso y Ocupacion de Suelo, perfil tecnico relevante al evento<br>"
+            "&#8226; Maestria (IAEN) y empleo publico estable<br>"
+            "&#8226; Sin rechazos previos, sin familiares en USA"
+        ),
+        "zoom_html": "Por agendar — se coordinaran sesiones de repaso una vez tengamos fecha de cita.",
+        "tips": [
+            "Explica que fuiste designada delegada oficial por la Alcaldesa, no que tienes invitacion propia.",
+            "Menciona tu perfil tecnico en uso de suelo como razon de tu designacion.",
+            "Si Roberto consigue el oficio de designacion del GAD, llevalo impreso a la entrevista.",
+        ],
+        "destinatarios": [
+            {"nombre": "Michelle", "miembro": "michelle", "telefono": "593987200130",
+             "email": "michelle.revelo@iaen.edu.ec", "tratamiento": "Estimada Michelle",
+             "pdf": "pdf-michelle-revelo.pdf"},
+        ],
+        "cc_visibles": [],
+    },
 ]
 
 
@@ -202,6 +258,9 @@ def enviar_recordatorios():
     log.info(f"[Recordatorios] Enviando — {hoy}")
 
     for familia in FAMILIAS:
+        if familia.get("cita") is None:
+            log.info(f"[Recordatorios] Saltando {familia['id']} — sin cita agendada todavia")
+            continue
         if familia["cita"] < hoy_dt:
             log.info(f"[Recordatorios] Saltando {familia['id']} — cita ya ocurrió ({familia['cita']})")
             continue

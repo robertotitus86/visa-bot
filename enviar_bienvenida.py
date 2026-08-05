@@ -32,6 +32,42 @@ CASO = {
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
 
+# ─── CASOS NUEVOS — Shirma Cortes & Michelle Revelo (4 ago 2026) ─────────────
+# NO enviar hasta que Roberto autorice y tengamos RESEND_API_KEY disponible.
+CASO_SHIRMA = {
+    "tratamiento": "Estimada Shirma",
+    "email": "lacurvadelcanon@hotmail.com",
+    "bcc": ["nanotiendaec@gmail.com"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/shirma-cortes.html",
+    "pdf": "pdf-shirma-cortes.pdf",
+    "fortalezas": [
+        "Fue invitada oficialmente por ICLEI a la Semana del Clima de Nueva York, evento paralelo a la Asamblea General de la ONU",
+        "Alcaldesa en funciones del GAD Municipal de Francisco de Orellana, cargo publico de maxima autoridad",
+        "Ingresos verificables ($4,508/mes) y patrimonio y familia en Ecuador",
+        "Primer viaje a Estados Unidos, sin rechazos previos, sin familiares en USA",
+    ],
+    "cita_texto": "POR AGENDAR — DS-160 recien enviado (4 ago 2026)",
+    "lugar": "Consulado de Estados Unidos, Quito (por confirmar con la cita)",
+    "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
+}
+
+CASO_MICHELLE = {
+    "tratamiento": "Estimada Michelle",
+    "email": "michelle.revelo@iaen.edu.ec",
+    "bcc": ["nanotiendaec@gmail.com"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/michelle-revelo.html",
+    "pdf": "pdf-michelle-revelo.pdf",
+    "fortalezas": [
+        "Designada delegada oficial por la Alcaldesa Shirma Cortes para acompanarla a la Semana del Clima de Nueva York",
+        "Jefa de Uso y Ocupacion de Suelo del GAD Fco. de Orellana, perfil tecnico relevante al tema del evento",
+        "Maestria en Planificacion y Prospectiva Multisectorial (IAEN) y empleo publico estable",
+        "Primer viaje a Estados Unidos, sin rechazos previos, sin familiares en USA",
+    ],
+    "cita_texto": "POR AGENDAR — DS-160 recien enviado (4 ago 2026)",
+    "lugar": "Consulado de Estados Unidos, Quito (por confirmar con la cita)",
+    "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
+}
+
 
 def _html_bienvenida(caso: dict) -> str:
     fortalezas_html = "".join(f"&#8226; {f}<br>" for f in caso["fortalezas"])
@@ -160,4 +196,11 @@ def enviar_bienvenida(caso: dict = CASO):
 
 
 if __name__ == "__main__":
-    enviar_bienvenida()
+    import sys
+    # Uso: RESEND_API_KEY=xxx python enviar_bienvenida.py [shirma|michelle]
+    # Sin autorizacion de Roberto NO se ejecuta automaticamente ninguna de las dos.
+    CASOS = {"shirma": CASO_SHIRMA, "michelle": CASO_MICHELLE}
+    if len(sys.argv) > 1 and sys.argv[1] in CASOS:
+        enviar_bienvenida(CASOS[sys.argv[1]])
+    else:
+        enviar_bienvenida()
