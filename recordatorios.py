@@ -34,9 +34,9 @@ FAMILIAS = [
     # "if familia.get('cita') is None: continue" en enviar_recordatorios()).
     {
         "id": "shirma_cortes",
-        "cita": None,
-        "cita_texto": "POR AGENDAR — DS-160 recien enviado (4 ago 2026)",
-        "lugar": "Consulado de Estados Unidos, Quito (por confirmar con la cita)",
+        "cita": date(2026, 8, 13),
+        "cita_texto": "Jueves 13 agosto 2026 · 7:30 AM",
+        "lugar": "Consulado Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
         "simulador": "https://www.asesoriadevisadosglobal.com/shirma-cortes.html",
         "preguntas": "15 preguntas (basico/intermedio/dificil)",
         "fortalezas_html": (
@@ -60,9 +60,9 @@ FAMILIAS = [
     },
     {
         "id": "michelle_revelo",
-        "cita": None,
-        "cita_texto": "POR AGENDAR — DS-160 recien enviado (4 ago 2026)",
-        "lugar": "Consulado de Estados Unidos, Quito (por confirmar con la cita)",
+        "cita": date(2026, 8, 13),
+        "cita_texto": "Jueves 13 agosto 2026 · 7:30 AM",
+        "lugar": "Consulado Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
         "simulador": "https://www.asesoriadevisadosglobal.com/michelle-revelo.html",
         "preguntas": "15 preguntas (basico/intermedio/dificil)",
         "fortalezas_html": (
