@@ -478,6 +478,28 @@ def _enviar_resumen_email(texto: str):
         print("[Resumen] ⚠️  Falló el email de respaldo")
 
 
+def _resumen_practica_simuladores() -> list:
+    """Consulta el Apps Script por aperturas/practica del simulador en las ultimas 24h.
+    Best-effort — si falla, no rompe el resumen diario."""
+    try:
+        from crm_lookup import SHEETS_WEBHOOK
+        r = httpx.get(f"{SHEETS_WEBHOOK}?action=resumenPractica&horas=24", timeout=8)
+        data = r.json()
+        clientes = data.get("clientes", {})
+        if not clientes:
+            return ["🧑‍🎓 *Práctica del simulador (24h):* nadie practicó hoy."]
+        lineas = ["🧑‍🎓 *Práctica del simulador (24h):*"]
+        for nombre, c in clientes.items():
+            if c["aperturas"] == 0 and c["respuestas"] == 0:
+                continue
+            estado = "abrió pero no practicó" if c["respuestas"] == 0 else f"{c['respuestas']} respuestas ({c['bien']} bien, {c['mejorar']} mejorar, {c['riesgo']} riesgo)"
+            lineas.append(f"• {nombre}: {estado}")
+        return lineas
+    except Exception as e:
+        print(f"[Resumen] Práctica simulador no disponible: {e}")
+        return []
+
+
 def generar_resumen_diario():
     """Envía a Roberto (PERSONAL_PHONE) un resumen de las conversaciones de las últimas 24h.
     Canal primario: WhatsApp. Canal de respaldo: email vía Resend (siempre se envía).
@@ -536,6 +558,12 @@ def generar_resumen_diario():
         lineas.append("")
 
     lineas.append(f"⚪ Frías (1-2 mensajes): {len(frias)}")
+
+    practica_lineas = _resumen_practica_simuladores()
+    if practica_lineas:
+        lineas.append("")
+        lineas.extend(practica_lineas)
+
     lineas.append(f"\n📋 Panel completo: {RENDER_URL}/admin?clave={ADMIN_PANEL_SECRET}")
 
     mensaje = "\n".join(lineas)
