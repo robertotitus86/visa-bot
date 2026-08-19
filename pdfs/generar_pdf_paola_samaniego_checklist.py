@@ -225,6 +225,10 @@ def build():
          "Cobertura para todo el periodo del viaje — buena practica para cualquier viaje institucional al exterior."),
         ("14", "Copia del acta de matrimonio",
          "Refuerza tu vinculo familiar en Ecuador."),
+        ("15", "Certificado de matricula escolar de Elheo (6 anos)",
+         "Confirma que tu hijo continua clases en Ecuador durante tu viaje — vinculo de retorno solido."),
+        ("16", "Partidas de nacimiento de Elheo y Bruna",
+         "Refuerzan tu vinculo familiar: Elheo (16 dic 2019) y Bruna (29 jul 2024), ambos en Ecuador."),
     ]
     for num, titulo, desc in adicional:
         story.append(doc_item(num, titulo, desc, GOLD2))

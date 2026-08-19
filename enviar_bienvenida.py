@@ -26,7 +26,7 @@ CASO = {
     "fortalezas": [
         "Eres Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME), con mas de 7 anos de trayectoria en el sector publico",
         "Viajas por un motivo institucional documentado: cooperacion AME-ICLEI para la Semana del Clima de Nueva York",
-        "Casada, con esposo y padres en Ecuador — sin familiares en Estados Unidos y sin rechazos previos de visa",
+        "Casada, con esposo, dos hijos pequenos (6 y 2 anos) y padres en Ecuador — sin familiares en Estados Unidos y sin rechazos previos de visa",
         "El viaje es financiado por AME como gasto institucional (vuelos, hospedaje y viaticos)",
     ],
     "cita_texto": "Jueves 24 de septiembre 2026, 7:30 AM (tentativa — estamos gestionando adelantarla)",

@@ -295,8 +295,8 @@ DIFICILES = [
      "AME agrupa a los municipios del país; la sostenibilidad urbana es parte directa de su gestión institucional.",
      "AME agrupa y representa a los gobiernos municipales del Ecuador, y la sostenibilidad urbana es un tema central de la cooperación internacional que gestionamos. La Semana del Clima de Nueva York es el espacio donde se coordina esa cooperación con ICLEI y otros gobiernos locales."),
     ("¿Qué garantía tengo de que usted regresará a Ecuador?",
-     "Cargo ejecutivo, esposo y padres en Ecuador, sin familiares en USA, viaje corto con fecha de regreso fija.",
-     "Tengo un cargo de alta responsabilidad institucional en AME al que debo regresar, mi esposo y mis padres viven en Ecuador, y no tengo ningún familiar en Estados Unidos. Mi viaje tiene fecha de regreso fija, el 28 de septiembre."),
+     "Cargo ejecutivo, esposo, dos hijos pequeños y padres en Ecuador, sin familiares en USA, viaje corto con fecha de regreso fija.",
+     "Tengo un cargo de alta responsabilidad institucional en AME al que debo regresar, y mi esposo, mis dos hijos pequeños y mis padres viven en Ecuador. No tengo ningún familiar en Estados Unidos. Mi viaje tiene fecha de regreso fija, el 28 de septiembre."),
     ("¿Quién financia este viaje?",
      "AME cubre el viaje como gasto institucional (vuelos, hospedaje, viáticos) — no es un gasto personal.",
      "El viaje lo cubre la Asociación de Municipalidades Ecuatorianas como gasto institucional, incluyendo vuelos, hospedaje y viáticos, ya que participo en representación oficial de AME."),
@@ -375,7 +375,8 @@ def build():
         "Cooperacion AME-ICLEI para la Semana del Clima de Nueva York — no es un viaje personal ambiguo."))
     story.append(Spacer(1, 2 * mm))
     story.append(strength_box("✔", "Vinculos solidos en Ecuador",
-        "Casada, esposo y padres viven en Ecuador. Sin familiares en Estados Unidos, sin rechazos previos."))
+        "Casada, con esposo, dos hijos pequenos (Elheo, 6 anos, y Bruna, 2 anos) y padres viviendo en Ecuador. "
+        "Sin familiares en Estados Unidos, sin rechazos previos."))
     story.append(Spacer(1, 2 * mm))
     story.append(strength_box("✔", "Viaje financiado por AME",
         "Vuelos, hospedaje y viaticos cubiertos por la institucion como gasto institucional, no personal."))
@@ -472,6 +473,10 @@ def build():
          "Cobertura para todo el periodo del viaje — buena practica para cualquier viaje institucional al exterior."),
         ("14", "Copia del acta de matrimonio",
          "Refuerza tu vinculo familiar en Ecuador."),
+        ("15", "Certificado de matricula escolar de Elheo (6 anos)",
+         "Confirma que tu hijo continua clases en Ecuador durante tu viaje — vinculo de retorno solido."),
+        ("16", "Partidas de nacimiento de Elheo y Bruna",
+         "Refuerzan tu vinculo familiar: Elheo (16 dic 2019) y Bruna (29 jul 2024), ambos en Ecuador."),
     ]
     for num, titulo, desc in adicional:
         story.append(doc_item(num, titulo, desc, GOLD2))
