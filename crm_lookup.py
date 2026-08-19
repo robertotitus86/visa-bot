@@ -52,6 +52,29 @@ CLIENTES_PREPARACION = {
             "Simulador: asesoriadevisadosglobal.com/michelle-revelo.html"
         ),
     },
+    "593980881226": {
+        "Nombre Principal": "Jennifer Paola Samaniego Marines",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "24 septiembre 2026, 7:30 AM (tentativa, gestionando adelantarla) - Embajada EE.UU. Quito (Avigiras E12-170, frente Hospital SOLCA)",
+        "Estado": "En preparacion de entrevista consular",
+        "Notas": (
+            "Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME), Quito. Ingreso $4,283/mes. "
+            "7+ anos de trayectoria: Ministerio de Salud Publica (2018-2025), luego AME (ascendida nov 2025). "
+            "DS-160: AA00FQMKP1. Pasaporte A8733853 (vence 14 abr 2033). Nacida 8 jun 1984 en Esmeraldas. Casada "
+            "con Antonio Menendez Portilla (se queda en Ecuador). "
+            "PRIMER VIAJE A USA. Sin rechazos previos. Sin familiares en USA. "
+            "MOTIVO INSTITUCIONAL: cooperacion AME-ICLEI (Gobiernos Locales por la Sostenibilidad) para la "
+            "Semana del Clima de Nueva York (Climate Week NYC), climateweeknyc.org. "
+            "Contacto USA declarado: ICLEI, Wynkoop 536 Suite 901, Denver CO 80202 (organizacion, no persona - "
+            "DO NOT KNOW en DS-160). "
+            "Viaje: 18-28 septiembre 2026, Nueva York. Hospedaje: 507 West 181st Street, Washington Heights, NY 10033. "
+            "Viaja sola. "
+            "CITA CONSULAR: 24 septiembre 2026, 7:30 AM, Embajada EE.UU. Quito — TENTATIVA, se esta gestionando "
+            "adelantarla. "
+            "Simulador (incluye modo oficial consular con preguntas trampa): asesoriadevisadosglobal.com/paola-samaniego.html"
+        ),
+    },
 }
 
 async def buscar_caso_por_telefono(telefono: str) -> dict | None:

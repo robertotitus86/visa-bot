@@ -15,20 +15,21 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
+# Caso activo: Jennifer Paola Samaniego Marines — Directora Ejecutiva AME.
 CASO = {
-    "tratamiento": "Estimada Fiorella",
-    "email": "fiore28mm@gmail.com",
+    "tratamiento": "Estimada Paola",
+    "email": "jsamaniego_1984@hotmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/fiorella-martinez.html",
-    "pdf": "pdf-fiorella-martinez.pdf",
+    "simulador": "https://www.asesoriadevisadosglobal.com/paola-samaniego.html",
+    "pdf": "pdf-paola-samaniego.pdf",
     "fortalezas": [
-        "Tienes un cargo formal en la Asociacion de Municipalidades Ecuatorianas (AME)",
-        "Cursas una maestria virtual en Comunicacion y Marketing Politico desde Ecuador",
-        "Tu viaje tiene un proposito de negocios claro, acompanando a tu jefa",
-        "No tienes rechazos previos ni familiares en Estados Unidos",
+        "Eres Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME), con mas de 7 anos de trayectoria en el sector publico",
+        "Viajas por un motivo institucional documentado: cooperacion AME-ICLEI para la Semana del Clima de Nueva York",
+        "Casada, con esposo y padres en Ecuador — sin familiares en Estados Unidos y sin rechazos previos de visa",
+        "Ingresos estables ($4,283/mes) que respaldan comodamente el viaje",
     ],
-    "cita_texto": "Martes 14 de julio &middot; 8:00 AM",
-    "lugar": "Consulado Quito &middot; Avigiras E12-170 &middot; Frente al Hospital SOLCA",
+    "cita_texto": "Jueves 24 de septiembre 2026, 7:30 AM (tentativa — estamos gestionando adelantarla)",
+    "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
 
@@ -197,9 +198,9 @@ def enviar_bienvenida(caso: dict = CASO):
 
 if __name__ == "__main__":
     import sys
-    # Uso: RESEND_API_KEY=xxx python enviar_bienvenida.py [shirma|michelle]
-    # Sin autorizacion de Roberto NO se ejecuta automaticamente ninguna de las dos.
-    CASOS = {"shirma": CASO_SHIRMA, "michelle": CASO_MICHELLE}
+    # Uso: RESEND_API_KEY=xxx python enviar_bienvenida.py [paola|shirma|michelle]
+    # Cada caso es independiente — sin argumento se envia CASO (Paola, caso activo).
+    CASOS = {"paola": CASO, "shirma": CASO_SHIRMA, "michelle": CASO_MICHELLE}
     if len(sys.argv) > 1 and sys.argv[1] in CASOS:
         enviar_bienvenida(CASOS[sys.argv[1]])
     else:

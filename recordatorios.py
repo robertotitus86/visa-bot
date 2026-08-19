@@ -84,6 +84,36 @@ FAMILIAS = [
         ],
         "cc_visibles": [],
     },
+    {
+        "id": "paola_samaniego",
+        "cita": date(2026, 9, 24),
+        "cita_texto": "Jueves 24 septiembre 2026 · 7:30 AM (tentativa — gestionando adelantarla)",
+        "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/paola-samaniego.html",
+        "preguntas": "22 preguntas (incluye modo oficial consular con preguntas trampa)",
+        "fortalezas_html": (
+            "&#8226; Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME) — cargo ejecutivo real y verificable<br>"
+            "&#8226; Motivo de viaje institucional documentado: cooperacion AME-ICLEI para la Semana del Clima de Nueva York<br>"
+            "&#8226; Casada, esposo y padres en Ecuador — sin familiares en USA, sin rechazos previos<br>"
+            "&#8226; Ingresos estables ($4,283/mes) que respaldan el viaje"
+        ),
+        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "Si preguntan por su ascenso reciente a Directora Ejecutiva: explique sus 7+ anos de trayectoria en contratacion publica, con seguridad, sin sonar improvisada.",
+            "Si preguntan por el contacto en USA marcado como 'no lo conoce': es honesto, el vinculo es institucional con ICLEI, no una persona conocida.",
+            "Si preguntan por que viaja sola siendo casada: es un viaje de trabajo por su cargo en AME, no un viaje familiar.",
+            "Las 2 preguntas obligatorias 2026 sobre danos/persecucion: responder con calma, 'No' directo, sin dudar.",
+            "Llegue 20-30 minutos antes, sin celular, ropa formal, carpeta con documentos originales.",
+        ],
+        "destinatarios": [
+            {"nombre": "Paola", "miembro": "paola", "telefono": "593980881226",
+             "email": "jsamaniego_1984@hotmail.com", "tratamiento": "Estimada Paola",
+             "pdf": "pdf-paola-samaniego.pdf"},
+        ],
+        "cc_visibles": [],
+    },
 ]
 
 
@@ -114,6 +144,26 @@ def _tip_del_dia(familia: dict) -> str:
     dia = datetime.now(ZONA).timetuple().tm_yday
     tips = familia["tips"]
     return tips[dia % len(tips)]
+
+
+# Rota el saludo y el enfoque del correo dia a dia para que ningun correo
+# se sienta igual al anterior, aunque el tip de abajo coincida. Aplica por
+# igual a todos los casos — no mezcla contenido especifico entre clientes.
+_ENCABEZADOS = [
+    ("{nombre}, un paso mas cerca", "Cada practica de hoy suma para llegar tranquila a tu entrevista."),
+    ("Hoy toca repasar, {nombre}", "Diez minutos de practica hoy valen mas que una hora la noche anterior."),
+    ("{nombre}, sigamos afinando tus respuestas", "Mientras mas natural suene, mas segura vas a sentirte."),
+    ("Buen dia, {nombre} — vamos con todo", "La constancia es lo que marca la diferencia frente al oficial consular."),
+    ("{nombre}, repasemos un poco mas", "No hace falta perfeccion, solo naturalidad al responder."),
+    ("Un momento para tu preparacion, {nombre}", "Aprovecha unos minutos hoy para reforzar tus puntos fuertes."),
+    ("{nombre}, tu practica de hoy te espera", "Cada dia que practicas reduces el margen de sorpresas en la cita."),
+]
+
+
+def _encabezado_del_dia(nombre: str) -> tuple:
+    dia = datetime.now(ZONA).timetuple().tm_yday
+    titulo, frase = _ENCABEZADOS[dia % len(_ENCABEZADOS)]
+    return titulo.format(nombre=nombre), frase
 
 
 def enviar_email_simple(asunto: str, html: str, to: str = None) -> bool:
@@ -164,8 +214,9 @@ def _send_wa(telefono: str, mensaje: str):
         log.warning(f"  [WA] Excepcion: {e}")
 
 
-def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str) -> str:
+def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nombre: str) -> str:
     tip = _tip_del_dia(familia)
+    titulo_dia, frase_dia = _encabezado_del_dia(nombre)
     return f"""<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#F1F5F9;font-family:'Segoe UI',Arial,sans-serif;">
@@ -177,7 +228,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str) -> 
               text-transform:uppercase;margin:0 0 8px;">Asesoria Visa Global · Preparacion Entrevista USA</p>
     <h1 style="color:#fff;font-size:20px;margin:0;line-height:1.4;">
       {tratamiento},<br>
-      <span style="color:#F5C842;">hoy es dia de practicar</span>
+      <span style="color:#F5C842;">{titulo_dia}</span>
     </h1>
   </div>
 
@@ -185,8 +236,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str) -> 
               box-shadow:0 4px 20px rgba(0,0,0,.08);">
 
     <p style="color:#475569;font-size:15px;line-height:1.7;margin:0 0 14px;">
-      La entrevista consular se acerca y cada dia de practica marca la diferencia.
-      Su simulador personalizado esta listo con <strong>{familia['preguntas']} basadas en su DS-160 real</strong>.
+      {frase_dia} Su simulador personalizado esta listo con <strong>{familia['preguntas']} basadas en su DS-160 real</strong>.
     </p>
 
     {cuenta}
@@ -281,8 +331,9 @@ def enviar_recordatorios():
                 continue
             try:
                 sim_link = f"{familia['simulador']}?miembro={dest['miembro']}"
-                html     = _html_email(familia, dest["tratamiento"], sim_link, cuenta)
-                asunto   = f"{dest['tratamiento']} · Practica de hoy — Entrevista {familia['cita_texto']}"
+                html     = _html_email(familia, dest["tratamiento"], sim_link, cuenta, dest["nombre"])
+                titulo_dia, _ = _encabezado_del_dia(dest["nombre"])
+                asunto   = f"{dest['tratamiento']} · {titulo_dia}"
 
                 payload = {
                     "from": RESEND_FROM,
