@@ -22,7 +22,7 @@ CASO = {
     "bcc": ["nanotiendaec@gmail.com"],
     "simulador": "https://www.asesoriadevisadosglobal.com/paola-samaniego.html",
     "pdf": "pdf-paola-samaniego.pdf",
-    "pdf_extra": ["pdf-paola-samaniego-checklist.pdf"],
+    "pdf_extra": ["pdf-paola-samaniego-checklist.pdf", "pdf-paola-samaniego-guia-uso.pdf"],
     "fortalezas": [
         "Eres Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME), con mas de 7 anos de trayectoria en el sector publico",
         "Viajas por un motivo institucional documentado: cooperacion AME-ICLEI para la Semana del Clima de Nueva York",
