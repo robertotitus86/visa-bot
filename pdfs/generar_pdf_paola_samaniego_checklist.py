@@ -183,7 +183,7 @@ def build():
     story.append(cita_box())
     story.append(Spacer(1, 8 * mm))
 
-    story.append(grupo_header("DOCUMENTOS OBLIGATORIOS", "Sin estos no puedes presentarte a la cita", GOLD2, GOLDBG))
+    story.append(grupo_header("DOCUMENTOS PERSONALES OBLIGATORIOS", "Sin estos no puedes presentarte a la cita", GOLD2, GOLDBG))
     story.append(Spacer(1, 2 * mm))
     obligatorios = [
         ("1", "Pasaporte vigente", f"Numero {PASAPORTE}, vence 14 de abril de 2033."),
@@ -194,29 +194,40 @@ def build():
          "Tomada dentro de los ultimos 6 meses, fondo claro."),
         ("5", "Comprobante de pago de la tasa MRV",
          "Guardalo impreso — puede ser solicitado en la entrevista."),
+        ("6", "Cedula de identidad", "Copia y original, como respaldo adicional de identidad."),
     ]
     for num, titulo, desc in obligatorios:
         story.append(doc_item(num, titulo, desc, GOLD2))
 
     story.append(Spacer(1, 6 * mm))
-    story.append(grupo_header("DOCUMENTOS DE RESPALDO RECOMENDADOS", "Refuerzan tu caso institucional", BLUE, BLUEBG))
+    story.append(grupo_header("DOCUMENTOS INSTITUCIONALES DE AME", "Respaldan tu cargo y el motivo del viaje", BLUE, BLUEBG))
     story.append(Spacer(1, 2 * mm))
-    respaldo = [
-        ("6", "Certificado laboral / accion de personal de AME",
-         "Con sello y firma, indicando tu cargo de Directora Ejecutiva."),
-        ("7", "Carta de autorizacion / cobertura de gastos institucionales de AME",
-         "Documento que respalde que AME financia el viaje (vuelos, hospedaje, viaticos)."),
-        ("8", "Comunicacion oficial relacionada a ICLEI / Semana del Clima",
-         "Cualquier documento que respalde el motivo institucional del viaje."),
-        ("9", "3 ultimos roles de pago",
-         "Con sello y firma fisica de AME."),
-        ("10", "Reserva de vuelos y hospedaje",
-         "Itinerario confirmado del 18 al 28 de septiembre, hospedaje en Washington Heights."),
-        ("11", "Copia del acta de matrimonio",
+    institucionales = [
+        ("7", "Certificado laboral / nombramiento como Directora Ejecutiva",
+         "Emitido por AME, con sello y firma, indicando cargo, funciones y fecha de nombramiento."),
+        ("8", "Carta de comision de servicios / autorizacion de viaje institucional",
+         "Emitida por AME: autoriza el viaje, confirma que cubre vuelos, hospedaje y viaticos, y detalla el proposito institucional."),
+        ("9", "Comunicacion oficial de ICLEI / agenda de la Semana del Clima",
+         "Invitacion, programa o agenda oficial de Climate Week NYC que respalde el motivo del viaje."),
+        ("10", "3 ultimos roles de pago", "Con sello y firma fisica de AME."),
+        ("11", "Tarjetas de presentacion institucionales", "A nombre de AME, con tu cargo de Directora Ejecutiva."),
+    ]
+    for num, titulo, desc in institucionales:
+        story.append(doc_item(num, titulo, desc, BLUE))
+
+    story.append(Spacer(1, 6 * mm))
+    story.append(grupo_header("VIAJE Y RESPALDO ADICIONAL", "Completan tu expediente para la entrevista", GOLD2, GOLDBG))
+    story.append(Spacer(1, 2 * mm))
+    adicional = [
+        ("12", "Reserva de alojamiento",
+         "507 West 181st Street, Washington Heights, Nueva York, confirmada del 18 al 28 de septiembre."),
+        ("13", "Seguro de viaje / asistencia medica internacional",
+         "Cobertura para todo el periodo del viaje — buena practica para cualquier viaje institucional al exterior."),
+        ("14", "Copia del acta de matrimonio",
          "Refuerza tu vinculo familiar en Ecuador."),
     ]
-    for num, titulo, desc in respaldo:
-        story.append(doc_item(num, titulo, desc, BLUE))
+    for num, titulo, desc in adicional:
+        story.append(doc_item(num, titulo, desc, GOLD2))
 
     doc.build(story, onFirstPage=header_footer, onLaterPages=header_footer)
     print(f"PDF generado: {OUT_PATH}")
