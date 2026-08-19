@@ -298,8 +298,8 @@ DIFICILES = [
      "Cargo ejecutivo, esposo y padres en Ecuador, sin familiares en USA, viaje corto con fecha de regreso fija.",
      "Tengo un cargo de alta responsabilidad institucional en AME al que debo regresar, mi esposo y mis padres viven en Ecuador, y no tengo ningún familiar en Estados Unidos. Mi viaje tiene fecha de regreso fija, el 28 de septiembre."),
     ("¿Quién financia este viaje?",
-     "Viaje institucional ligado a su cargo; sus ingresos como Directora Ejecutiva respaldan sus gastos.",
-     "Es un viaje de carácter institucional, ligado a mi cargo en AME, y mis ingresos como Directora Ejecutiva, de cuatro mil doscientos ochenta y tres dólares mensuales, respaldan cómodamente mis gastos personales."),
+     "AME cubre el viaje como gasto institucional (vuelos, hospedaje, viáticos) — no es un gasto personal.",
+     "El viaje lo cubre la Asociación de Municipalidades Ecuatorianas como gasto institucional, incluyendo vuelos, hospedaje y viáticos, ya que participo en representación oficial de AME."),
 ]
 
 TRAMPA = [
@@ -377,8 +377,8 @@ def build():
     story.append(strength_box("✔", "Vinculos solidos en Ecuador",
         "Casada, esposo y padres viven en Ecuador. Sin familiares en Estados Unidos, sin rechazos previos."))
     story.append(Spacer(1, 2 * mm))
-    story.append(strength_box("✔", "Ingresos estables",
-        "$4,283 mensuales, respaldan comodamente los gastos del viaje."))
+    story.append(strength_box("✔", "Viaje financiado por AME",
+        "Vuelos, hospedaje y viaticos cubiertos por la institucion como gasto institucional, no personal."))
     story.append(Spacer(1, 5 * mm))
 
     story.append(Paragraph("PUNTOS A PREPARAR CON CALMA", style_eyebrow))

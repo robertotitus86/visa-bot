@@ -69,7 +69,7 @@ CLIENTES_PREPARACION = {
             "Contacto USA declarado: ICLEI, Wynkoop 536 Suite 901, Denver CO 80202 (organizacion, no persona - "
             "DO NOT KNOW en DS-160). "
             "Viaje: 18-28 septiembre 2026, Nueva York. Hospedaje: 507 West 181st Street, Washington Heights, NY 10033. "
-            "Viaja sola. "
+            "Viaja sola. Viaje financiado por AME como gasto institucional (vuelos, hospedaje, viaticos) - no gasto personal. "
             "CITA CONSULAR: 24 septiembre 2026, 7:30 AM, Embajada EE.UU. Quito — TENTATIVA, se esta gestionando "
             "adelantarla. "
             "Simulador (incluye modo oficial consular con preguntas trampa): asesoriadevisadosglobal.com/paola-samaniego.html"

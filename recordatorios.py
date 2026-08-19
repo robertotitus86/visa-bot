@@ -95,7 +95,7 @@ FAMILIAS = [
             "&#8226; Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME) — cargo ejecutivo real y verificable<br>"
             "&#8226; Motivo de viaje institucional documentado: cooperacion AME-ICLEI para la Semana del Clima de Nueva York<br>"
             "&#8226; Casada, esposo y padres en Ecuador — sin familiares en USA, sin rechazos previos<br>"
-            "&#8226; Ingresos estables ($4,283/mes) que respaldan el viaje"
+            "&#8226; Viaje financiado por AME como gasto institucional (vuelos, hospedaje y viaticos)"
         ),
         "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
         "tips": [
