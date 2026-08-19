@@ -852,8 +852,9 @@ async def startup_event():
 
     scheduler = AsyncIOScheduler(timezone=pytz.timezone("America/Guayaquil"))
     scheduler.add_job(enviar_recordatorios, CronTrigger(hour=9, minute=0))
+    scheduler.add_job(generar_resumen_diario, CronTrigger(hour=21, minute=0))
     scheduler.start()
-    print("[✅ SCHEDULER ACTIVO] — Recordatorios diarios 9:00 AM Ecuador")
+    print("[✅ SCHEDULER ACTIVO] — Recordatorios 9:00 AM · Resumen de conversaciones 9:00 PM (Ecuador)")
 
 
 # ── ENDPOINTS ─────────────────────────────────────────────────────────────────
