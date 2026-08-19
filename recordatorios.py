@@ -110,7 +110,8 @@ FAMILIAS = [
         "destinatarios": [
             {"nombre": "Paola", "miembro": "paola", "telefono": "593980881226",
              "email": "jsamaniego_1984@hotmail.com", "tratamiento": "Estimada Paola",
-             "pdf": "pdf-paola-samaniego.pdf"},
+             "pdf": "pdf-paola-samaniego.pdf",
+             "pdf_extra": ["pdf-paola-samaniego-checklist.pdf"]},
         ],
         "cc_visibles": [],
     },
@@ -344,15 +345,18 @@ def enviar_recordatorios():
                     "html": html,
                 }
 
-                pdf_path = os.path.join(PDF_DIR, dest["pdf"])
-                attachments = None
-                if os.path.isfile(pdf_path):
-                    with open(pdf_path, "rb") as f:
-                        pdf_b64 = base64.b64encode(f.read()).decode("ascii")
-                    attachments = [{"filename": dest["pdf"], "content": pdf_b64}]
+                nombres_pdf = [dest["pdf"]] + dest.get("pdf_extra", [])
+                attachments = []
+                for nombre_pdf in nombres_pdf:
+                    pdf_path = os.path.join(PDF_DIR, nombre_pdf)
+                    if os.path.isfile(pdf_path):
+                        with open(pdf_path, "rb") as f:
+                            pdf_b64 = base64.b64encode(f.read()).decode("ascii")
+                        attachments.append({"filename": nombre_pdf, "content": pdf_b64})
+                    else:
+                        log.warning(f"  [Recordatorios] PDF no encontrado: {pdf_path}")
+                if attachments:
                     payload["attachments"] = attachments
-                else:
-                    log.warning(f"  [Recordatorios] PDF no encontrado: {pdf_path}")
 
                 r = req.post(
                     "https://api.resend.com/emails",

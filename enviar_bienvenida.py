@@ -22,6 +22,7 @@ CASO = {
     "bcc": ["nanotiendaec@gmail.com"],
     "simulador": "https://www.asesoriadevisadosglobal.com/paola-samaniego.html",
     "pdf": "pdf-paola-samaniego.pdf",
+    "pdf_extra": ["pdf-paola-samaniego-checklist.pdf"],
     "fortalezas": [
         "Eres Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME), con mas de 7 anos de trayectoria en el sector publico",
         "Viajas por un motivo institucional documentado: cooperacion AME-ICLEI para la Semana del Clima de Nueva York",
@@ -173,14 +174,16 @@ def enviar_bienvenida(caso: dict = CASO):
         print("ERROR: falta RESEND_API_KEY en el entorno.")
         return
 
-    attachments = None
-    pdf_path = os.path.join(PDF_DIR, caso["pdf"])
-    if os.path.isfile(pdf_path):
-        with open(pdf_path, "rb") as f:
-            pdf_b64 = base64.b64encode(f.read()).decode("ascii")
-        attachments = [{"filename": caso["pdf"], "content": pdf_b64}]
-    else:
-        print(f"AVISO: PDF no encontrado en {pdf_path} — se envia sin adjunto.")
+    nombres_pdf = [caso["pdf"]] + caso.get("pdf_extra", [])
+    attachments = []
+    for nombre_pdf in nombres_pdf:
+        pdf_path = os.path.join(PDF_DIR, nombre_pdf)
+        if os.path.isfile(pdf_path):
+            with open(pdf_path, "rb") as f:
+                pdf_b64 = base64.b64encode(f.read()).decode("ascii")
+            attachments.append({"filename": nombre_pdf, "content": pdf_b64})
+        else:
+            print(f"AVISO: PDF no encontrado en {pdf_path} — no se adjunta.")
 
     payload_cliente = {
         "from": RESEND_FROM,
