@@ -111,7 +111,7 @@ FAMILIAS = [
             {"nombre": "Paola", "miembro": "paola", "telefono": "593980881226",
              "email": "jsamaniego_1984@hotmail.com", "tratamiento": "Estimada Paola",
              "pdf": "pdf-paola-samaniego.pdf",
-             "pdf_extra": ["pdf-paola-samaniego-checklist.pdf"]},
+             "pdf_extra": ["pdf-paola-samaniego-checklist.pdf", "pdf-paola-samaniego-guia-uso.pdf"]},
         ],
         "cc_visibles": [],
     },
