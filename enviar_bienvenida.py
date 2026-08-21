@@ -15,26 +15,27 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
-# Caso activo: Jennifer Paola Samaniego Marines — Directora Ejecutiva AME.
+# Caso activo: Karen Pamela Beltran Brito.
 CASO = {
-    "tratamiento": "Estimada Paola",
-    "email": "jsamaniego_1984@hotmail.com",
+    "tratamiento": "Estimada Karen",
+    "email": "betrankaren73@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/paola-samaniego.html",
-    "pdf": "pdf-paola-samaniego.pdf",
-    "pdf_extra": ["pdf-paola-samaniego-checklist.pdf", "pdf-paola-samaniego-guia-uso.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/karen-beltran.html",
+    "pdf": "pdf-karen-beltran.pdf",
+    "pdf_extra": ["pdf-karen-beltran-checklist.pdf", "pdf-karen-beltran-guia-uso.pdf"],
     "fortalezas": [
-        "Eres Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME), con mas de 7 anos de trayectoria en el sector publico",
-        "Viajas por un motivo institucional documentado: cooperacion AME-ICLEI para la Semana del Clima de Nueva York",
-        "Casada, con esposo, dos hijos pequenos (6 y 2 anos) y padres en Ecuador — sin familiares en Estados Unidos y sin rechazos previos de visa",
-        "El viaje es financiado por AME como gasto institucional (vuelos, hospedaje y viaticos)",
+        "Mas de 7 anos de trayectoria laboral continua en Ecuador (Telefonica Movistar, 2018-2025)",
+        "Historial de 6 paises visitados en los ultimos 5 anos, siempre con regreso comprobado a Ecuador",
+        "Maestria en España (2023-2024) con regreso a Ecuador al finalizar",
+        "Viaje corto y puntual (3 dias) a Miami — no es una reubicacion",
     ],
-    "cita_texto": "Lunes 31 de agosto 2026, 9:30 AM (CONFIRMADA)",
-    "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
+    "cita_texto": "Pendiente de asignar por el consulado (DS-160 enviado 21 ago 2026)",
+    "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Eloy Alfaro",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
 
 # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
+# Paola Samaniego: cita 31 agosto 2026 — activa.
 
 
 def _html_bienvenida(caso: dict) -> str:

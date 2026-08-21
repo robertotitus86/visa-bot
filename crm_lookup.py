@@ -37,6 +37,30 @@ CLIENTES_PREPARACION = {
             "Simulador (incluye modo oficial consular con preguntas trampa): asesoriadevisadosglobal.com/paola-samaniego.html"
         ),
     },
+    "593983508173": {
+        "Nombre Principal": "Karen Pamela Beltran Brito",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "PENDIENTE — aun no asignada por el consulado (DS-160 enviado 21 ago 2026) - Embajada EE.UU. Quito (Avigiras E12-170 y Eloy Alfaro)",
+        "Estado": "DS-160 enviado, esperando fecha de cita consular",
+        "Notas": (
+            "Soltera, sin hijos. Nacida 13 dic 1995 en Quito. Cedula 1751399583. "
+            "Trabajo actual: Isa Garcia LLC (25 SE 2nd Ave 550 #2021, Miami FL) — coordinacion de comunicaciones "
+            "operativas, trabajo REMOTO desde Ecuador. Ingreso $2,600/mes. "
+            "PUNTO CRITICO: su contacto en EE.UU. declarado en el DS-160 es su propia empleadora, Isabel Maria "
+            "Garcia Donoso (Isa Garcia Corp) — riesgo de que el oficial consular interprete el viaje como traslado "
+            "laboral disfrazado de turismo. Preparar para explicar relacion laboral remota y viaje corto y puntual. "
+            "Trabajo anterior: Telefonica Movistar Ecuador (2018-2025, 7+ anos), Team Member Marketing Pospago B2C. "
+            "Estudios: Ingenieria Comercial (PUCE Quito, 2013-2018) y Maestria en Marketing Digital y Analitica "
+            "(Universidad Internacional de Valencia, España, 2023-2024 — regreso a Ecuador al terminar). "
+            "DS-160: AA00FQSGZV. Pasaporte A9657309 (vence 20 may 2033). "
+            "PRIMER VIAJE A USA. Sin rechazos previos. Sin familiares en USA. "
+            "Viajes previos (ultimos 5 anos, siempre regreso): Peru, Colombia, Rep. Dominicana, Bolivia, Chile, Brasil. "
+            "Viaje: 25-28 septiembre 2026, Miami. Hospedaje: 439 Northwest 4th Avenue, Miami, FL. Viaja sola. "
+            "CITA CONSULAR: PENDIENTE de asignacion — DS-160 ya enviado 21 ago 2026. "
+            "Simulador (incluye modo oficial consular con preguntas trampa): asesoriadevisadosglobal.com/karen-beltran.html"
+        ),
+    },
 }
 
 async def buscar_caso_por_telefono(telefono: str) -> dict | None:

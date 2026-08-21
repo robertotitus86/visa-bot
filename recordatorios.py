@@ -60,6 +60,37 @@ FAMILIAS = [
         ],
         "cc_visibles": [],
     },
+    {
+        "id": "karen_beltran",
+        "cita": date(2026, 9, 25),
+        "cita_texto": "PENDIENTE — aun no asignada por el consulado (DS-160 enviado 21 ago 2026). Viaje previsto 25-28 sept 2026.",
+        "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Eloy Alfaro",
+        "simulador": "https://www.asesoriadevisadosglobal.com/karen-beltran.html",
+        "preguntas": "22 preguntas (incluye modo oficial consular con preguntas trampa)",
+        "fortalezas_html": (
+            "&#8226; Mas de 7 anos de trayectoria laboral continua en Ecuador (Telefonica Movistar, 2018-2025)<br>"
+            "&#8226; Historial de 6 paises visitados en los ultimos 5 anos, siempre con regreso comprobado a Ecuador<br>"
+            "&#8226; Maestria en España (2023-2024) con regreso a Ecuador al finalizar<br>"
+            "&#8226; Viaje corto y puntual (3 dias) a Miami — refuerza que no es una reubicacion"
+        ),
+        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "PUNTO CLAVE: su empleadora Isa Garcia LLC tiene domicilio en Miami — explique siempre que su trabajo es remoto desde Ecuador, nunca de a entender que busca trabajar fisicamente en EE.UU.",
+            "Si preguntan por que su contacto en USA es su propia empleadora: es honesto, aclare que es una reunion de trabajo puntual, no una reubicacion.",
+            "Apoyese en su trayectoria laboral y sus viajes previos con retorno comprobado para reforzar el arraigo, no en vinculos familiares (es soltera, sin hijos).",
+            "Las 2 preguntas obligatorias 2026 sobre danos/persecucion: responder con calma, 'No' directo, sin dudar.",
+            "Llegue 20-30 minutos antes, sin celular, ropa formal, carpeta con documentos originales.",
+        ],
+        "destinatarios": [
+            {"nombre": "Karen", "miembro": "karen", "telefono": "593983508173",
+             "email": "betrankaren73@gmail.com", "tratamiento": "Estimada Karen",
+             "pdf": "pdf-karen-beltran.pdf",
+             "pdf_extra": ["pdf-karen-beltran-checklist.pdf", "pdf-karen-beltran-guia-uso.pdf"]},
+        ],
+        "cc_visibles": [],
+    },
 ]
 
 
