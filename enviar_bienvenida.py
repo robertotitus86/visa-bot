@@ -29,7 +29,7 @@ CASO = {
         "Casada, con esposo, dos hijos pequenos (6 y 2 anos) y padres en Ecuador — sin familiares en Estados Unidos y sin rechazos previos de visa",
         "El viaje es financiado por AME como gasto institucional (vuelos, hospedaje y viaticos)",
     ],
-    "cita_texto": "Jueves 24 de septiembre 2026, 7:30 AM (tentativa — estamos gestionando adelantarla)",
+    "cita_texto": "Lunes 31 de agosto 2026, 9:30 AM (CONFIRMADA)",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }

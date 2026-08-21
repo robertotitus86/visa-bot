@@ -31,8 +31,8 @@ FAMILIAS = [
 
     {
         "id": "paola_samaniego",
-        "cita": date(2026, 9, 24),
-        "cita_texto": "Jueves 24 septiembre 2026 · 7:30 AM (tentativa — gestionando adelantarla)",
+        "cita": date(2026, 8, 31),
+        "cita_texto": "Lunes 31 agosto 2026 · 9:30 AM (CONFIRMADA — se adelantó desde el 24 sept)",
         "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
         "simulador": "https://www.asesoriadevisadosglobal.com/paola-samaniego.html",
         "preguntas": "22 preguntas (incluye modo oficial consular con preguntas trampa)",
@@ -42,7 +42,7 @@ FAMILIAS = [
             "&#8226; Casada, con esposo, dos hijos pequenos (6 y 2 anos) y padres en Ecuador — sin familiares en USA, sin rechazos previos<br>"
             "&#8226; Viaje financiado por AME como gasto institucional (vuelos, hospedaje y viaticos)"
         ),
-        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
+        "zoom_html": "Sesiones de practica PRESENCIALES agendadas: martes 25 de agosto, 10:00 AM y jueves 27 de agosto, 10:00 AM.",
         "tips": [
             "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
