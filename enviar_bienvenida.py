@@ -18,7 +18,7 @@ PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 # Caso activo: Karen Pamela Beltran Brito.
 CASO = {
     "tratamiento": "Estimada Karen",
-    "email": "betrankaren73@gmail.com",
+    "email": "beltrankaren73@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
     "simulador": "https://www.asesoriadevisadosglobal.com/karen-beltran.html",
     "pdf": "pdf-karen-beltran.pdf",

@@ -85,7 +85,7 @@ FAMILIAS = [
         ],
         "destinatarios": [
             {"nombre": "Karen", "miembro": "karen", "telefono": "593983508173",
-             "email": "betrankaren73@gmail.com", "tratamiento": "Estimada Karen",
+             "email": "beltrankaren73@gmail.com", "tratamiento": "Estimada Karen",
              "pdf": "pdf-karen-beltran.pdf",
              "pdf_extra": ["pdf-karen-beltran-checklist.pdf", "pdf-karen-beltran-guia-uso.pdf"]},
         ],
