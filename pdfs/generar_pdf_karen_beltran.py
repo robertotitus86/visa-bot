@@ -259,8 +259,8 @@ BASICAS = [
      "Fechas exactas del DS-160: 25 al 28 de septiembre, 3 dias.",
      "Tres dias. Llego a Miami el 25 de septiembre y regreso a Ecuador el 28 de septiembre de 2026."),
     ("¿Dónde se va a hospedar?",
-     "439 Northwest 4th Avenue, Miami, Florida.",
-     "Me hospedo en el 439 de la Northwest 4th Avenue, en Miami, Florida. Ya tengo la direccion confirmada."),
+     "SOVEL Hotel (tentativo), 439 Northwest 4th Avenue, Miami, Florida.",
+     "Me hospedo en el SOVEL Hotel, en el 439 de la Northwest 4th Avenue, Miami, Florida. Es una reserva tentativa que estoy por confirmar."),
     ("¿Tiene familiares en los Estados Unidos?",
      "No tiene ningun familiar en USA. Respuesta directa.",
      "No, no tengo ningun familiar en los Estados Unidos."),
@@ -361,7 +361,7 @@ def build():
         "Viajas del <b>25 al 28 de septiembre de 2026</b> a Miami. Trabajas de forma remota desde Ecuador "
         "para Isa Garcia Corp, y fuiste invitada a participar en su evento presencial <b>'Ella Empresaria'</b> "
         "(26-27 de septiembre, Miami Beach) — tu contacto declarado en EE.UU. es Isabel Garcia, quien dirige "
-        "la empresa y organiza el evento. Te hospedas en 439 Northwest 4th Avenue, Miami, Florida.",
+        "la empresa y organiza el evento. Te hospedas en SOVEL Hotel (tentativo), 439 Northwest 4th Avenue, Miami, Florida.",
         style_body
     ))
     story.append(Spacer(1, 4 * mm))
@@ -472,7 +472,7 @@ def build():
     story.append(Spacer(1, 2 * mm))
     adicional = [
         ("11", "Reserva de alojamiento",
-         "439 Northwest 4th Avenue, Miami, Florida, confirmada del 25 al 28 de septiembre."),
+         "SOVEL Hotel, 439 Northwest 4th Avenue, Miami, Florida — TENTATIVA, por confirmar, del 25 al 28 de septiembre."),
         ("12", "Itinerario de vuelo (ida y vuelta)",
          "Confirma la fecha de regreso fija, 28 de septiembre de 2026."),
         ("13", "Seguro de viaje / asistencia medica internacional",

@@ -222,7 +222,7 @@ def build():
     story.append(Spacer(1, 2 * mm))
     adicional = [
         ("11", "Reserva de alojamiento",
-         "439 Northwest 4th Avenue, Miami, Florida, confirmada del 25 al 28 de septiembre."),
+         "SOVEL Hotel, 439 Northwest 4th Avenue, Miami, Florida — TENTATIVA, por confirmar, del 25 al 28 de septiembre."),
         ("12", "Itinerario de vuelo (ida y vuelta)",
          "Confirma la fecha de regreso fija, 28 de septiembre de 2026."),
         ("13", "Seguro de viaje / asistencia medica internacional",
