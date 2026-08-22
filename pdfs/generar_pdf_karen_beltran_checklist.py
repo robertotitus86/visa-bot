@@ -24,9 +24,9 @@ SLATEBG  = colors.HexColor("#F8FAFC")
 LINE     = colors.HexColor("#E2E8F0")
 
 CLIENTE = "Karen Beltran"
-FECHA_CITA = "PENDIENTE — aun no asignada por el consulado"
+FECHA_CITA = "28 sept 2026, 8:00 AM (TENTATIVA — a confirmar)"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
-DS160 = "AA00FQSGZV"
+DS160 = "AA00FQT5BD"
 PASAPORTE = "A9657309"
 
 OUT_PATH = os.path.join(os.path.dirname(__file__), "pdf-karen-beltran-checklist.pdf")
@@ -200,16 +200,18 @@ def build():
         story.append(doc_item(num, titulo, desc, GOLD2))
 
     story.append(Spacer(1, 6 * mm))
-    story.append(grupo_header("DOCUMENTOS LABORALES", "Respaldan tu empleo remoto y tu trayectoria", BLUE, BLUEBG))
+    story.append(grupo_header("DOCUMENTOS LABORALES Y DEL EVENTO", "Respaldan tu empleo remoto, tu trayectoria y tu invitacion al evento", BLUE, BLUEBG))
     story.append(Spacer(1, 2 * mm))
     laborales = [
-        ("7", "Carta laboral de Isa Garcia LLC",
+        ("7", "Carta laboral de Isa Garcia Corp",
          "Que indique cargo, fecha de inicio, salario y que el trabajo es remoto desde Ecuador."),
-        ("8", "3 ultimos comprobantes de pago / transferencias",
+        ("8", "Comprobante de inscripcion/invitacion al evento 'Ella Empresaria'",
+         "Confirmacion de participacion como invitada, con las fechas 26-27 de septiembre 2026."),
+        ("9", "3 ultimos comprobantes de pago / transferencias",
          "Que demuestren el ingreso mensual declarado de $2,600."),
-        ("9", "Certificado laboral de Telefonica Movistar Ecuador",
+        ("10", "Certificado laboral de Telefonica Movistar Ecuador",
          "Respalda los 7+ años de trayectoria previa (2018-2025)."),
-        ("10", "Certificado de la maestria en la Universidad Internacional de Valencia",
+        ("11", "Certificado de la maestria en la Universidad Internacional de Valencia",
          "Respalda el periodo de estudios en España y el regreso a Ecuador."),
     ]
     for num, titulo, desc in laborales:

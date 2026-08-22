@@ -62,12 +62,13 @@ FAMILIAS = [
     },
     {
         "id": "karen_beltran",
-        "cita": date(2026, 9, 25),
-        "cita_texto": "PENDIENTE — aun no asignada por el consulado (DS-160 enviado 21 ago 2026). Viaje previsto 25-28 sept 2026.",
+        "cita": date(2026, 9, 28),
+        "cita_texto": "Lunes 28 septiembre 2026 · 8:00 AM (TENTATIVA — coincide con la fecha de salida declarada en el DS-160, 25-28 sept; revisar con Karen antes de confirmar)",
         "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Eloy Alfaro",
         "simulador": "https://www.asesoriadevisadosglobal.com/karen-beltran.html",
         "preguntas": "22 preguntas (incluye modo oficial consular con preguntas trampa)",
         "fortalezas_html": (
+            "&#8226; Es invitada al evento presencial 'Ella Empresaria' (Isa Garcia Corp), 26-27 sept 2026 en Miami Beach — fechas exactas que coinciden con el viaje declarado (25-28 sept)<br>"
             "&#8226; Mas de 7 anos de trayectoria laboral continua en Ecuador (Telefonica Movistar, 2018-2025)<br>"
             "&#8226; Historial de 6 paises visitados en los ultimos 5 anos, siempre con regreso comprobado a Ecuador<br>"
             "&#8226; Maestria en España (2023-2024) con regreso a Ecuador al finalizar<br>"
@@ -77,8 +78,8 @@ FAMILIAS = [
         "tips": [
             "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
-            "PUNTO CLAVE: su empleadora Isa Garcia LLC tiene domicilio en Miami — explique siempre que su trabajo es remoto desde Ecuador, nunca de a entender que busca trabajar fisicamente en EE.UU.",
-            "Si preguntan por que su contacto en USA es su propia empleadora: es honesto, aclare que es una reunion de trabajo puntual, no una reubicacion.",
+            "PUNTO CLAVE: es parte del equipo de Isa Garcia Corp (trabajo remoto desde Ecuador, eso no cambia), pero este viaje puntual es porque fue invitada al evento presencial 'Ella Empresaria' (26-27 sept, Miami Beach) — nunca de a entender que busca trabajar fisicamente en EE.UU.",
+            "Si preguntan por que su contacto en USA es su propia empleadora: es honesto, aclare que es tambien quien organiza el evento al que fue invitada, no una reubicacion.",
             "Apoyese en su trayectoria laboral y sus viajes previos con retorno comprobado para reforzar el arraigo, no en vinculos familiares (es soltera, sin hijos).",
             "Las 2 preguntas obligatorias 2026 sobre danos/persecucion: responder con calma, 'No' directo, sin dudar.",
             "Llegue 20-30 minutos antes, sin celular, ropa formal, carpeta con documentos originales.",

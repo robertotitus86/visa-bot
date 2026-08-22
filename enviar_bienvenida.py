@@ -24,12 +24,13 @@ CASO = {
     "pdf": "pdf-karen-beltran.pdf",
     "pdf_extra": ["pdf-karen-beltran-checklist.pdf", "pdf-karen-beltran-guia-uso.pdf"],
     "fortalezas": [
+        "Invitada al evento presencial 'Ella Empresaria' (Isa Garcia Corp), 26-27 sept 2026 en Miami Beach — fechas exactas que coinciden con el viaje declarado",
         "Mas de 7 anos de trayectoria laboral continua en Ecuador (Telefonica Movistar, 2018-2025)",
         "Historial de 6 paises visitados en los ultimos 5 anos, siempre con regreso comprobado a Ecuador",
         "Maestria en España (2023-2024) con regreso a Ecuador al finalizar",
         "Viaje corto y puntual (3 dias) a Miami — no es una reubicacion",
     ],
-    "cita_texto": "Pendiente de asignar por el consulado (DS-160 enviado 21 ago 2026)",
+    "cita_texto": "Lunes 28 septiembre 2026, 8:00 AM (TENTATIVA — a confirmar)",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Eloy Alfaro",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }

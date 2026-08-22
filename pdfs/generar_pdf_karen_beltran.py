@@ -35,9 +35,9 @@ LINE     = colors.HexColor("#E2E8F0")
 CLIENTE = "Karen Beltran"
 CLIENTE_COMPLETO = "Karen Pamela Beltran Brito"
 DESTINO = "Miami, EE.UU."
-FECHA_CITA = "PENDIENTE — aun no asignada por el consulado (DS-160 enviado 21 ago 2026)"
+FECHA_CITA = "28 sept 2026, 8:00 AM (TENTATIVA — a confirmar)"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
-DS160 = "AA00FQSGZV"
+DS160 = "AA00FQT5BD"
 PASAPORTE = "A9657309"
 
 OUT_PATH = os.path.join(os.path.dirname(__file__), "pdf-karen-beltran.pdf")
@@ -285,15 +285,15 @@ INTERMEDIAS = [
 ]
 
 DIFICILES = [
-    ("Su empleadora Isa Garcia LLC tiene domicilio en Miami — ¿trabaja usted para una empresa estadounidense?",
-     "Explique con claridad: relacion laboral remota y legal desde Ecuador, sin residencia ni intencion de trabajar fisicamente en EE.UU.",
-     "Trabajo de forma remota para Isa Garcia LLC desde Ecuador, donde resido. Mi relacion laboral es a distancia, coordino comunicaciones y proveedores desde Quito, y no tengo intencion de trabajar fisicamente dentro de Estados Unidos durante este viaje."),
-    ("Su contacto en Estados Unidos es la misma persona que la contrata a usted — ¿por qué?",
-     "Es normal declarar al empleador como contacto si el viaje incluye reunirse con el; aclare que es un encuentro puntual de trabajo, no una reubicacion.",
-     "Isabel Garcia es mi empleadora y la persona con quien coordino mi trabajo. La declare como contacto porque durante mi viaje voy a reunirme con ella para temas puntuales de trabajo, no porque busque trasladarme a vivir alla."),
-    ("¿Por qué un viaje de solo tres días si su empleadora está en Miami?",
-     "Viaje corto y especifico — reunion de trabajo puntual, no reubicacion ni proyecto extendido.",
-     "Es una visita corta y puntual, de tres dias, para una reunion de trabajo especifica con mi empleadora. No es un traslado ni un proyecto de larga duracion."),
+    ("¿Por qué viaja a Miami si trabaja para una empresa de Miami?",
+     "Ancla principal: es parte del equipo (remoto, desde Ecuador), pero este viaje puntual es por invitacion al evento presencial, con fechas exactas que coinciden con el viaje declarado.",
+     "Trabajo de forma remota para Isa Garcia Corp desde Ecuador. Este viaje puntual es porque fui invitada a participar en su evento presencial 'Ella Empresaria', el 26 y 27 de septiembre en Miami Beach — es una participacion como invitada al evento, no un traslado laboral."),
+    ("Su contacto en Estados Unidos es la misma empresa para la que usted trabaja — ¿por qué?",
+     "Es coherente: es su empleadora remota Y la organizadora del evento al que fue invitada; aclarar que no implica reubicacion.",
+     "Isabel Garcia dirige la empresa para la que trabajo de forma remota desde Ecuador, y tambien es quien organiza el evento 'Ella Empresaria' al que fui invitada como participante. La declare como contacto porque es con quien coordino mi visita."),
+    ("¿Por qué un viaje de solo tres días?",
+     "El evento dura exactamente 2 dias (26-27 sept), el viaje declarado (25-28 sept) incluye llegada y salida — coincide perfecto, evidencia concreta del motivo real.",
+     "Porque el evento al que fui invitada dura dos dias, el 26 y 27 de septiembre. Mi viaje es del 25 al 28 para tener margen de llegada y salida, nada mas."),
     ("¿Qué garantía tengo de que usted regresará a Ecuador?",
      "7+ años de trayectoria laboral en Ecuador, estudios en Ecuador y España (siempre regreso), múltiples viajes previos con retorno comprobado, padres en Ecuador.",
      "Tengo mas de siete años de trayectoria laboral en Ecuador, hice una maestria en España y regrese a completar mi carrera aqui, y he viajado a seis países en los últimos cinco años, siempre regresando a Ecuador. Mis padres tambien viven aqui."),
@@ -312,9 +312,9 @@ TRAMPA = [
     ("¿Por qué debería darle la visa a usted y no a cualquier otra persona?",
      "La ley (Sección 214(b)) presume que todo solicitante quiere quedarse — demuéstrelo con hechos, sin sonar a súplica.",
      "Porque tengo un caso solido: trayectoria laboral de mas de siete años en Ecuador, estudios completados aqui y en España con retorno comprobado, y un historial de seis viajes internacionales previos, siempre regresando a mi país."),
-    ("Usted trabaja para una empresa de Miami y visita a su empleadora en Miami — ¿no es esto en realidad un traslado laboral disfrazado de turismo?",
-     "Niegue con seguridad: relacion remota ya establecida desde Ecuador, viaje corto y puntual, sin intencion de trabajar fisicamente en EE.UU. ni de reubicarse.",
-     "No. Ya trabajo de forma remota para esta empresa desde Ecuador, donde vivo. Este viaje es una visita corta y puntual de tres dias para una reunion de trabajo, no un traslado ni una solicitud de empleo en Estados Unidos."),
+    ("Usted trabaja para una empresa de Miami y viaja a Miami — ¿no es esto en realidad un traslado laboral disfrazado de turismo?",
+     "Niegue con seguridad: ya trabaja remota desde Ecuador (eso no cambia), el viaje es puntual por invitacion a un evento con fecha fija, sin intencion de trabajar fisicamente en EE.UU. ni de reubicarse.",
+     "No. Ya trabajo de forma remota para esta empresa desde Ecuador, donde vivo, y eso no va a cambiar. Este viaje es una visita corta y puntual de tres dias porque fui invitada a un evento presencial especifico, el 26 y 27 de septiembre. No es un traslado ni una solicitud de empleo en Estados Unidos."),
     ("¿Planea buscar trabajo o quedarse a vivir en Estados Unidos durante este viaje?",
      "No contemple esa opcion ni siquiera hipoteticamente — reafirme la obligacion de regreso.",
      "No, no es algo que contemple. Mi vida, mi trabajo y mi familia estan en Ecuador, y mi vuelo de regreso ya esta fijado para el 28 de septiembre."),
@@ -356,11 +356,12 @@ def build():
     story.append(Spacer(1, 8 * mm))
 
     story.append(Paragraph("TU CASO EN RESUMEN", style_eyebrow))
-    story.append(Paragraph("Motivo de viaje: negocios/turismo — visita corta a Miami", style_h2))
+    story.append(Paragraph("Motivo de viaje: negocios/turismo — invitada a evento en Miami", style_h2))
     story.append(Paragraph(
         "Viajas del <b>25 al 28 de septiembre de 2026</b> a Miami. Trabajas de forma remota desde Ecuador "
-        "para Isa Garcia LLC, y tu contacto declarado en EE.UU. es tu empleadora, Isabel Garcia. "
-        "Te hospedas en 439 Northwest 4th Avenue, Miami, Florida.",
+        "para Isa Garcia Corp, y fuiste invitada a participar en su evento presencial <b>'Ella Empresaria'</b> "
+        "(26-27 de septiembre, Miami Beach) — tu contacto declarado en EE.UU. es Isabel Garcia, quien dirige "
+        "la empresa y organiza el evento. Te hospedas en 439 Northwest 4th Avenue, Miami, Florida.",
         style_body
     ))
     story.append(Spacer(1, 4 * mm))
@@ -377,18 +378,19 @@ def build():
     story.append(strength_box("✔", "Estudios en Ecuador y España, con retorno",
         "Maestria en la Universidad Internacional de Valencia (2023-2024) — regreso a Ecuador al terminar."))
     story.append(Spacer(1, 2 * mm))
-    story.append(strength_box("✔", "Viaje corto y puntual",
-        "Solo 3 dias (25-28 sept), lo que refuerza que no se trata de una reubicacion."))
+    story.append(strength_box("✔", "Fechas exactas y verificables",
+        "El evento 'Ella Empresaria' dura del 26 al 27 de septiembre — coincide exactamente con tu viaje "
+        "(25-28 sept), evidencia concreta de que el motivo real es asistir al evento como invitada."))
     story.append(Spacer(1, 5 * mm))
 
     story.append(Paragraph("PUNTOS A PREPARAR CON CALMA", style_eyebrow))
     story.append(risk_box("⚠", "Empleadora con domicilio en Miami",
-        "Explica siempre que tu relacion laboral con Isa Garcia LLC es remota, desde Ecuador. "
-        "No des a entender que buscas trabajar fisicamente en EE.UU."))
+        "Explica siempre que tu relacion laboral con Isa Garcia Corp es remota, desde Ecuador, y que este "
+        "viaje puntual es por ser invitada al evento presencial, no por trabajar fisicamente en EE.UU."))
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box("⚠", "Contacto en EE.UU. es tu propia empleadora",
-        "Es honesto y normal si vas a reunirte con ella — aclara que es una reunion puntual de trabajo, "
-        "no una mudanza ni un nuevo empleo presencial."))
+        "Es honesto y normal: es tu empleadora remota y quien organiza el evento al que fuiste invitada — "
+        "aclara que es una participacion puntual como invitada, no una mudanza ni un nuevo empleo presencial."))
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box("⚠", "Soltera, sin hijos",
         "Tu arraigo se sustenta en tu trayectoria laboral (7+ años), tus estudios y tus padres en Ecuador — "
@@ -410,7 +412,7 @@ def build():
     # ── PAGINA 3 — Dificiles + trampa ───────────────────────────────────
     story.append(Paragraph("GUIA DE PREGUNTAS · NIVEL 3", style_eyebrow))
     story.append(Paragraph("Preguntas dificiles — exigen respuestas seguras y sin dudar", style_h2))
-    bloque_preguntas(story, "NIVEL DIFICIL", "Aqui es donde se decide la entrevista — el punto clave: tu empleadora en Miami",
+    bloque_preguntas(story, "NIVEL DIFICIL", "Aqui es donde se decide la entrevista — el punto clave: por que viajas si tu empresa esta en Miami",
                       DIFICILES, RED, colors.HexColor("#FFF1F2"))
 
     story.append(PageBreak())
@@ -449,16 +451,18 @@ def build():
     for num, titulo, desc in obligatorios:
         story.append(doc_item(num, titulo, desc, GOLD2))
     story.append(Spacer(1, 5 * mm))
-    story.append(grupo_header("DOCUMENTOS LABORALES", "Respaldan tu empleo y tu relacion remota con Isa Garcia LLC", BLUE, BLUEBG))
+    story.append(grupo_header("DOCUMENTOS LABORALES Y DEL EVENTO", "Respaldan tu empleo remoto y tu invitacion al evento en Miami", BLUE, BLUEBG))
     story.append(Spacer(1, 2 * mm))
     laborales = [
-        ("7", "Carta laboral de Isa Garcia LLC",
+        ("7", "Carta laboral de Isa Garcia Corp",
          "Que indique cargo, fecha de inicio, salario y que el trabajo es remoto desde Ecuador."),
-        ("8", "3 ultimos comprobantes de pago / transferencias",
+        ("8", "Comprobante de inscripcion/invitacion al evento 'Ella Empresaria'",
+         "Confirmacion de participacion como invitada, con las fechas 26-27 de septiembre 2026."),
+        ("9", "3 ultimos comprobantes de pago / transferencias",
          "Que demuestren el ingreso mensual declarado de $2,600."),
-        ("9", "Certificado laboral de Telefonica Movistar Ecuador",
+        ("10", "Certificado laboral de Telefonica Movistar Ecuador",
          "Respalda los 7+ años de trayectoria previa (2018-2025)."),
-        ("10", "Certificado de la maestria en la Universidad Internacional de Valencia",
+        ("11", "Certificado de la maestria en la Universidad Internacional de Valencia",
          "Respalda el periodo de estudios en España y el regreso a Ecuador."),
     ]
     for num, titulo, desc in laborales:
@@ -507,8 +511,8 @@ def build():
     story.append(Spacer(1, 2 * mm))
     story.append(strength_box("💬", "Dentro de la entrevista",
         "Responde solo lo que te preguntan, habla claro y sin apresurarte. Si preguntan por tu "
-        "empleadora en Miami, explica una sola vez que tu trabajo es remoto desde Ecuador y sigue adelante — "
-        "no te justifiques en exceso."))
+        "empleadora en Miami, explica una sola vez que tu trabajo es remoto desde Ecuador y que este viaje es "
+        "por ser invitada al evento 'Ella Empresaria', y sigue adelante — no te justifiques en exceso."))
 
     story.append(Spacer(1, 8 * mm))
     story.append(HRFlowable(width="100%", color=LINE, thickness=1))
