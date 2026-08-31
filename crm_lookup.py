@@ -12,55 +12,7 @@ SHEETS_WEBHOOK = os.getenv(
 # Clientes en preparacion activa — reconocidos directamente
 CLIENTES_PREPARACION = {
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
-    "593980881226": {
-        "Nombre Principal": "Jennifer Paola Samaniego Marines",
-        "Tipo Visa": "USA (B1/B2)",
-        "Num Viajeros": "1",
-        "Cita": "24 septiembre 2026, 7:30 AM (tentativa, gestionando adelantarla) - Embajada EE.UU. Quito (Avigiras E12-170, frente Hospital SOLCA)",
-        "Estado": "En preparacion de entrevista consular",
-        "Notas": (
-            "Directora Ejecutiva de la Asociacion de Municipalidades Ecuatorianas (AME), Quito. Ingreso $4,283/mes. "
-            "7+ anos de trayectoria: Ministerio de Salud Publica (2018-2025), luego AME (ascendida nov 2025). "
-            "DS-160: AA00FQMKP1. Pasaporte A8733853 (vence 14 abr 2033). Nacida 8 jun 1984 en Esmeraldas. Casada "
-            "con Antonio Menendez Portilla (se queda en Ecuador). Tiene 2 hijos que se quedan en Ecuador: Elheo Amai "
-            "Menendez Samaniego (nacido 16 dic 2019, Esmeraldas) y Bruna Alaia Menendez Samaniego (nacida 29 jul 2024, "
-            "Esmeraldas). "
-            "PRIMER VIAJE A USA. Sin rechazos previos. Sin familiares en USA. "
-            "MOTIVO INSTITUCIONAL: cooperacion AME-ICLEI (Gobiernos Locales por la Sostenibilidad) para la "
-            "Semana del Clima de Nueva York (Climate Week NYC), climateweeknyc.org. "
-            "Contacto USA declarado: ICLEI, Wynkoop 536 Suite 901, Denver CO 80202 (organizacion, no persona - "
-            "DO NOT KNOW en DS-160). "
-            "Viaje: 18-28 septiembre 2026, Nueva York. Hospedaje: 507 West 181st Street, Washington Heights, NY 10033. "
-            "Viaja sola. Viaje financiado por AME como gasto institucional (vuelos, hospedaje, viaticos) - no gasto personal. "
-            "CITA CONSULAR: 24 septiembre 2026, 7:30 AM, Embajada EE.UU. Quito — TENTATIVA, se esta gestionando "
-            "adelantarla. "
-            "Simulador (incluye modo oficial consular con preguntas trampa): asesoriadevisadosglobal.com/paola-samaniego.html"
-        ),
-    },
-    "593983508173": {
-        "Nombre Principal": "Karen Pamela Beltran Brito",
-        "Tipo Visa": "USA (B1/B2)",
-        "Num Viajeros": "1",
-        "Cita": "PENDIENTE — aun no asignada por el consulado (DS-160 enviado 21 ago 2026) - Embajada EE.UU. Quito (Avigiras E12-170 y Eloy Alfaro)",
-        "Estado": "DS-160 enviado, esperando fecha de cita consular",
-        "Notas": (
-            "Soltera, sin hijos. Nacida 13 dic 1995 en Quito. Cedula 1751399583. "
-            "Trabajo actual: Isa Garcia LLC (25 SE 2nd Ave 550 #2021, Miami FL) — coordinacion de comunicaciones "
-            "operativas, trabajo REMOTO desde Ecuador. Ingreso $2,600/mes. "
-            "PUNTO CRITICO: su contacto en EE.UU. declarado en el DS-160 es su propia empleadora, Isabel Maria "
-            "Garcia Donoso (Isa Garcia Corp) — riesgo de que el oficial consular interprete el viaje como traslado "
-            "laboral disfrazado de turismo. Preparar para explicar relacion laboral remota y viaje corto y puntual. "
-            "Trabajo anterior: Telefonica Movistar Ecuador (2018-2025, 7+ anos), Team Member Marketing Pospago B2C. "
-            "Estudios: Ingenieria Comercial (PUCE Quito, 2013-2018) y Maestria en Marketing Digital y Analitica "
-            "(Universidad Internacional de Valencia, España, 2023-2024 — regreso a Ecuador al terminar). "
-            "DS-160: AA00FQSGZV. Pasaporte A9657309 (vence 20 may 2033). "
-            "PRIMER VIAJE A USA. Sin rechazos previos. Sin familiares en USA. "
-            "Viajes previos (ultimos 5 anos, siempre regreso): Peru, Colombia, Rep. Dominicana, Bolivia, Chile, Brasil. "
-            "Viaje: 25-28 septiembre 2026, Miami. Hospedaje: 439 Northwest 4th Avenue, Miami, FL. Viaja sola. "
-            "CITA CONSULAR: PENDIENTE de asignacion — DS-160 ya enviado 21 ago 2026. "
-            "Simulador (incluye modo oficial consular con preguntas trampa): asesoriadevisadosglobal.com/karen-beltran.html"
-        ),
-    },
+    # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
 }
 
 async def buscar_caso_por_telefono(telefono: str) -> dict | None:
