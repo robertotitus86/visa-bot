@@ -46,8 +46,8 @@ CASO_SHIRMA = {
         "Ingresos verificables ($4,508/mes) y patrimonio y familia en Ecuador",
         "Primer viaje a Estados Unidos, sin rechazos previos, sin familiares en USA",
     ],
-    "cita_texto": "POR AGENDAR — DS-160 recien enviado (4 ago 2026)",
-    "lugar": "Consulado de Estados Unidos, Quito (por confirmar con la cita)",
+    "cita_texto": "Jueves 13 de agosto 2026 &middot; 7:30 AM",
+    "lugar": "Consulado Quito &middot; Avigiras E12-170 &middot; Frente al Hospital SOLCA",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
 
@@ -63,8 +63,8 @@ CASO_MICHELLE = {
         "Maestria en Planificacion y Prospectiva Multisectorial (IAEN) y empleo publico estable",
         "Primer viaje a Estados Unidos, sin rechazos previos, sin familiares en USA",
     ],
-    "cita_texto": "POR AGENDAR — DS-160 recien enviado (4 ago 2026)",
-    "lugar": "Consulado de Estados Unidos, Quito (por confirmar con la cita)",
+    "cita_texto": "Jueves 13 de agosto 2026 &middot; 7:30 AM",
+    "lugar": "Consulado Quito &middot; Avigiras E12-170 &middot; Frente al Hospital SOLCA",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
 
