@@ -15,58 +15,28 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
+# Caso activo: Karen Pamela Beltran Brito.
 CASO = {
-    "tratamiento": "Estimada Fiorella",
-    "email": "fiore28mm@gmail.com",
+    "tratamiento": "Estimada Karen",
+    "email": "beltrankaren73@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/fiorella-martinez.html",
-    "pdf": "pdf-fiorella-martinez.pdf",
+    "simulador": "https://www.asesoriadevisadosglobal.com/karen-beltran.html",
+    "pdf": "pdf-karen-beltran.pdf",
+    "pdf_extra": ["pdf-karen-beltran-checklist.pdf", "pdf-karen-beltran-guia-uso.pdf"],
     "fortalezas": [
-        "Tienes un cargo formal en la Asociacion de Municipalidades Ecuatorianas (AME)",
-        "Cursas una maestria virtual en Comunicacion y Marketing Politico desde Ecuador",
-        "Tu viaje tiene un proposito de negocios claro, acompanando a tu jefa",
-        "No tienes rechazos previos ni familiares en Estados Unidos",
+        "Invitada al evento presencial 'Ella Empresaria' (Isa Garcia Corp), 26-27 sept 2026 en Miami Beach — fechas exactas que coinciden con el viaje declarado",
+        "Mas de 7 anos de trayectoria laboral continua en Ecuador (Telefonica Movistar, 2018-2025)",
+        "Historial de 6 paises visitados en los ultimos 5 anos, siempre con regreso comprobado a Ecuador",
+        "Maestria en España (2023-2024) con regreso a Ecuador al finalizar",
+        "Viaje corto y puntual (3 dias) a Miami — no es una reubicacion",
     ],
-    "cita_texto": "Martes 14 de julio &middot; 8:00 AM",
-    "lugar": "Consulado Quito &middot; Avigiras E12-170 &middot; Frente al Hospital SOLCA",
+    "cita_texto": "Lunes 28 septiembre 2026, 8:00 AM (TENTATIVA — a confirmar)",
+    "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Eloy Alfaro",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
 
-# ─── CASOS NUEVOS — Shirma Cortes & Michelle Revelo (4 ago 2026) ─────────────
-# NO enviar hasta que Roberto autorice y tengamos RESEND_API_KEY disponible.
-CASO_SHIRMA = {
-    "tratamiento": "Estimada Shirma",
-    "email": "lacurvadelcanon@hotmail.com",
-    "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/shirma-cortes.html",
-    "pdf": "pdf-shirma-cortes.pdf",
-    "fortalezas": [
-        "Fue invitada oficialmente por ICLEI a la Semana del Clima de Nueva York, evento paralelo a la Asamblea General de la ONU",
-        "Alcaldesa en funciones del GAD Municipal de Francisco de Orellana, cargo publico de maxima autoridad",
-        "Ingresos verificables ($4,508/mes) y patrimonio y familia en Ecuador",
-        "Primer viaje a Estados Unidos, sin rechazos previos, sin familiares en USA",
-    ],
-    "cita_texto": "Jueves 13 de agosto 2026 &middot; 7:30 AM",
-    "lugar": "Consulado Quito &middot; Avigiras E12-170 &middot; Frente al Hospital SOLCA",
-    "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
-}
-
-CASO_MICHELLE = {
-    "tratamiento": "Estimada Michelle",
-    "email": "michelle.revelo@iaen.edu.ec",
-    "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/michelle-revelo.html",
-    "pdf": "pdf-michelle-revelo.pdf",
-    "fortalezas": [
-        "Designada delegada oficial por la Alcaldesa Shirma Cortes para acompanarla a la Semana del Clima de Nueva York",
-        "Jefa de Uso y Ocupacion de Suelo del GAD Fco. de Orellana, perfil tecnico relevante al tema del evento",
-        "Maestria en Planificacion y Prospectiva Multisectorial (IAEN) y empleo publico estable",
-        "Primer viaje a Estados Unidos, sin rechazos previos, sin familiares en USA",
-    ],
-    "cita_texto": "Jueves 13 de agosto 2026 &middot; 7:30 AM",
-    "lugar": "Consulado Quito &middot; Avigiras E12-170 &middot; Frente al Hospital SOLCA",
-    "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
-}
+# Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
+# Paola Samaniego: cita 31 agosto 2026 — activa.
 
 
 def _html_bienvenida(caso: dict) -> str:
@@ -172,14 +142,16 @@ def enviar_bienvenida(caso: dict = CASO):
         print("ERROR: falta RESEND_API_KEY en el entorno.")
         return
 
-    attachments = None
-    pdf_path = os.path.join(PDF_DIR, caso["pdf"])
-    if os.path.isfile(pdf_path):
-        with open(pdf_path, "rb") as f:
-            pdf_b64 = base64.b64encode(f.read()).decode("ascii")
-        attachments = [{"filename": caso["pdf"], "content": pdf_b64}]
-    else:
-        print(f"AVISO: PDF no encontrado en {pdf_path} — se envia sin adjunto.")
+    nombres_pdf = [caso["pdf"]] + caso.get("pdf_extra", [])
+    attachments = []
+    for nombre_pdf in nombres_pdf:
+        pdf_path = os.path.join(PDF_DIR, nombre_pdf)
+        if os.path.isfile(pdf_path):
+            with open(pdf_path, "rb") as f:
+                pdf_b64 = base64.b64encode(f.read()).decode("ascii")
+            attachments.append({"filename": nombre_pdf, "content": pdf_b64})
+        else:
+            print(f"AVISO: PDF no encontrado en {pdf_path} — no se adjunta.")
 
     payload_cliente = {
         "from": RESEND_FROM,
@@ -197,10 +169,5 @@ def enviar_bienvenida(caso: dict = CASO):
 
 if __name__ == "__main__":
     import sys
-    # Uso: RESEND_API_KEY=xxx python enviar_bienvenida.py [shirma|michelle]
-    # Sin autorizacion de Roberto NO se ejecuta automaticamente ninguna de las dos.
-    CASOS = {"shirma": CASO_SHIRMA, "michelle": CASO_MICHELLE}
-    if len(sys.argv) > 1 and sys.argv[1] in CASOS:
-        enviar_bienvenida(CASOS[sys.argv[1]])
-    else:
-        enviar_bienvenida()
+    # Uso: RESEND_API_KEY=xxx python enviar_bienvenida.py
+    enviar_bienvenida()

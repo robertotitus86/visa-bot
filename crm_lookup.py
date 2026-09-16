@@ -11,7 +11,8 @@ SHEETS_WEBHOOK = os.getenv(
 
 # Clientes en preparacion activa — reconocidos directamente
 CLIENTES_PREPARACION = {
-    # Shirma Cortes y Michelle Revelo: APROBADAS, casos cerrados (16 sept 2026).
+    # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
+    # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
 }
 
 async def buscar_caso_por_telefono(telefono: str) -> dict | None:

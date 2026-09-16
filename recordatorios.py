@@ -27,7 +27,9 @@ PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 # FAMILIAS EN PREPARACION
 # ═══════════════════════════════════════════════════════
 FAMILIAS = [
-    # Shirma Cortes y Michelle Revelo: APROBADAS, cita ya paso — casos cerrados (16 sept 2026).
+    # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
+    # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
+
 ]
 
 
@@ -58,6 +60,26 @@ def _tip_del_dia(familia: dict) -> str:
     dia = datetime.now(ZONA).timetuple().tm_yday
     tips = familia["tips"]
     return tips[dia % len(tips)]
+
+
+# Rota el saludo y el enfoque del correo dia a dia para que ningun correo
+# se sienta igual al anterior, aunque el tip de abajo coincida. Aplica por
+# igual a todos los casos — no mezcla contenido especifico entre clientes.
+_ENCABEZADOS = [
+    ("{nombre}, un paso mas cerca", "Cada practica de hoy suma para llegar tranquila a tu entrevista."),
+    ("Hoy toca repasar, {nombre}", "Diez minutos de practica hoy valen mas que una hora la noche anterior."),
+    ("{nombre}, sigamos afinando tus respuestas", "Mientras mas natural suene, mas segura vas a sentirte."),
+    ("Buen dia, {nombre} — vamos con todo", "La constancia es lo que marca la diferencia frente al oficial consular."),
+    ("{nombre}, repasemos un poco mas", "No hace falta perfeccion, solo naturalidad al responder."),
+    ("Un momento para tu preparacion, {nombre}", "Aprovecha unos minutos hoy para reforzar tus puntos fuertes."),
+    ("{nombre}, tu practica de hoy te espera", "Cada dia que practicas reduces el margen de sorpresas en la cita."),
+]
+
+
+def _encabezado_del_dia(nombre: str) -> tuple:
+    dia = datetime.now(ZONA).timetuple().tm_yday
+    titulo, frase = _ENCABEZADOS[dia % len(_ENCABEZADOS)]
+    return titulo.format(nombre=nombre), frase
 
 
 def enviar_email_simple(asunto: str, html: str, to: str = None) -> bool:
@@ -108,8 +130,9 @@ def _send_wa(telefono: str, mensaje: str):
         log.warning(f"  [WA] Excepcion: {e}")
 
 
-def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str) -> str:
+def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nombre: str) -> str:
     tip = _tip_del_dia(familia)
+    titulo_dia, frase_dia = _encabezado_del_dia(nombre)
     return f"""<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#F1F5F9;font-family:'Segoe UI',Arial,sans-serif;">
@@ -121,7 +144,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str) -> 
               text-transform:uppercase;margin:0 0 8px;">Asesoria Visa Global · Preparacion Entrevista USA</p>
     <h1 style="color:#fff;font-size:20px;margin:0;line-height:1.4;">
       {tratamiento},<br>
-      <span style="color:#F5C842;">hoy es dia de practicar</span>
+      <span style="color:#F5C842;">{titulo_dia}</span>
     </h1>
   </div>
 
@@ -129,8 +152,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str) -> 
               box-shadow:0 4px 20px rgba(0,0,0,.08);">
 
     <p style="color:#475569;font-size:15px;line-height:1.7;margin:0 0 14px;">
-      La entrevista consular se acerca y cada dia de practica marca la diferencia.
-      Su simulador personalizado esta listo con <strong>{familia['preguntas']} basadas en su DS-160 real</strong>.
+      {frase_dia} Su simulador personalizado esta listo con <strong>{familia['preguntas']} basadas en su DS-160 real</strong>.
     </p>
 
     {cuenta}
@@ -225,8 +247,9 @@ def enviar_recordatorios():
                 continue
             try:
                 sim_link = f"{familia['simulador']}?miembro={dest['miembro']}"
-                html     = _html_email(familia, dest["tratamiento"], sim_link, cuenta)
-                asunto   = f"{dest['tratamiento']} · Practica de hoy — Entrevista {familia['cita_texto']}"
+                html     = _html_email(familia, dest["tratamiento"], sim_link, cuenta, dest["nombre"])
+                titulo_dia, _ = _encabezado_del_dia(dest["nombre"])
+                asunto   = f"{dest['tratamiento']} · {titulo_dia}"
 
                 payload = {
                     "from": RESEND_FROM,
@@ -237,15 +260,18 @@ def enviar_recordatorios():
                     "html": html,
                 }
 
-                pdf_path = os.path.join(PDF_DIR, dest["pdf"])
-                attachments = None
-                if os.path.isfile(pdf_path):
-                    with open(pdf_path, "rb") as f:
-                        pdf_b64 = base64.b64encode(f.read()).decode("ascii")
-                    attachments = [{"filename": dest["pdf"], "content": pdf_b64}]
+                nombres_pdf = [dest["pdf"]] + dest.get("pdf_extra", [])
+                attachments = []
+                for nombre_pdf in nombres_pdf:
+                    pdf_path = os.path.join(PDF_DIR, nombre_pdf)
+                    if os.path.isfile(pdf_path):
+                        with open(pdf_path, "rb") as f:
+                            pdf_b64 = base64.b64encode(f.read()).decode("ascii")
+                        attachments.append({"filename": nombre_pdf, "content": pdf_b64})
+                    else:
+                        log.warning(f"  [Recordatorios] PDF no encontrado: {pdf_path}")
+                if attachments:
                     payload["attachments"] = attachments
-                else:
-                    log.warning(f"  [Recordatorios] PDF no encontrado: {pdf_path}")
 
                 r = req.post(
                     "https://api.resend.com/emails",
