@@ -15,28 +15,29 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
-# Caso activo: Karen Pamela Beltran Brito.
+# Caso activo: Johanna Elizabeth Peralta Velez.
 CASO = {
-    "tratamiento": "Estimada Karen",
-    "email": "beltrankaren73@gmail.com",
+    "tratamiento": "Estimada Johanna",
+    "email": "johaperalta1985@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/karen-beltran.html",
-    "pdf": "pdf-karen-beltran.pdf",
-    "pdf_extra": ["pdf-karen-beltran-checklist.pdf", "pdf-karen-beltran-guia-uso.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/johanna-peralta.html",
+    "pdf": "pdf-johanna-peralta.pdf",
+    "pdf_extra": ["plan-johanna-peralta.pdf", "checklist-johanna-peralta.pdf"],
     "fortalezas": [
-        "Invitada al evento presencial 'Ella Empresaria' (Isa Garcia Corp), 26-27 sept 2026 en Miami Beach — fechas exactas que coinciden con el viaje declarado",
-        "Mas de 7 anos de trayectoria laboral continua en Ecuador (Telefonica Movistar, 2018-2025)",
-        "Historial de 6 paises visitados en los ultimos 5 anos, siempre con regreso comprobado a Ecuador",
-        "Maestria en España (2023-2024) con regreso a Ecuador al finalizar",
-        "Viaje corto y puntual (3 dias) a Miami — no es una reubicacion",
+        "13 anos de trayectoria continua en el sector publico ecuatoriano (Ministerio de Cultura, Banco Central del Ecuador y ahora Asociacion de Municipalidades Ecuatorianas)",
+        "Cargo actual de alta responsabilidad: asesoria juridica institucional a la presidencia y direccion ejecutiva",
+        "Maestria en España (UNIR, 2020-2021) con regreso comprobado a Ecuador al finalizar",
+        "Casada, esposo reside con ella en Ecuador — vinculo familiar fuerte",
+        "Viajes previos a Peru y Colombia, siempre con regreso puntual a Ecuador",
+        "Viaje corto y puntual (6 dias) con contacto profesional verificable en ICMA (Washington D.C.)",
     ],
-    "cita_texto": "Lunes 28 septiembre 2026, 8:00 AM (TENTATIVA — a confirmar)",
+    "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Eloy Alfaro",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
 
 # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
-# Paola Samaniego: cita 31 agosto 2026 — activa.
+# Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
 
 
 def _html_bienvenida(caso: dict) -> str:

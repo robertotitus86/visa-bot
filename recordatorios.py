@@ -29,7 +29,41 @@ PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 FAMILIAS = [
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
-
+    {
+        "id": "johanna-peralta",
+        "cita": date(2026, 10, 8),
+        "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
+        "lugar": "Embajada de EE.UU. Quito &middot; Avigiras E12-170 y Eloy Alfaro",
+        "simulador": "https://www.asesoriadevisadosglobal.com/johanna-peralta.html",
+        "preguntas": "15 preguntas",
+        "fortalezas_html": (
+            "&#8226; 13 anos de trayectoria continua en el sector publico ecuatoriano<br>"
+            "&#8226; Cargo actual de alta responsabilidad: asesoria juridica institucional<br>"
+            "&#8226; Maestria en España (2020-2021) con regreso comprobado a Ecuador<br>"
+            "&#8226; Casada, esposo reside en Ecuador — vinculo familiar fuerte<br>"
+            "&#8226; Viajes previos a Peru y Colombia sin ninguna irregularidad<br>"
+            "&#8226; Contacto profesional verificable en ICMA (Washington D.C.)"
+        ),
+        "zoom_html": "No hay sesiones Zoom programadas para este caso — preparacion via simulador y recordatorios diarios.",
+        "tips": [
+            "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfeccion.",
+            "Practica en voz alta, no solo leyendo — que suene natural, no memorizado.",
+            "Tu trabajo estable, tu esposo y tu familia en Ecuador son tu mayor fortaleza.",
+            "Se breve: respuestas de 1-2 frases, sin dar informacion que no te pidieron.",
+            "Repasa el proposito de tu viaje: 6 dias, negocios y turismo, contacto en ICMA.",
+        ],
+        "destinatarios": [
+            {
+                "nombre": "Johanna",
+                "miembro": "johanna",
+                "tratamiento": "Estimada Johanna",
+                "email": "johaperalta1985@gmail.com",
+                "telefono": "593995165234",
+                "pdf": "pdf-johanna-peralta.pdf",
+                "pdf_extra": ["plan-johanna-peralta.pdf", "checklist-johanna-peralta.pdf"],
+            },
+        ],
+    },
 ]
 
 
