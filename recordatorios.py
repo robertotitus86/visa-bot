@@ -35,22 +35,22 @@ FAMILIAS = [
         "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
         "lugar": "Embajada de EE.UU. Quito &middot; Avigiras E12-170 y Eloy Alfaro",
         "simulador": "https://www.asesoriadevisadosglobal.com/johanna-peralta.html",
-        "preguntas": "mas de 30 preguntas",
+        "preguntas": "más de 30 preguntas",
         "fortalezas_html": (
-            "&#8226; 13 anos de trayectoria continua en el sector publico ecuatoriano<br>"
-            "&#8226; Cargo actual de alta responsabilidad: asesoria juridica institucional<br>"
-            "&#8226; Maestria en España (2020-2021) con regreso comprobado a Ecuador<br>"
-            "&#8226; Casada, esposo y dos hijos (14 y 7 años) residen en Ecuador — vinculo familiar fuerte<br>"
+            "&#8226; 13 años de trayectoria continua en el sector público ecuatoriano<br>"
+            "&#8226; Cargo actual de alta responsabilidad: asesoría jurídica institucional<br>"
+            "&#8226; Maestría en España (2020-2021) con regreso comprobado a Ecuador<br>"
+            "&#8226; Casada, esposo y dos hijos (14 y 7 años) residen en Ecuador — vínculo familiar fuerte<br>"
             "&#8226; Viajes previos a Peru y Colombia sin ninguna irregularidad<br>"
             "&#8226; Contacto profesional verificable en ICMA (Washington D.C.)"
         ),
-        "zoom_html": "No hay sesiones Zoom programadas para este caso — preparacion via simulador y recordatorios diarios.",
+        "zoom_html": "No hay sesiones Zoom programadas para este caso — preparación vía simulador y recordatorios diarios.",
         "tips": [
-            "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfeccion.",
+            "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfección.",
             "Practica en voz alta, no solo leyendo — que suene natural, no memorizado.",
             "Tu trabajo estable, tu esposo, tus dos hijos y tu familia en Ecuador son tu mayor fortaleza.",
-            "Se breve: respuestas de 1-2 frases, sin dar informacion que no te pidieron.",
-            "Repasa el proposito de tu viaje: 6 dias, negocios y turismo, contacto en ICMA.",
+            "Sé breve: respuestas de 1-2 frases, sin dar información que no te pidieron.",
+            "Repasa el propósito de tu viaje: 6 días, negocios y turismo, contacto en ICMA.",
         ],
         "destinatarios": [
             {
@@ -70,22 +70,22 @@ FAMILIAS = [
         "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
         "lugar": "Embajada de EE.UU. Quito &middot; Avigiras E12-170 y Eloy Alfaro",
         "simulador": "https://www.asesoriadevisadosglobal.com/fredy-puertas.html",
-        "preguntas": "mas de 30 preguntas",
+        "preguntas": "más de 30 preguntas",
         "fortalezas_html": (
-            "&#8226; Dirige y representa legalmente a la Asociacion de Municipalidades Ecuatorianas (AME)<br>"
-            "&#8226; Trayectoria publica: BanEcuador y GAD de Muisne<br>"
-            "&#8226; Maestria en Administracion Publica (2025-2026)<br>"
-            "&#8226; Casado, esposa y padres residen en Ecuador — vinculo familiar fuerte<br>"
+            "&#8226; Dirige y representa legalmente a la Asociación de Municipalidades Ecuatorianas (AME)<br>"
+            "&#8226; Trayectoria pública: BanEcuador y GAD de Muisne<br>"
+            "&#8226; Maestría en Administración Pública (2025-2026)<br>"
+            "&#8226; Casado, esposa y padres residen en Ecuador — vínculo familiar fuerte<br>"
             "&#8226; Viajes previos a Colombia y China sin ninguna irregularidad<br>"
             "&#8226; Viaje pagado por su empleador, con contacto profesional verificable en ICMA (Washington D.C.)"
         ),
-        "zoom_html": "No hay sesiones Zoom programadas para este caso — preparacion via simulador y recordatorios diarios.",
+        "zoom_html": "No hay sesiones Zoom programadas para este caso — preparación vía simulador y recordatorios diarios.",
         "tips": [
-            "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfeccion.",
+            "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfección.",
             "Practica en voz alta, no solo leyendo — que suene natural, no memorizado.",
             "Tu cargo estable, tu esposa y tu familia en Ecuador son tu mayor fortaleza.",
-            "Se breve: respuestas de 1-2 frases, sin dar informacion que no te pidieron.",
-            "Repasa el proposito de tu viaje: 6 dias, negocios y turismo, pagado por AME, contacto en ICMA.",
+            "Sé breve: respuestas de 1-2 frases, sin dar información que no te pidieron.",
+            "Repasa el propósito de tu viaje: 6 días, negocios y turismo, pagado por AME, contacto en ICMA.",
         ],
         "destinatarios": [
             {
@@ -110,14 +110,14 @@ def _cuenta_regresiva(familia: dict) -> str:
         if dias <= 7:
             color = "#EF4444"; emoji = "URGENTE"
         elif dias <= 14:
-            color = "#F59E0B"; emoji = "Faltan pocos dias"
+            color = "#F59E0B"; emoji = "Faltan pocos días"
         else:
             color = "#10B981"; emoji = "Sigan practicando"
         return (
             f"<div style='background:#FFF7ED;border:2px solid {color};"
             f"border-radius:10px;padding:14px 18px;margin:16px 0;'>"
             f"<div style='font-size:.8rem;font-weight:700;color:{color};margin-bottom:4px'>"
-            f"{emoji} — Faltan {dias} dias para la entrevista</div>"
+            f"{emoji} — Faltan {dias} días para la entrevista</div>"
             f"<div style='font-size:.9rem;color:#1E293B;'>"
             f"Entrevista: <strong>{familia['cita_texto']}</strong><br>"
             f"{familia['lugar']}</div></div>"
@@ -135,13 +135,13 @@ def _tip_del_dia(familia: dict) -> str:
 # se sienta igual al anterior, aunque el tip de abajo coincida. Aplica por
 # igual a todos los casos — no mezcla contenido especifico entre clientes.
 _ENCABEZADOS = [
-    ("{nombre}, un paso mas cerca", "Cada practica de hoy suma para llegar tranquila a tu entrevista."),
-    ("Hoy toca repasar, {nombre}", "Diez minutos de practica hoy valen mas que una hora la noche anterior."),
-    ("{nombre}, sigamos afinando tus respuestas", "Mientras mas natural suene, mas segura vas a sentirte."),
-    ("Buen dia, {nombre} — vamos con todo", "La constancia es lo que marca la diferencia frente al oficial consular."),
-    ("{nombre}, repasemos un poco mas", "No hace falta perfeccion, solo naturalidad al responder."),
-    ("Un momento para tu preparacion, {nombre}", "Aprovecha unos minutos hoy para reforzar tus puntos fuertes."),
-    ("{nombre}, tu practica de hoy te espera", "Cada dia que practicas reduces el margen de sorpresas en la cita."),
+    ("{nombre}, un paso más cerca", "Cada practica de hoy suma para llegar con tranquilidad a tu entrevista."),
+    ("Hoy toca repasar, {nombre}", "Diez minutos de práctica hoy valen más que una hora la noche anterior."),
+    ("{nombre}, sigamos afinando tus respuestas", "Mientras más natural suene, más seguridad vas a sentir."),
+    ("Buen día, {nombre} — vamos con todo", "La constancia es lo que marca la diferencia frente al oficial consular."),
+    ("{nombre}, repasemos un poco más", "No hace falta perfección, solo naturalidad al responder."),
+    ("Un momento para tu preparación, {nombre}", "Aprovecha unos minutos hoy para reforzar tus puntos fuertes."),
+    ("{nombre}, tu práctica de hoy te espera", "Cada día que practicas reduces el margen de sorpresas en la cita."),
 ]
 
 
@@ -210,7 +210,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nom
   <div style="background:linear-gradient(135deg,#060E1C,#0F1F38);border-radius:16px 16px 0 0;
               padding:28px;border-bottom:3px solid #F5C842;">
     <p style="color:#F5C842;font-size:10px;font-weight:700;letter-spacing:2px;
-              text-transform:uppercase;margin:0 0 8px;">Asesoria Visa Global · Preparacion Entrevista USA</p>
+              text-transform:uppercase;margin:0 0 8px;">Asesoría Visa Global · Preparación Entrevista USA</p>
     <h1 style="color:#fff;font-size:20px;margin:0;line-height:1.4;">
       {tratamiento},<br>
       <span style="color:#F5C842;">{titulo_dia}</span>
@@ -221,7 +221,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nom
               box-shadow:0 4px 20px rgba(0,0,0,.08);">
 
     <p style="color:#475569;font-size:15px;line-height:1.7;margin:0 0 14px;">
-      {frase_dia} Su simulador personalizado esta listo con <strong>{familia['preguntas']} basadas en su DS-160 real</strong>.
+      {frase_dia} Su simulador personalizado está listo con <strong>{familia['preguntas']} basadas en su DS-160 real</strong>.
     </p>
 
     {cuenta}
@@ -238,7 +238,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nom
     <div style="background:#F0FDF4;border-left:4px solid #10B981;
                 border-radius:0 10px 10px 0;padding:14px 16px;margin:20px 0;">
       <p style="color:#065F46;font-size:11px;font-weight:700;margin:0 0 5px;
-                text-transform:uppercase;letter-spacing:1px;">Consejo del dia</p>
+                text-transform:uppercase;letter-spacing:1px;">Consejo del día</p>
       <p style="color:#1E293B;font-size:13px;margin:0;line-height:1.6;">{tip}</p>
     </div>
 
@@ -252,7 +252,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nom
 
     <div style="background:#EEF2FF;border-radius:10px;padding:14px 16px;margin:20px 0;">
       <p style="color:#3730A3;font-size:11px;font-weight:700;margin:0 0 6px;
-                text-transform:uppercase;letter-spacing:1px;">Proximas sesiones con Roberto</p>
+                text-transform:uppercase;letter-spacing:1px;">Próximas sesiones con Roberto</p>
       <p style="color:#1E293B;font-size:12px;margin:0;line-height:1.8;">
         {familia['zoom_html']}
       </p>
@@ -261,7 +261,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nom
   </div>
 
   <p style="color:#94A3B8;font-size:10px;text-align:center;margin:14px 0;">
-    Asesoria Visa Global · Roberto Acosta · +593 99 444 2512<br>
+    Asesoría Visa Global · Roberto Acosta · +593 99 444 2512<br>
     <a href="https://www.asesoriadevisadosglobal.com" style="color:#94A3B8;">www.asesoriadevisadosglobal.com</a>
   </p>
 </div>
