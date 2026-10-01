@@ -64,6 +64,41 @@ FAMILIAS = [
             },
         ],
     },
+    {
+        "id": "fredy-puertas",
+        "cita": date(2026, 10, 8),
+        "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
+        "lugar": "Embajada de EE.UU. Quito &middot; Avigiras E12-170 y Eloy Alfaro",
+        "simulador": "https://www.asesoriadevisadosglobal.com/fredy-puertas.html",
+        "preguntas": "mas de 30 preguntas",
+        "fortalezas_html": (
+            "&#8226; Dirige y representa legalmente a la Asociacion de Municipalidades Ecuatorianas (AME)<br>"
+            "&#8226; Trayectoria publica: BanEcuador y GAD de Muisne<br>"
+            "&#8226; Maestria en Administracion Publica (2025-2026)<br>"
+            "&#8226; Casado, esposa y padres residen en Ecuador — vinculo familiar fuerte<br>"
+            "&#8226; Viajes previos a Colombia y China sin ninguna irregularidad<br>"
+            "&#8226; Viaje pagado por su empleador, con contacto profesional verificable en ICMA (Washington D.C.)"
+        ),
+        "zoom_html": "No hay sesiones Zoom programadas para este caso — preparacion via simulador y recordatorios diarios.",
+        "tips": [
+            "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfeccion.",
+            "Practica en voz alta, no solo leyendo — que suene natural, no memorizado.",
+            "Tu cargo estable, tu esposa y tu familia en Ecuador son tu mayor fortaleza.",
+            "Se breve: respuestas de 1-2 frases, sin dar informacion que no te pidieron.",
+            "Repasa el proposito de tu viaje: 6 dias, negocios y turismo, pagado por AME, contacto en ICMA.",
+        ],
+        "destinatarios": [
+            {
+                "nombre": "Fredy",
+                "miembro": "fredy",
+                "tratamiento": "Estimado Fredy",
+                "email": "janiorfm@hotmail.com",
+                "telefono": "593989843283",
+                "pdf": "pdf-fredy-puertas.pdf",
+                "pdf_extra": ["plan-fredy-puertas.pdf", "checklist-fredy-puertas.pdf"],
+            },
+        ],
+    },
 ]
 
 

@@ -15,21 +15,21 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
-# Caso activo: Johanna Elizabeth Peralta Velez.
+# Caso activo: Fredy Junior Mera Puertas.
 CASO = {
-    "tratamiento": "Estimada Johanna",
-    "email": "johaperalta1985@gmail.com",
+    "tratamiento": "Estimado Fredy",
+    "email": "janiorfm@hotmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/johanna-peralta.html",
-    "pdf": "pdf-johanna-peralta.pdf",
-    "pdf_extra": ["plan-johanna-peralta.pdf", "checklist-johanna-peralta.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/fredy-puertas.html",
+    "pdf": "pdf-fredy-puertas.pdf",
+    "pdf_extra": ["plan-fredy-puertas.pdf", "checklist-fredy-puertas.pdf"],
     "fortalezas": [
-        "13 anos de trayectoria continua en el sector publico ecuatoriano (Ministerio de Cultura, Banco Central del Ecuador y ahora Asociacion de Municipalidades Ecuatorianas)",
-        "Cargo actual de alta responsabilidad: asesoria juridica institucional a la presidencia y direccion ejecutiva",
-        "Maestria en España (UNIR, 2020-2021) con regreso comprobado a Ecuador al finalizar",
-        "Casada, esposo y dos hijos (14 y 7 años) residen con ella en Ecuador — vinculo familiar fuerte",
-        "Viajes previos a Peru y Colombia, siempre con regreso puntual a Ecuador",
-        "Viaje corto y puntual (6 dias) con contacto profesional verificable en ICMA (Washington D.C.)",
+        "Dirige y representa legalmente a la Asociacion de Municipalidades Ecuatorianas (AME) — cargo de alta responsabilidad",
+        "Trayectoria publica: Gerente Cantonal de BanEcuador y Coordinador General del GAD de Muisne",
+        "Maestria en Administracion Publica (UNEMI, 2025-2026)",
+        "Casado, su esposa y sus padres residen en Ecuador — vinculo familiar fuerte",
+        "Viajes previos a Colombia y China, siempre con regreso puntual a Ecuador",
+        "Viaje corto y puntual (6 dias), pagado por su empleador, con contacto profesional verificable en ICMA (Washington D.C.)",
     ],
     "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Eloy Alfaro",
