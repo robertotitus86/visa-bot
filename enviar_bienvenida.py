@@ -27,7 +27,7 @@ CASO = {
         "13 anos de trayectoria continua en el sector publico ecuatoriano (Ministerio de Cultura, Banco Central del Ecuador y ahora Asociacion de Municipalidades Ecuatorianas)",
         "Cargo actual de alta responsabilidad: asesoria juridica institucional a la presidencia y direccion ejecutiva",
         "Maestria en España (UNIR, 2020-2021) con regreso comprobado a Ecuador al finalizar",
-        "Casada, esposo reside con ella en Ecuador — vinculo familiar fuerte",
+        "Casada, esposo y dos hijos (14 y 7 años) residen con ella en Ecuador — vinculo familiar fuerte",
         "Viajes previos a Peru y Colombia, siempre con regreso puntual a Ecuador",
         "Viaje corto y puntual (6 dias) con contacto profesional verificable en ICMA (Washington D.C.)",
     ],

@@ -40,7 +40,7 @@ FAMILIAS = [
             "&#8226; 13 anos de trayectoria continua en el sector publico ecuatoriano<br>"
             "&#8226; Cargo actual de alta responsabilidad: asesoria juridica institucional<br>"
             "&#8226; Maestria en España (2020-2021) con regreso comprobado a Ecuador<br>"
-            "&#8226; Casada, esposo reside en Ecuador — vinculo familiar fuerte<br>"
+            "&#8226; Casada, esposo y dos hijos (14 y 7 años) residen en Ecuador — vinculo familiar fuerte<br>"
             "&#8226; Viajes previos a Peru y Colombia sin ninguna irregularidad<br>"
             "&#8226; Contacto profesional verificable en ICMA (Washington D.C.)"
         ),
@@ -48,7 +48,7 @@ FAMILIAS = [
         "tips": [
             "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfeccion.",
             "Practica en voz alta, no solo leyendo — que suene natural, no memorizado.",
-            "Tu trabajo estable, tu esposo y tu familia en Ecuador son tu mayor fortaleza.",
+            "Tu trabajo estable, tu esposo, tus dos hijos y tu familia en Ecuador son tu mayor fortaleza.",
             "Se breve: respuestas de 1-2 frases, sin dar informacion que no te pidieron.",
             "Repasa el proposito de tu viaje: 6 dias, negocios y turismo, contacto en ICMA.",
         ],
