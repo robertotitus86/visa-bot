@@ -72,18 +72,18 @@ FAMILIAS = [
         "simulador": "https://www.asesoriadevisadosglobal.com/fredy-puertas.html",
         "preguntas": "más de 30 preguntas",
         "fortalezas_html": (
-            "&#8226; Dirige y representa legalmente a la Asociación de Municipalidades Ecuatorianas (AME)<br>"
+            "&#8226; Director Ejecutivo de la Asociación de Municipalidades Ecuatorianas (AME)<br>"
             "&#8226; Trayectoria pública: BanEcuador y GAD de Muisne<br>"
             "&#8226; Maestría en Administración Pública (2025-2026)<br>"
-            "&#8226; Casado, esposa y padres residen en Ecuador — vínculo familiar fuerte<br>"
-            "&#8226; Viajes previos a Colombia y China sin ninguna irregularidad<br>"
+            "&#8226; Casado, esposo y padres residen en Ecuador — vínculo familiar fuerte<br>"
+            "&#8226; Viajes previos de turismo a Colombia y China sin ninguna irregularidad<br>"
             "&#8226; Viaje pagado por su empleador, con contacto profesional verificable en ICMA (Washington D.C.)"
         ),
         "zoom_html": "No hay sesiones Zoom programadas para este caso — preparación vía simulador y recordatorios diarios.",
         "tips": [
             "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfección.",
             "Practica en voz alta, no solo leyendo — que suene natural, no memorizado.",
-            "Tu cargo estable, tu esposa y tu familia en Ecuador son tu mayor fortaleza.",
+            "Tu cargo estable, tu esposo y tu familia en Ecuador son tu mayor fortaleza.",
             "Sé breve: respuestas de 1-2 frases, sin dar información que no te pidieron.",
             "Repasa el propósito de tu viaje: 6 días, negocios y turismo, pagado por AME, contacto en ICMA.",
         ],
