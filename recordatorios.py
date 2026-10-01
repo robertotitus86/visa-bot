@@ -35,7 +35,7 @@ FAMILIAS = [
         "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
         "lugar": "Embajada de EE.UU. Quito &middot; Avigiras E12-170 y Eloy Alfaro",
         "simulador": "https://www.asesoriadevisadosglobal.com/johanna-peralta.html",
-        "preguntas": "15 preguntas",
+        "preguntas": "mas de 30 preguntas",
         "fortalezas_html": (
             "&#8226; 13 anos de trayectoria continua en el sector publico ecuatoriano<br>"
             "&#8226; Cargo actual de alta responsabilidad: asesoria juridica institucional<br>"
