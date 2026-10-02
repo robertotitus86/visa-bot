@@ -75,7 +75,7 @@ FAMILIAS = [
             "&#8226; Director Ejecutivo de la Asociación de Municipalidades Ecuatorianas (AME)<br>"
             "&#8226; Trayectoria pública: BanEcuador y GAD de Muisne<br>"
             "&#8226; Maestría en Administración Pública (2025-2026)<br>"
-            "&#8226; Casado, esposo y padres residen en Ecuador — vínculo familiar fuerte<br>"
+            "&#8226; Casado, esposo y madre residen en Ecuador — vínculo familiar fuerte<br>"
             "&#8226; Viajes previos de turismo a Colombia y China sin ninguna irregularidad<br>"
             "&#8226; Viaje pagado por su empleador, con contacto profesional verificable en ICMA (Washington D.C.)"
         ),

@@ -28,7 +28,7 @@ CASO = {
         "Director Ejecutivo de la Asociación de Municipalidades Ecuatorianas (AME): dirige y representa legalmente la institución",
         "Trayectoria pública en ascenso: Gerente Cantonal de BanEcuador, Coordinador General del GAD de Muisne y hoy Director Ejecutivo de AME",
         "Maestría en Administración Pública (UNEMI, 2025-2026)",
-        "Casado, su esposo (funcionario del Ministerio de Salud Pública) y sus padres residen en Ecuador — vínculo familiar fuerte",
+        "Casado, su esposo (funcionario del Ministerio de Salud Pública) y su madre viven en Ecuador — vínculo familiar fuerte",
         "Viajes previos de turismo a Colombia y China, siempre con regreso puntual a Ecuador",
         "Viaje corto y puntual (6 días), pagado por su empleador, con contacto profesional verificable en ICMA (Washington D.C.)",
     ],
