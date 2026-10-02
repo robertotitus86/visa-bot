@@ -26,7 +26,7 @@ CASO = {
     "pdf_extra": ["plan-fredy-puertas.pdf", "checklist-fredy-puertas.pdf"],
     "fortalezas": [
         "Director Ejecutivo de la Asociación de Municipalidades Ecuatorianas (AME): dirige y representa legalmente la institución",
-        "Trayectoria pública en ascenso: Gerente Cantonal de BanEcuador, Coordinador General del GAD de Muisne y hoy Director Ejecutivo de AME",
+        "Más de 15 años de experiencia laboral (desde 2009); Gerente Cantonal de BanEcuador, Coordinador General del GAD de Muisne y hoy Director Ejecutivo de AME",
         "Maestría en Administración Pública (UNEMI, 2025-2026)",
         "Casado, su esposo (funcionario del Ministerio de Salud Pública) y su madre viven en Ecuador — vínculo familiar fuerte",
         "Viajes previos de turismo a Colombia y China, siempre con regreso puntual a Ecuador",

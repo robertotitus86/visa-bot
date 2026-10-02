@@ -39,7 +39,7 @@ FAMILIAS = [
         "fortalezas_html": (
             "&#8226; 13 años de trayectoria continua en el sector público ecuatoriano<br>"
             "&#8226; Cargo actual de alta responsabilidad: asesoría jurídica institucional<br>"
-            "&#8226; Maestría en España (2020-2021) con regreso comprobado a Ecuador<br>"
+            "&#8226; Maestría a distancia en la UNIR (2020-2021), cursada desde Ecuador<br>"
             "&#8226; Casada, esposo y dos hijos (14 y 7 años) residen en Ecuador — vínculo familiar fuerte<br>"
             "&#8226; Viajes previos a Peru y Colombia sin ninguna irregularidad<br>"
             "&#8226; Contacto profesional verificable en ICMA (Washington D.C.)"
@@ -73,7 +73,7 @@ FAMILIAS = [
         "preguntas": "más de 30 preguntas",
         "fortalezas_html": (
             "&#8226; Director Ejecutivo de la Asociación de Municipalidades Ecuatorianas (AME)<br>"
-            "&#8226; Trayectoria pública: BanEcuador y GAD de Muisne<br>"
+            "&#8226; Más de 15 años de experiencia laboral (desde 2009): BanEcuador, GAD de Muisne y hoy AME<br>"
             "&#8226; Maestría en Administración Pública (2025-2026)<br>"
             "&#8226; Casado, esposo y madre residen en Ecuador — vínculo familiar fuerte<br>"
             "&#8226; Viajes previos de turismo a Colombia y China sin ninguna irregularidad<br>"
