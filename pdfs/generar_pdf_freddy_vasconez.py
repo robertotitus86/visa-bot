@@ -249,7 +249,7 @@ def closing_band():
 
 BASICAS = [
     ('¿Cuál es el propósito de su viaje a Estados Unidos?', 'Viaje de turismo, corto, a Miami. Respuesta directa.', 'Viajo a Miami de turismo, por seis días, a partir del 10 de febrero de 2027.'),
-    ('¿A qué se dedica usted?', 'Su trabajo real: calzado y artículos de cuero, en Ibarra.', 'Me dedico a la confección, elaboración y reparación de calzado y de artículos de cuero, en Ibarra.'),
+    ('¿A qué se dedica usted?', 'Su trabajo real: calzado y artículos de cuero, en Ibarra.', 'Soy artesano: confecciono, elaboro y reparo calzado y artículos de cuero, en Ibarra.'),
     ('¿Cuánto tiempo se va a quedar?', 'Seis días desde el 10 de febrero de 2027.', 'Seis días. Llego a Miami el 10 de febrero de 2027 y regreso a Ecuador al terminar el viaje.'),
     ('¿Dónde se va a hospedar?', 'Days Inn by Wyndham Miami Airport, Miami Springs.', 'Me hospedo en el hotel Days Inn by Wyndham Miami Airport, en la 4767 Northwest 36th Street, en Miami Springs, Florida.'),
     ('¿Tiene familiares en los Estados Unidos?', 'Ninguno. Respuesta corta y directa.', 'No, no tengo ningún familiar en los Estados Unidos.'),
@@ -266,8 +266,8 @@ INTERMEDIAS = [
 ]
 
 DIFICILES = [
-    ('En su solicitud dice que es artista, pero usted hace calzado. ¿Cuál es su verdadera ocupación?', 'LA pregunta clave de su caso. Una sola explicación, clara y verdadera; igual las dos veces que se la hagan.', 'Mi oficio es la confección y reparación de calzado y artículos de cuero. Es un trabajo artesanal y en el formulario marqué la categoría que me pareció más cercana; mi actividad real es el calzado.'),
-    ('¿Por qué quiere viajar a Miami?', 'Dígalo con sus propias palabras: lo importante es que sea su motivo REAL. Esta es una base.', 'Quiero conocer Miami por turismo. Es la primera vez que viajo a Estados Unidos y lo hago por seis días, pagando yo mismo mi viaje.'),
+    ('En su solicitud dice que es artista, pero usted hace calzado. ¿Cuál es su verdadera ocupación?', 'LA pregunta clave. Su respuesta: es artesano, y la categoría «artista» es la más cercana a su oficio. Dígalo igual cada vez.', 'Soy artesano. Elaboro y reparo calzado y artículos de cuero con mis propias manos, y por eso en el formulario marqué la categoría de artista, que es la más cercana a un oficio artesanal. Mi actividad real es el calzado.'),
+    ('¿Por qué quiere viajar a Miami?', 'Su motivo real: turismo. Dígalo con sus propias palabras y nombre 2 o 3 cosas concretas que quiere conocer.', 'Viajo a Miami de turismo, a conocerlo. Es la primera vez que viajo a Estados Unidos, voy seis días y pago yo mismo mi viaje.'),
     ('No tiene itinerario ni conoce a nadie en Miami. ¿Qué va a hacer seis días allá?', 'El DS-160 dice «sin planes específicos». Tenga dos o tres actividades turísticas concretas para nombrar.', 'No conozco a nadie en Miami; solo tengo mi reserva de hotel. Voy a recorrer la ciudad como turista, conocer sus playas y sus lugares más conocidos, y regreso a Ecuador a mi trabajo.'),
     ('¿Qué garantía tengo de que usted regresará a Ecuador?', 'Su arraigo: vive y trabaja en Ibarra, viaje corto, autofinanciado.', 'Mi casa y mi trabajo están en Ibarra, donde vivo y trabajo en el mismo lugar. Es un viaje de solo seis días, lo pago yo mismo y regreso a mi trabajo.'),
     ('¿Cómo puedo comprobar que gana $3,000 al mes?', 'Es cuenta propia: respaldo con RUC, declaraciones del SRI y estados de cuenta. Llévelos.', 'Tengo mi RUC, mis declaraciones de impuestos y mis estados de cuenta, y se los puedo mostrar.'),
@@ -311,7 +311,7 @@ def build():
     story.append(Paragraph(
         "Viajas a <b>Miami</b> por turismo durante <b>seis días, desde el 10 de febrero de 2027</b>, solo y pagando tú mismo el viaje. "
         "Te hospedas en el <b>Days Inn by Wyndham Miami Airport, 4767 Northwest 36th Street, Miami Springs, Florida</b>. Es tu primer viaje a Estados Unidos, sin rechazos previos y sin familiares ni contactos allá. "
-        "Vives y trabajas en Ibarra, donde confeccionas y reparas calzado y artículos de cuero.", style_body))
+        "Vives y trabajas en Ibarra, donde trabajas como artesano de calzado y artículos de cuero.", style_body))
     story.append(Spacer(1, 4 * mm))
     story.append(Paragraph("FORTALEZAS DE TU CASO", style_eyebrow))
     story.append(strength_box('', 'Vive y trabaja en el mismo lugar, en Ibarra', 'Su domicilio y su lugar de trabajo coinciden (Rafael Larrea 3-59 y Simón Bolívar) — arraigo y estabilidad verificables.'))
@@ -327,7 +327,7 @@ def build():
     story.append(Spacer(1, 3 * mm))
     story.append(CondPageBreak(75 * mm))
     story.append(Paragraph("PUNTOS A PREPARAR CON CALMA", style_eyebrow))
-    story.append(risk_box('', 'Ocupación no coincide con el empleo en el DS-160', 'Figura como «Artista/Intérprete» pero su trabajo es confeccionar y reparar calzado. Debe explicarlo siempre igual, con la verdad, en una sola frase.'))
+    story.append(risk_box('', 'Ocupación no coincide con el empleo en el DS-160', 'Figura como «Artista/Intérprete» pero es artesano del calzado y el cuero. Explíquelo siempre igual, en una sola frase: «Soy artesano, y artista fue la categoría más cercana a mi oficio».'))
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box('', 'Poca historia de viajes', 'En 5 años solo declara Colombia y es su primer viaje a EE.UU. Se compensa con arraigo laboral y un viaje corto con motivo claro.'))
     story.append(Spacer(1, 2 * mm))
@@ -411,7 +411,7 @@ def build():
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box("", "Qué NO llevar", "Celular (no pasa seguridad), laptop, tablet, cables, comida o bebidas."))
     story.append(Spacer(1, 2 * mm))
-    story.append(strength_box("", "Dentro de la entrevista", "Responde solo lo que te preguntan, habla claro y sin apresurarte. Si preguntan por tu ocupación, explica una sola vez y con la verdad que tu oficio es el calzado y los artículos de cuero, y sigue adelante — sin justificarte de más."))
+    story.append(strength_box("", "Dentro de la entrevista", "Responde solo lo que te preguntan, habla claro y sin apresurarte. Si preguntan por tu ocupación, explica una sola vez que eres artesano del calzado y el cuero, y que «artista» fue la categoría más cercana a tu oficio, y sigue adelante — sin justificarte de más."))
     story.append(Spacer(1, 8 * mm))
     story.append(HRFlowable(width="100%", color=LINE, thickness=1))
     story.append(Spacer(1, 6 * mm))

@@ -18,6 +18,7 @@ PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 # Caso activo: Freddy Wilfrido Vasconez Freire.
 CASO = {
     "tratamiento": "Estimado Freddy",
+    "preparado": "preparado",
     "email": "freddyvasc@hotmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
     "simulador": "https://www.asesoriadevisadosglobal.com/freddy-vasconez.html",

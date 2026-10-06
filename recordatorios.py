@@ -114,8 +114,8 @@ FAMILIAS = [
         "tips": [
             "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
-            "PUNTO CLAVE: en su DS-160 figura como 'artista' pero su trabajo es el calzado. Explique SIEMPRE lo mismo y con la verdad: su oficio es la confeccion y reparacion de calzado y articulos de cuero.",
-            "Tenga listo su motivo REAL para viajar a Miami y dos o tres cosas concretas que le gustaria hacer: no tiene itinerario ni contacto alla, asi que el motivo tiene que sonar propio.",
+            "PUNTO CLAVE: en su DS-160 figura como 'artista' porque es artesano (calzado y articulos de cuero). Explique SIEMPRE lo mismo: 'Soy artesano, y artista fue la categoria mas cercana a mi oficio'.",
+            "Su viaje es de turismo: tenga listas dos o tres cosas concretas que quiere conocer en Miami, ya que no tiene itinerario ni contacto alla.",
             "Su ingreso es por cuenta propia: lleve RUC, declaraciones del SRI y estados de cuenta que respalden los $3,000 mensuales.",
             "Las 2 preguntas obligatorias 2026 sobre danos/persecucion: responder con calma, 'No' directo, sin dudar.",
             "Llegue 20-30 minutos antes, sin celular, ropa formal, carpeta con documentos originales.",
