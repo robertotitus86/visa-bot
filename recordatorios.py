@@ -110,6 +110,16 @@ FAMILIAS = [
             "&#8226; Sin rechazos, sin familiares ni contactos en EE.UU., pasaporte nuevo vigente hasta 2035<br>"
             "&#8226; Viaje corto (6 dias) con reserva de hotel concreta en Miami Springs"
         ),
+        "pago_html": (
+            "<div style='background:#FFFBEB;border-left:4px solid #F59E0B;border-radius:0 10px 10px 0;padding:14px 16px;margin:20px 0;'>"
+            "<p style='color:#92400E;font-size:11px;font-weight:700;margin:0 0 6px;text-transform:uppercase;letter-spacing:1px;'>Recordatorio de pago</p>"
+            "<p style='color:#1E293B;font-size:13px;margin:0;line-height:1.7;'>"
+            "El valor de su asesor&iacute;a es de <strong>$150 USD</strong>, con fecha l&iacute;mite <strong>viernes 9 de octubre</strong>.<br>"
+            "<strong>Banco Pichincha &middot; Cuenta de ahorros N.&ordm; 2200449871</strong><br>"
+            "A nombre de Roberto Acosta &middot; C.I. 1719731380<br>"
+            "Env&iacute;enos el comprobante por WhatsApp. Si ya pag&oacute;, por favor ignore este aviso."
+            "</p></div>"
+        ),
         "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
         "tips": [
             "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
@@ -254,6 +264,8 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nom
     </p>
 
     {cuenta}
+
+    {familia.get('pago_html', '')}
 
     <div style="text-align:center;margin:24px 0;">
       <a href="{sim_link}"
