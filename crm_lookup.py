@@ -13,6 +13,16 @@ SHEETS_WEBHOOK = os.getenv(
 CLIENTES_PREPARACION = {
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
+    "593988484970": {
+        "Nombre Principal": "Freddy Wilfrido Vasconez Freire",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "Lunes 9 noviembre 2026, 9:00 AM - Embajada EE.UU. Quito (Avigiras E12-170 y Guayacanes)",
+        "Estado": "Cita confirmada, en preparacion de entrevista",
+        "Notas": (
+            "Divorciado (mutuo acuerdo, mar 2011), nacido 9 abr 1965 en Ambato. Cedula 1708764632. Vive y trabaja en Ibarra (Rafael Larrea 3-59 y Simon Bolivar). Ocupacion: confeccion/reparacion de calzado y articulos de cuero, $3,000/mes, cuenta propia. PUNTO CRITICO: el DS-160 dice ocupacion 'ARTIST/PERFORMER' pero el empleo declarado es 'COSEDORA DE CALZADOS' — debe explicarse siempre igual y con la verdad. Estudios: Administracion Aduanera, Liceo Aduanero Ibarra 2011-2013. PRIMER VIAJE a USA, sin rechazos, sin familiares en USA. Unico viaje previo (5 anos): Colombia. Pasaporte B1032986 (nuevo, 3 oct 2025, vence 3 oct 2035). DS-160: AA00FTWGBH. Viaje: turismo B1/B2, 6 dias desde 10 feb 2027, Miami, Days Inn by Wyndham Miami Airport (4767 NW 36th St, Miami Springs FL). Viaja solo, paga el mismo, sin contacto personal en USA. Facebook @FREDDY VASCONEZ. Correo freddyvasc@hotmail.com. Tel +593 98 848 4970. Simulador: asesoriadevisadosglobal.com/freddy-vasconez.html"
+        ),
+    },
 }
 
 async def buscar_caso_por_telefono(telefono: str) -> dict | None:

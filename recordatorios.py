@@ -98,6 +98,35 @@ FAMILIAS = [
                 "pdf_extra": ["plan-fredy-puertas.pdf", "checklist-fredy-puertas.pdf"],
             },
         ],
+        "id": "freddy_vasconez",
+        "cita": date(2026, 11, 9),
+        "cita_texto": "Lunes 9 de noviembre 2026, 9:00 AM",
+        "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/freddy-vasconez.html",
+        "preguntas": "22 preguntas (incluye modo oficial consular con preguntas trampa)",
+        "fortalezas_html": (
+            "&#8226; Vive y trabaja en el mismo lugar, en Ibarra — arraigo verificable<br>"
+            "&#8226; Ingreso declarado de $3,000 mensuales y viaje autofinanciado<br>"
+            "&#8226; Sin rechazos, sin familiares ni contactos en EE.UU., pasaporte nuevo vigente hasta 2035<br>"
+            "&#8226; Viaje corto (6 dias) con reserva de hotel concreta en Miami Springs"
+        ),
+        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
+        "tips": [
+            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
+            "PUNTO CLAVE: en su DS-160 figura como 'artista' pero su trabajo es el calzado. Explique SIEMPRE lo mismo y con la verdad: su oficio es la confeccion y reparacion de calzado y articulos de cuero.",
+            "Tenga listo su motivo REAL para viajar a Miami y dos o tres cosas concretas que le gustaria hacer: no tiene itinerario ni contacto alla, asi que el motivo tiene que sonar propio.",
+            "Su ingreso es por cuenta propia: lleve RUC, declaraciones del SRI y estados de cuenta que respalden los $3,000 mensuales.",
+            "Las 2 preguntas obligatorias 2026 sobre danos/persecucion: responder con calma, 'No' directo, sin dudar.",
+            "Llegue 20-30 minutos antes, sin celular, ropa formal, carpeta con documentos originales.",
+        ],
+        "destinatarios": [
+            {"nombre": "Freddy", "miembro": "freddy", "telefono": "593988484970",
+             "email": "freddyvasc@hotmail.com", "tratamiento": "Estimado Freddy",
+             "pdf": "pdf-freddy-vasconez.pdf",
+             "pdf_extra": ["pdf-freddy-vasconez-checklist.pdf", "pdf-freddy-vasconez-guia-uso.pdf"]},
+        ],
+        "cc_visibles": [],
     },
 ]
 

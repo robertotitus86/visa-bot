@@ -15,26 +15,23 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
-# Caso activo: Fredy Junior Mera Puertas.
+# Caso activo: Freddy Wilfrido Vasconez Freire.
 CASO = {
-    "tratamiento": "Estimado Fredy",
-    "preparado": "preparado",
-    "email": "janiorfm@hotmail.com",
+    "tratamiento": "Estimado Freddy",
+    "email": "freddyvasc@hotmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/fredy-puertas.html",
-    "pdf": "pdf-fredy-puertas.pdf",
-    "pdf_extra": ["plan-fredy-puertas.pdf", "checklist-fredy-puertas.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/freddy-vasconez.html",
+    "pdf": "pdf-freddy-vasconez.pdf",
+    "pdf_extra": ["pdf-freddy-vasconez-checklist.pdf", "pdf-freddy-vasconez-guia-uso.pdf"],
     "fortalezas": [
-        "Director Ejecutivo de la Asociación de Municipalidades Ecuatorianas (AME): dirige y representa legalmente la institución",
-        "Más de 15 años de experiencia laboral (desde 2009); Gerente Cantonal de BanEcuador, Coordinador General del GAD de Muisne y hoy Director Ejecutivo de AME",
-        "Maestría en Administración Pública (UNEMI, 2025-2026)",
-        "Casado, su esposo (funcionario del Ministerio de Salud Pública) y su madre viven en Ecuador — vínculo familiar fuerte",
-        "Viajes previos de turismo a Colombia y China, siempre con regreso puntual a Ecuador",
-        "Viaje corto y puntual (6 días), pagado por su empleador, con contacto profesional verificable en ICMA (Washington D.C.)",
+        "Vives y trabajas en el mismo lugar, en Ibarra — arraigo verificable",
+        "Ingreso declarado de $3,000 mensuales y viaje autofinanciado",
+        "Sin rechazos previos, sin familiares ni contactos en EE.UU. y pasaporte nuevo vigente hasta 2035",
+        "Viaje corto (6 dias) con reserva de hotel concreta en Miami Springs",
     ],
-    "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
-    "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Eloy Alfaro",
-    "asunto": "Bienvenida — Tu simulador de entrevista está listo — Asesoría Visa Global",
+    "cita_texto": "Lunes 9 de noviembre 2026, 9:00 AM",
+    "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
+    "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
 
 # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
