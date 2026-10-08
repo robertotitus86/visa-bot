@@ -30,6 +30,37 @@ FAMILIAS = [
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
     {
+        "id": "lucia_acosta",
+        "cita": date(2026, 10, 19),
+        "cita_texto": "Lunes 19 de octubre 2026, 8:00 AM (fecha tentativa: la vamos a adelantar)",
+        "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/lucia-acosta.html",
+        "preguntas": "más de 20 preguntas (incluye modo oficial consular con preguntas trampa)",
+        "fortalezas_html": (
+            "&#8226; 21 años de trayectoria continua en el sector público<br>"
+            "&#8226; Cargo de responsabilidad en AME: administración de personal<br>"
+            "&#8226; Viaje institucional de 6 días a la conferencia de ICMA en Long Beach<br>"
+            "&#8226; Vive en Portoviejo, con sus padres y familia en Ecuador; sin rechazos previos"
+        ),
+        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
+        "tips": [
+            "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
+            "PUNTO CLAVE: tus dos hijos son residentes permanentes en EE.UU. Responde con calma y con la verdad: viajas por la conferencia, tu vida y tu trabajo están en Ecuador, y regresas el 22 de octubre.",
+            "Aprende las siglas: ICMA = Asociación Internacional de Administración de Ciudades y Municipios; FLACMA = Federación Latinoamericana de Ciudades, Municipios y Asociaciones de Gobiernos Locales (aliado de AME).",
+            "Ten claro quién paga tu viaje (el DS-160 no lo indica) y confirma con Roberto tus estudios y tu fecha de ingreso a AME.",
+            "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
+            "Tu fecha de cita (19 de octubre) es tentativa: la vamos a adelantar y te avisaremos.",
+        ],
+        "destinatarios": [
+            {"nombre": "Lucía", "miembro": "lucia", "telefono": "5939406520",
+             "email": "luciapiedad.acosta@gmail.com", "tratamiento": "Estimada Lucía",
+             "pdf": "pdf-lucia-acosta.pdf",
+             "pdf_extra": ["pdf-lucia-acosta-checklist.pdf", "pdf-lucia-acosta-guia-uso.pdf"]},
+        ],
+        "cc_visibles": [],
+    },
+    {
         # Johanna Peralta y Fredy Mera Puertas: SUSPENDIDOS (7 oct 2026, por pedido de Roberto).
         "id": "freddy_vasconez",
         "cita": date(2026, 11, 9),

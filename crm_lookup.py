@@ -13,6 +13,16 @@ SHEETS_WEBHOOK = os.getenv(
 CLIENTES_PREPARACION = {
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
+    "5939406520": {
+        "Nombre Principal": "Lucia Piedad Acosta Intriago",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "Lunes 19 octubre 2026, 8:00 AM (TENTATIVA, se va a adelantar) - Embajada EE.UU. Quito",
+        "Estado": "Cita tentativa, en preparacion de entrevista",
+        "Notas": (
+            "Soltera, nacida 28 feb 1980 en Portoviejo, vive en Portoviejo. Trabaja en AME (Quito), talento humano, $2,418/mes; antes 21 anos en Coord. Zonal 4 Salud (2005-feb 2026). Viaje: conferencia ICMA, Long Beach, 16-22 oct 2026, hotel La Quinta Hawaiian Gardens, contacto Sergio Arredondo (ICMA). PUNTO CRITICO: 2 hijos residentes permanentes (LPR) en EE.UU. DS-160 AA00FU4AH1, pasaporte B0495916 (vence 27 ene 2035). DS-160: quien paga en blanco, dice sin estudios secundarios, sin viajes en 5 anos. Primera vez USA, sin rechazos. Correo luciapiedad.acosta@gmail.com. Simulador: asesoriadevisadosglobal.com/lucia-acosta.html"
+        ),
+    },
     "593988484970": {
         "Nombre Principal": "Freddy Wilfrido Vasconez Freire",
         "Tipo Visa": "USA (B1/B2)",

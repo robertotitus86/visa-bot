@@ -15,22 +15,22 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
-# Caso activo: Freddy Wilfrido Vasconez Freire.
+# Caso activo: Lucia Piedad Acosta Intriago.
 CASO = {
-    "tratamiento": "Estimado Freddy",
-    "preparado": "preparado",
-    "email": "freddyvasc@hotmail.com",
+    "tratamiento": "Estimada Lucía",
+    "preparado": "preparada",
+    "email": "luciapiedad.acosta@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/freddy-vasconez.html",
-    "pdf": "pdf-freddy-vasconez.pdf",
-    "pdf_extra": ["pdf-freddy-vasconez-checklist.pdf", "pdf-freddy-vasconez-guia-uso.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/lucia-acosta.html",
+    "pdf": "pdf-lucia-acosta.pdf",
+    "pdf_extra": ["pdf-lucia-acosta-checklist.pdf", "pdf-lucia-acosta-guia-uso.pdf"],
     "fortalezas": [
-        "Vives y trabajas en el mismo lugar, en Ibarra — arraigo verificable",
-        "Ingreso declarado de $3,000 mensuales y viaje autofinanciado",
-        "Sin rechazos previos, sin familiares ni contactos en EE.UU. y pasaporte nuevo vigente hasta 2035",
-        "Viaje corto (6 dias) con reserva de hotel concreta en Miami Springs",
+        "21 años de trayectoria continua en el sector público ecuatoriano",
+        "Cargo de responsabilidad en AME: administración de personal",
+        "Viaje institucional y corto: 6 días a la conferencia de ICMA en Long Beach",
+        "Vives en Portoviejo, con tus padres y tu familia en Ecuador; sin rechazos previos",
     ],
-    "cita_texto": "Lunes 9 de noviembre 2026, 9:00 AM",
+    "cita_texto": "Lunes 19 de octubre 2026, 8:00 AM (fecha tentativa: la vamos a adelantar y te avisaremos)",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
     "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
 }
