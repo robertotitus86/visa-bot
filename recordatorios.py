@@ -30,74 +30,7 @@ FAMILIAS = [
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
     {
-        "id": "johanna-peralta",
-        "cita": date(2026, 10, 8),
-        "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
-        "lugar": "Embajada de EE.UU. Quito &middot; Avigiras E12-170 y Eloy Alfaro",
-        "simulador": "https://www.asesoriadevisadosglobal.com/johanna-peralta.html",
-        "preguntas": "más de 30 preguntas",
-        "fortalezas_html": (
-            "&#8226; 13 años de trayectoria continua en el sector público ecuatoriano<br>"
-            "&#8226; Cargo actual de alta responsabilidad: asesoría jurídica institucional<br>"
-            "&#8226; Maestría a distancia en la UNIR (2020-2021), cursada desde Ecuador<br>"
-            "&#8226; Casada, esposo y dos hijos (14 y 7 años) residen en Ecuador — vínculo familiar fuerte<br>"
-            "&#8226; Viajes previos a Peru y Colombia sin ninguna irregularidad<br>"
-            "&#8226; Contacto profesional verificable en ICMA (Washington D.C.)"
-        ),
-        "zoom_html": "No hay sesiones Zoom programadas para este caso — preparación vía simulador y recordatorios diarios.",
-        "tips": [
-            "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfección.",
-            "Practica en voz alta, no solo leyendo — que suene natural, no memorizado.",
-            "Tu trabajo estable, tu esposo, tus dos hijos y tu familia en Ecuador son tu mayor fortaleza.",
-            "Sé breve: respuestas de 1-2 frases, sin dar información que no te pidieron.",
-            "Repasa el propósito de tu viaje: 6 días, negocios y turismo, contacto en ICMA.",
-        ],
-        "destinatarios": [
-            {
-                "nombre": "Johanna",
-                "miembro": "johanna",
-                "tratamiento": "Estimada Johanna",
-                "email": "johaperalta1985@gmail.com",
-                "telefono": "593995165234",
-                "pdf": "pdf-johanna-peralta.pdf",
-                "pdf_extra": ["plan-johanna-peralta.pdf", "checklist-johanna-peralta.pdf"],
-            },
-        ],
-    },
-    {
-        "id": "fredy-puertas",
-        "cita": date(2026, 10, 8),
-        "cita_texto": "Jueves 8 de octubre 2026, 9:30 AM",
-        "lugar": "Embajada de EE.UU. Quito &middot; Avigiras E12-170 y Eloy Alfaro",
-        "simulador": "https://www.asesoriadevisadosglobal.com/fredy-puertas.html",
-        "preguntas": "más de 30 preguntas",
-        "fortalezas_html": (
-            "&#8226; Director Ejecutivo de la Asociación de Municipalidades Ecuatorianas (AME)<br>"
-            "&#8226; Más de 15 años de experiencia laboral (desde 2009): BanEcuador, GAD de Muisne y hoy AME<br>"
-            "&#8226; Maestría en Administración Pública (2025-2026)<br>"
-            "&#8226; Casado, esposo y madre residen en Ecuador — vínculo familiar fuerte<br>"
-            "&#8226; Viajes previos de turismo a Colombia y China sin ninguna irregularidad<br>"
-            "&#8226; Viaje pagado por su empleador, con contacto profesional verificable en ICMA (Washington D.C.)"
-        ),
-        "zoom_html": "No hay sesiones Zoom programadas para este caso — preparación vía simulador y recordatorios diarios.",
-        "tips": [
-            "Responde con seguridad y de forma directa — el oficial busca coherencia, no perfección.",
-            "Practica en voz alta, no solo leyendo — que suene natural, no memorizado.",
-            "Tu cargo estable, tu esposo y tu familia en Ecuador son tu mayor fortaleza.",
-            "Sé breve: respuestas de 1-2 frases, sin dar información que no te pidieron.",
-            "Repasa el propósito de tu viaje: 6 días, negocios y turismo, pagado por AME, contacto en ICMA.",
-        ],
-        "destinatarios": [
-            {
-                "nombre": "Fredy",
-                "miembro": "fredy",
-                "tratamiento": "Estimado Fredy",
-                "email": "janiorfm@hotmail.com",
-                "telefono": "593989843283",
-                "pdf": "pdf-fredy-puertas.pdf",
-                "pdf_extra": ["plan-fredy-puertas.pdf", "checklist-fredy-puertas.pdf"],
-            },
-        ],
+        # Johanna Peralta y Fredy Mera Puertas: SUSPENDIDOS (7 oct 2026, por pedido de Roberto).
         "id": "freddy_vasconez",
         "cita": date(2026, 11, 9),
         "cita_texto": "Lunes 9 de noviembre 2026, 9:00 AM",
