@@ -53,7 +53,7 @@ FAMILIAS = [
             "Tu fecha de cita (19 de octubre) es tentativa: la vamos a adelantar y te avisaremos.",
         ],
         "destinatarios": [
-            {"nombre": "Lucía", "miembro": "lucia", "telefono": "5939406520",
+            {"nombre": "Lucía", "miembro": "lucia", "telefono": "593939406502",
              "email": "luciapiedad.acosta@gmail.com", "tratamiento": "Estimada Lucía",
              "pdf": "pdf-lucia-acosta.pdf",
              "pdf_extra": ["pdf-lucia-acosta-checklist.pdf", "pdf-lucia-acosta-guia-uso.pdf"]},
