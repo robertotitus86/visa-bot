@@ -61,7 +61,7 @@ FAMILIAS = [
         "cc_visibles": [],
     },
     {
-        # Johanna Peralta y Fredy Mera Puertas: SUSPENDIDOS (7 oct 2026, por pedido de Roberto).
+        # Johanna Peralta y Fredy Mera Puertas: casos cerrados, APROBADOS (8 oct 2026).
         "id": "freddy_vasconez",
         "cita": date(2026, 11, 9),
         "cita_texto": "Lunes 9 de noviembre 2026, 9:00 AM",
