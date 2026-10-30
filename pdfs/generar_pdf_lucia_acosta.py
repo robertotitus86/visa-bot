@@ -94,7 +94,7 @@ def header_footer(canvas, doc):
     canvas.setFont("Helvetica-Bold", 14)
     canvas.drawCentredString(cx, cy - 2 * mm, str(canvas.getPageNumber()))
     canvas.setFont("Helvetica-Bold", 6.5)
-    canvas.drawCentredString(cx, cy - 7 * mm, "DE 9")
+    canvas.drawCentredString(cx, cy - 7 * mm, "DE 10")
 
     canvas.setFillColor(NAVY2)
     canvas.rect(0, 0, width, 13 * mm, stroke=0, fill=1)
@@ -260,13 +260,13 @@ INTERMEDIAS = [
     ('¿Desde cuándo trabaja en AME y dónde trabajaba antes?', 'Antes: Coordinación Zonal 4 de Salud, 2005 al 1 de febrero de 2026. [Confirma con Roberto: fecha exacta de ingreso a AME y motivo del cambio].', 'Trabajé 21 años en la Coordinación Zonal 4 de Salud, en Manabí, como analista de planificación, y desde 2026 estoy en AME como responsable de talento humano.'),
     ('¿Es la primera vez que va a Estados Unidos? ¿Le han negado alguna visa?', 'Primer viaje, nunca ha tenido visa, sin rechazos.', 'Sí, es la primera vez que solicito visa y que viajaría a Estados Unidos. No me han negado ninguna visa.'),
     ('¿Ha viajado antes fuera de Ecuador?', 'El DS-160 dice que no ha viajado en 5 años. Respuesta tal cual, sin inventar.', 'En los últimos cinco años no he viajado fuera de Ecuador. Este es mi primer viaje internacional reciente.'),
-    ('¿Qué estudió usted?', 'Tres estudios: ingeniería, diplomado y maestría. Dilos tal cual, en orden. [Confirma con Roberto: título obtenido en cada uno].', 'Soy ingeniera en Administración Pública por la Universidad Luis Vargas Torres, de Esmeraldas. También hice un diplomado en Gestión Pública y una maestría en Alta Dirección.'),
+    ('¿Qué estudió usted?', 'Tres estudios: ingeniería, diplomado y maestría (los dos últimos virtuales). Dilos tal cual, en orden. [Confirma con Roberto: título obtenido en cada uno].', 'Soy ingeniera en Administración Pública por la Universidad Luis Vargas Torres, de Esmeraldas. También hice un diplomado en Gestión Pública y una maestría en Alta Dirección, ambos en línea.'),
     ('Vive en Portoviejo y trabaja en Quito. ¿Cómo lo organiza?', 'Eres soltera. [Confirma con Roberto: si vive en Quito entre semana, si es teletrabajo o si se movilizó]. Responde con tu realidad exacta.', 'Soy soltera. Mi domicilio y mi familia están en Portoviejo, y trabajo en AME en Quito.'),
 ]
 
 DIFICILES = [
     ('Usted tiene dos hijos con residencia permanente en Estados Unidos. ¿Por qué no ha pedido vivir allá con ellos?', 'LA pregunta clave. Respuesta tranquila y verdadera: tu vida y tu trabajo están en Ecuador. No te pongas a la defensiva. [Confirma con Roberto: edades y situación de los hijos].', 'Mis hijos viven allá, es cierto, y los quiero mucho. Pero mi vida, mi trabajo y mi familia están en Ecuador. Este viaje es por un evento de negocios, por tres noches, y regreso a mi trabajo.'),
-    ('Su solicitud dice que estudió una maestría en Boston y nunca ha estado en Estados Unidos. ¿Cómo es posible?', 'CLAVE: debe coincidir con la realidad. [Confirma con Roberto: si la maestría fue virtual]. Si fue virtual, dilo claro y sin dudar.', 'Fue una maestría a distancia, en línea. Nunca he viajado a Estados Unidos; esta sería mi primera vez.'),
+    ('Su solicitud dice que estudió una maestría en Boston y nunca ha estado en Estados Unidos. ¿Cómo es posible?', 'CLAVE: la maestría fue virtual. Dilo claro y sin dudar.', 'Fue una maestría virtual, en línea. Nunca he viajado a Estados Unidos; esta sería mi primera vez.'),
     ('¿Quién es Jaime Narváez y qué relación tiene con usted?', 'Es tu contacto en EE.UU. según el DS-160 (socio de negocios, Comité Int Cumbre de New York). [Confirma con Roberto: cómo lo conoció y qué rol tiene en el evento].', 'El señor Jaime Narváez es el contacto del comité organizador del evento al que asisto. Lo conozco por el trabajo y la invitación al evento.'),
     ('¿Qué va a hacer usted, que trabaja en talento humano, en ese evento en Miami?', 'Explica el valor para tu cargo: gestión pública y de personal, redes de contactos. [Confirma con Roberto: programa real del evento].', 'Mi trabajo es la gestión del personal de una institución pública. En el evento voy a conocer experiencias de gestión pública y a traer lo aprendido para AME.'),
     ('¿Qué garantía tengo de que usted regresará a Ecuador?', 'Tu arraigo: trabajo en AME, familia, padres en Ecuador, viaje corto.', 'Mi trabajo en AME me espera, mi familia y mis padres están en Ecuador, y el viaje dura tres noches con regreso el 6 de diciembre.'),
@@ -318,7 +318,7 @@ def build():
     story.append(Spacer(1, 2 * mm))
     story.append(strength_box('', 'Cargo actual de responsabilidad en AME', 'Responsable de la administración de personal de la institución, con salario declarado de $2,418 mensuales.'))
     story.append(Spacer(1, 2 * mm))
-    story.append(strength_box('', 'Formación acorde a tu cargo', 'Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección: todo coherente con tu trabajo.'))
+    story.append(strength_box('', 'Formación acorde a tu cargo', 'Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección (estos dos virtuales): todo coherente con tu trabajo.'))
     story.append(Spacer(1, 2 * mm))
     story.append(strength_box('', 'Viaje corto y con propósito claro', 'Tres noches en Miami (3 al 6 de diciembre) para un evento de negocios, con contacto en EE.UU. verificable.'))
     story.append(Spacer(1, 2 * mm))
@@ -329,7 +329,7 @@ def build():
     story.append(Paragraph("PUNTOS A PREPARAR CON CALMA", style_eyebrow))
     story.append(risk_box('', 'Dos hijos residentes permanentes en EE.UU.', 'Es el punto más sensible: el oficial va a preguntar si ellos la pueden pedir. Responde con calma y la verdad: viajas por el evento, no a quedarte, y tu vida y tu trabajo están en Ecuador. [Confirma con Roberto: edades, desde cuándo están allá y si los visitarás].'))
     story.append(Spacer(1, 2 * mm))
-    story.append(risk_box('', 'Estudios en Boston y México, pero sin viajes', 'Tu DS-160 dice que nunca has estado en EE.UU. ni has viajado en 5 años, y a la vez registra una maestría en Boston (2022-2024) y un diplomado en México (2022). Debes poder explicar con claridad que fueron a distancia/virtuales. [Confirma con Roberto: modalidad de ambos estudios; si hubo viaje, hay que corregir el DS-160].'))
+    story.append(risk_box('', 'Maestría y diplomado virtuales (Boston y México)', 'Tu DS-160 dice que nunca has estado en EE.UU. ni has viajado en 5 años, y a la vez registra una maestría en Boston (2022-2024) y un diplomado en México (2022). Ambos fueron virtuales: dilo con naturalidad y sin dudar, y recuerda que nunca has viajado.'))
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box('', 'Primera vez en EE.UU. y sin viajes en 5 años', 'No tienes historial de viajes que respalde tu retorno. Se compensa con tu trabajo, tu familia y un viaje corto con motivo de negocios.'))
     story.append(Spacer(1, 2 * mm))
@@ -382,7 +382,7 @@ def build():
         ("9", "Certificado de la Coordinación Zonal 4 de Salud", "Respalda tus 21 años de trayectoria (2005 a febrero de 2026) y la salida de ese cargo."),
         ("10", "Estados de cuenta bancarios de 6 meses", "Muestran movimiento coherente con tus ingresos."),
         ("11", "Carta de quien cubre los gastos del viaje", "Si paga AME, debe decir que AME paga el viaje y que regresas a tu cargo (el DS-160 dejó en blanco quién paga)."),
-        ("12", "Títulos y certificados de tus estudios", "Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección; con la prueba de cómo los cursaste."),
+        ("12", "Títulos y certificados de tus estudios", "Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección; el diplomado y la maestría fueron virtuales."),
     ]
     for num, titulo, desc in laborales:
         story.append(doc_item(num, titulo, desc, BLUE))

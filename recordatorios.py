@@ -49,7 +49,7 @@ FAMILIAS = [
             "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
             "PUNTO CLAVE: tus dos hijos son residentes permanentes en EE.UU. Responde con calma y con la verdad: viajas por el evento, tu vida y tu trabajo están en Ecuador, y regresas el 6 de diciembre.",
             "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre de New York.",
-            "Ten claro quién paga tu viaje (el DS-160 no lo indica) y cómo cursaste la maestría de Boston y el diplomado de México, ya que nunca has viajado a EE.UU.",
+            "Ten claro quién paga tu viaje (el DS-160 no lo indica) y que la maestría de Boston y el diplomado de México fueron virtuales, por eso nunca has viajado a EE.UU.",
             "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
             "Tu cita es el jueves 5 de noviembre a las 9:00 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
         ],
