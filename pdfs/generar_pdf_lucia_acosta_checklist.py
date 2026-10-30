@@ -24,9 +24,9 @@ SLATEBG  = colors.HexColor("#F8FAFC")
 LINE     = colors.HexColor("#E2E8F0")
 
 CLIENTE = "Lucía Acosta"
-FECHA_CITA = "19 oct 2026 (tentativa)"
+FECHA_CITA = "5 nov 2026, 09:00"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
-DS160 = "AA00FU4AH1"
+DS160 = "AA00FVS4BP"
 PASAPORTE = "B0495916"
 
 OUT_PATH = os.path.join(os.path.dirname(__file__), "pdf-lucia-acosta-checklist.pdf")
@@ -188,7 +188,7 @@ def build():
     obligatorios = [
         ("1", "Pasaporte vigente", f"Número {PASAPORTE}, vence 27 de enero de 2035."),
         ("2", "Confirmación DS-160", f"Código de barras legible, número {DS160}."),
-        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (la fecha se adelantará)."),
+        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (jueves 5 de noviembre de 2026, 9:00 AM)."),
         ("4", "Fotografía 5x5 cm a color", "Tomada dentro de los últimos 6 meses, fondo claro."),
         ("5", "Comprobante de pago de la tasa MRV", "Guárdalo impreso — puede ser solicitado en la entrevista."),
         ("6", "Cédula de identidad", "Original y copia, como respaldo adicional de identidad."),
@@ -200,11 +200,12 @@ def build():
     story.append(grupo_header("DOCUMENTOS DE TRABAJO E INGRESOS", "Respaldan tu cargo en AME y tu ingreso mensual", BLUE, BLUEBG))
     story.append(Spacer(1, 2 * mm))
     laborales = [
-        ("7", "Certificado laboral de AME", "Cargo, fecha de ingreso, salario y la autorización de tu viaje a la conferencia."),
+        ("7", "Certificado laboral de AME", "Cargo, fecha de ingreso, salario y la autorización de tu viaje al evento."),
         ("8", "Rol de pagos de AME", "Los últimos 3 meses: respalda el salario de $2,418 declarado en el DS-160."),
         ("9", "Certificado de la Coordinación Zonal 4 de Salud", "Respalda tus 21 años de trayectoria (2005 a febrero de 2026) y la salida de ese cargo."),
         ("10", "Estados de cuenta bancarios de 6 meses", "Muestran movimiento coherente con tus ingresos."),
-        ("11", "Carta de AME que cubre los gastos del viaje", "Debe decir que AME paga el viaje y que regresas a tu cargo (el DS-160 dejó en blanco quién paga)."),
+        ("11", "Carta de quien cubre los gastos del viaje", "Si paga AME, debe decir que AME paga el viaje y que regresas a tu cargo (el DS-160 dejó en blanco quién paga)."),
+        ("12", "Títulos y certificados de tus estudios", "Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección; con la prueba de cómo los cursaste."),
     ]
     for num, titulo, desc in laborales:
         story.append(doc_item(num, titulo, desc, BLUE))
@@ -213,11 +214,11 @@ def build():
     story.append(grupo_header("VIAJE Y RESPALDO ADICIONAL", "Completan tu expediente para la entrevista", GOLD2, GOLDBG))
     story.append(Spacer(1, 2 * mm))
     adicional = [
-        ("12", "Invitación y registro a la conferencia de ICMA", "Invitación de FLACMA / confirmación de inscripción a la conferencia anual en Long Beach, si la tienes."),
-        ("13", "Reserva del hotel", "La Quinta Inn & Suites, 12441 Carson Street, Hawaiian Gardens, California — del 16 al 22 de octubre."),
-        ("14", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 22 de octubre."),
-        ("15", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),
-        ("16", "Documentos de arraigo familiar", "Partidas de nacimiento de tus hijos y cédula de tus padres: solo por si el oficial lo pide."),
+        ("13", "Invitación e inscripción al evento de Miami", "Carta o correo del comité organizador (contacto: Jaime Narváez) y tu confirmación de inscripción, si la tienes."),
+        ("14", "Reserva de hospedaje", "Dirección del DS-160: 5301 Northwest 36th Street — del 3 al 6 de diciembre."),
+        ("15", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 6 de diciembre."),
+        ("16", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),
+        ("17", "Documentos de arraigo familiar", "Partidas de nacimiento de tus hijos y cédula de tus padres: solo por si el oficial lo pide."),
     ]
     for num, titulo, desc in adicional:
         story.append(doc_item(num, titulo, desc, GOLD2))

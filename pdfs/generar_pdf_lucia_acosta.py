@@ -34,10 +34,10 @@ LINE     = colors.HexColor("#E2E8F0")
 
 CLIENTE = "Lucía Acosta"
 CLIENTE_COMPLETO = "Lucía Piedad Acosta Intriago"
-DESTINO = "Long Beach, EE.UU."
-FECHA_CITA = "19 oct 2026 (tentativa)"
+DESTINO = "Miami, EE.UU."
+FECHA_CITA = "5 nov 2026, 09:00"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
-DS160 = "AA00FU4AH1"
+DS160 = "AA00FVS4BP"
 PASAPORTE = "B0495916"
 
 OUT_PATH = os.path.join(os.path.dirname(__file__), "pdf-lucia-acosta.pdf")
@@ -233,7 +233,7 @@ def closing_band():
     data = [[Paragraph(
         "<font color='#C9A455' size=8><b>ASESORIA VISA GLOBAL</b></font><br/>"
         "<font color='#FFFFFF' size=13><b>Gracias por confiar tu proceso en nosotros, Lucía.</b></font><br/>"
-        "<font color='#94A3B8' size=9>Tu cita (fecha tentativa, la vamos a adelantar) — practica cada día y escríbenos por WhatsApp ante cualquier duda.</font>",
+        "<font color='#94A3B8' size=9>Tu cita: jueves 5 de noviembre, 9:00 AM — practica cada día y escríbenos por WhatsApp ante cualquier duda.</font>",
         ParagraphStyle("closing", parent=style_body, leading=15, spaceAfter=0))]]
     t = Table(data, colWidths=[170 * mm])
     t.setStyle(TableStyle([
@@ -248,35 +248,36 @@ def closing_band():
 # ───────────────────────────── PREGUNTAS ─────────────────────────────
 
 BASICAS = [
-    ('¿Cuál es el propósito de su viaje a Estados Unidos?', 'Conferencia anual de ICMA en Long Beach, con AME. Respuesta directa.', 'Viajo a Long Beach, California, seis días, del 16 al 22 de octubre, a la conferencia anual de ICMA, la asociación internacional de administración de ciudades y municipios, junto con la delegación de AME.'),
+    ('¿Cuál es el propósito de su viaje a Estados Unidos?', 'Evento de negocios en Miami. Respuesta directa. [Confirma con Roberto: nombre oficial del evento].', 'Viajo a Miami, Florida, tres noches, del 3 al 6 de diciembre, a un evento de negocios organizado por el comité cuyo contacto es el señor Jaime Narváez.'),
     ('¿A qué se dedica usted?', 'Tu cargo real: responsable de talento humano en AME.', 'Soy la responsable de la administración de personal de la Asociación de Municipalidades Ecuatorianas, AME: reclutamiento, contratos y nómina.'),
-    ('¿Cuánto tiempo se va a quedar?', 'Seis días: del 16 al 22 de octubre.', 'Seis días. Llego el 16 de octubre y regreso a Ecuador el 22 de octubre.'),
-    ('¿Dónde se va a hospedar?', 'La Quinta Inn & Suites, Hawaiian Gardens (dirección del DS-160). [Confirma con Roberto: confirmar que tiene reserva propia].', 'En el hotel La Quinta Inn & Suites, en Carson Street 12441, en Hawaiian Gardens, California, cerca de Long Beach.'),
+    ('¿Cuánto tiempo se va a quedar?', 'Tres noches: del 3 al 6 de diciembre.', 'Tres noches. Llego el 3 de diciembre y regreso a Ecuador el 6 de diciembre.'),
+    ('¿Dónde se va a hospedar?', 'Dirección del DS-160: 5301 Northwest 36th Street. [Confirma con Roberto: nombre del hotel y que tiene reserva propia].', 'En la dirección que declaré en mi solicitud, 5301 Northwest 36th Street, en Miami.'),
 ]
 
 INTERMEDIAS = [
-    ('¿Quién paga su viaje?', '[Confirma con Roberto] El DS-160 lo dejó en blanco. Si AME cubre el viaje, dilo sin dudar; si no, di quién lo paga y con qué.', 'Mi empleador, AME, cubre los gastos de la delegación para asistir a la conferencia.'),
+    ('¿Quién paga su viaje?', '[Confirma con Roberto] El DS-160 lo dejó en blanco. Si AME cubre el viaje, dilo sin dudar; si no, di quién lo paga y con qué.', 'Mi empleador, AME, cubre los gastos de mi viaje.'),
     ('¿Cuánto gana usted al mes?', '$2,418 mensuales, exactos como en el DS-160.', 'Dos mil cuatrocientos dieciocho dólares mensuales, como responsable de talento humano en AME.'),
     ('¿Desde cuándo trabaja en AME y dónde trabajaba antes?', 'Antes: Coordinación Zonal 4 de Salud, 2005 al 1 de febrero de 2026. [Confirma con Roberto: fecha exacta de ingreso a AME y motivo del cambio].', 'Trabajé 21 años en la Coordinación Zonal 4 de Salud, en Manabí, como analista de planificación, y desde 2026 estoy en AME como responsable de talento humano.'),
     ('¿Es la primera vez que va a Estados Unidos? ¿Le han negado alguna visa?', 'Primer viaje, nunca ha tenido visa, sin rechazos.', 'Sí, es la primera vez que solicito visa y que viajaría a Estados Unidos. No me han negado ninguna visa.'),
     ('¿Ha viajado antes fuera de Ecuador?', 'El DS-160 dice que no ha viajado en 5 años. Respuesta tal cual, sin inventar.', 'En los últimos cinco años no he viajado fuera de Ecuador. Este es mi primer viaje internacional reciente.'),
-    ('¿Qué estudió usted? Su solicitud dice que no cursó secundaria ni estudios superiores.', '[Confirma con Roberto] Revisa tu DS-160: si es un error, lo corregimos con calma; si no, explica tu formación real.', 'Mi formación y mi experiencia vienen de 21 años de trabajo en administración de personal en el sector público.'),
+    ('¿Qué estudió usted?', 'Tres estudios: ingeniería, diplomado y maestría. Dilos tal cual, en orden. [Confirma con Roberto: título obtenido en cada uno].', 'Soy ingeniera en Administración Pública por la Universidad Luis Vargas Torres, de Esmeraldas. También hice un diplomado en Gestión Pública y una maestría en Alta Dirección.'),
     ('Vive en Portoviejo y trabaja en Quito. ¿Cómo lo organiza?', 'Eres soltera. [Confirma con Roberto: si vive en Quito entre semana, si es teletrabajo o si se movilizó]. Responde con tu realidad exacta.', 'Soy soltera. Mi domicilio y mi familia están en Portoviejo, y trabajo en AME en Quito.'),
 ]
 
 DIFICILES = [
-    ('Usted tiene dos hijos con residencia permanente en Estados Unidos. ¿Por qué no ha pedido vivir allá con ellos?', 'LA pregunta clave. Respuesta tranquila y verdadera: tu vida y tu trabajo están en Ecuador. No te pongas a la defensiva. [Confirma con Roberto: edades y situación de los hijos].', 'Mis hijos viven allá, es cierto, y los quiero mucho. Pero mi vida, mi trabajo y mi familia están en Ecuador. Este viaje es por una conferencia de mi institución, por seis días, y regreso a mi trabajo.'),
-    ('¿Qué relación tiene con ICMA y con su conferencia?', 'ICMA: Asociación Internacional de Administración de Ciudades y Municipios. AME es parte de la red; tu contacto es Sergio Arredondo.', 'ICMA es la Asociación Internacional de Administración de Ciudades y Municipios. Mi institución, AME, participa en su red y yo viajo con la delegación a su conferencia anual en Long Beach.'),
-    ('¿Qué va a hacer usted, que trabaja en talento humano, en una conferencia de gobiernos locales?', 'Explica el valor para tu cargo: gestión de personal municipal, modelos de gestión, redes de contactos.', 'Mi trabajo es la gestión del personal de la institución. En la conferencia voy a conocer cómo administran el talento humano los gobiernos locales y a traer lo aprendido para AME.'),
-    ('¿Qué garantía tengo de que usted regresará a Ecuador?', 'Tu arraigo: trabajo en AME, familia, padres en Ecuador, viaje corto.', 'Mi trabajo en AME me espera, mi familia y mis padres están en Ecuador, y el viaje dura seis días con regreso el 22 de octubre.'),
-    ('¿Cuánto tiempo hace que sus hijos viven en Estados Unidos y los visitará durante el viaje?', 'No ocultes el vínculo con tus hijos; responde con la verdad exacta. [Confirma con Roberto: desde cuándo viven allá y si los verás].', 'Mis hijos viven allá desde hace algún tiempo. Mi viaje es por la conferencia de mi institución, mi hospedaje ya está definido y regreso a Ecuador el 22 de octubre.'),
+    ('Usted tiene dos hijos con residencia permanente en Estados Unidos. ¿Por qué no ha pedido vivir allá con ellos?', 'LA pregunta clave. Respuesta tranquila y verdadera: tu vida y tu trabajo están en Ecuador. No te pongas a la defensiva. [Confirma con Roberto: edades y situación de los hijos].', 'Mis hijos viven allá, es cierto, y los quiero mucho. Pero mi vida, mi trabajo y mi familia están en Ecuador. Este viaje es por un evento de negocios, por tres noches, y regreso a mi trabajo.'),
+    ('Su solicitud dice que estudió una maestría en Boston y nunca ha estado en Estados Unidos. ¿Cómo es posible?', 'CLAVE: debe coincidir con la realidad. [Confirma con Roberto: si la maestría fue virtual]. Si fue virtual, dilo claro y sin dudar.', 'Fue una maestría a distancia, en línea. Nunca he viajado a Estados Unidos; esta sería mi primera vez.'),
+    ('¿Quién es Jaime Narváez y qué relación tiene con usted?', 'Es tu contacto en EE.UU. según el DS-160 (socio de negocios, Comité Int Cumbre de New York). [Confirma con Roberto: cómo lo conoció y qué rol tiene en el evento].', 'El señor Jaime Narváez es el contacto del comité organizador del evento al que asisto. Lo conozco por el trabajo y la invitación al evento.'),
+    ('¿Qué va a hacer usted, que trabaja en talento humano, en ese evento en Miami?', 'Explica el valor para tu cargo: gestión pública y de personal, redes de contactos. [Confirma con Roberto: programa real del evento].', 'Mi trabajo es la gestión del personal de una institución pública. En el evento voy a conocer experiencias de gestión pública y a traer lo aprendido para AME.'),
+    ('¿Qué garantía tengo de que usted regresará a Ecuador?', 'Tu arraigo: trabajo en AME, familia, padres en Ecuador, viaje corto.', 'Mi trabajo en AME me espera, mi familia y mis padres están en Ecuador, y el viaje dura tres noches con regreso el 6 de diciembre.'),
+    ('¿Cuánto tiempo hace que sus hijos viven en Estados Unidos y los visitará durante el viaje?', 'No ocultes el vínculo con tus hijos; responde con la verdad exacta. [Confirma con Roberto: desde cuándo viven allá y si los verás].', 'Mis hijos viven allá desde hace algún tiempo. Mi viaje es por el evento de negocios, mi hospedaje ya está definido y regreso a Ecuador el 6 de diciembre.'),
 ]
 
 TRAMPA = [
     ('¿Ha sufrido daños, violencia o maltrato en su país de origen o en su última residencia habitual?', 'CRÍTICA — pregunta obligatoria 2026 para detectar posibles solicitantes de asilo. Un «sí» puede derivar en negativa automática. Responde con seguridad.', 'No, nunca he sufrido daños, violencia ni maltrato en Ecuador. Vivo y trabajo con normalidad en mi país.'),
     ('¿Teme sufrir daños, persecución o maltrato si regresa a ese país?', 'CRÍTICA — segunda pregunta obligatoria 2026. No tienes motivo real para temer volver.', 'No, no tengo ningún temor de regresar a Ecuador. Es mi país, donde vivo y trabajo.'),
-    ('Sus hijos son residentes en EE.UU. Cuando ellos sean ciudadanos, ¿lo pedirán a usted?', 'No te cierres ni inventes: respuesta tranquila, sin ofrecer más.', 'No lo sé ni lo he planeado. Mi vida está en Ecuador, y hoy solo viajo por seis días a la conferencia de mi institución.'),
-    ('¿Piensa trabajar o quedarse a vivir en Estados Unidos?', 'No lo contemples ni como hipótesis. Respuesta corta.', 'No. Voy por seis días a la conferencia y regreso a mi trabajo en AME.'),
+    ('Sus hijos son residentes en EE.UU. Cuando ellos sean ciudadanos, ¿lo pedirán a usted?', 'No te cierres ni inventes: respuesta tranquila, sin ofrecer más.', 'No lo sé ni lo he planeado. Mi vida está en Ecuador, y hoy solo viajo tres noches a un evento de negocios.'),
+    ('¿Piensa trabajar o quedarse a vivir en Estados Unidos?', 'No lo contemples ni como hipótesis. Respuesta corta.', 'No. Voy tres noches al evento y regreso a mi trabajo en AME.'),
 ]
 
 def bloque_preguntas(story, titulo, subtitulo, preguntas, color, bg, es_trampa=False):
@@ -305,32 +306,36 @@ def build():
     story.append(cita_box())
     story.append(Spacer(1, 8 * mm))
     story.append(Paragraph("TU CASO EN RESUMEN", style_eyebrow))
-    story.append(Paragraph("Motivo de viaje: conferencia de ICMA en Long Beach, 6 días", style_h2))
+    story.append(Paragraph("Motivo de viaje: evento de negocios en Miami, 3 noches", style_h2))
     story.append(Paragraph(
-        "Viajas a <b>Long Beach, California</b> del <b>16 al 22 de octubre de 2026</b> a la conferencia anual de <b>ICMA</b> "
-        "(Asociación Internacional de Administración de Ciudades y Municipios) con la delegación de AME. Te hospedas en <b>La Quinta Inn & Suites, 12441 Carson Street, Hawaiian Gardens, California (dirección del DS-160)</b>. "
+        "Viajas a <b>Miami, Florida</b> del <b>3 al 6 de diciembre de 2026</b> a un evento de negocios; tu contacto es "
+        "<b>Jaime Narváez</b>, del Comité Int Cumbre de New York. Tu hospedaje: <b>5301 Northwest 36th Street (dirección del DS-160)</b>. "
         "Es tu primer viaje a Estados Unidos, sin rechazos previos. Trabajas en AME, en la administración de personal, tras 21 años en el sector público. "
-        "<b>La fecha de tu entrevista es tentativa: la vamos a adelantar.</b>", style_body))
+        "<b>Tu entrevista es el jueves 5 de noviembre de 2026, 9:00 AM.</b>", style_body))
     story.append(Spacer(1, 4 * mm))
     story.append(Paragraph("FORTALEZAS DE TU CASO", style_eyebrow))
     story.append(strength_box('', '21 años de trayectoria continua en el sector público', 'Del 2005 al 2026 en la Coordinación Zonal 4 de Salud y hoy en AME: carrera estable en gestión de talento humano.'))
     story.append(Spacer(1, 2 * mm))
     story.append(strength_box('', 'Cargo actual de responsabilidad en AME', 'Responsable de la administración de personal de la institución, con salario declarado de $2,418 mensuales.'))
     story.append(Spacer(1, 2 * mm))
-    story.append(strength_box('', 'Viaje institucional, corto y con propósito claro', 'Conferencia anual de ICMA en Long Beach, seis días (16-22 de octubre), con contacto profesional verificable.'))
+    story.append(strength_box('', 'Formación acorde a tu cargo', 'Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección: todo coherente con tu trabajo.'))
+    story.append(Spacer(1, 2 * mm))
+    story.append(strength_box('', 'Viaje corto y con propósito claro', 'Tres noches en Miami (3 al 6 de diciembre) para un evento de negocios, con contacto en EE.UU. verificable.'))
     story.append(Spacer(1, 2 * mm))
     story.append(strength_box('', 'Arraigo en Ecuador', 'Vive en Portoviejo, trabaja en AME y sus padres viven en Ecuador. Sin rechazos previos.'))
     story.append(Spacer(1, 2 * mm))
     story.append(Spacer(1, 3 * mm))
     story.append(CondPageBreak(75 * mm))
     story.append(Paragraph("PUNTOS A PREPARAR CON CALMA", style_eyebrow))
-    story.append(risk_box('', 'Dos hijos residentes permanentes en EE.UU.', 'Es el punto más sensible: el oficial va a preguntar si ellos la pueden pedir. Responde con calma y la verdad: viajas por la conferencia, no a quedarte, y tu vida y tu trabajo están en Ecuador. [Confirma con Roberto: edades, desde cuándo están allá y si los visitarás].'))
+    story.append(risk_box('', 'Dos hijos residentes permanentes en EE.UU.', 'Es el punto más sensible: el oficial va a preguntar si ellos la pueden pedir. Responde con calma y la verdad: viajas por el evento, no a quedarte, y tu vida y tu trabajo están en Ecuador. [Confirma con Roberto: edades, desde cuándo están allá y si los visitarás].'))
     story.append(Spacer(1, 2 * mm))
-    story.append(risk_box('', 'Primera vez en EE.UU. y sin viajes en 5 años', 'No tienes historial de viajes que respalde tu retorno. Se compensa con tu trabajo, tu familia y un viaje corto con motivo institucional.'))
+    story.append(risk_box('', 'Estudios en Boston y México, pero sin viajes', 'Tu DS-160 dice que nunca has estado en EE.UU. ni has viajado en 5 años, y a la vez registra una maestría en Boston (2022-2024) y un diplomado en México (2022). Debes poder explicar con claridad que fueron a distancia/virtuales. [Confirma con Roberto: modalidad de ambos estudios; si hubo viaje, hay que corregir el DS-160].'))
     story.append(Spacer(1, 2 * mm))
-    story.append(risk_box('', 'Empleo reciente en AME', 'Llevas pocos meses en AME (antes 21 años en Salud). Prepara la explicación: cómo y cuándo pasaste de una institución a otra, y por qué AME te envía a esta conferencia.'))
+    story.append(risk_box('', 'Primera vez en EE.UU. y sin viajes en 5 años', 'No tienes historial de viajes que respalde tu retorno. Se compensa con tu trabajo, tu familia y un viaje corto con motivo de negocios.'))
     story.append(Spacer(1, 2 * mm))
-    story.append(risk_box('', 'Datos del DS-160 que hay que revisar', 'Quién paga el viaje quedó en blanco, y figura que no cursaste estudios de secundaria o superiores. Si hay un error, lo corregimos con calma antes de la entrevista; si no, tienes que poder explicarlo.'))
+    story.append(risk_box('', 'Quién paga y qué evento es', 'El DS-160 dejó en blanco quién paga el viaje, y el contacto es el «Comité Int Cumbre de New York» en un hotel de Miami. Ten claro quién te invita, quién paga y qué vas a hacer cada día. [Confirma con Roberto: nombre oficial del evento, programa e invitación].'))
+    story.append(Spacer(1, 2 * mm))
+    story.append(risk_box('', 'Empleo reciente en AME', 'Llevas pocos meses en AME (antes 21 años en Salud). Prepara la explicación: cómo y cuándo pasaste de una institución a otra, y por qué AME te envía a este evento.'))
     story.append(Spacer(1, 2 * mm))
     story.append(PageBreak())
 
@@ -361,7 +366,7 @@ def build():
     obligatorios = [
         ("1", "Pasaporte vigente", f"Número {PASAPORTE}, vence 27 de enero de 2035."),
         ("2", "Confirmación DS-160", f"Código de barras legible, número {DS160}."),
-        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (la fecha se adelantará)."),
+        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (jueves 5 de noviembre de 2026, 9:00 AM)."),
         ("4", "Fotografía 5x5 cm a color", "Tomada dentro de los últimos 6 meses, fondo claro."),
         ("5", "Comprobante de pago de la tasa MRV", "Guárdalo impreso — puede ser solicitado en la entrevista."),
         ("6", "Cédula de identidad", "Original y copia, como respaldo adicional de identidad."),
@@ -372,11 +377,12 @@ def build():
     story.append(grupo_header("DOCUMENTOS DE TRABAJO E INGRESOS", "Respaldan tu cargo en AME y tu ingreso mensual", BLUE, BLUEBG))
     story.append(Spacer(1, 2 * mm))
     laborales = [
-        ("7", "Certificado laboral de AME", "Cargo, fecha de ingreso, salario y la autorización de tu viaje a la conferencia."),
+        ("7", "Certificado laboral de AME", "Cargo, fecha de ingreso, salario y la autorización de tu viaje al evento."),
         ("8", "Rol de pagos de AME", "Los últimos 3 meses: respalda el salario de $2,418 declarado en el DS-160."),
         ("9", "Certificado de la Coordinación Zonal 4 de Salud", "Respalda tus 21 años de trayectoria (2005 a febrero de 2026) y la salida de ese cargo."),
         ("10", "Estados de cuenta bancarios de 6 meses", "Muestran movimiento coherente con tus ingresos."),
-        ("11", "Carta de AME que cubre los gastos del viaje", "Debe decir que AME paga el viaje y que regresas a tu cargo (el DS-160 dejó en blanco quién paga)."),
+        ("11", "Carta de quien cubre los gastos del viaje", "Si paga AME, debe decir que AME paga el viaje y que regresas a tu cargo (el DS-160 dejó en blanco quién paga)."),
+        ("12", "Títulos y certificados de tus estudios", "Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección; con la prueba de cómo los cursaste."),
     ]
     for num, titulo, desc in laborales:
         story.append(doc_item(num, titulo, desc, BLUE))
@@ -384,11 +390,11 @@ def build():
     story.append(grupo_header("VIAJE Y RESPALDO ADICIONAL", "Completan tu expediente para la entrevista", GOLD2, GOLDBG))
     story.append(Spacer(1, 2 * mm))
     adicional = [
-        ("12", "Invitación y registro a la conferencia de ICMA", "Invitación de FLACMA / confirmación de inscripción a la conferencia anual en Long Beach, si la tienes."),
-        ("13", "Reserva del hotel", "La Quinta Inn & Suites, 12441 Carson Street, Hawaiian Gardens, California — del 16 al 22 de octubre."),
-        ("14", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 22 de octubre."),
-        ("15", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),
-        ("16", "Documentos de arraigo familiar", "Partidas de nacimiento de tus hijos y cédula de tus padres: solo por si el oficial lo pide."),
+        ("13", "Invitación e inscripción al evento de Miami", "Carta o correo del comité organizador (contacto: Jaime Narváez) y tu confirmación de inscripción, si la tienes."),
+        ("14", "Reserva de hospedaje", "Dirección del DS-160: 5301 Northwest 36th Street — del 3 al 6 de diciembre."),
+        ("15", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 6 de diciembre."),
+        ("16", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),
+        ("17", "Documentos de arraigo familiar", "Partidas de nacimiento de tus hijos y cédula de tus padres: solo por si el oficial lo pide."),
     ]
     for num, titulo, desc in adicional:
         story.append(doc_item(num, titulo, desc, GOLD2))
@@ -397,18 +403,18 @@ def build():
     story.append(Paragraph("ULTIMO PASO", style_eyebrow))
     story.append(Paragraph("El día de tu cita", style_h2))
     story.append(Paragraph(
-        "Tu cita está programada <b>tentativamente para el lunes 19 de octubre de 2026, 8:00 AM</b> en la Embajada de EE.UU. en Quito (Av. Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA), "
-        "pero <b>la vamos a adelantar</b> porque tu viaje empieza el 16 de octubre. Te avisaremos la fecha nueva. Reprogramar solo se puede hasta el 15 de octubre de 2026, 5:00 AM, en tu página de resumen de solicitantes.", style_body))
+        "Tu cita es el <b>jueves 5 de noviembre de 2026, 9:00 AM</b> en la Embajada de EE.UU. en Quito (Av. Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA). "
+        "Lleva la confirmación del DS-160 con el código de barras que corresponde a tu cita y tu pasaporte.", style_body))
     story.append(Spacer(1, 3 * mm))
     story.append(strength_box("", "Llega 20-30 minutos antes", "No más de 15 minutos antes de tu hora exacta de ingreso — no hay necesidad de llegar mucho antes."))
     story.append(Spacer(1, 2 * mm))
     story.append(strength_box("", "Vestimenta formal", "Como para una reunión importante — comunica seriedad."))
     story.append(Spacer(1, 2 * mm))
-    story.append(strength_box("", "Qué llevar", "Pasaporte original, confirmación DS-160 impresa, página de confirmación de cita, comprobante de pago MRV, foto y los documentos de respaldo de tu trabajo en AME y de la conferencia."))
+    story.append(strength_box("", "Qué llevar", "Pasaporte original, confirmación DS-160 impresa, página de confirmación de cita, comprobante de pago MRV, foto y los documentos de respaldo de tu trabajo en AME, de tus estudios y del evento."))
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box("", "Qué NO llevar", "Celular (no pasa seguridad), laptop, tablet, cables, comida o bebidas."))
     story.append(Spacer(1, 2 * mm))
-    story.append(strength_box("", "Dentro de la entrevista", "Responde solo lo que te preguntan, habla claro y sin apresurarte. Si preguntan por tus hijos, responde con calma y con la verdad: viajas por la conferencia, tu vida y tu trabajo están en Ecuador, y regresas el 22 de octubre."))
+    story.append(strength_box("", "Dentro de la entrevista", "Responde solo lo que te preguntan, habla claro y sin apresurarte. Si preguntan por tus hijos, responde con calma y con la verdad: viajas por el evento, tu vida y tu trabajo están en Ecuador, y regresas el 6 de diciembre."))
     story.append(Spacer(1, 8 * mm))
     story.append(HRFlowable(width="100%", color=LINE, thickness=1))
     story.append(Spacer(1, 6 * mm))

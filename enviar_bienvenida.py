@@ -27,12 +27,13 @@ CASO = {
     "fortalezas": [
         "21 años de trayectoria continua en el sector público ecuatoriano",
         "Cargo de responsabilidad en AME: administración de personal",
-        "Viaje institucional y corto: 6 días a la conferencia de ICMA en Long Beach",
+        "Formación acorde a tu cargo: ingeniería, diplomado y maestría en gestión pública y alta dirección",
+        "Viaje corto: 3 noches a un evento de negocios en Miami, del 3 al 6 de diciembre",
         "Vives en Portoviejo, con tus padres y tu familia en Ecuador; sin rechazos previos",
     ],
-    "cita_texto": "Lunes 19 de octubre 2026, 8:00 AM (fecha tentativa: la vamos a adelantar y te avisaremos)",
+    "cita_texto": "Jueves 5 de noviembre 2026, 9:00 AM",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
-    "asunto": "Bienvenida — Tu simulador de entrevista esta listo — Asesoria Visa Global",
+    "asunto": "Actualizado — Tu simulador y guias para el viaje a Miami — Asesoria Visa Global",
 }
 
 # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).

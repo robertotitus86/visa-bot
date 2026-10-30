@@ -31,26 +31,27 @@ FAMILIAS = [
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
     {
         "id": "lucia_acosta",
-        "cita": date(2026, 10, 19),
-        "cita_texto": "Lunes 19 de octubre 2026, 8:00 AM (fecha tentativa: la vamos a adelantar)",
+        "cita": date(2026, 11, 5),
+        "cita_texto": "Jueves 5 de noviembre 2026, 9:00 AM",
         "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
         "simulador": "https://www.asesoriadevisadosglobal.com/lucia-acosta.html",
         "preguntas": "más de 20 preguntas (incluye modo oficial consular con preguntas trampa)",
         "fortalezas_html": (
             "&#8226; 21 años de trayectoria continua en el sector público<br>"
             "&#8226; Cargo de responsabilidad en AME: administración de personal<br>"
-            "&#8226; Viaje institucional de 6 días a la conferencia de ICMA en Long Beach<br>"
+            "&#8226; Formación en administración pública (ingeniería, diplomado y maestría)<br>"
+            "&#8226; Viaje corto de 3 noches a un evento de negocios en Miami<br>"
             "&#8226; Vive en Portoviejo, con sus padres y familia en Ecuador; sin rechazos previos"
         ),
         "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
         "tips": [
             "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
-            "PUNTO CLAVE: tus dos hijos son residentes permanentes en EE.UU. Responde con calma y con la verdad: viajas por la conferencia, tu vida y tu trabajo están en Ecuador, y regresas el 22 de octubre.",
-            "Aprende las siglas: ICMA = Asociación Internacional de Administración de Ciudades y Municipios; FLACMA = Federación Latinoamericana de Ciudades, Municipios y Asociaciones de Gobiernos Locales (aliado de AME).",
-            "Ten claro quién paga tu viaje (el DS-160 no lo indica) y confirma con Roberto tus estudios y tu fecha de ingreso a AME.",
+            "PUNTO CLAVE: tus dos hijos son residentes permanentes en EE.UU. Responde con calma y con la verdad: viajas por el evento, tu vida y tu trabajo están en Ecuador, y regresas el 6 de diciembre.",
+            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre de New York.",
+            "Ten claro quién paga tu viaje (el DS-160 no lo indica) y cómo cursaste la maestría de Boston y el diplomado de México, ya que nunca has viajado a EE.UU.",
             "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
-            "Tu fecha de cita (19 de octubre) es tentativa: la vamos a adelantar y te avisaremos.",
+            "Tu cita es el jueves 5 de noviembre a las 9:00 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
         ],
         "destinatarios": [
             {"nombre": "Lucía", "miembro": "lucia", "telefono": "593939406502",
