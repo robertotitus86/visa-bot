@@ -205,7 +205,7 @@ def build():
         ("9", "Certificado de la Coordinación Zonal 4 de Salud", "Respalda tus 21 años de trayectoria (2005 a febrero de 2026) y la salida de ese cargo."),
         ("10", "Estados de cuenta bancarios de 6 meses", "Muestran movimiento coherente con tus ingresos."),
         ("11", "Carta de quien cubre los gastos del viaje", "Si paga AME, debe decir que AME paga el viaje y que regresas a tu cargo (el DS-160 dejó en blanco quién paga)."),
-        ("12", "Títulos y certificados de tus estudios", "Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección; con la prueba de cómo los cursaste."),
+        ("12", "Títulos y certificados de tus estudios", "Ingeniería en Administración Pública, diplomado en Gestión Pública y maestría en Alta Dirección; el diplomado y la maestría fueron virtuales."),
     ]
     for num, titulo, desc in laborales:
         story.append(doc_item(num, titulo, desc, BLUE))
