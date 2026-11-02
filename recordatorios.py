@@ -31,8 +31,8 @@ FAMILIAS = [
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
     {
         "id": "lucia_acosta",
-        "cita": date(2026, 11, 5),
-        "cita_texto": "Jueves 5 de noviembre 2026, 9:00 AM",
+        "cita": None,  # por confirmar: reagendar con DS-160 nuevo; sin cita no se envian recordatorios
+        "cita_texto": "Por confirmar",
         "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
         "simulador": "https://www.asesoriadevisadosglobal.com/lucia-acosta.html",
         "preguntas": "más de 20 preguntas (incluye modo oficial consular con preguntas trampa)",
@@ -51,7 +51,7 @@ FAMILIAS = [
             "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre de New York.",
             "Ten claro quién paga tu viaje (el DS-160 no lo indica) y que la maestría de Boston y el diplomado de México fueron virtuales, por eso nunca has viajado a EE.UU.",
             "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
-            "Tu cita es el jueves 5 de noviembre a las 9:00 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
+            "Tu cita está por confirmar; te avisaremos la fecha. Cuando la tengas, llega sin celular y con la confirmación del DS-160 impresa.",
         ],
         "destinatarios": [
             {"nombre": "Lucía", "miembro": "lucia", "telefono": "593939406502",
