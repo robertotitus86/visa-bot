@@ -30,6 +30,38 @@ FAMILIAS = [
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
     {
+        "id": "tatiana_witt",
+        "cita": date(2026, 11, 16),
+        "cita_texto": "Lunes 16 de noviembre 2026, 8:00 AM",
+        "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/tatiana-witt.html",
+        "preguntas": "más de 20 preguntas (incluye modo oficial consular con preguntas trampa)",
+        "fortalezas_html": (
+            "&#8226; Trayectoria como Gerente General de CONAFIPS y del Banco de Desarrollo<br>"
+            "&#8226; Cargo actual en AME: asesoría técnica a la presidencia<br>"
+            "&#8226; Economista con diplomado, MBA y maestría en Cooperación Internacional<br>"
+            "&#8226; Viajes previos a 6 países de la región, siempre con retorno a Ecuador<br>"
+            "&#8226; Casada, con hogar en Quito y padres en Ecuador; sin rechazos previos"
+        ),
+        "zoom_html": "Prácticas en vivo con Roberto: <strong>10 y 13 de noviembre</strong>. Te confirmamos la hora por WhatsApp.",
+        "tips": [
+            "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
+            "PUNTO CLAVE: pasaste de Gerente General de CONAFIPS a asesora en AME. Prepara una explicación breve y verdadera de ese cambio.",
+            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre Lat de New York.",
+            "AME paga tu viaje (ten su carta a mano) y el MBA de Andorra y la maestría de Tacna fueron en línea.",
+            "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
+            "Tu cita es el lunes 16 de noviembre a las 8:00 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
+        ],
+        "destinatarios": [
+            {"nombre": "Tatiana", "miembro": "tatiana", "telefono": "593983503495",
+             "email": "witttatiana12@gmail.com", "tratamiento": "Estimada Tatiana",
+             "pdf": "pdf-tatiana-witt.pdf",
+             "pdf_extra": ["pdf-tatiana-witt-checklist.pdf", "pdf-tatiana-witt-guia-uso.pdf"]},
+        ],
+        "cc_visibles": [],
+    },
+    {
         "id": "lucia_acosta",
         "cita": None,  # por confirmar: reagendar con DS-160 nuevo; sin cita no se envian recordatorios
         "cita_texto": "Por confirmar",

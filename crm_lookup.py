@@ -13,6 +13,16 @@ SHEETS_WEBHOOK = os.getenv(
 CLIENTES_PREPARACION = {
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
+    "593983503495": {
+        "Nombre Principal": "Tatiana Patricia Witt Espinosa",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "Lunes 16 noviembre 2026, 8:00 AM - Embajada EE.UU. Quito (Avigiras E12-170 y Guayacanes)",
+        "Estado": "Cita confirmada, en preparacion de entrevista",
+        "Notas": (
+            "Casada (esposo Mauricio Vicente Maldonado Andrade), nacida 3 oct 1976 en Quito, vive en Pifo/Quito. Trabaja en AME (asesoria tecnica a la presidencia, $2,418/mes); antes Gerente General CONAFIPS (sep 2020-ene 2025) y Gerente de Productos y Programas Banco de Desarrollo (feb-nov 2025). Economista PUCE, diplomado UTPL, MBA Andorra y maestria Tacna. Viaje: evento de negocios en Miami, 3-6 dic 2026, direccion 50301 NW 36th St Miami Springs, contacto Jaime Narvaez Pina (Comite Int Cumbre Lat de New York, Hotel Indigo Miami Brickell). DS-160 AA00FVN0IR (firmado 5-nov-2026), pasaporte A8243688 (vence 14 sep 2032). Confirmado por Roberto: ingreso a AME 1-dic-2025, AME paga el viaje (DS-160 en blanco), MBA y maestria en linea. Viajo a Guatemala, Brasil, Rep. Dominicana, Colombia, Peru, Argentina. Primera vez USA, sin rechazos. Cita reagendable hasta 12 nov 5 AM. Tel +593 983503495. Correo witttatiana12@gmail.com. Simulador: asesoriadevisadosglobal.com/tatiana-witt.html"
+        ),
+    },
     "593939406502": {
         "Nombre Principal": "Lucia Piedad Acosta Intriago",
         "Tipo Visa": "USA (B1/B2)",

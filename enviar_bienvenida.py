@@ -17,23 +17,24 @@ PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
 # Caso activo: Lucia Piedad Acosta Intriago.
 CASO = {
-    "tratamiento": "Estimada Lucía",
+    "tratamiento": "Estimada Tatiana",
     "preparado": "preparada",
-    "email": "luciapiedad.acosta@gmail.com",
+    "email": "witttatiana12@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/lucia-acosta.html",
-    "pdf": "pdf-lucia-acosta.pdf",
-    "pdf_extra": ["pdf-lucia-acosta-checklist.pdf", "pdf-lucia-acosta-guia-uso.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/tatiana-witt.html",
+    "pdf": "pdf-tatiana-witt.pdf",
+    "pdf_extra": ["pdf-tatiana-witt-checklist.pdf", "pdf-tatiana-witt-guia-uso.pdf"],
     "fortalezas": [
-        "21 años de trayectoria continua en el sector público ecuatoriano",
-        "Cargo de responsabilidad en AME: administración de personal",
-        "Formación acorde a tu cargo: ingeniería, diplomado y maestría en gestión pública y alta dirección",
-        "Viaje corto: 3 noches a un evento de negocios en Miami, del 3 al 6 de diciembre",
-        "Vives en Portoviejo, con tus padres y tu familia en Ecuador; sin rechazos previos",
+        "Trayectoria como Gerente General de CONAFIPS y Gerente de Productos y Programas del Banco de Desarrollo",
+        "Cargo actual en AME: asesoría técnica a la presidencia",
+        "Economista con diplomado en Tributación, MBA y maestría en Cooperación Internacional",
+        "Viajes previos a 6 países de la región, siempre con retorno a Ecuador",
+        "Casada, con tu hogar en Quito y tus padres en Ecuador; sin rechazos previos",
     ],
-    "cita_texto": "Jueves 5 de noviembre 2026, 9:00 AM",
+    "cita_texto": "Lunes 16 de noviembre 2026, 8:00 AM",
+    "practicas": "10 y 13 de noviembre",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
-    "asunto": "Actualizado — Tu simulador y guias para el viaje a Miami — Asesoria Visa Global",
+    "asunto": "Tu simulador y guias para el viaje a Miami — Asesoria Visa Global",
 }
 
 # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
@@ -97,7 +98,8 @@ def _html_bienvenida(caso: dict) -> str:
     <div style="background:#FFF7ED;border:2px solid #F59E0B;border-radius:10px;padding:14px 18px;margin:20px 0;">
       <p style="color:#1E293B;font-size:13px;margin:0;line-height:1.6;">
         &#128197; Tu entrevista: <strong>{caso['cita_texto']}</strong><br>
-        &#128205; {caso['lugar']}
+        &#128205; {caso['lugar']}<br>
+        &#127908; Prácticas en vivo conmigo: <strong>{caso['practicas']}</strong> (te confirmo la hora por WhatsApp)
       </p>
     </div>
 
