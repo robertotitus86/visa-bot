@@ -249,7 +249,7 @@ def closing_band():
 
 BASICAS = [
     ('¿Cuál es el propósito de su viaje a Estados Unidos?', 'Viaje de turismo, corto, a Miami. Respuesta directa.', 'Viajo a Miami de turismo, por seis días, a partir del 10 de febrero de 2027.'),
-    ('¿A qué se dedica usted?', 'Su trabajo real: calzado y artículos de cuero, en Ibarra.', 'Soy artesano: confecciono, elaboro y reparo calzado y artículos de cuero, en Ibarra.'),
+    ('¿A qué se dedica usted?', 'Su trabajo real: es dueño de una empresa de calzado y cuero, en Ibarra.', 'Soy dueño de una empresa de calzado en Ibarra: elaboramos y reparamos calzado y cualquier artículo de cuero.'),
     ('¿Cuánto tiempo se va a quedar?', 'Seis días desde el 10 de febrero de 2027.', 'Seis días. Llego a Miami el 10 de febrero de 2027 y regreso a Ecuador al terminar el viaje.'),
     ('¿Dónde se va a hospedar?', 'Days Inn by Wyndham Miami Airport, Miami Springs.', 'Me hospedo en el hotel Days Inn by Wyndham Miami Airport, en la 4767 Northwest 36th Street, en Miami Springs, Florida.'),
     ('¿Tiene familiares en los Estados Unidos?', 'Ninguno. Respuesta corta y directa.', 'No, no tengo ningún familiar en los Estados Unidos.'),
@@ -266,7 +266,7 @@ INTERMEDIAS = [
 ]
 
 DIFICILES = [
-    ('En su solicitud dice que es artista, pero usted hace calzado. ¿Cuál es su verdadera ocupación?', 'LA pregunta clave. Su respuesta: es artesano, y la categoría «artista» es la más cercana a su oficio. Dígalo igual cada vez.', 'Soy artesano. Elaboro y reparo calzado y artículos de cuero con mis propias manos, y por eso en el formulario marqué la categoría de artista, que es la más cercana a un oficio artesanal. Mi actividad real es el calzado.'),
+    ('En su solicitud dice que es artista, pero usted hace calzado. ¿Cuál es su verdadera ocupación?', 'LA pregunta clave. Es dueño de una empresa de calzado y cuero con calificación artesanal; «artista» fue la categoría más cercana a su oficio. Dígalo igual cada vez.', 'Soy dueño de una empresa de calzado en Ibarra: elaboramos y reparamos calzado y cualquier artículo de cuero. Tengo calificación artesanal, y por eso en el formulario marqué la categoría de artista, que es la más cercana a mi oficio. Mi actividad real es el calzado.'),
     ('¿Por qué quiere viajar a Miami?', 'Su motivo real: turismo. Dígalo con sus propias palabras y nombre 2 o 3 cosas concretas que quiere conocer.', 'Viajo a Miami de turismo, a conocerlo. Es la primera vez que viajo a Estados Unidos, voy seis días y pago yo mismo mi viaje.'),
     ('No tiene itinerario ni conoce a nadie en Miami. ¿Qué va a hacer seis días allá?', 'El DS-160 dice «sin planes específicos». Tenga dos o tres actividades turísticas concretas para nombrar.', 'No conozco a nadie en Miami; solo tengo mi reserva de hotel. Voy a recorrer la ciudad como turista, conocer sus playas y sus lugares más conocidos, y regreso a Ecuador a mi trabajo.'),
     ('¿Qué garantía tengo de que usted regresará a Ecuador?', 'Su arraigo: vive y trabaja en Ibarra, viaje corto, autofinanciado.', 'Mi casa y mi trabajo están en Ibarra, donde vivo y trabajo en el mismo lugar. Es un viaje de solo seis días, lo pago yo mismo y regreso a mi trabajo.'),
@@ -279,6 +279,20 @@ TRAMPA = [
     ('¿Por qué debería darle la visa a usted y no a cualquier otra persona?', 'La ley (Sección 214(b)) presume que todo solicitante quiere quedarse: demuéstrelo con hechos, sin sonar a súplica.', 'Porque mi vida y mi trabajo están en Ibarra, Ecuador. Es un viaje corto de turismo, lo pago yo mismo y no tengo ningún vínculo ni intención de quedarme en Estados Unidos.'),
     ('Usted tiene 61 años, es divorciado y casi no ha viajado. ¿Qué lo ata a Ecuador?', 'Responda con calma y con hechos: su trabajo, su casa, su vida en Ibarra. Si tiene hijos o padres que dependen de usted, menciónelos aquí.', 'Mi trabajo, mi casa y toda mi vida están en Ibarra. Este es un viaje corto de turismo y al terminar regreso a mi trabajo, como siempre.'),
     ('¿Piensa trabajar o quedarse a vivir en Estados Unidos?', 'No lo contemple ni como hipótesis. Respuesta corta.', 'No. Voy solo de turismo por seis días y regreso a mi trabajo en Ibarra.'),
+    ('Su hotel queda junto al aeropuerto, lejos de la playa. ¿Cómo va a llegar a los sitios turísticos?', 'TRAMPA de logística: prueba si el viaje es real. Nombre el medio (Uber/Lyft, Metrorail, a pie) y los lugares concretos. Si duda, suena a viaje inventado.', 'Desde el hotel pido un Uber o Lyft con la aplicación a South Beach, Wynwood y Little Havana, y también puedo usar el metro y los buses de Miami. En Downtown camino o uso el Metromover.'),
+    ('Dígame tres lugares que va a visitar y qué día irá a cada uno.', 'TRAMPA: «sin planes específicos» no sirve aquí. Tenga 3 lugares y un orden sencillo, como en su brochure, dicho natural, sin recitar.', 'El primer día descanso. Luego Downtown y Bayside Marketplace, después los murales de Wynwood, y otro día la playa de South Beach y Ocean Drive. Si me da tiempo, camino por Little Havana.'),
+    ('¿Ya conoce Miami? ¿Cómo sabe de esos lugares?', 'Es su primer viaje: no diga que ya estuvo. Cuente cómo se informó (internet, videos, Google Maps) con honestidad.', 'No, es mi primera vez en Miami. Los conozco por internet y videos, y los tengo ubicados en Google Maps.'),
+    ('Usted tiene una empresa de calzado. ¿Va a comprar mercadería, contactar proveedores o ir a ferias en Miami?', 'TRAMPA CLAVE: si dice sí, el oficial lo pasa a visa de negocios o sospecha trabajo. Respuesta firme: es turismo, solo recuerdos personales.', 'No. Voy solo de turismo. No voy a comprar mercadería ni a reunirme con proveedores; como mucho, algunos recuerdos para mí y mi familia.'),
+    ('¿Quién queda a cargo de su empresa mientras viaja seis días?', 'TRAMPA de arraigo. Responda con la verdad de su caso (empleado, familiar o cierra unos días) y tenga esta respuesta lista antes de la cita.', 'Dejo mi empresa organizada y mi trabajo me espera. Son solo seis días y regreso a Ibarra a retomar mi actividad.'),
+    ('¿Cuánto dinero va a llevar y cuánto piensa gastar en el viaje?', 'TRAMPA: no invente cifras. Tenga claro el monto real que llevará y respáldelo con estados de cuenta. Hotel ya reservado.', 'El hotel ya lo tengo reservado. Llevo mis ahorros y tarjeta para transporte, comida y paseos, que salen de los ingresos de mi trabajo.'),
+    ('¿Por qué viaja solo y por qué en febrero?', 'TRAMPA: no necesita justificar demasiado. Motivo real y breve; nada de inventar un evento o una invitación.', 'Viajo solo porque es un viaje personal de descanso, y escogí febrero por esas fechas libres en mi trabajo. Son solo seis días.'),
+    ('¿Habla inglés? ¿Cómo se va a comunicar allá?', 'Diga su nivel real. Miami es muy hispano; apóyese en Google Translate y en que en Little Havana se habla español. No exagere.', 'Hablo poco inglés, pero en Miami se habla mucho español, y uso Google Maps y el traductor del celular para moverme.'),
+    ('¿Alguien le recomendó Miami o lo invitó? ¿Va a visitar a algún conocido?', 'TRAMPA: el DS-160 dice sin contactos en EE.UU. Responda igual, sin cambiar la versión.', 'No me invitó nadie ni visito a ningún conocido. Escogí Miami por mi cuenta, para conocerlo como turista.'),
+    ('Usted estudió Administración Aduanera. ¿Por qué hoy se dedica al calzado?', 'TRAMPA de coherencia. Sea breve y verdadero: el estudio es una cosa y su negocio otra; no invente una historia larga.', 'Estudié Administración Aduanera entre 2011 y 2013, pero mi negocio es el calzado y el cuero, y de eso vivo en Ibarra.'),
+    ('En el formulario figura como artista o intérprete. ¿Va a actuar, exponer o vender su trabajo en Estados Unidos?', 'TRAMPA CLAVE ligada a la categoría «artista»: la respuesta es un NO firme. Es turismo, nada más.', 'No. Voy solo de turismo. No voy a actuar, ni a exponer, ni a vender nada en Estados Unidos.'),
+    ('¿Desde cuándo tiene su empresa y cuántas personas trabajan con usted?', 'TRAMPA de arraigo y solvencia. Diga su año real y su número real de personas: si no los sabe de memoria, el oficial lo nota. No invente.', 'Mi empresa funciona en Ibarra desde hace varios años y le puedo dar el año exacto y cuántas personas trabajan conmigo. De ahí vienen mis ingresos.'),
+    ('¿Qué fue a hacer a Colombia y cuánto tiempo estuvo?', 'TRAMPA sobre su único viaje previo. Diga el motivo y la duración reales; lo importante es que regresó sin problemas.', 'Viajé a Colombia y regresé a Ecuador sin ningún inconveniente. Fue un viaje corto y volví a mi trabajo.'),
+    ('Si hoy le niego la visa, ¿qué haría?', 'TRAMPA emocional. Calma y madurez: acepte la decisión sin discutir ni suplicar.', 'Aceptaría la decisión con respeto y seguiría con mi vida y mi trabajo en Ibarra. Más adelante podría volver a intentarlo.'),
 ]
 
 def bloque_preguntas(story, titulo, subtitulo, preguntas, color, bg, es_trampa=False):
@@ -311,7 +325,7 @@ def build():
     story.append(Paragraph(
         "Viajas a <b>Miami</b> por turismo durante <b>seis días, desde el 10 de febrero de 2027</b>, solo y pagando tú mismo el viaje. "
         "Te hospedas en el <b>Days Inn by Wyndham Miami Airport, 4767 Northwest 36th Street, Miami Springs, Florida</b>. Es tu primer viaje a Estados Unidos, sin rechazos previos y sin familiares ni contactos allá. "
-        "Vives y trabajas en Ibarra, donde trabajas como artesano de calzado y artículos de cuero.", style_body))
+        "Vives y trabajas en Ibarra, donde eres dueño de una empresa de calzado y artículos de cuero.", style_body))
     story.append(Spacer(1, 4 * mm))
     story.append(Paragraph("FORTALEZAS DE TU CASO", style_eyebrow))
     story.append(strength_box('', 'Vive y trabaja en el mismo lugar, en Ibarra', 'Su domicilio y su lugar de trabajo coinciden (Rafael Larrea 3-59 y Simón Bolívar) — arraigo y estabilidad verificables.'))
@@ -327,7 +341,7 @@ def build():
     story.append(Spacer(1, 3 * mm))
     story.append(CondPageBreak(75 * mm))
     story.append(Paragraph("PUNTOS A PREPARAR CON CALMA", style_eyebrow))
-    story.append(risk_box('', 'Ocupación no coincide con el empleo en el DS-160', 'Figura como «Artista/Intérprete» pero es artesano del calzado y el cuero. Explíquelo siempre igual, en una sola frase: «Soy artesano, y artista fue la categoría más cercana a mi oficio».'))
+    story.append(risk_box('', 'Ocupación no coincide con el empleo en el DS-160', 'Figura como «Artista/Intérprete» pero es dueño de una empresa de calzado y cuero. Explíquelo siempre igual, en una sola frase: «Soy dueño de una empresa de calzado en Ibarra: elaboramos y reparamos calzado y cualquier artículo de cuero. Tengo calificación artesanal, y por eso marqué la categoría de artista, la más cercana a mi oficio.»'))
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box('', 'Poca historia de viajes', 'En 5 años solo declara Colombia y es su primer viaje a EE.UU. Se compensa con arraigo laboral y un viaje corto con motivo claro.'))
     story.append(Spacer(1, 2 * mm))
@@ -411,7 +425,7 @@ def build():
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box("", "Qué NO llevar", "Celular (no pasa seguridad), laptop, tablet, cables, comida o bebidas."))
     story.append(Spacer(1, 2 * mm))
-    story.append(strength_box("", "Dentro de la entrevista", "Responde solo lo que te preguntan, habla claro y sin apresurarte. Si preguntan por tu ocupación, explica una sola vez que eres artesano del calzado y el cuero, y que «artista» fue la categoría más cercana a tu oficio, y sigue adelante — sin justificarte de más."))
+    story.append(strength_box("", "Dentro de la entrevista", "Responde solo lo que te preguntan, habla claro y sin apresurarte. Si preguntan por tu ocupación, explica una sola vez que eres dueño de una empresa de calzado y cuero, con calificación artesanal, y que «artista» fue la categoría más cercana a tu oficio, y sigue adelante — sin justificarte de más."))
     story.append(Spacer(1, 8 * mm))
     story.append(HRFlowable(width="100%", color=LINE, thickness=1))
     story.append(Spacer(1, 6 * mm))
