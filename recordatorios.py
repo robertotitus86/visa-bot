@@ -29,6 +29,7 @@ PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 FAMILIAS = [
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
+    # Freddy Vasconez: caso cerrado, visa APROBADA (9 nov 2026).
     {
         "id": "tatiana_witt",
         "cita": date(2026, 11, 16),
@@ -90,48 +91,6 @@ FAMILIAS = [
              "email": "luciapiedad.acosta@gmail.com", "tratamiento": "Estimada Lucía",
              "pdf": "pdf-lucia-acosta.pdf",
              "pdf_extra": ["pdf-lucia-acosta-checklist.pdf", "pdf-lucia-acosta-guia-uso.pdf"]},
-        ],
-        "cc_visibles": [],
-    },
-    {
-        # Johanna Peralta y Fredy Mera Puertas: casos cerrados, APROBADOS (8 oct 2026).
-        "id": "freddy_vasconez",
-        "cita": date(2026, 11, 9),
-        "cita_texto": "Lunes 9 de noviembre 2026, 9:00 AM",
-        "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
-        "simulador": "https://www.asesoriadevisadosglobal.com/freddy-vasconez.html",
-        "preguntas": "22 preguntas (incluye modo oficial consular con preguntas trampa)",
-        "fortalezas_html": (
-            "&#8226; Vive y trabaja en el mismo lugar, en Ibarra — arraigo verificable<br>"
-            "&#8226; Ingreso declarado de $3,000 mensuales y viaje autofinanciado<br>"
-            "&#8226; Sin rechazos, sin familiares ni contactos en EE.UU., pasaporte nuevo vigente hasta 2035<br>"
-            "&#8226; Viaje corto (6 dias) con reserva de hotel concreta en Miami Springs"
-        ),
-        "pago_html": (
-            "<div style='background:#FFFBEB;border-left:4px solid #F59E0B;border-radius:0 10px 10px 0;padding:14px 16px;margin:20px 0;'>"
-            "<p style='color:#92400E;font-size:11px;font-weight:700;margin:0 0 6px;text-transform:uppercase;letter-spacing:1px;'>Recordatorio de pago</p>"
-            "<p style='color:#1E293B;font-size:13px;margin:0;line-height:1.7;'>"
-            "El valor de su asesor&iacute;a es de <strong>$150 USD</strong>, con fecha l&iacute;mite <strong>viernes 9 de octubre</strong>.<br>"
-            "<strong>Banco Pichincha &middot; Cuenta de ahorros N.&ordm; 2200449871</strong><br>"
-            "A nombre de Roberto Acosta &middot; C.I. 1719731380<br>"
-            "Env&iacute;enos el comprobante por WhatsApp. Si ya pag&oacute;, por favor ignore este aviso."
-            "</p></div>"
-        ),
-        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
-        "tips": [
-            "Practique en voz alta frente al espejo. Si suena natural, el oficial lo percibira con confianza.",
-            "Respuestas cortas y directas — 2 o 3 oraciones maximas. Si el oficial quiere mas detalle, pregunta.",
-            "PUNTO CLAVE: en su DS-160 figura como 'artista' porque es artesano (calzado y articulos de cuero). Explique SIEMPRE lo mismo: 'Soy artesano, y artista fue la categoria mas cercana a mi oficio'.",
-            "Su viaje es de turismo: tenga listas dos o tres cosas concretas que quiere conocer en Miami, ya que no tiene itinerario ni contacto alla.",
-            "Su ingreso es por cuenta propia: lleve RUC, declaraciones del SRI y estados de cuenta que respalden los $3,000 mensuales.",
-            "Las 2 preguntas obligatorias 2026 sobre danos/persecucion: responder con calma, 'No' directo, sin dudar.",
-            "Llegue 20-30 minutos antes, sin celular, ropa formal, carpeta con documentos originales.",
-        ],
-        "destinatarios": [
-            {"nombre": "Freddy", "miembro": "freddy", "telefono": "593988484970",
-             "email": "freddyvasc@hotmail.com", "tratamiento": "Estimado Freddy",
-             "pdf": "pdf-freddy-vasconez.pdf",
-             "pdf_extra": ["pdf-freddy-vasconez-checklist.pdf", "pdf-freddy-vasconez-guia-uso.pdf"]},
         ],
         "cc_visibles": [],
     },

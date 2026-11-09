@@ -13,6 +13,7 @@ SHEETS_WEBHOOK = os.getenv(
 CLIENTES_PREPARACION = {
     # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
     # Paola Samaniego y Karen Beltran: casos cerrados (31 ago 2026).
+    # Freddy Vasconez: caso cerrado, visa APROBADA (9 nov 2026).
     "593983503495": {
         "Nombre Principal": "Tatiana Patricia Witt Espinosa",
         "Tipo Visa": "USA (B1/B2)",
@@ -31,16 +32,6 @@ CLIENTES_PREPARACION = {
         "Estado": "Cita confirmada, en preparacion de entrevista",
         "Notas": (
             "Soltera, nacida 28 feb 1980 en Portoviejo, vive en Portoviejo. Trabaja en AME (Quito), talento humano, $2,418/mes; antes 21 anos en Coord. Zonal 4 Salud (2005-feb 2026). Viaje (DS-160 NUEVO 30-oct): evento de negocios en Miami, 3-6 dic 2026, direccion 5301 NW 36th St, contacto Jaime Narvaez Pina (Comite Int Cumbre de New York, Hotel Indigo Miami Brickell). CITA: miercoles 18 nov 2026, 8:00 AM, Embajada Quito, agendada con el DS-160 nuevo AA00FVS4BP (verificado 6 nov 2026). PUNTO CRITICO: 2 hijos residentes permanentes (LPR) en EE.UU. DS-160 AA00FVS4BP, pasaporte B0495916 (vence 27 ene 2035). DS-160: quien paga en blanco; estudios: ing. administracion publica, diplomado UNAM 2022 y maestria Boston 2022-24 ambos VIRTUALES (confirmado por Roberto 30-oct), por eso sin viajes en 5 anos ni nunca en EE.UU.. Primera vez USA, sin rechazos. Tel +593 939406502. Correo luciapiedad.acosta@gmail.com. Simulador: asesoriadevisadosglobal.com/lucia-acosta.html"
-        ),
-    },
-    "593988484970": {
-        "Nombre Principal": "Freddy Wilfrido Vasconez Freire",
-        "Tipo Visa": "USA (B1/B2)",
-        "Num Viajeros": "1",
-        "Cita": "Lunes 9 noviembre 2026, 9:00 AM - Embajada EE.UU. Quito (Avigiras E12-170 y Guayacanes)",
-        "Estado": "Cita confirmada, en preparacion de entrevista",
-        "Notas": (
-            "Divorciado (mutuo acuerdo, mar 2011), nacido 9 abr 1965 en Ambato. Cedula 1708764632. Vive y trabaja en Ibarra (Rafael Larrea 3-59 y Simon Bolivar). Ocupacion: confeccion/reparacion de calzado y articulos de cuero, $3,000/mes, cuenta propia. PUNTO CRITICO: el DS-160 dice 'ARTIST/PERFORMER' porque es ARTESANO (calzado y cuero) y esa fue la categoria mas cercana — explicarlo siempre igual. Motivo del viaje: turismo. Estudios: Administracion Aduanera, Liceo Aduanero Ibarra 2011-2013. PRIMER VIAJE a USA, sin rechazos, sin familiares en USA. Unico viaje previo (5 anos): Colombia. Pasaporte B1032986 (nuevo, 3 oct 2025, vence 3 oct 2035). DS-160: AA00FTWGBH. Viaje: turismo B1/B2, 6 dias desde 10 feb 2027, Miami, Days Inn by Wyndham Miami Airport (4767 NW 36th St, Miami Springs FL). Viaja solo, paga el mismo, sin contacto personal en USA. Facebook @FREDDY VASCONEZ. Correo freddyvasc@hotmail.com. Tel +593 98 848 4970. Simulador: asesoriadevisadosglobal.com/freddy-vasconez.html"
         ),
     },
 }
