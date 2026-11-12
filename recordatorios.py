@@ -94,6 +94,38 @@ FAMILIAS = [
         ],
         "cc_visibles": [],
     },
+    {
+        "id": "josue_lopez",
+        "cita": date(2026, 11, 23),
+        "cita_texto": "Lunes 23 de noviembre 2026, 7:30 AM",
+        "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
+        "simulador": "https://www.asesoriadevisadosglobal.com/josue-lopez.html",
+        "preguntas": "más de 20 preguntas (incluye modo oficial consular con preguntas trampa)",
+        "fortalezas_html": (
+            "&#8226; Cargo directivo en AME: cooperación internacional y relaciones con organismos multilaterales<br>"
+            "&#8226; Antes, Director de Cooperación Internacional en el Ministerio de Agricultura (2017-2021)<br>"
+            "&#8226; Licenciatura en Política y Estudios Internacionales y maestría en Cooperación Internacional<br>"
+            "&#8226; Viajes previos a 6 países, siempre con retorno a Ecuador<br>"
+            "&#8226; Vive en Quito, con sus padres en Ecuador; sin rechazos previos"
+        ),
+        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
+        "tips": [
+            "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
+            "PUNTO CLAVE: estudiaste en Australia y en Corea del Sur. Responde con fechas exactas y deja claro por qué regresaste y qué te ata a Ecuador.",
+            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre Lat de New York.",
+            "AME paga tu viaje (el DS-160 no lo muestra): ten su carta a mano y dilo sin dudar.",
+            "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
+            "Tu cita es el lunes 23 de noviembre a las 7:30 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
+        ],
+        "destinatarios": [
+            {"nombre": "Josué", "miembro": "josue", "telefono": "593960582993",
+             "email": "josue90l@gmail.com", "tratamiento": "Estimado Josué",
+             "pdf": "pdf-josue-lopez.pdf",
+             "pdf_extra": ["pdf-josue-lopez-checklist.pdf", "pdf-josue-lopez-guia-uso.pdf"]},
+        ],
+        "cc_visibles": [],
+    },
 ]
 
 
@@ -194,8 +226,11 @@ def _send_wa(telefono: str, mensaje: str):
         log.warning(f"  [WA] Excepcion: {e}")
 
 
-def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nombre: str) -> str:
+def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nombre: str, miembro: str = "") -> str:
     tip = _tip_del_dia(familia)
+    from crm_lookup import SHEETS_WEBHOOK
+    pixel = (f'<img src="{SHEETS_WEBHOOK}?action=pixelEmail&c={miembro}&d={datetime.now(ZONA):%Y%m%d}" '
+             f'width="1" height="1" alt="" style="display:none">')
     titulo_dia, frase_dia = _encabezado_del_dia(nombre)
     return f"""<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
@@ -257,6 +292,7 @@ def _html_email(familia: dict, tratamiento: str, sim_link: str, cuenta: str, nom
 
   </div>
 
+  {pixel}
   <p style="color:#94A3B8;font-size:10px;text-align:center;margin:14px 0;">
     Asesoría Visa Global · Roberto Acosta · +593 99 444 2512<br>
     <a href="https://www.asesoriadevisadosglobal.com" style="color:#94A3B8;">www.asesoriadevisadosglobal.com</a>
@@ -283,6 +319,48 @@ def _wa_recordatorio(familia: dict, nombre: str, miembro: str) -> str:
     )
 
 
+def _abrieron_simulador(horas: int = 24):
+    """Devuelve set de nombres (minusculas, sin tildes) que abrieron/practicaron en las ultimas N horas,
+    o None si no se pudo consultar (en ese caso NO se manda el empujon, para no acusar en falso)."""
+    try:
+        from crm_lookup import SHEETS_WEBHOOK
+        data = req.get(f"{SHEETS_WEBHOOK}?action=resumenPractica&horas={horas}", timeout=10).json()
+        if data.get("status") != "ok":
+            return None
+        quitar = str.maketrans("áéíóú", "aeiou")
+        return {n.lower().translate(quitar) for n, c in data.get("clientes", {}).items()
+                if c["aperturas"] or c["respuestas"] or c.get("emails")}
+    except Exception as e:
+        log.warning(f"[Recordatorios] No pude consultar practica del simulador: {e}")
+        return None
+
+
+def _wa_empujon(familia: dict, nombre: str, miembro: str) -> str:
+    """Mensaje cuando NO abrio el simulador en las ultimas 24h."""
+    dias = (familia["cita"] - datetime.now(ZONA).date()).days
+    sim  = f"{familia['simulador']}?miembro={miembro}"
+    return (
+        f"Buenos días {nombre} 👋\n\n"
+        f"Ayer no vimos que abrieras mi correo ni tu simulador, y faltan *{dias} días* para tu entrevista "
+        f"({familia['cita_texto']}).\n\n"
+        f"Practicar en voz alta es lo que más ayuda: quien ya ensayó sus respuestas llega más tranquilo "
+        f"y responde con seguridad; quien no, suele dudar justo en las preguntas clave.\n\n"
+        f"Son solo 15 minutos hoy:\n{sim}\n\n"
+        f"Si algo no te cargó o tienes dudas, respóndeme por aquí y lo vemos. Estamos pendientes de tu caso 💪\n\n"
+        f"— Roberto · Asesoría Visa Global"
+    )
+
+
+def _html_empujon(dias: int) -> str:
+    return (
+        "<div style='background:#FEF2F2;border-left:4px solid #EF4444;border-radius:0 10px 10px 0;"
+        "padding:14px 16px;margin:16px 0;'><p style='color:#7F1D1D;font-size:13px;margin:0;line-height:1.6;'>"
+        f"<strong>Ayer no vimos que abriera nuestro correo ni su simulador</strong> y faltan {dias} días para la entrevista. "
+        "Quien ensaya sus respuestas en voz alta llega más tranquilo y responde con seguridad. "
+        "Bastan 15 minutos hoy. Si algo no cargó o tiene dudas, respóndanos y lo resolvemos.</p></div>"
+    )
+
+
 def enviar_recordatorios():
     """Envia email + WhatsApp diario a todas las familias en preparacion. Llamado por APScheduler."""
     hoy_dt = datetime.now(ZONA).date()
@@ -297,10 +375,22 @@ def enviar_recordatorios():
             log.info(f"[Recordatorios] Saltando {familia['id']} — cita ya ocurrió ({familia['cita']})")
             continue
         cuenta = _cuenta_regresiva(familia)
+        abrieron = _abrieron_simulador(24)  # None = no se pudo consultar -> no empujar
+        quitar = str.maketrans("áéíóú", "aeiou")
+        def _no_abrio(d):
+            return abrieron is not None and not any(
+                d["miembro"] in v or d["nombre"].lower().translate(quitar) in v for v in abrieron)
+        dias_f = (familia["cita"] - hoy_dt).days
+        if any(_no_abrio(d) for d in familia["destinatarios"]):
+            cuenta += _html_empujon(dias_f)
 
         # ── WhatsApp (best-effort — requiere ventana 24h activa) ─────────
         for dest in familia["destinatarios"]:
-            wa_msg = _wa_recordatorio(familia, dest["nombre"], dest["miembro"])
+            if _no_abrio(dest):
+                wa_msg = _wa_empujon(familia, dest["nombre"], dest["miembro"])
+                log.info(f"  [Empujon] {dest['nombre']} no abrio el simulador en 24h")
+            else:
+                wa_msg = _wa_recordatorio(familia, dest["nombre"], dest["miembro"])
             _send_wa(dest["telefono"], wa_msg)
 
         # ── Email (via Resend HTTP API — Render bloquea SMTP saliente) ────
@@ -313,7 +403,7 @@ def enviar_recordatorios():
                 continue
             try:
                 sim_link = f"{familia['simulador']}?miembro={dest['miembro']}"
-                html     = _html_email(familia, dest["tratamiento"], sim_link, cuenta, dest["nombre"])
+                html     = _html_email(familia, dest["tratamiento"], sim_link, cuenta, dest["nombre"], dest["miembro"])
                 titulo_dia, _ = _encabezado_del_dia(dest["nombre"])
                 asunto   = f"{dest['tratamiento']} · {titulo_dia}"
 

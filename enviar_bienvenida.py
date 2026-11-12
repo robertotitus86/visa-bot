@@ -15,24 +15,24 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
-# Caso activo: Lucia Piedad Acosta Intriago.
+# Caso activo: Josue Patricio Lopez Telenchana.
 CASO = {
-    "tratamiento": "Estimada Tatiana",
-    "preparado": "preparada",
-    "email": "witttatiana12@gmail.com",
+    "tratamiento": "Estimado Josué",
+    "preparado": "preparado",
+    "email": "josue90l@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/tatiana-witt.html",
-    "pdf": "pdf-tatiana-witt.pdf",
-    "pdf_extra": ["pdf-tatiana-witt-checklist.pdf", "pdf-tatiana-witt-guia-uso.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/josue-lopez.html",
+    "pdf": "pdf-josue-lopez.pdf",
+    "pdf_extra": ["pdf-josue-lopez-checklist.pdf", "pdf-josue-lopez-guia-uso.pdf"],
     "fortalezas": [
-        "Trayectoria como Gerente General de CONAFIPS y Gerente de Productos y Programas del Banco de Desarrollo",
-        "Cargo actual en AME: asesoría técnica a la presidencia",
-        "Economista con diplomado en Tributación, MBA y maestría en Cooperación Internacional",
-        "Viajes previos a 6 países de la región, siempre con retorno a Ecuador",
-        "Casada, con tu hogar en Quito y tus padres en Ecuador; sin rechazos previos",
+        "Cargo directivo en AME: cooperación internacional y relaciones con organismos multilaterales",
+        "Antes, Director de Cooperación Internacional en el Ministerio de Agricultura (2017-2021)",
+        "Licenciatura en Política y Estudios Internacionales y maestría en Cooperación Internacional",
+        "Viajes previos a 6 países, siempre con retorno a Ecuador",
+        "Con tu hogar en Quito y tus padres en Ecuador; sin rechazos previos",
     ],
-    "cita_texto": "Lunes 16 de noviembre 2026, 8:00 AM",
-    "practicas": "10 y 13 de noviembre",
+    "cita_texto": "Lunes 23 de noviembre 2026, 7:30 AM",
+    "practicas": "por definir (te escribo por WhatsApp)",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
     "asunto": "Tu simulador y guias para el viaje a Miami — Asesoria Visa Global",
 }

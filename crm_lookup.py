@@ -34,6 +34,16 @@ CLIENTES_PREPARACION = {
             "Soltera, nacida 28 feb 1980 en Portoviejo, vive en Portoviejo. Trabaja en AME (Quito), talento humano, $2,418/mes; antes 21 anos en Coord. Zonal 4 Salud (2005-feb 2026). Viaje (DS-160 NUEVO 30-oct): evento de negocios en Miami, 3-6 dic 2026, direccion 5301 NW 36th St, contacto Jaime Narvaez Pina (Comite Int Cumbre de New York, Hotel Indigo Miami Brickell). CITA: miercoles 18 nov 2026, 8:00 AM, Embajada Quito, agendada con el DS-160 nuevo AA00FVS4BP (verificado 6 nov 2026). PUNTO CRITICO: 2 hijos residentes permanentes (LPR) en EE.UU. DS-160 AA00FVS4BP, pasaporte B0495916 (vence 27 ene 2035). DS-160: quien paga en blanco; estudios: ing. administracion publica, diplomado UNAM 2022 y maestria Boston 2022-24 ambos VIRTUALES (confirmado por Roberto 30-oct), por eso sin viajes en 5 anos ni nunca en EE.UU.. Primera vez USA, sin rechazos. Tel +593 939406502. Correo luciapiedad.acosta@gmail.com. Simulador: asesoriadevisadosglobal.com/lucia-acosta.html"
         ),
     },
+    "593960582993": {
+        "Nombre Principal": "Josue Patricio Lopez Telenchana",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "Lunes 23 noviembre 2026, 7:30 AM - Embajada EE.UU. Quito (Avigiras E12-170 y Guayacanes; reagendable hasta 18 nov 5 AM)",
+        "Estado": "Cita confirmada, en preparacion de entrevista",
+        "Notas": (
+            "Soltero, nacido 30 dic 1990 en Quito, vive en Quito. Trabaja en AME dirigiendo cooperacion internacional y relaciones internacionales (ingreso 2023 confirmado por Roberto; cargo exacto no consta en el DS-160), $3,247/mes; antes Director de Cooperacion Internacional del Ministerio de Agricultura y Ganaderia (jul 2017-jul 2021). Estudios: licenciatura en Politica y Estudios Internacionales en Melbourne, Australia (2013-2016) y maestria en Cooperacion Internacional en Univ. Nacional de Seul (ago 2021-dic 2022); habla ingles. Viaje: evento de negocios en Miami, 3-6 dic 2026, direccion 5301 NW 36th St Miami Springs, contacto Jaime Narvaez Pina (Comite Int Cumbre Lat de New York, Hotel Indigo Miami Brickell). DS-160 AA00FTAIM7 (firmado 11-nov-2026), pasaporte B0577566 (vence 14 mar 2035). Confirmado por Roberto: AME (empleador) paga el viaje (DS-160 en blanco); Melbourne es Australia (DS-160 pone Ecuador por error). Viajes ultimos 5 anos: Suiza, Brasil, Corea del Sur, Colombia, Paraguay, Panama. Primera vez USA, sin rechazos. Padres en Ecuador. Tel +593 960582993. Correo josue90l@gmail.com. Simulador: asesoriadevisadosglobal.com/josue-lopez.html"
+        ),
+    },
 }
 
 async def buscar_caso_por_telefono(telefono: str) -> dict | None:
