@@ -32,7 +32,7 @@ CASO = {
         "Con tu hogar en Quito y tus padres en Ecuador; sin rechazos previos",
     ],
     "cita_texto": "Lunes 23 de noviembre 2026, 7:30 AM",
-    "practicas": "por definir (te escribo por WhatsApp)",
+    "practicas": "18 y 20 de noviembre",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
     "asunto": "Tu simulador y guias para el viaje a Miami — Asesoria Visa Global",
 }

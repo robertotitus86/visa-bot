@@ -108,7 +108,7 @@ FAMILIAS = [
             "&#8226; Viajes previos a 6 países, siempre con retorno a Ecuador<br>"
             "&#8226; Vive en Quito, con sus padres en Ecuador; sin rechazos previos"
         ),
-        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
+        "zoom_html": "Prácticas en vivo con Roberto: <strong>18 y 20 de noviembre</strong>. Te confirmamos la hora por WhatsApp.",
         "tips": [
             "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
