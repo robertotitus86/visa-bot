@@ -37,7 +37,7 @@ CLIENTE_COMPLETO = "Josué Patricio López Telenchana"
 DESTINO = "Miami, EE.UU."
 FECHA_CITA = "23 nov 2026, 07:30"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
-DS160 = "AA00FWR9TD"
+DS160 = "AA00FWRBFV"
 PASAPORTE = "B0577566"
 
 OUT_PATH = os.path.join(os.path.dirname(__file__), "pdf-josue-lopez.pdf")
