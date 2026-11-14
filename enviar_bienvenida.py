@@ -15,24 +15,24 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
-# Caso activo: Josue Patricio Lopez Telenchana.
+# Caso activo: Jorge Cristhian Mora Larrea.
 CASO = {
-    "tratamiento": "Estimado Josué",
+    "tratamiento": "Estimado Cristhian",
     "preparado": "preparado",
-    "email": "josue90l@gmail.com",
+    "email": "cristhian.moralarrea@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/josue-lopez.html",
-    "pdf": "pdf-josue-lopez.pdf",
-    "pdf_extra": ["pdf-josue-lopez-checklist.pdf", "pdf-josue-lopez-guia-uso.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/cristhian-mora.html",
+    "pdf": "pdf-cristhian-mora.pdf",
+    "pdf_extra": ["pdf-cristhian-mora-checklist.pdf", "pdf-cristhian-mora-guia-uso.pdf"],
     "fortalezas": [
-        "Cargo directivo en AME: cooperación internacional y relaciones con organismos multilaterales",
-        "Antes, Director de Cooperación Internacional en el Ministerio de Agricultura (2017-2021)",
-        "Licenciatura en Política y Estudios Internacionales y maestría en Cooperación Internacional",
-        "Viajes previos a 6 países, siempre con retorno a Ecuador",
-        "Con tu hogar en Quito y tus padres en Ecuador; sin rechazos previos",
+        "27 años de carrera estable en los sectores público y privado de Ecuador",
+        "Cargo actual en el Viceministerio de Gobierno; antes Asesor Legislativo en la Asamblea Nacional",
+        "Derecho (UTPL), tecnología en Política y Gobierno y maestría en Comunicación Política",
+        "Viajes previos a Colombia y Perú, siempre con retorno a Ecuador",
+        "Casado, con tu hogar en Quito y tus padres en Ecuador",
     ],
-    "cita_texto": "Lunes 23 de noviembre 2026, 7:30 AM",
-    "practicas": "18 y 20 de noviembre",
+    "cita_texto": "Lunes 30 de noviembre 2026, 8:00 AM",
+    "practicas": "",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
     "asunto": "Tu simulador y guias para el viaje a Miami — Asesoria Visa Global",
 }
@@ -43,6 +43,8 @@ CASO = {
 
 def _html_bienvenida(caso: dict) -> str:
     fortalezas_html = "".join(f"&#8226; {f}<br>" for f in caso["fortalezas"])
+    practicas_html = (f"&#127908; Prácticas en vivo conmigo: <strong>{caso['practicas']}</strong> (te confirmo la hora por WhatsApp)"
+                      if caso.get("practicas") else "&#127908; Las prácticas en vivo conmigo las coordinamos por WhatsApp")
     return f"""<!DOCTYPE html>
 <html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#F1F5F9;font-family:'Segoe UI',Arial,sans-serif;">
@@ -99,7 +101,7 @@ def _html_bienvenida(caso: dict) -> str:
       <p style="color:#1E293B;font-size:13px;margin:0;line-height:1.6;">
         &#128197; Tu entrevista: <strong>{caso['cita_texto']}</strong><br>
         &#128205; {caso['lugar']}<br>
-        &#127908; Prácticas en vivo conmigo: <strong>{caso['practicas']}</strong> (te confirmo la hora por WhatsApp)
+        {practicas_html}
       </p>
     </div>
 

@@ -44,6 +44,16 @@ CLIENTES_PREPARACION = {
             "Soltero, nacido 30 dic 1990 en Quito, vive en Quito. Trabaja en AME dirigiendo cooperacion internacional y relaciones internacionales (ingreso 2023 confirmado por Roberto; cargo exacto no consta en el DS-160), $3,247/mes; antes Director de Cooperacion Internacional del Ministerio de Agricultura y Ganaderia (jul 2017-jul 2021). Estudios: licenciatura en Politica y Estudios Internacionales en Melbourne, Australia (2013-2016) y maestria en Cooperacion Internacional en Univ. Nacional de Seul (ago 2021-dic 2022); habla ingles. Viaje: evento de negocios en Miami, 3-6 dic 2026, direccion 5301 NW 36th St Miami Springs, contacto Jaime Narvaez Pina (Comite Int Cumbre Lat de New York, Hotel Indigo Miami Brickell). DS-160 AA00FTAIM7 (firmado 11-nov-2026), pasaporte B0577566 (vence 14 mar 2035). Confirmado por Roberto: AME (empleador) paga el viaje (DS-160 en blanco); Melbourne es Australia (DS-160 pone Ecuador por error). Viajes ultimos 5 anos: Suiza, Brasil, Corea del Sur, Colombia, Paraguay, Panama. Primera vez USA, sin rechazos. Padres en Ecuador. Tel +593 960582993. Correo josue90l@gmail.com. Simulador: asesoriadevisadosglobal.com/josue-lopez.html"
         ),
     },
+    "593987308982": {
+        "Nombre Principal": "Jorge Cristhian Mora Larrea",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "Lunes 30 noviembre 2026, 8:00 AM - Embajada EE.UU. Quito (Avigiras E12-170 y Guayacanes; reagendable hasta 25 nov 5 AM)",
+        "Estado": "Cita confirmada, en preparacion de entrevista",
+        "Notas": (
+            "Casado (esposa Johanna Elizabeth Peralta Velez), nacido 8 jun 1979 en Tulcan, vive en Quito. Trabaja en el Viceministerio de Gobierno (coordina y supervisa gobernaciones e intendencias; $4,283/mes; el DS-160 no trae titulo del cargo ni fecha de ingreso); antes Asesor Legislativo en la Asamblea Nacional (ago 2021-may 2025) y asesor juridico y politico en AME (may 2019-jul 2021). Estudios: Derecho UTPL, tecnologo en Politica y Gobierno ILADES, maestria Univ. de Lleida (Espana; confirmar modalidad, sin viaje a Espana en el DS-160). Viaje: evento de negocios en Miami, 3-6 dic 2026, direccion 5301 NW 36th St, contacto Jaime Narvaez Pina (Comite Int Cumbre Lat de New York, Hotel Indigo Miami Brickell). DS-160 AA00FWQ991 (firmado 13-nov-2026), pasaporte B1579196 (vence 7 ago 2036). PUNTOS CRITICOS: NEGATIVA 214(b) en 1999 (a los 20 anos), declarada en el DS-160; quien paga en blanco; direccion de la esposa en el DS-160 = direccion del contacto en EE.UU. (aclarar). Viajes: Colombia y Peru. Primera vez USA. Tel +593 987308982. Correo cristhian.moralarrea@gmail.com. Simulador: asesoriadevisadosglobal.com/cristhian-mora.html"
+        ),
+    },
 }
 
 async def buscar_caso_por_telefono(telefono: str) -> dict | None:
