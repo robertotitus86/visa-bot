@@ -249,7 +249,7 @@ def closing_band():
 
 BASICAS = [
     ('¿Cuál es el propósito de su viaje a Estados Unidos?', 'Workshop de alto nivel en Miami (carta del comité), el 4 de diciembre. Respuesta directa..', 'Viajo a Miami, Florida, tres noches, del 3 al 6 de diciembre, al workshop de alto nivel «Comunicación y manejo de crisis para Gobiernos Municipales y regionales», el 4 de diciembre, organizado por el Comité Internacional de la Cumbre Latinoamericana de New York.'),
-    ('¿A qué se dedica usted?', 'Tu cargo real: responsable de talento humano en AME.', 'Soy la responsable de la administración de personal de la Asociación de Municipalidades Ecuatorianas, AME: reclutamiento, contratos y nómina.'),
+    ('¿A qué se dedica usted?', 'Tu cargo según la carta y tu certificado laboral: Coordinadora de Talento Humano de AME. Dilo con ese título y luego explica tus funciones.', 'Soy Coordinadora de Talento Humano de la Asociación de Municipalidades Ecuatorianas, AME. Soy responsable de la administración de personal: reclutamiento, contratos y nómina.'),
     ('¿Cuánto tiempo se va a quedar?', 'Tres noches: del 3 al 6 de diciembre.', 'Tres noches. Llego el 3 de diciembre y regreso a Ecuador el 6 de diciembre.'),
     ('¿Dónde se va a hospedar?', 'Dirección del DS-160: 5301 Northwest 36th Street..', 'En la dirección que declaré en mi solicitud, 5301 Northwest 36th Street, en Miami.'),
 ]
