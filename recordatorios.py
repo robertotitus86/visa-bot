@@ -49,7 +49,7 @@ FAMILIAS = [
             "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
             "PUNTO CLAVE: pasaste de Gerente General de CONAFIPS a asesora en AME. Prepara una explicación breve y verdadera de ese cambio.",
-            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre Lat de New York.",
+            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre, el workshop «Comunicación y manejo de crisis para Gobiernos Municipales y regionales» del 4 de diciembre y tu invitación de Jaime Narváez (Presidente Ejecutivo del Comité).",
             "AME paga tu viaje (ten su carta a mano) y el MBA de Andorra y la maestría de Tacna fueron en línea.",
             "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
             "Tu cita es el lunes 16 de noviembre a las 8:00 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
@@ -73,7 +73,7 @@ FAMILIAS = [
             "&#8226; 21 años de trayectoria continua en el sector público<br>"
             "&#8226; Cargo de responsabilidad en AME: administración de personal<br>"
             "&#8226; Formación en administración pública (ingeniería, diplomado y maestría)<br>"
-            "&#8226; Viaje corto de 3 noches a un evento de negocios en Miami<br>"
+            "&#8226; Viaje corto de 3 noches al workshop de alto nivel del 4 de diciembre en Miami<br>"
             "&#8226; Vive en Portoviejo, con sus padres y familia en Ecuador; sin rechazos previos"
         ),
         "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
@@ -81,7 +81,7 @@ FAMILIAS = [
             "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
             "PUNTO CLAVE: tus dos hijos son residentes permanentes en EE.UU. Responde con calma y con la verdad: viajas por el evento, tu vida y tu trabajo están en Ecuador, y regresas el 6 de diciembre.",
-            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre de New York.",
+            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre, el workshop «Comunicación y manejo de crisis para Gobiernos Municipales y regionales» del 4 de diciembre y tu invitación de Jaime Narváez (Presidente Ejecutivo del Comité).",
             "Ten claro quién paga tu viaje (el DS-160 no lo indica) y que la maestría de Boston y el diplomado de México fueron virtuales, por eso nunca has viajado a EE.UU.",
             "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
             "Tu cita es el miércoles 18 de noviembre a las 8:00 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
@@ -113,7 +113,7 @@ FAMILIAS = [
             "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
             "PUNTO CLAVE: estudiaste en Australia y en Corea del Sur. Responde con fechas exactas y deja claro por qué regresaste y qué te ata a Ecuador.",
-            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre Lat de New York.",
+            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre, el workshop «Comunicación y manejo de crisis para Gobiernos Municipales y regionales» del 4 de diciembre y tu invitación de Jaime Narváez (Presidente Ejecutivo del Comité).",
             "AME paga tu viaje (el DS-160 no lo muestra): ten su carta a mano y dilo sin dudar.",
             "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
             "Tu cita es el lunes 23 de noviembre a las 7:30 AM. Llega sin celular y con la confirmación del DS-160 impresa.",

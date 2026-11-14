@@ -214,7 +214,7 @@ def build():
     story.append(grupo_header("VIAJE Y RESPALDO ADICIONAL", "Completan tu expediente para la entrevista", GOLD2, GOLDBG))
     story.append(Spacer(1, 2 * mm))
     adicional = [
-        ("13", "Invitación e inscripción al evento de Miami", "Carta o correo del comité organizador (contacto: Jaime Narváez) y tu confirmación de inscripción, si la tienes."),
+        ("13", "Carta de invitación al workshop de Miami", "Carta del Comité Internacional de la Cumbre Latinoamericana de New York (30 de octubre de 2026), firmada por Jaime Narváez, Presidente Ejecutivo: workshop del 4 de diciembre en el Hotel Indigo Miami Brickell. Llévala impresa, con el comprobante de la inscripción ($500 por persona) si ya la pagaste."),
         ("14", "Reserva de hospedaje", "Dirección del DS-160: 5301 Northwest 36th Street, Miami Springs — del 3 al 6 de diciembre."),
         ("15", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 6 de diciembre."),
         ("16", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),

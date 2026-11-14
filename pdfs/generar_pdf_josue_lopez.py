@@ -248,14 +248,14 @@ def closing_band():
 # ───────────────────────────── PREGUNTAS ─────────────────────────────
 
 BASICAS = [
-    ('¿Cuál es el propósito de su viaje a Estados Unidos?', 'Evento de negocios en Miami. Respuesta directa y corta.', 'Viajo a Miami, Florida, tres noches, del 3 al 6 de diciembre, a un evento de negocios organizado por el comité cuyo contacto es el señor Jaime Narváez.'),
+    ('¿Cuál es el propósito de su viaje a Estados Unidos?', 'Workshop de alto nivel en Miami (carta del comité), el 4 de diciembre. Respuesta directa y corta.', 'Viajo a Miami, Florida, tres noches, del 3 al 6 de diciembre, al workshop de alto nivel «Comunicación y manejo de crisis para Gobiernos Municipales y regionales», el 4 de diciembre, organizado por el Comité Internacional de la Cumbre Latinoamericana de New York.'),
     ('¿A qué se dedica usted?', 'Tu cargo real en AME: cooperación internacional y relaciones con cooperantes.', 'Trabajo en la Asociación de Municipalidades Ecuatorianas, AME. Dirijo las estrategias de cooperación internacional y las relaciones con cooperantes y organismos multilaterales a favor de los municipios del país.'),
     ('¿Cuánto tiempo se va a quedar?', 'Tres noches: del 3 al 6 de diciembre.', 'Tres noches. Llego el 3 de diciembre y regreso a Ecuador el 6 de diciembre.'),
     ('¿Dónde se va a hospedar?', 'Dirección del DS-160: 5301 Northwest 36th Street, Miami Springs. Ten el nombre del hotel y tu reserva a mano.', 'En la dirección que declaré en mi solicitud, en Miami Springs, Florida. Tengo mi reserva para las tres noches.'),
 ]
 
 INTERMEDIAS = [
-    ('¿Quién paga su viaje?', 'AME, tu empleador, cubre el viaje (aunque el DS-160 no lo muestre). Dilo sin dudar y ten a mano la carta de AME.', 'Mi empleador, la Asociación de Municipalidades Ecuatorianas, AME, cubre los gastos de mi viaje. Tengo la carta que lo respalda.'),
+    ('¿Quién paga su viaje?', 'AME, tu empleador, cubre el viaje (aunque el DS-160 no lo muestre). Dilo sin dudar y ten a mano la carta de AME. La inscripción al workshop cuesta $500 por persona: ten claro quién la paga y el comprobante.', 'Mi empleador, la Asociación de Municipalidades Ecuatorianas, AME, cubre los gastos de mi viaje. Tengo la carta que lo respalda.'),
     ('¿Cuánto gana usted al mes?', '$3,247 mensuales, exactos como en el DS-160.', 'Tres mil doscientos cuarenta y siete dólares mensuales en AME.'),
     ('¿Dónde trabajaba antes de AME?', 'Ministerio de Agricultura y Ganadería, Director de Cooperación Internacional (jul 2017 - jul 2021). Ingresaste a AME en 2023.', 'Fui Director de Cooperación Internacional en el Ministerio de Agricultura y Ganadería, de julio de 2017 a julio de 2021. Desde 2023 trabajo en AME en cooperación internacional.'),
     ('¿Es la primera vez que va a Estados Unidos? ¿Le han negado alguna visa?', 'Primer viaje, nunca ha tenido visa, sin rechazos.', 'Sí, es la primera vez que solicito visa y que viajaría a Estados Unidos. No me han negado ninguna visa.'),
@@ -264,10 +264,10 @@ INTERMEDIAS = [
 ]
 
 DIFICILES = [
-    ('Usted dirige cooperación internacional en AME. ¿Qué beneficio tiene este evento para su institución?', 'Conecta el evento con tu cargo: alianzas y cooperación para los municipios. Ten el programa a mano.', 'Mi trabajo en AME es crear alianzas y cooperación para los municipios del país. En el evento conoceré experiencias y contactos de otros países y traeré lo aprendido a la institución.'),
+    ('Usted dirige cooperación internacional en AME. ¿Qué beneficio tiene este evento para su institución?', 'Conecta el evento con tu cargo: alianzas y cooperación para los municipios. Ten el programa a mano.', 'Mi trabajo en AME es crear alianzas y cooperación para los municipios del país. En el workshop sobre comunicación y manejo de crisis para gobiernos conoceré experiencias y contactos de otros países y traeré lo aprendido a la institución.'),
     ('Su solicitud dice que estudió en Australia y en Corea del Sur. ¿Cuánto tiempo vivió fuera y por qué regresó?', 'Estudiaste fuera y siempre regresaste a Ecuador a trabajar. Responde con fechas exactas: Melbourne 2013-2016, Seúl ago 2021 - dic 2022.', 'Estudié mi licenciatura en Melbourne de 2013 a 2016 y mi maestría en Seúl de agosto de 2021 a diciembre de 2022. Al terminar regresé a Ecuador porque mi familia y mi carrera están aquí.'),
-    ('¿Quién es Jaime Narváez y qué relación tiene con usted?', 'Es tu contacto en EE.UU. según el DS-160 (socio de negocios, Comité Int Cumbre Lat de New York). Ten claro cómo lo conoces.', 'El señor Jaime Narváez es el contacto del comité organizador del evento al que asisto. Lo conozco por el trabajo y por la invitación al evento.'),
-    ('¿Qué va a hacer exactamente en ese evento en Miami?', 'Explica el valor para tu cargo, con detalles del programa. Ten la invitación o inscripción a mano.', 'Voy a participar en las sesiones del evento sobre cooperación y gestión pública, y a reunirme con otros participantes. Regreso a AME a aplicar lo aprendido.'),
+    ('¿Quién es Jaime Narváez y qué relación tiene con usted?', 'Es tu contacto en EE.UU. según el DS-160 (socio de negocios). Es el Presidente Ejecutivo del Comité Internacional de la Cumbre Latinoamericana de New York y firma tu carta de invitación. Ten claro cómo lo conoces.', 'El señor Jaime Narváez es el Presidente Ejecutivo del comité que organiza el workshop y firmó mi carta de invitación. Lo conozco por el trabajo.'),
+    ('¿Qué va a hacer exactamente en ese evento en Miami?', 'Explica el valor para tu cargo, con detalles del programa. Ten la invitación o inscripción a mano.', 'Voy a participar en el workshop «Comunicación y manejo de crisis para Gobiernos Municipales y regionales», y a reunirme con otros participantes. Regreso a AME a aplicar lo aprendido.'),
     ('¿Qué garantía tengo de que usted regresará a Ecuador?', 'Tu arraigo: cargo directivo en AME, hogar en Quito, padres en Ecuador, viaje corto y de regreso a tu trabajo.', 'Mi cargo en AME me espera, mi casa y mis padres están en Quito, y el viaje dura tres noches con regreso el 6 de diciembre.'),
     ('Usted estudió en el extranjero y habla inglés. ¿Por qué no se quedó a vivir o trabajar fuera?', 'Responde con calma: tu proyecto profesional está en Ecuador, ya fuiste director en el Ministerio y hoy diriges cooperación en AME.', 'Porque mi carrera y mi familia están en Ecuador. Estudié afuera para prepararme y volví a aplicar lo aprendido, primero en el Ministerio de Agricultura y ahora en AME.'),
 ]
@@ -305,9 +305,9 @@ def build():
     story.append(cita_box())
     story.append(Spacer(1, 8 * mm))
     story.append(Paragraph("TU CASO EN RESUMEN", style_eyebrow))
-    story.append(Paragraph("Motivo de viaje: evento de negocios en Miami, 3 noches", style_h2))
+    story.append(Paragraph("Motivo de viaje: workshop de alto nivel en Miami, 3 noches", style_h2))
     story.append(Paragraph(
-        "Viajas a <b>Miami, Florida</b> del <b>3 al 6 de diciembre de 2026</b> a un evento de negocios; tu contacto es "
+        "Viajas a <b>Miami, Florida</b> del <b>3 al 6 de diciembre de 2026</b> a un workshop de alto nivel; tu contacto es "
         "<b>Jaime Narváez</b>, del Comité Int Cumbre Lat de New York. Tu hospedaje: <b>5301 Northwest 36th Street, Miami Springs, Florida 33166 (dirección del DS-160)</b>. "
         "Es tu primer viaje a Estados Unidos, sin rechazos previos. Trabajas en AME dirigiendo la cooperación internacional, tras haber sido Director de Cooperación Internacional del Ministerio de Agricultura. "
         "<b>Tu entrevista es el lunes 23 de noviembre de 2026, 7:30 AM.</b>", style_body))
@@ -389,7 +389,7 @@ def build():
     story.append(grupo_header("VIAJE Y RESPALDO ADICIONAL", "Completan tu expediente para la entrevista", GOLD2, GOLDBG))
     story.append(Spacer(1, 2 * mm))
     adicional = [
-        ("13", "Invitación e inscripción al evento de Miami", "Carta o correo del comité organizador (contacto: Jaime Narváez) y tu confirmación de inscripción, si la tienes."),
+        ("13", "Carta de invitación al workshop de Miami", "Carta del Comité Internacional de la Cumbre Latinoamericana de New York (30 de octubre de 2026), firmada por Jaime Narváez, Presidente Ejecutivo: workshop del 4 de diciembre en el Hotel Indigo Miami Brickell. Llévala impresa, con el comprobante de la inscripción ($500 por persona) si ya la pagaste."),
         ("14", "Reserva de hospedaje", "Dirección del DS-160: 5301 Northwest 36th Street, Miami Springs — del 3 al 6 de diciembre."),
         ("15", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 6 de diciembre."),
         ("16", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),

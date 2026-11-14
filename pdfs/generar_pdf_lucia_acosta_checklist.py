@@ -24,7 +24,7 @@ SLATEBG  = colors.HexColor("#F8FAFC")
 LINE     = colors.HexColor("#E2E8F0")
 
 CLIENTE = "Lucía Acosta"
-FECHA_CITA = "Por confirmar"
+FECHA_CITA = "18 nov 2026, 08:00"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
 DS160 = "AA00FVS4BP"
 PASAPORTE = "B0495916"
@@ -188,7 +188,7 @@ def build():
     obligatorios = [
         ("1", "Pasaporte vigente", f"Número {PASAPORTE}, vence 27 de enero de 2035."),
         ("2", "Confirmación DS-160", f"Código de barras legible, número {DS160}."),
-        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (la fecha de tu cita está por confirmar)."),
+        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (miércoles 18 de noviembre de 2026, 8:00 AM)."),
         ("4", "Fotografía 5x5 cm a color", "Tomada dentro de los últimos 6 meses, fondo claro."),
         ("5", "Comprobante de pago de la tasa MRV", "Guárdalo impreso — puede ser solicitado en la entrevista."),
         ("6", "Cédula de identidad", "Original y copia, como respaldo adicional de identidad."),
@@ -214,7 +214,7 @@ def build():
     story.append(grupo_header("VIAJE Y RESPALDO ADICIONAL", "Completan tu expediente para la entrevista", GOLD2, GOLDBG))
     story.append(Spacer(1, 2 * mm))
     adicional = [
-        ("13", "Invitación e inscripción al evento de Miami", "Carta o correo del comité organizador (contacto: Jaime Narváez) y tu confirmación de inscripción, si la tienes."),
+        ("13", "Carta de invitación al workshop de Miami", "Carta del Comité Internacional de la Cumbre Latinoamericana de New York (30 de octubre de 2026), firmada por Jaime Narváez, Presidente Ejecutivo: workshop del 4 de diciembre en el Hotel Indigo Miami Brickell. Llévala impresa, con el comprobante de la inscripción ($500 por persona) si ya la pagaste."),
         ("14", "Reserva de hospedaje", "Dirección del DS-160: 5301 Northwest 36th Street — del 3 al 6 de diciembre."),
         ("15", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 6 de diciembre."),
         ("16", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),
