@@ -26,7 +26,7 @@ CASO = {
     "pdf_extra": ["pdf-cristhian-mora-checklist.pdf", "pdf-cristhian-mora-guia-uso.pdf"],
     "fortalezas": [
         "27 años de carrera estable en los sectores público y privado de Ecuador",
-        "Cargo actual en el Viceministerio de Gobierno; antes Asesor Legislativo en la Asamblea Nacional",
+        "Viceministro de Gobierno del Ecuador; antes Asesor Legislativo en la Asamblea Nacional",
         "Derecho (UTPL), tecnología en Política y Gobierno y maestría en Comunicación Política",
         "Viajes previos a Colombia y Perú, siempre con retorno a Ecuador",
         "Casado, con tu hogar en Quito y tus padres en Ecuador",

@@ -135,7 +135,7 @@ FAMILIAS = [
         "preguntas": "más de 20 preguntas (incluye modo oficial consular con preguntas trampa)",
         "fortalezas_html": (
             "&#8226; 27 años de carrera estable en los sectores público y privado de Ecuador<br>"
-            "&#8226; Cargo actual en el Viceministerio de Gobierno; antes Asesor Legislativo en la Asamblea Nacional<br>"
+            "&#8226; Viceministro de Gobierno del Ecuador; antes Asesor Legislativo en la Asamblea Nacional<br>"
             "&#8226; Derecho (UTPL), tecnología en Política y Gobierno y maestría en Comunicación Política<br>"
             "&#8226; Viajes previos a Colombia y Perú, siempre con retorno a Ecuador<br>"
             "&#8226; Casado, con su hogar en Quito y sus padres en Ecuador"
@@ -145,8 +145,8 @@ FAMILIAS = [
             "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
             "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
             "PUNTO CLAVE: declaraste una negativa en 1999 (a los 20 años). Responde breve, con calma y con la verdad: desde entonces tienes 27 años de carrera estable y tu vida en Ecuador.",
-            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre y tu contacto Jaime Narváez, del Comité Int Cumbre Lat de New York.",
-            "Ten claro quién paga tu viaje (el DS-160 no lo indica) y por qué la dirección de tu esposa en el DS-160 sale igual a la de tu contacto en EE.UU.",
+            "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre, el workshop «Comunicación y manejo de crisis para Gobiernos Municipales y regionales» del 4 de diciembre, y tu invitación de Jaime Narváez (Presidente Ejecutivo del Comité).",
+            "El Viceministerio paga tu viaje (el DS-160 no lo indica): ten su carta a mano y explica con claridad por qué viajas a este evento. Tu maestría de Lleida fue virtual.",
             "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
             "Tu cita es el lunes 30 de noviembre a las 8:00 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
         ],

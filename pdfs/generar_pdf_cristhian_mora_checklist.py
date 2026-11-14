@@ -26,7 +26,7 @@ LINE     = colors.HexColor("#E2E8F0")
 CLIENTE = "Cristhian Mora"
 FECHA_CITA = "30 nov 2026, 08:00"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
-DS160 = "AA00FWQ991"
+DS160 = "AA00FWR8L1"
 PASAPORTE = "B1579196"
 
 OUT_PATH = os.path.join(os.path.dirname(__file__), "pdf-cristhian-mora-checklist.pdf")
@@ -200,12 +200,12 @@ def build():
     story.append(grupo_header("DOCUMENTOS DE TRABAJO E INGRESOS", "Respaldan tu cargo y tu trayectoria", BLUE, BLUEBG))
     story.append(Spacer(1, 2 * mm))
     laborales = [
-        ("7", "Certificado laboral del Viceministerio de Gobierno", "Cargo, fecha de ingreso, salario de $4,283 y, si te lo dan, la autorización o permiso para tu viaje."),
+        ("7", "Certificado laboral del Viceministerio de Gobierno", "Cargo de Viceministro, fecha de ingreso, salario de $4,283 y la autorización de tu viaje al evento."),
         ("8", "Rol de pagos de los últimos 3 meses", "Respalda el salario de $4,283 declarado en el DS-160."),
         ("9", "Certificados de la Asamblea Nacional y de AME", "Respaldan tus cargos como Asesor Legislativo (2021-2025) y Asesor de Gestión Jurídico y Político (2019-2021)."),
         ("10", "Estados de cuenta bancarios de 6 meses", "Muestran movimiento coherente con tus ingresos."),
-        ("11", "Respaldo de quién paga el viaje", "El DS-160 dejó en blanco quién paga: lleva la carta o los estados de cuenta de quien cubra tus gastos."),
-        ("12", "Títulos y certificados de tus estudios", "Derecho (UTPL), tecnología en Política y Gobierno (ILADES) y maestría de la Universidad de Lleida, esta última con su modalidad."),
+        ("11", "Carta del Viceministerio de Gobierno", "Carta que diga que el Viceministerio cubre los gastos de tu viaje y que regresas a tu cargo (el DS-160 dejó en blanco quién paga)."),
+        ("12", "Títulos y certificados de tus estudios", "Derecho (UTPL), tecnología en Política y Gobierno (ILADES) y maestría de la Universidad de Lleida (virtual)."),
     ]
     for num, titulo, desc in laborales:
         story.append(doc_item(num, titulo, desc, BLUE))
@@ -214,8 +214,8 @@ def build():
     story.append(grupo_header("VIAJE Y RESPALDO ADICIONAL", "Completan tu expediente para la entrevista", GOLD2, GOLDBG))
     story.append(Spacer(1, 2 * mm))
     adicional = [
-        ("13", "Invitación e inscripción al evento de Miami", "Carta o correo del comité organizador (contacto: Jaime Narváez) y tu confirmación de inscripción, si la tienes."),
-        ("14", "Reserva de hospedaje", "Dirección del DS-160: 5301 Northwest 36th Street — del 3 al 6 de diciembre. Ten el nombre del hotel."),
+        ("13", "Carta de invitación al workshop de Miami", "Carta del Comité Internacional de la Cumbre Latinoamericana de New York (11 de noviembre de 2026), firmada por Jaime Narváez, Presidente Ejecutivo: workshop del 4 de diciembre en el Hotel Indigo Miami Brickell. Llévala impresa."),
+        ("14", "Reserva de hospedaje", "Hotel Indigo Miami Brickell, 145 SW 11th Street (dirección del DS-160) — del 3 al 6 de diciembre."),
         ("15", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 6 de diciembre."),
         ("16", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),
         ("17", "Documentos de arraigo familiar", "Certificado de matrimonio y cédulas de tu esposa y de tus padres: solo por si el oficial lo pide."),
