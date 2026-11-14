@@ -37,7 +37,7 @@ CLIENTE_COMPLETO = "Josué Patricio López Telenchana"
 DESTINO = "Miami, EE.UU."
 FECHA_CITA = "23 nov 2026, 07:30"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
-DS160 = "AA00FTAIM7"
+DS160 = "AA00FWR9TD"
 PASAPORTE = "B0577566"
 
 OUT_PATH = os.path.join(os.path.dirname(__file__), "pdf-josue-lopez.pdf")
@@ -251,7 +251,7 @@ BASICAS = [
     ('¿Cuál es el propósito de su viaje a Estados Unidos?', 'Workshop de alto nivel en Miami (carta del comité), el 4 de diciembre. Respuesta directa y corta.', 'Viajo a Miami, Florida, tres noches, del 3 al 6 de diciembre, al workshop de alto nivel «Comunicación y manejo de crisis para Gobiernos Municipales y regionales», el 4 de diciembre, organizado por el Comité Internacional de la Cumbre Latinoamericana de New York.'),
     ('¿A qué se dedica usted?', 'Tu cargo según la carta y tu certificado laboral: Director Nacional de Cooperación de AME. Dilo con ese título y luego explica tus funciones.', 'Soy Director Nacional de Cooperación de la Asociación de Municipalidades Ecuatorianas, AME. Dirijo las estrategias de cooperación internacional y las relaciones con cooperantes y organismos multilaterales a favor de los municipios del país.'),
     ('¿Cuánto tiempo se va a quedar?', 'Tres noches: del 3 al 6 de diciembre.', 'Tres noches. Llego el 3 de diciembre y regreso a Ecuador el 6 de diciembre.'),
-    ('¿Dónde se va a hospedar?', 'Dirección del DS-160: 5301 Northwest 36th Street, Miami Springs. Ten el nombre del hotel y tu reserva a mano.', 'En la dirección que declaré en mi solicitud, en Miami Springs, Florida. Tengo mi reserva para las tres noches.'),
+    ('¿Dónde se va a hospedar?', 'Dirección del DS-160: Hotel Indigo Miami Brickell, 145 SW 11th Street, Miami. Ten tu reserva a mano.', 'En el Hotel Indigo Miami Brickell, en 145 SW 11th Street, en Miami. Tengo mi reserva para las tres noches.'),
 ]
 
 INTERMEDIAS = [
@@ -308,7 +308,7 @@ def build():
     story.append(Paragraph("Motivo de viaje: workshop de alto nivel en Miami, 3 noches", style_h2))
     story.append(Paragraph(
         "Viajas a <b>Miami, Florida</b> del <b>3 al 6 de diciembre de 2026</b> a un workshop de alto nivel; tu contacto es "
-        "<b>Jaime Narváez</b>, del Comité Int Cumbre Lat de New York. Tu hospedaje: <b>5301 Northwest 36th Street, Miami Springs, Florida 33166 (dirección del DS-160)</b>. "
+        "<b>Jaime Narváez</b>, del Comité Int Cumbre Lat de New York. Tu hospedaje: <b>Hotel Indigo Miami Brickell, 145 SW 11th Street, Miami, Florida 33130 (dirección del DS-160)</b>. "
         "Es tu primer viaje a Estados Unidos, sin rechazos previos. Trabajas en AME dirigiendo la cooperación internacional, tras haber sido Director de Cooperación Internacional del Ministerio de Agricultura. "
         "<b>Tu entrevista es el lunes 23 de noviembre de 2026, 7:30 AM.</b>", style_body))
     story.append(Spacer(1, 4 * mm))
@@ -334,7 +334,7 @@ def build():
     story.append(Spacer(1, 2 * mm))
     story.append(risk_box('', 'Fechas laborales y de estudio', 'Tu cargo en el Ministerio terminó en julio de 2021, tu maestría en Seúl fue de agosto de 2021 a diciembre de 2022 y entraste a AME en 2023. Ten claros los meses exactos de cada etapa.'))
     story.append(Spacer(1, 2 * mm))
-    story.append(risk_box('', 'Hospedaje y contacto en Miami', 'Tu DS-160 trae una dirección en Miami Springs y un contacto en el Hotel Indigo de Brickell. Ten claro dónde dormirás realmente y cuál es tu relación con Jaime Narváez.'))
+    story.append(risk_box('', 'Hospedaje y contacto en Miami', 'Tu hospedaje y tu contacto están en el Hotel Indigo Miami Brickell, y el workshop es allí el 4 de diciembre. Ten tu reserva a mano y claro cómo conoces a Jaime Narváez.'))
     story.append(Spacer(1, 2 * mm))
     story.append(PageBreak())
 
@@ -390,7 +390,7 @@ def build():
     story.append(Spacer(1, 2 * mm))
     adicional = [
         ("13", "Carta de invitación al workshop de Miami", "Carta del Comité Internacional de la Cumbre Latinoamericana de New York (30 de octubre de 2026), firmada por Jaime Narváez, Presidente Ejecutivo: workshop del 4 de diciembre en el Hotel Indigo Miami Brickell. Llévala impresa, con el comprobante de la inscripción ($500 por persona) si ya la pagaste."),
-        ("14", "Reserva de hospedaje", "Dirección del DS-160: 5301 Northwest 36th Street, Miami Springs — del 3 al 6 de diciembre."),
+        ("14", "Reserva de hospedaje", "Hotel Indigo Miami Brickell, 145 SW 11th Street (dirección del DS-160) — del 3 al 6 de diciembre."),
         ("15", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 6 de diciembre."),
         ("16", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),
         ("17", "Documentos de arraigo", "Cédula de tus padres y comprobante de tu domicilio en Quito: solo por si el oficial lo pide."),

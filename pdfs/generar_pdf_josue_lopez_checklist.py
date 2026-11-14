@@ -26,7 +26,7 @@ LINE     = colors.HexColor("#E2E8F0")
 CLIENTE = "Josué López"
 FECHA_CITA = "23 nov 2026, 07:30"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
-DS160 = "AA00FTAIM7"
+DS160 = "AA00FWR9TD"
 PASAPORTE = "B0577566"
 
 OUT_PATH = os.path.join(os.path.dirname(__file__), "pdf-josue-lopez-checklist.pdf")
@@ -215,7 +215,7 @@ def build():
     story.append(Spacer(1, 2 * mm))
     adicional = [
         ("13", "Carta de invitación al workshop de Miami", "Carta del Comité Internacional de la Cumbre Latinoamericana de New York (30 de octubre de 2026), firmada por Jaime Narváez, Presidente Ejecutivo: workshop del 4 de diciembre en el Hotel Indigo Miami Brickell. Llévala impresa, con el comprobante de la inscripción ($500 por persona) si ya la pagaste."),
-        ("14", "Reserva de hospedaje", "Dirección del DS-160: 5301 Northwest 36th Street, Miami Springs — del 3 al 6 de diciembre."),
+        ("14", "Reserva de hospedaje", "Hotel Indigo Miami Brickell, 145 SW 11th Street (dirección del DS-160) — del 3 al 6 de diciembre."),
         ("15", "Itinerario de vuelo (ida y vuelta)", "Con regreso fijo a Ecuador el 6 de diciembre."),
         ("16", "Seguro de viaje / asistencia médica internacional", "Cobertura para todo el periodo del viaje."),
         ("17", "Documentos de arraigo", "Cédula de tus padres y comprobante de tu domicilio en Quito: solo por si el oficial lo pide."),
