@@ -35,7 +35,7 @@ LINE     = colors.HexColor("#E2E8F0")
 CLIENTE = "Cristhian Mora"
 CLIENTE_COMPLETO = "Jorge Cristhian Mora Larrea"
 DESTINO = "Miami, EE.UU."
-FECHA_CITA = "30 nov 2026, 08:00"
+FECHA_CITA = "18 nov 2026, 07:30"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
 DS160 = "AA00FWR8L1"
 PASAPORTE = "B1579196"
@@ -233,7 +233,7 @@ def closing_band():
     data = [[Paragraph(
         "<font color='#C9A455' size=8><b>ASESORIA VISA GLOBAL</b></font><br/>"
         "<font color='#FFFFFF' size=13><b>Gracias por confiar tu proceso en nosotros, Cristhian.</b></font><br/>"
-        "<font color='#94A3B8' size=9>Tu cita: lunes 30 de noviembre, 8:00 AM — practica cada día y escríbenos por WhatsApp ante cualquier duda.</font>",
+        "<font color='#94A3B8' size=9>Tu cita: miércoles 18 de noviembre, 7:30 AM — practica cada día y escríbenos por WhatsApp ante cualquier duda.</font>",
         ParagraphStyle("closing", parent=style_body, leading=15, spaceAfter=0))]]
     t = Table(data, colWidths=[170 * mm])
     t.setStyle(TableStyle([
@@ -311,7 +311,7 @@ def build():
         "Viajas a <b>Miami, Florida</b> del <b>3 al 6 de diciembre de 2026</b> a un workshop de alto nivel; tu contacto es "
         "<b>Jaime Narváez</b>, Presidente Ejecutivo del Comité Internacional de la Cumbre Latinoamericana de New York (workshop del 4 de diciembre). Tu hospedaje: <b>145 SW 11th Street, Hotel Indigo Miami Brickell, Miami, Florida 33130 (dirección del DS-160)</b>. "
         "Es tu primer viaje a Estados Unidos; declaraste una negativa de 1999 y has tenido 27 años de carrera estable. Eres el Viceministro de Gobierno del Ecuador, tras haber sido Asesor Legislativo en la Asamblea Nacional, y el Viceministerio paga tu viaje. "
-        "<b>Tu entrevista es el lunes 30 de noviembre de 2026, 8:00 AM.</b>", style_body))
+        "<b>Tu entrevista es el miércoles 18 de noviembre de 2026, 7:30 AM.</b>", style_body))
     story.append(Spacer(1, 4 * mm))
     story.append(Paragraph("FORTALEZAS DE TU CASO", style_eyebrow))
     story.append(strength_box('', 'Carrera estable de 27 años', 'Declaraste que desde 1999 has tenido una carrera profesional estable en los sectores público y privado de Ecuador, sin ningún otro problema migratorio.'))
@@ -368,7 +368,7 @@ def build():
     obligatorios = [
         ("1", "Pasaporte vigente", f"Número {PASAPORTE}, vence 7 de agosto de 2036."),
         ("2", "Confirmación DS-160", f"Código de barras legible, número {DS160}."),
-        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (lunes 30 de noviembre de 2026, 8:00 AM)."),
+        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (miércoles 18 de noviembre de 2026, 7:30 AM)."),
         ("4", "Fotografía 5x5 cm a color", "Tomada dentro de los últimos 6 meses, fondo claro."),
         ("5", "Comprobante de pago de la tasa MRV", "Guárdalo impreso — puede ser solicitado en la entrevista."),
         ("6", "Cédula de identidad", "Original y copia, como respaldo adicional de identidad."),
@@ -405,7 +405,7 @@ def build():
     story.append(Paragraph("ULTIMO PASO", style_eyebrow))
     story.append(Paragraph("El día de tu cita", style_h2))
     story.append(Paragraph(
-        "Tu cita es el <b>lunes 30 de noviembre de 2026, 8:00 AM</b> en la Embajada de EE.UU. en Quito (Av. Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA). "
+        "Tu cita es el <b>miércoles 18 de noviembre de 2026, 7:30 AM</b> en la Embajada de EE.UU. en Quito (Av. Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA). "
         "Lleva la confirmación del DS-160 con el código de barras que corresponde a tu cita y tu pasaporte.", style_body))
     story.append(Spacer(1, 3 * mm))
     story.append(strength_box("", "Llega 20-30 minutos antes", "No más de 15 minutos antes de tu hora exacta de ingreso — no hay necesidad de llegar mucho antes."))

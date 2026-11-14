@@ -31,7 +31,7 @@ CASO = {
         "Viajes previos a Colombia y Perú, siempre con retorno a Ecuador",
         "Casado, con tu hogar en Quito y tus padres en Ecuador",
     ],
-    "cita_texto": "Lunes 30 de noviembre 2026, 8:00 AM",
+    "cita_texto": "Miércoles 18 de noviembre 2026, 7:30 AM",
     "practicas": "",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
     "asunto": "Tu simulador y guias para el viaje a Miami — Asesoria Visa Global",

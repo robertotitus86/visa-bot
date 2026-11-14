@@ -24,7 +24,7 @@ SLATEBG  = colors.HexColor("#F8FAFC")
 LINE     = colors.HexColor("#E2E8F0")
 
 CLIENTE = "Cristhian Mora"
-FECHA_CITA = "30 nov 2026, 08:00"
+FECHA_CITA = "18 nov 2026, 07:30"
 LUGAR_CITA = "Embajada de EE.UU. en Quito"
 DS160 = "AA00FWR8L1"
 PASAPORTE = "B1579196"
@@ -188,7 +188,7 @@ def build():
     obligatorios = [
         ("1", "Pasaporte vigente", f"Número {PASAPORTE}, vence 7 de agosto de 2036."),
         ("2", "Confirmación DS-160", f"Código de barras legible, número {DS160}."),
-        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (lunes 30 de noviembre de 2026, 8:00 AM)."),
+        ("3", "Página de confirmación e instrucciones de la cita", "Impresa desde ais.usvisa-info.com, con el código de barras de tu cita (miércoles 18 de noviembre de 2026, 7:30 AM)."),
         ("4", "Fotografía 5x5 cm a color", "Tomada dentro de los últimos 6 meses, fondo claro."),
         ("5", "Comprobante de pago de la tasa MRV", "Guárdalo impreso — puede ser solicitado en la entrevista."),
         ("6", "Cédula de identidad", "Original y copia, como respaldo adicional de identidad."),

@@ -128,8 +128,8 @@ FAMILIAS = [
     },
     {
         "id": "cristhian_mora",
-        "cita": date(2026, 11, 30),
-        "cita_texto": "Lunes 30 de noviembre 2026, 8:00 AM",
+        "cita": date(2026, 11, 18),
+        "cita_texto": "Miércoles 18 de noviembre 2026, 7:30 AM",
         "lugar": "Embajada EE.UU. Quito · Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
         "simulador": "https://www.asesoriadevisadosglobal.com/cristhian-mora.html",
         "preguntas": "más de 20 preguntas (incluye modo oficial consular con preguntas trampa)",
@@ -148,7 +148,7 @@ FAMILIAS = [
             "Ten claros los datos de tu viaje: Miami del 3 al 6 de diciembre, el workshop «Comunicación y manejo de crisis para Gobiernos Municipales y regionales» del 4 de diciembre, y tu invitación de Jaime Narváez (Presidente Ejecutivo del Comité).",
             "El Viceministerio paga tu viaje (el DS-160 no lo indica): ten su carta a mano y explica con claridad por qué viajas a este evento. Tu maestría de Lleida fue virtual.",
             "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
-            "Tu cita es el lunes 30 de noviembre a las 8:00 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
+            "Tu cita es el miércoles 18 de noviembre a las 7:30 AM. Llega sin celular y con la confirmación del DS-160 impresa.",
         ],
         "destinatarios": [
             {"nombre": "Cristhian", "miembro": "cristhian", "telefono": "593987308982",
