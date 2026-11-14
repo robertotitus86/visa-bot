@@ -34,7 +34,11 @@ CASO = {
     "cita_texto": "Miércoles 18 de noviembre 2026, 7:30 AM",
     "practicas": "",
     "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
-    "asunto": "Tu simulador y guias para el viaje a Miami — Asesoria Visa Global",
+    "asunto": "Actualización: tu cita se adelantó al 18 de noviembre — simulador y guías al día",
+    "aviso": ("Tu cita se adelantó: ahora es el <strong>miércoles 18 de noviembre de 2026 a las 7:30 AM</strong> (antes era el 30 de noviembre). "
+              "Actualizamos tu simulador y tus guías con tu DS-160 nuevo (<strong>AA00FWR8L1</strong>), tu hospedaje en el Hotel Indigo Miami Brickell, "
+              "tu cargo de Viceministro de Gobierno y los datos de tu carta de invitación al workshop del 4 de diciembre. "
+              "Usa los PDFs de este correo y descarta los anteriores. Lleva impresa la confirmación del DS-160 nuevo y tu carta de invitación."),
 }
 
 # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).
@@ -43,6 +47,9 @@ CASO = {
 
 def _html_bienvenida(caso: dict) -> str:
     fortalezas_html = "".join(f"&#8226; {f}<br>" for f in caso["fortalezas"])
+    aviso_html = (f'<div style="background:#FEF2F2;border-left:4px solid #EF4444;border-radius:0 10px 10px 0;padding:14px 16px;margin:0 0 20px;">'
+                  f'<p style="color:#991B1B;font-size:11px;font-weight:700;margin:0 0 6px;text-transform:uppercase;letter-spacing:1px;">Actualización importante</p>'
+                  f'<p style="color:#1E293B;font-size:13px;margin:0;line-height:1.7;">{caso["aviso"]}</p></div>') if caso.get("aviso") else ""
     practicas_html = (f"&#127908; Prácticas en vivo conmigo: <strong>{caso['practicas']}</strong> (te confirmo la hora por WhatsApp)"
                       if caso.get("practicas") else "&#127908; Las prácticas en vivo conmigo las coordinamos por WhatsApp")
     return f"""<!DOCTYPE html>
@@ -63,6 +70,7 @@ def _html_bienvenida(caso: dict) -> str:
   <div style="background:#fff;padding:28px;border-radius:0 0 16px 16px;
               box-shadow:0 4px 20px rgba(0,0,0,.08);">
 
+    {aviso_html}
     <p style="color:#475569;font-size:15px;line-height:1.7;margin:0 0 14px;">
       Tu asesoría está en marcha y quiero que tengas todo lo que necesitas para llegar a esa entrevista con una seguridad que la mayoría de aplicantes nunca tiene.
     </p>
