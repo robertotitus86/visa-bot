@@ -44,6 +44,16 @@ CLIENTES_PREPARACION = {
             "Soltero, nacido 30 dic 1990 en Quito, vive en Quito. Trabaja en AME dirigiendo cooperacion internacional y relaciones internacionales (ingreso 2023 confirmado por Roberto; cargo exacto no consta en el DS-160), $3,247/mes; antes Director de Cooperacion Internacional del Ministerio de Agricultura y Ganaderia (jul 2017-jul 2021). Estudios: licenciatura en Politica y Estudios Internacionales en Melbourne, Australia (2013-2016) y maestria en Cooperacion Internacional en Univ. Nacional de Seul (ago 2021-dic 2022); habla ingles. Viaje: workshop de alto nivel 'Comunicacion y manejo de crisis para Gobiernos Municipales y regionales' (4 dic, Hotel Indigo Miami Brickell; inscripcion $500) en Miami, 3-6 dic 2026, hospedaje 145 SW 11th St (Hotel Indigo Miami Brickell), contacto Jaime Narvaez Pina (Comite Int Cumbre Lat de New York, Hotel Indigo Miami Brickell). DS-160 AA00FWRBFV (nuevo; reemplaza a los AA00FTAIM7 y AA00FWR9TD, la cita debe quedar con el nuevo) (firmado 11-nov-2026), pasaporte B0577566 (vence 14 mar 2035). Confirmado por Roberto: AME (empleador) paga el viaje (DS-160 en blanco); DS-160 nuevo corrigio Melbourne a Australia. Viajes ultimos 5 anos: Suiza, Brasil, Corea del Sur, Colombia, Paraguay, Panama. Primera vez USA, sin rechazos. Padres en Ecuador. Tel +593 960582993. Correo josue90l@gmail.com. Simulador: asesoriadevisadosglobal.com/josue-lopez.html"
         ),
     },
+    "593960984702": {
+        "Nombre Principal": "Joycet Alejandra Alcivar Alcivar",
+        "Tipo Visa": "USA (B1/B2)",
+        "Num Viajeros": "1",
+        "Cita": "Lunes 30 noviembre 2026, 8:30 AM - Consulado General EE.UU. Guayaquil (Calle Santa Ana y Av. Jose Rodriguez Bonin, sector San Eduardo; reagendable hasta 25 nov 5 AM)",
+        "Estado": "Cita confirmada, en preparacion de entrevista",
+        "Notas": (
+            "Soltera, nacida 20 ago 2004 en Esmeraldas, vive en Guayaquil (La Joya). Cajera en Corporacion La Favorita ($800/mes; el DS-160 no trae fecha de ingreso; ocupacion principal marcada 'BUSINESS'); antes asistente de ventas en Ultra UV (2 oct 2023-11 mar 2025). Estudiante de Odontologia en la Univ. Bolivariana del Ecuador desde 12 oct 2024 (DS-160 pone fin 1 nov 2026: confirmar si sigue matriculada). Viaje: turismo B1/B2 a Orlando, desde 1 mar 2027, 5 dias, hospedaje The Point Hotel & Suites, 7389 Universal Blvd (sin planes especificos segun DS-160). PAGA: Armando Roberto Weir Casquete ('otro familiar'; relacion exacta, ocupacion e ingresos NO constan). Viaja con: Armando Weir, su madre Maira Fernanda Alcivar Betancourt, Ashlyn Domenica y Clarissa Anali Weir Alcivar (otros familiares). Padre Jhonny Dario Alcivar Sornoza; ninguno de los padres en EE.UU. PUNTO CRITICO: NEGATIVA 214(b) el 25 ago 2023 en Guayaquil (falta de lazos), declarada en el DS-160. Primera vez USA, solo viajo a Rep. Dominicana. DS-160 AA00FX9FL5 (firmado 21-nov-2026; reemplaza al AA00FW66SV del 5-nov, que decia Doral/Miami 8 dias), pasaporte A8518412 (vence 3 ene 2033). Tel +593 960984702. Correo joycetalcivar01@gmail.com. Simulador: asesoriadevisadosglobal.com/joycet-alcivar.html"
+        ),
+    },
     "593987308982": {
         "Nombre Principal": "Jorge Cristhian Mora Larrea",
         "Tipo Visa": "USA (B1/B2)",

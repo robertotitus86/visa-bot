@@ -15,30 +15,29 @@ RESEND_FROM = "Asesoria Visa Global <recordatorios@asesoriadevisadosglobal.com>"
 PDF_DIR = os.path.join(os.path.dirname(__file__), "pdfs")
 
 # ─── EDITAR PARA CADA CLIENTE NUEVO ──────────────────────────────────────────
-# Caso activo: Jorge Cristhian Mora Larrea.
+# Caso activo: Joycet Alejandra Alcivar Alcivar.
 CASO = {
-    "tratamiento": "Estimado Cristhian",
-    "preparado": "preparado",
-    "email": "cristhian.moralarrea@gmail.com",
+    "tratamiento": "Estimada Joycet",
+    "preparado": "preparada",
+    "email": "joycetalcivar01@gmail.com",
     "bcc": ["nanotiendaec@gmail.com"],
-    "simulador": "https://www.asesoriadevisadosglobal.com/cristhian-mora.html",
-    "pdf": "pdf-cristhian-mora.pdf",
-    "pdf_extra": ["pdf-cristhian-mora-checklist.pdf", "pdf-cristhian-mora-guia-uso.pdf"],
+    "simulador": "https://www.asesoriadevisadosglobal.com/joycet-alcivar.html",
+    "pdf": "pdf-joycet-alcivar.pdf",
+    "pdf_extra": ["pdf-joycet-alcivar-checklist.pdf", "pdf-joycet-alcivar-guia-uso.pdf"],
     "fortalezas": [
-        "27 años de carrera estable en los sectores público y privado de Ecuador",
-        "Viceministro de Gobierno del Ecuador; antes Asesor Legislativo en la Asamblea Nacional",
-        "Derecho (UTPL), tecnología en Política y Gobierno y maestría en Comunicación Política",
-        "Viajes previos a Colombia y Perú, siempre con retorno a Ecuador",
-        "Casado, con tu hogar en Quito y tus padres en Ecuador",
+        "Trabajo actual estable como cajera en Corporación La Favorita; antes asistente de ventas en Ultra UV",
+        "Estudiante de Odontología en la Universidad Bolivariana del Ecuador desde octubre de 2024",
+        "Viaje corto de 5 días a Orlando, en familia, con hospedaje definido",
+        "Sin familiares ni contactos en EE.UU. y sin peticiones de inmigrante",
+        "Declaraste con honestidad tu negativa de 2023 y puedes explicar qué cambió desde entonces",
     ],
-    "cita_texto": "Miércoles 18 de noviembre 2026, 7:30 AM",
+    "cita_texto": "Lunes 30 de noviembre 2026, 8:30 AM",
     "practicas": "",
-    "lugar": "Embajada de EE.UU. en Quito &middot; Avigiras E12-170 y Guayacanes, frente al Hospital SOLCA",
-    "asunto": "Actualización: tu cita se adelantó al 18 de noviembre — simulador y guías al día",
-    "aviso": ("Tu cita se adelantó: ahora es el <strong>miércoles 18 de noviembre de 2026 a las 7:30 AM</strong> (antes era el 30 de noviembre). "
-              "Actualizamos tu simulador y tus guías con tu DS-160 nuevo (<strong>AA00FWR8L1</strong>), tu hospedaje en el Hotel Indigo Miami Brickell, "
-              "tu cargo de Viceministro de Gobierno y los datos de tu carta de invitación al workshop del 4 de diciembre. "
-              "Usa los PDFs de este correo y descarta los anteriores. Lleva impresa la confirmación del DS-160 nuevo y tu carta de invitación."),
+    "lugar": "Consulado General de EE.UU. en Guayaquil &middot; Calle Santa Ana y Av. José Rodríguez Bonín, sector San Eduardo",
+    "asunto": "Tu simulador de entrevista y tus guías están listos — cita lunes 30 de noviembre",
+    "aviso": ("Tu cita es en pocos días, así que empieza hoy. En las respuestas modelo donde veas [corchetes], "
+              "completa con tu dato real (por ejemplo, tu fecha de ingreso a La Favorita o a qué se dedica Armando). "
+              "Lleva impresa la confirmación del DS-160 nuevo (<strong>AA00FX9FL5</strong>) y descarta el anterior."),
 }
 
 # Shirma Cortes y Michelle Revelo: cita 13 agosto 2026 ya paso — casos cerrados (19 ago 2026).

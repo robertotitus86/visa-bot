@@ -158,6 +158,40 @@ FAMILIAS = [
         ],
         "cc_visibles": [],
     },
+    {
+        "id": "joycet_alcivar",
+        "cita": date(2026, 11, 30),
+        "cita_texto": "Lunes 30 de noviembre 2026, 8:30 AM",
+        "sede": "Guayaquil",
+        "lugar": "Consulado General de EE.UU. Guayaquil · Calle Santa Ana y Av. José Rodríguez Bonín, sector San Eduardo",
+        "simulador": "https://www.asesoriadevisadosglobal.com/joycet-alcivar.html",
+        "preguntas": "más de 20 preguntas (incluye modo oficial consular con preguntas trampa)",
+        "fortalezas_html": (
+            "&#8226; Trabajo actual estable como cajera en Corporación La Favorita; antes asistente de ventas en Ultra UV<br>"
+            "&#8226; Estudiante de Odontología en la Universidad Bolivariana del Ecuador desde octubre de 2024<br>"
+            "&#8226; Viaje corto de 5 días a Orlando, en familia, con hospedaje definido<br>"
+            "&#8226; Sin familiares ni contactos en EE.UU. y sin peticiones de inmigrante<br>"
+            "&#8226; Declaraste con honestidad tu negativa de 2023 y puedes explicar qué cambió desde entonces"
+        ),
+        "zoom_html": "Roberto agenda las sesiones de practica por WhatsApp segun disponibilidad.",
+        "tips": [
+            "Practica en voz alta frente al espejo. Si suena natural, el oficial lo percibirá con confianza.",
+            "Respuestas cortas y directas — 2 o 3 oraciones máximas. Si el oficial quiere más detalle, pregunta.",
+            "PUNTO CLAVE: en agosto de 2023 te negaron la visa (214b). Responde breve, con calma y con la verdad: desde entonces trabajas, estudias Odontología y tu vida está en Ecuador.",
+            "Ten claros los datos de tu viaje: Orlando desde el 1 de marzo de 2027, 5 días, hospedaje en The Point Hotel & Suites (7389 Universal Boulevard).",
+            "Quien paga tu viaje es Armando Weir: ten clara tu relación con él, a qué se dedica y lleva su carta de respaldo y sus documentos.",
+            "Aclara con naturalidad tu ocupación: eres cajera en La Favorita y estudias Odontología; tu DS-160 marca «Business», pero no tienes negocio propio.",
+            "Las 2 preguntas obligatorias 2026 sobre daños/persecución: responde con calma, 'No' directo, sin dudar.",
+            "Tu cita es el lunes 30 de noviembre a las 8:30 AM en Guayaquil. Llega sin celular, no más de 15 minutos antes, y con la confirmación del DS-160 impresa.",
+        ],
+        "destinatarios": [
+            {"nombre": "Joycet", "miembro": "joycet", "telefono": "593960984702",
+             "email": "joycetalcivar01@gmail.com", "tratamiento": "Estimada Joycet",
+             "pdf": "pdf-joycet-alcivar.pdf",
+             "pdf_extra": ["pdf-joycet-alcivar-checklist.pdf", "pdf-joycet-alcivar-guia-uso.pdf"]},
+        ],
+        "cc_visibles": [],
+    },
 ]
 
 
@@ -344,7 +378,7 @@ def _wa_recordatorio(familia: dict, nombre: str, miembro: str) -> str:
     return (
         f"Buenos días {nombre} 👋\n\n"
         f"{urgencia}\n"
-        f"📅 *{familia['cita_texto']}* — Consulado Quito\n\n"
+        f"📅 *{familia['cita_texto']}* — Consulado {familia.get('sede', 'Quito')}\n\n"
         f"Tu simulador personalizado está listo:\n{sim}\n\n"
         f"💡 *Consejo de hoy:*\n_{tip}_\n\n"
         f"— Roberto · Asesoría Visa Global"
